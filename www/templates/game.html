@@ -1,0 +1,86 @@
+<ion-view>
+  <div class='gameview'>
+    <!-- top bar -->
+    <div class="topBar">
+        <img src="img/pause.png"  id="back" ng-click="clikedpause()"/>
+        <p id="time">{{timer}}</p>
+        <p id="highscore">{{level}}</p>
+        <p id="score">0</p>
+    </div>
+    
+
+    <div class="axisarrow" ng-if="axisflag === 1">
+        <div class="keyboardarrow">
+            <div class="firsttd"></div>
+            <div class="secondtd" ng-repeat="arrowlist in arrowlists" ng-click="arrowclick({{arrowlist}})">{{arrowlist}}</div>
+            <div class="thirdtd"></div>
+        </div>
+        <div class="numberarrow">
+
+        </div>
+
+    </div>
+     <div class="axisarrow1" ng-if="axisflag === 2">
+        <div class="keyboardarrow">
+            <div class="firsttd"></div>
+            <div class="secondtd" ng-repeat="arrowlist in arrowlists" ng-click="arrowclick({{arrowlist}})">{{arrowlist}}</div>
+            <div class="thirdtd"></div>
+        </div>
+        <div class="numberarrow">
+
+        </div>
+
+    </div>
+    <div class="comparekeyboard" ng-if="axisflag === 3">
+        <button id="smallerbutton" ng-click="compareclick('<')"><</button>
+        <button id="equalbutton" ng-click="compareclick('=')">=</button>
+        <button id="higherbutton" ng-click="compareclick('>')">></button>
+
+    </div>
+    <!-- correct problem on level  -->
+    <!-- <table id="levelbar1">
+      <tr ng-repeat="list1 in list1s">
+        <td ng-repeat="list2 in list2s"><div class="border1"><div id="bar{{list1 * 4 + list2}}"></div></div></td>
+      </tr>
+    </table> -->
+
+    <!-- problem -->
+
+    <div class="blockContainer">
+        <div ng-repeat="arryproblem in arryproblems track by $index" class="porblemcontent problem{{$index}}" id="problem{{$index}}">
+            {{arryproblem}}
+        </div>
+        <div id="question">{{question}}</div>
+        <div id="enterclick" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()">{{answer}}</div>
+
+    </div>
+    <!-- keyboard -->
+    <!-- <div ng-repeat="listbutton1 in listbutton1s" id="key{{listbutton1}}" class="keypng1" ng-click="keyclick({{listbutton1}})" ng-if="axisflag === 0">
+        <span>{{listbutton1}}</span>
+    </div>
+    <div ng-repeat="listbutton2 in listbutton2s" id="key{{listbutton2}}" class="keypng2" ng-click="keyclick({{listbutton2}})" ng-if="axisflag === 0">
+        <span>{{listbutton2}}</span>
+    </div>
+    <div id="keyadd" class="keypng3" ng-click="keyaddclick()" ng-if="axisflag === 0"></div>
+    <div id="keydivide" class="keypng4" ng-click="keydivideclick()" ng-if="axisflag === 0"></div> -->
+    <div id="keyadd" class="keypng3" ng-click="keyaddclick()"></div>
+    <div id="keydivide" class="keypng4" ng-click="keydivideclick()"></div>
+
+    <div class="keyboardcontaioner">
+
+        <div ng-repeat="listbutton in listbuttons" id="key{{listbutton}}" class="keyboard" style="background-image:url(img/key{{listbutton}}.png);" ng-click="keyclick({{listbutton}})" ng-if="axisflag === 0">
+        
+        </div>
+    </div>
+
+    <img src="img/girl.png" class="girlpng">
+    <img src="img/cat.png" class="catpng">
+    <img src="img/left1.png" class="left1png">
+    <img src="img/right1.png" class="right2png">
+    <img src="img/cloud.png" class="cloudpng">
+    <img src="img/star.png" ng-repeat="starlist in starlists" class="starimg" id="starimg{{$index}}">
+
+
+  </div>
+ 
+</ion-view>

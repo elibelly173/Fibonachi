@@ -1,0 +1,238 @@
+.keyboardcontaioner{
+	position: absolute; width: 100%; bottom: 10px; height: 15vh;  display: table; border-spacing: 3%; z-index: 100;
+}
+.keyboard{
+	display: table-cell; background-size: 70% auto; background-repeat: no-repeat; background-position: center; 
+}
+
+.keypng4{
+	position: absolute; background-size: 100% 100%; width: 7vw; height: 6vw; background-image: url("../img/divide.png");
+	bottom: 30vh; right: 1vw; z-index: 50;
+}
+
+.keypng3{
+	position: absolute; background-size: 100% 100%; width: 7vw; height: 6vw; background-image: url("../img/negative.png");
+	bottom: 18vh; right: 1vw; z-index: 50;
+}
+.girlpng{
+	position: absolute; bottom: 16vh; width: 14.5vw; left: 72vw;
+}
+
+.catpng{
+	position: absolute; bottom: 16vh; width: 16vw; left: 3vw; z-index: 31;
+}
+
+.left1png{
+	position: absolute; left: 0px; width: 20vw; bottom: 10vh; z-index: 30;
+}
+.right2png{
+	position: absolute; right: 0px; width: 20vw; bottom: 0vh; 
+}
+
+.cloudpng{
+	position: absolute; left: 20vw; width: 40vw; top: 10vh; z-index: 20;
+}
+
+.starimg{
+	position: absolute; width: 1.8vw; 
+}
+#starimg0{
+	bottom: 30.5vh; right: 8.8vw;
+}
+
+#starimg1{
+	bottom: 33.3vh; right: 8.9vw;
+}
+#starimg2{
+	bottom: 36.5vh; right: 9.1vw;
+}
+#starimg3{
+	bottom: 39.5vh; right: 9.2vw;
+}
+#starimg4{
+	bottom: 42.5vh; right: 9.3vw;
+}
+#starimg5{
+	bottom: 45.3vh; right: 9.6vw;
+}
+#starimg6{
+	bottom: 48vh; right: 9.8vw;
+}
+#starimg7{
+	bottom: 51.2vh; right: 10.2vw;
+}
+#starimg8{
+	bottom: 54.3vh; right: 10.4vw;
+}
+#starimg9{
+	bottom: 57vh; right: 10.7vw;
+}
+
+#starimg10{
+	bottom: 59.8vh; right: 11vw;
+}
+#starimg11{
+	bottom: 62.7vh; right: 11.3vw;
+}
+#starimg12{
+	bottom: 65.6vh; right: 11.6vw;
+}
+#starimg13{
+	bottom: 68.3vh; right: 11.9vw;
+}
+#starimg14{
+	bottom: 71vh; right: 12.2vw;
+}
+#starimg15{
+	bottom: 73.7vh; right: 12.5vw;
+}
+#starimg16{
+	bottom: 76.6vh; right: 12.8vw;
+}#starimg17{
+	bottom: 79.3vh; right: 13.1vw;
+}
+#starimg18{
+	bottom: 82.1vh; right: 13.4vw;
+}#starimg19{
+	bottom: 84.8vh; right: 13.7vw;
+}
+
+
+
+
+
+.blockContainer{position:relative; width: 100%; height: 78vh; }
+
+#enterclick{
+	width: 28vw; height: 10vw;  background-image: url(../img/popup1.png); background-repeat: no-repeat; background-size: 100% 100%;
+	display: flex; align-items: center; justify-content: center; font-size: 4vw; position: absolute; 
+	left: 47%; top: 60%; z-index: 50;
+} 
+
+.porblemcontent{
+	width: 22vw; height: 8vw; border-radius: 7px; background-color: #faf9fa; border: 3px solid #9a9897;	
+	display: flex; align-items: center; justify-content: center; font-size: 4vw; position: absolute; 
+	left: 8vw; /*-webkit-animation:animationtop0; animation: animationtop0;*/ 
+}
+
+#question{
+	width: 28vw; height: 10vw; display: flex; align-items: center; justify-content: center; font-size: 4vw; position: absolute;
+	background-image: url(../img/popup2.png); background-color: transparent; border-radius: 0px !important;
+	border: 0px solid transparent; background-repeat: no-repeat; background-size: 100% 100%; 
+	top: 68%; left: 16%; z-index: 50;
+	transition:bottom .2s ease-in,width .2s ease-in,height .2s ease-in,border-color .2s ease-in,font-size .2s ease-in;
+}
+#problem0{ display: none; }
+#problem1{ top: 14vh;  z-index: 22; left: 28vw; border-color: transparent;}
+
+/*#problem0{
+	-webkit-animation:animationtop0; animation: animationtop0; top: 300px; animation-duration: 3s;
+	-webkit-animation-duration: 3s; 
+}*/
+/*
+#problem1{
+	-webkit-animation:animationtop1; animation: animationtop1; top: 75%; z-index: 29;
+}
+#problem2{
+	-webkit-animation:animationtop2; animation: animationtop2; top: 65%; z-index: 28;
+}
+#problem3{
+	-webkit-animation:animationtop3; animation: animationtop3; top: 55%; z-index: 27;
+}
+#problem4{
+	-webkit-animation:animationtop4; animation: animationtop4; top: 45%; z-index: 26;
+}
+#problem5{
+	-webkit-animation:animationtop5; animation: animationtop5; top: 35%; z-index: 25;
+}
+#problem6{
+	-webkit-animation:animationtop6; animation: animationtop6; top: 25%; z-index: 24;
+}
+#problem7{
+	-webkit-animation:animationtop7; animation: animationtop7; top: 15%; z-index: 23;
+}*/
+
+@-webkit-keyframes animationtop0{
+	from{top: 0px; opacity: 0}
+	to{top: 85%; opacity: 1}
+}
+
+@keyframes animationtop0{
+	from{top: 0px; opacity: 0}
+	to{top: 85%; opacity: 1}
+}
+
+@-webkit-keyframes animationtop1{
+	from{top: 0px; opacity: 0}
+	to{top: 75%; opacity: 1}
+}
+
+@keyframes animationtop1{
+	from{top: 0px; opacity: 0}
+	to{top: 75%; opacity: 1}
+}
+@-webkit-keyframes animationtop2{
+	from{top: 0px; opacity: 0}
+	to{top: 65%; opacity: 1}
+}
+
+@keyframes animationtop2{
+	from{top: 0px; opacity: 0}
+	to{top: 65%; opacity: 1}
+}
+
+
+@-webkit-keyframes animationtop3{
+	from{top: 0px; opacity: 0}
+	to{top: 55%; opacity: 1}
+}
+
+@keyframes animationtop3{
+	from{top: 0px; opacity: 0}
+	to{top: 55%; opacity: 1}
+}
+
+
+@-webkit-keyframes animationtop4{
+	from{top: 0px; opacity: 0}
+	to{top: 45%; opacity: 1}
+}
+@keyframes animationtop4{
+	from{top: 0px; opacity: 0}
+	to{top: 45%; opacity: 1}
+}
+
+
+@-webkit-keyframes animationtop5{
+	from{top: 0px; opacity: 0}
+	to{top: 35%; opacity: 1}
+}
+
+@keyframes animationtop5{
+	from{top: 0px; opacity: 0}
+	to{top: 35%; opacity: 1}
+}
+
+
+@-webkit-keyframes animationtop6{
+	from{top: 0px; opacity: 0}
+	to{top: 25%; opacity: 1}
+}
+
+@keyframes animationtop6{
+	from{top: 0px; opacity: 0}
+	to{top: 25%; opacity: 1}
+}
+
+
+@-webkit-keyframes animationtop7{
+	from{top: 0px; opacity: 0}
+	to{top: 15%; opacity: 1}
+}
+
+@keyframes animationtop7{
+	from{top: 0px; opacity: 0}
+	to{top: 15%; opacity: 1}
+}
+
+

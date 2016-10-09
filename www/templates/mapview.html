@@ -1,0 +1,28 @@
+
+<ion-view>
+		<!-- <ion-content class="first1" delegate-handle="page1" scrollbar-y="false" on-scroll="aaaa()">
+			
+			<ul class="page1">
+				<li ng-repeat="list1 in list1s">{{list1}}</li>
+			</ul>
+			<ul class="page2">
+				<li ng-repeat="list in lists">{{list}}</li>
+			</ul>
+			<ul class="page3">
+				<li ng-repeat="list1 in list1s">{{list1}}</li>
+			</ul>
+		</ion-content> -->
+
+
+		<ion-content class="mapview" delegate-handle="page1" scrollbar-y="false" on-scroll="scrollmap()">
+			
+			<div class="page1">
+				<!-- <div id="mapbar6" class="mapbar"></div> -->
+        		<div id="mapcircle{{mapbarlist}}" class="mapcircle" ng-click="levelclick({{mapbarlist}})" ng-repeat="mapbarlist in mapbarlists">{{mapbarlist}}</div>
+        		
+       			<img src="img/levelicon.png" id="locationimg" ng-style="animationfoot();"/>
+
+			</div>
+		</ion-content>
+		
+</ion-view>
