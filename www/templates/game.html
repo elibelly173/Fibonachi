@@ -50,7 +50,8 @@
         <div ng-repeat="arryproblem in arryproblems track by $index" class="porblemcontent problem{{$index}}" id="problem{{$index}}">
             {{arryproblem}}
         </div>
-        <div id="question">{{question}}</div>
+        <div id="question"></div>
+        <!-- <div id="question">{{question}}</div> -->
         <div id="enterclick" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()">{{answer}}</div>
 
     </div>
