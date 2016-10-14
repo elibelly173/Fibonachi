@@ -2,10 +2,11 @@
   <div class='gameview'>
     <!-- top bar -->
     <div class="topBar">
-        <img src="img/pause.png"  id="back" ng-click="clikedpause()"/>
+        <img src="img/new/home.png"  id="back" ng-click="clikedpause()"/>
         <p id="time">{{timer}}</p>
+        <p id="score">{{score}}</p>
         <p id="highscore">{{level}}</p>
-        <p id="score">0</p>
+        
     </div>
     
 
@@ -47,12 +48,17 @@
     <!-- problem -->
 
     <div class="blockContainer">
-        <div ng-repeat="arryproblem in arryproblems track by $index" class="porblemcontent problem{{$index}}" id="problem{{$index}}">
+        <div ng-repeat="arryproblem in arryproblems track by $index" class="porblemcontent problem{{$index}}" id="problem{{$index}}" ng-style="animation({{$index}})">
             {{arryproblem}}
         </div>
         <div id="question"></div>
+
+        <div id="entercss" ng-if="entershowflag=='1'">To Enter</div>
+        <img src="img/hand.png" id="enterpng" ng-if="entershowflag=='1'">
+        <div id="swipecss" ng-if="swipeshowflag=='1'">To Delete</div>
+        <img src="img/hand.png" id="swipepng" ng-if="swipeshowflag=='1'">
         <!-- <div id="question">{{question}}</div> -->
-        <div id="enterclick" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()">{{answer}}</div>
+        <div id="enterclick" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()"><p>{{answer}}</p></div>
 
     </div>
     <!-- keyboard -->
@@ -79,7 +85,7 @@
     <img src="img/left1.png" class="left1png">
     <img src="img/right1.png" class="right2png">
     <img src="img/cloud.png" class="cloudpng">
-    <img src="img/star.png" ng-repeat="starlist in starlists" class="starimg" id="starimg{{$index}}">
+    <img src="img/new/star1.png" ng-repeat="starlist in starlists" class="starimg" id="starimg{{$index}}">
 
 
   </div>

@@ -23,6 +23,13 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     $rootScope.alpha2=360-$rootScope.alpha1;
 
 
+    $localStorage.keyclickflag='0';
+    $localStorage.enterclickflag='0';
+    $localStorage.swipeclickflag='0';
+    $localStorage.entershowflag='0';
+    $localStorage.swipeshowflag='0';
+
+
     $scope.mapbarlists=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
       28,29,30,31,32];
 
@@ -85,7 +92,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     // }
 	 
 })
-.controller('GameController', function($scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $window, $rootScope, $animate, $localStorage,
+.controller('GameController', function($scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $cordovaVibration, $window, $rootScope, $animate, $localStorage,
            problemservice, problemservice17, problemservice18, problemservice19, problemservice20, problemservice21, problemservice22, problemservice23,
            problemservice24) {
    $scope.list1s=[0,1,2,3,4,5,6];
@@ -104,12 +111,24 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     //  $scope.arrowlists=[0,1,2,3,4,5,6,7,8,9,10];
 
    $scope.timer=0;
+   $scope.score=0;
    $scope.paused = true;
    $scope.answer='';
    $scope.addop=1;
    $scope.level= $stateParams.selectedlevel;
    $scope.axisflag=0;
+
+   $scope.entershowflag='0';
+   $scope.swipeshowflag='0';
+
+
+
+
+
    var correctcount=0;
+   var compareproblem=0;
+
+
    if($scope.level == 22){
     $scope.axisflag=1;
    } else if($scope.level == 23) {
@@ -129,6 +148,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    // answer array
    var solutionQueue = [];
    var mytimeout, myproblemtime;
+   var keytime, entertime, swipetime;
    var count=0;
    var nowdate= new Date();
    var nowtime= nowdate.getTime();
@@ -158,6 +178,33 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
      }
 
     };
+    var keytimefunc = function(){
+      if($localStorage.enterclickflag == '0'){
+        //$rootScope.
+        $scope.entershowflag='1';
+      } else if($localStorage.swipeclickflag == '0' && $scope.entershowflag == '2'){
+        $scope.swipeshowflag='1';
+      }
+    }
+
+    var entertimefunc = function(){
+      if($scope.entershowflag=='1'){
+        $scope.entershowflag='2';
+      } else {
+        $scope.entershowflag='0';
+      }
+      
+    }
+
+    var swipetimefunc = function(){
+      $scope.swipeshowflag='0';
+    }
+
+
+
+
+
+
 
     var stopTimer= function(){
       stackSize=0;
@@ -220,34 +267,28 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
        stackSize++;
     }
 
-
-
-    // $scope.problemanimation= function(e){
-    //   var anmcss={
-    //     'top': '60%'
-    //   }
-    //   $timeout(function() {
-    //     return anmcss;
-    //   }, 1000);
-      
-    // }
    $scope.animation= function(e){
     var animcss={};
-    if(e>0){
+    if( e == compareproblem){
       animcss= {
-        '-webkit-animation': 'animationtop'+e,
-        'animation': 'animationtop'+e,
-        'top': 85 - e*10 + '%',
-        'animation-duration': '1500ms',
-        '-webkit-animation-duration': '1500ms',
-        'z-index': 30 - e
+        'top': '51vh',
+        'left': '30vw',
+        'z-index': 52,
+        'transition': 'all 700ms',
+        'transition-timing-function': 'linear'
       };
-      // animcss= {
-      //   'top': 85 - e*10 + '%',
-      //   'z-index': 30 - e
-      // }
-    } else {
+    } else if(e - compareproblem ==1){
       var animcss={
+        'top': '20vh',
+        'left': '11vw',
+        'z-index': 51,
+        '-webkit-animation': 'animationtop1',
+        'animation': 'animationtop1',
+        'animation-duration': '500ms',
+        '-webkit-animation-duration': '500ms'
+      };
+    } else {
+       var animcss={
         'display': 'none'
       };
     }
@@ -256,10 +297,17 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    }
 
    
-    $scope.$on("$ionicView.loaded",  function(){
-      // makeproblem();
-      
+    $scope.$on("$ionicView.loaded",  function(){      
       $scope.paused=true;
+      $scope.entershowflag=$localStorage.entershowflag;
+      $scope.swipeshowflag=$localStorage.swipeshowflag;
+
+      // if($localStorage.entershowflag == '1'){
+      //   $scope.entershowflag=1;
+      // }
+      // if($localStorage.swipeshowflag == '1'){
+      //   $scope.swipeshowflag=1;
+      // }
       
       
       mytimeout = $timeout($scope.onTimeout, 1000);
@@ -270,6 +318,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         solutionQueue = $localStorage.solutionQueue;
         correctcount = Number($localStorage.correctcount);
         $scope.question = $scope.arryproblems[0];
+        compareproblem=$localStorage.compareproblem;
+        $scope.score=$localStorage.score;
         for(var ii=0; ii<correctcount; ii++){
           $scope.starlists.push(ii+1);
         }
@@ -279,18 +329,22 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         makeproblem();
         makeproblem();
       }
-
-      
-     // myproblemtime= $timeout($scope.onTimeoutproblem, problemtime);
     });
 
     $scope.clikedpause= function(){
+
+      $localStorage.entershowflag = $scope.entershowflag;
+      $localStorage.swipeshowflag = $scope.swipeshowflag;
+
+
       $localStorage.pauseedflag='1';
       $localStorage.pauseedlevel=$localStorage.level;
       $localStorage.correctcount=correctcount;
       $localStorage.solutionQueue=solutionQueue;
       $localStorage.arryproblems=$scope.arryproblems;
       $localStorage.timer=$scope.timer;
+      $localStorage.compareproblem=compareproblem;
+      $localStorage.score=$scope.score;
       $state.go('mapview');
 
     }
@@ -300,10 +354,21 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     }
 
     $scope.keyclick=function(e){
+      // if key was only clicked, value is 1, if not, value is 2.
+        if($localStorage.keyclickflag == '0' && $localStorage.enterclickflag == '0'){
+          $localStorage.keyclickflag = '1';
+          keytime = $timeout(keytimefunc, 5000);
+        } else if($scope.entershowflag == '2' && $localStorage.swipeclickflag == '0'){
+          swipetime = $timeout(keytimefunc, 5000);
+          $localStorage.keyclickflag ='2';
+        } else{
+          $localStorage.keyclickflag ='2';
+        }
         $scope.answer += e;
     }
+
+
     $scope.keyaddclick=function(){
-       // $scope.answer = '-' + $scope.answer;
        if($scope.answer.indexOf('-')>-1){
         var strans= $scope.answer.split("-");
           $scope.answer = strans[1];
@@ -325,6 +390,10 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     }
 
     $scope.enter= function() {
+      if($localStorage.enterclickflag == '0'){
+          $localStorage.enterclickflag = '1';
+          entertimefunc();
+        } 
         
 
           if($scope.answer==solutionQueue[0]){
@@ -337,18 +406,23 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     }
     $scope.swipefunc= function(){
       $scope.answer = '';
+      if($localStorage.swipeclickflag == '0'){
+          $localStorage.swipeclickflag = '1';
+          swipetimefunc();
+        } 
     }
 
     var rightanswer= function(){
-      // $scope.arryproblems.shift();
+      
+      compareproblem+=1;
       var currentdate= new Date();
       var currenttime= currentdate.getTime();
     //  problemtime= problemtime + Math.ceil(((currenttime - nowtime) - problemtime)*0.05);
       var differenttime= currenttime -nowtime;
 
-      console.log(problemtime);
+      
       nowtime= currenttime;
-
+      $scope.score+=1000;
       if(differenttime<=2000){
         $scope.starlists.push(correctcount+1);
         $scope.starlists.push(correctcount+2);
@@ -365,26 +439,14 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
             $localStorage.completedlevel = Number($localStorage.level)+1;
             
           }
+
+          $localStorage.entershowflag=$scope.entershowflag;
+          $localStorage.swipeshowflag=$scope.swipeshowflag;
         $state.go('mapview');
        }
-      // var delem= angular.element(document.querySelector('#problem0'));
-      // delem.remove();
-     // $timeout(function() {
-        $scope.arryproblems.splice(0,1);
-        
-    //  }, 100);
-     // $scope.arryproblems.splice(0,1);
       solutionQueue.shift();
       stackSize--;
       makeproblem();
-      $scope.question= $scope.arryproblems[0];
-      // if(stackSize == 0){
-      //   var aa= document.getElementById('problem0');
-      //   $animate.enabled(false, aa);
-      //   makeproblem();
-      // } else {
-      //   $scope.question= $scope.arryproblems[0];
-      // }
         
       
     }
@@ -392,32 +454,13 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     var wronganswer= function(){
       correctcount-=1;
       $scope.starlists.splice(correctcount,1);
+      $cordovaVibration.vibrate(100);
     }
   
 
     
 
-})
-// .directive("moveto", function($rootScope, $localStorage){
-//   return{
-//     restrict: "A",
-//     link: function(scope, elem, attrs){
-//       if($localStorage.completedlevel){
-//           // var top = angular.element(document.querySelector("#mapcircle"+$localStorage.completedlevel)).prop('offsetTop');
-//           // var left = angular.element(document.querySelector("#mapcircle"+$localStorage.completedlevel)).prop('offsetLeft');
-//           var top = angular.element("#mapcircle"+$localStorage.completedlevel).offset().top;
-//           var left = angular.element("#mapcircle"+$localStorage.completedlevel).offset().left;
-//           console.log("completedlevel="+$localStorage.completedlevel + " top="+ top+ " left="+ left);
-        
-//           $(elem).animate({left:left+'px', top : top+'px'},500,'linear');
-//         }
-       
-      
-//     }
-//   }
-// })
-
-;
+});
 
 
 
