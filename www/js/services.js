@@ -53,12 +53,22 @@ angular.module('starter.services', [])
             	op="x";
             	break;
             case 12:
+                upperBound = 5;
+                lowerBound = 6;
                 op='+';
                 break;
             case 13:
+                upperBound = 5;
+                lowerBound = 6;
                 op='-';
                 break;
+            case 14:
+                upperBound = 10;
+                lowerBound = 11;
+                break;
             case 15:
+                upperBound = 10;
+                lowerBound = 11;
                 op='x';
                 break;
         	default:
@@ -66,12 +76,17 @@ angular.module('starter.services', [])
             	upperBound = 10;
             	break;
     	}
+
+        if(insteadlevel == 14 || insteadlevel == 16){
+            upperBound = 10;
+            lowerBound = 11;
+        }
         previousF= $localStorage.previousF;
         previousS= $localStorage.previousS;
   
     	var selectaa;
    		do{
-       		selectaa=generatenumber(selectlevel,upperBound);
+       		selectaa=generatenumber(selectlevel,upperBound, lowerBound);
        		first=selectaa[0];
        		second=selectaa[1];
    		}while((previousF==first && previousS==second) || first==0 || second==0 || first==1 || second==1 || first==-1 || second== -1);
@@ -92,6 +107,11 @@ angular.module('starter.services', [])
             } else {
                 oppar1='';
                 oppar2='';
+                if(op=='x'){
+                    oppar1='(';
+                    oppar2=')';
+                    op='';
+                }
             }
 
     	var solution=0;
@@ -129,7 +149,7 @@ angular.module('starter.services', [])
 
 	}
 
-	var generatenumber= function(selectlevel,topvalue){
+	var generatenumber= function(selectlevel, topvalue, bottomvalue){
 
     	var selectfirst=0;
     	var selectsecond=0;
@@ -175,9 +195,10 @@ angular.module('starter.services', [])
 
             	break;
             case 12:case 13:case 15:
-                selectfirst=Math.floor(Math.random() * (10 + 11) - 10);
-                selectsecond=Math.floor(Math.random() * (10 + 11) - 10);
+                selectfirst=Math.floor(Math.random() * (topvalue + bottomvalue) - topvalue);
+                selectsecond=Math.floor(Math.random() * (topvalue + bottomvalue) - topvalue);
                 break;
+            
             // case 15:
             //     selectfirst=Math.floor(Math.random() * (13 - 2)) + 2;
             //     selectsecond=Math.floor(Math.random() * (13 - 11)) + 11;

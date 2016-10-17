@@ -46,6 +46,9 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           template: 'Please select level less than '+$localStorage.completedlevel
          });
       }
+        // $rootScope.level=e;
+        // $localStorage.level=e;
+        // $state.go('game', {selectedlevel: e});
       
 
     }
@@ -452,8 +455,12 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     }
 
     var wronganswer= function(){
-      correctcount-=1;
+      if(correctcount>0){
+        correctcount-=1;
+      }
+      
       $scope.starlists.splice(correctcount,1);
+      $scope.answer = '';
       $cordovaVibration.vibrate(100);
     }
   
