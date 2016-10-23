@@ -137,9 +137,10 @@
 }
 .porblemcontent{
 	width: 22vw; height: 8vw; border-radius: 7px; background-color: #faf9fa; border: 3px solid #9a9897;	
-	display: flex; align-items: center; justify-content: center; font-size: 5vw; position: absolute; 
+	display: flex; align-items: center; justify-content: center;  position: absolute; 
     background: transparent; border-color: transparent; 
     transition:bottom 1s ease-in,width .2s ease-in,height .2s ease-in,border-color .2s ease-in,font-size .2s ease-in;
+    /*font-size: 5vw;*/  font-size: 3vw;
 }
 
 #question{

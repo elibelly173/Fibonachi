@@ -96,8 +96,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 	 
 })
 .controller('GameController', function($scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $cordovaVibration, $window, $rootScope, $animate, $localStorage,
-           problemservice, problemservice17, problemservice18, problemservice19, problemservice20, problemservice21, problemservice22, problemservice23,
-           problemservice24) {
+           problemservice, problemservice17, problemservice18, problemservice19, problemservice20, problemservice21, problemservice22,
+           problemservice23, problemservice24, problemservice25) {
    $scope.list1s=[0,1,2,3,4,5,6];
    $scope.list2s=[1,2,3,4];
    $scope.listbutton1s=[1,3,5,7,9];
@@ -132,11 +132,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    var compareproblem=0;
 
 
-   if($scope.level == 22){
+   if($scope.level == 21){
     $scope.axisflag=1;
-   } else if($scope.level == 23) {
+   } else if($scope.level == 22) {
       $scope.axisflag=2;
-   } else if($scope.level == 24) {
+   } else if($scope.level == 23) {
       $scope.axisflag=3;
    }
    if($scope.level>20){
@@ -251,15 +251,16 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       }
       else if($scope.level==23){
         problem = JSON.parse(problemservice23.generateProblem($scope.level));
-        insteadpro=''+problem.first+problem.op+problem.second+problem.op1 ;
+        insteadpro=''+problem.first+problem.op+problem.second+problem.op1 +'1/2' ;
       } else if($scope.level==24){
         problem = JSON.parse(problemservice24.generateProblem($scope.level));
-        if(problem.op2==0){
-          insteadpro=''+problem.first+problem.op+problem.second+problem.op1+'1/2';
-        } else{
-          insteadpro=''+'1/2'+problem.op1+problem.first+problem.op+problem.second;
-        }
+          insteadpro=''+problem.first+problem.op+problem.second;
       }
+      else if($scope.level==25){
+        problem = JSON.parse(problemservice25.generateProblem($scope.level));
+          insteadpro=''+problem.first+problem.op+problem.second;
+      }
+
         
         solutionQueue.push(problem.answer);
         $scope.arryproblems.push(insteadpro);
@@ -273,23 +274,39 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    $scope.animation= function(e){
     var animcss={};
     if( e == compareproblem){
-      animcss= {
-        'top': '51vh',
-        'left': '30vw',
-        'z-index': 52,
-        'transition': 'all 700ms',
-        'transition-timing-function': 'linear'
-      };
+      if($scope.level==25){
+        animcss= {
+          'top': '51vh',
+          'left': '30vw',
+          'z-index': 52
+        };
+      } else {
+        animcss= {
+          'top': '51vh',
+          'left': '30vw',
+          'z-index': 52,
+          'transition': 'all 700ms',
+          'transition-timing-function': 'linear'
+        };
+      }
+      
     } else if(e - compareproblem ==1){
-      var animcss={
-        'top': '20vh',
-        'left': '11vw',
-        'z-index': 51,
-        '-webkit-animation': 'animationtop1',
-        'animation': 'animationtop1',
-        'animation-duration': '500ms',
-        '-webkit-animation-duration': '500ms'
-      };
+      if($scope.level==25){
+        var animcss={
+          'display': 'none'
+        };
+      } else {
+        var animcss={
+          'top': '20vh',
+          'left': '11vw',
+          'z-index': 51,
+          '-webkit-animation': 'animationtop1',
+          'animation': 'animationtop1',
+          'animation-duration': '500ms',
+          '-webkit-animation-duration': '500ms'
+        };
+      }
+      
     } else {
        var animcss={
         'display': 'none'

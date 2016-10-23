@@ -37,15 +37,25 @@
 
 
 
-.axisarrow{
+/*.axisarrow{
 	position: absolute; bottom: 0px; background: url('../img/real-arrow.png'); width: 90%; margin-left: 5%; height: 15vw; background-size: 100% auto; background-repeat: no-repeat;
 }
 
 .axisarrow1{
 	position: absolute; bottom: 0px; background: url('../img/real-arrow1.png'); width: 90%; margin-left: 5%; height: 15vw; background-size: 100% auto; background-repeat: no-repeat;
+}*/
+
+.axisarrow{
+	position: absolute; bottom: 10px; background: url('../img/new/numberline1.png'); width: 90%; margin-left: 5%; height: 9vw; 
+	background-size: 100% auto; background-repeat: no-repeat; z-index: 101;
+}
+
+.axisarrow1{
+	position: absolute; bottom: 10px; background: url('../img/new/numberline2.png'); width: 90%; margin-left: 5%; height: 9vw; 
+	background-size: 100% auto; background-repeat: no-repeat; z-index: 102;
 }
 .comparekeyboard{
-	position: absolute; bottom: 0px; width: 70%; margin-left: 15%; height: 15vw; color: red;
+	position: absolute; bottom: 15px; width: 70%; margin-left: 15%; height: 5vw; color: red;
 }
 #smallerbutton{
 	float: left; width: 33%; 
@@ -61,7 +71,7 @@
 .numberarrow{ width: 100%; height: 7vw;}
 .keyboardarrow .firsttd{ width: 9.5%; float: left; height: 8vw;}
 .keyboardarrow .thirdtd{ width: 9.5%; float: left; height: 8vw;}
-.keyboardarrow .secondtd{ font-size: 0px; height: 15px;width:1.62%; float: left;}
+.keyboardarrow .secondtd{ font-size: 0px; height: 8vw; width:1.62%; float: left;}
 /**/
 
 #levelbar1{bottom:25%;left:44%;position: absolute;width: 28vw;height:32vw;display: table;/*border-collapse:collapse;*/}

@@ -14,22 +14,22 @@
         <div class="keyboardarrow">
             <div class="firsttd"></div>
             <div class="secondtd" ng-repeat="arrowlist in arrowlists" ng-click="arrowclick({{arrowlist}})">{{arrowlist}}</div>
-            <div class="thirdtd"></div>
+            <!-- <div class="thirdtd"></div> -->
         </div>
-        <div class="numberarrow">
+        <!-- <div class="numberarrow">
 
-        </div>
+        </div> -->
 
     </div>
      <div class="axisarrow1" ng-if="axisflag === 2">
         <div class="keyboardarrow">
             <div class="firsttd"></div>
             <div class="secondtd" ng-repeat="arrowlist in arrowlists" ng-click="arrowclick({{arrowlist}})">{{arrowlist}}</div>
-            <div class="thirdtd"></div>
+            <!-- <div class="thirdtd"></div> -->
         </div>
-        <div class="numberarrow">
+        <!-- <div class="numberarrow">
 
-        </div>
+        </div> -->
 
     </div>
     <div class="comparekeyboard" ng-if="axisflag === 3">
@@ -70,10 +70,10 @@
     </div>
     <div id="keyadd" class="keypng3" ng-click="keyaddclick()" ng-if="axisflag === 0"></div>
     <div id="keydivide" class="keypng4" ng-click="keydivideclick()" ng-if="axisflag === 0"></div> -->
-    <div id="keyadd" class="keypng3" ng-click="keyaddclick()"></div>
-    <div id="keydivide" class="keypng4" ng-click="keydivideclick()"></div>
+    <div id="keyadd" class="keypng3" ng-click="keyaddclick()" ng-if="axisflag === 0"></div>
+    <div id="keydivide" class="keypng4" ng-click="keydivideclick()" ng-if="axisflag === 0"></div>
 
-    <div class="keyboardcontaioner">
+    <div class="keyboardcontaioner" ng-if="axisflag === 0">
 
         <div ng-repeat="listbutton in listbuttons" id="key{{listbutton}}" class="keyboard" style="background-image:url(img/key{{listbutton}}.png);" ng-click="keyclick({{listbutton}})" ng-if="axisflag === 0">
         

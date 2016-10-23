@@ -353,131 +353,133 @@ angular.module('starter.services', [])
         
 
     }
-}).service('problemservice19', function($rootScope, $localStorage) {
-    this.generateProblem= function( level){
-        var insteadlevel= $localStorage.level;
-        var selectlevel=insteadlevel;
-        var selectaa=generatenumber(selectlevel);
+})
+// .service('problemservice19', function($rootScope, $localStorage) {
+//     this.generateProblem= function( level){
+//         var insteadlevel= $localStorage.level;
+//         var selectlevel=insteadlevel;
+//         var selectaa=generatenumber(selectlevel);
 
-        var answer=selectaa[0];
-        var op= operationfunc();
+//         var answer=selectaa[0];
+//         var op= operationfunc();
         
-        if(op=='+'){
-            answer +=selectaa[1];
-        } else{
-            answer -=selectaa[1];
-        }
+//         if(op=='+'){
+//             answer +=selectaa[1];
+//         } else{
+//             answer -=selectaa[1];
+//         }
 
-        var op1= operationfunc();
+//         var op1= operationfunc();
         
-        if(op1=='+'){
-            answer +=selectaa[2];
-        } else{
-            answer -=selectaa[2];
-        }
-        var op2= operationfunc();
+//         if(op1=='+'){
+//             answer +=selectaa[2];
+//         } else{
+//             answer -=selectaa[2];
+//         }
+//         var op2= operationfunc();
         
-        if(op2=='+'){
-            answer +=selectaa[3];
-        } else{
-            answer -=selectaa[3];
-        }
+//         if(op2=='+'){
+//             answer +=selectaa[3];
+//         } else{
+//             answer -=selectaa[3];
+//         }
 
-        var problem={
-            first: selectaa[0],
-            second: selectaa[1],
-            third: selectaa[2],
-            fourth: selectaa[3],
-            op: op,
-            op1: op1,
-            op2: op2,
-            answer: answer
-        }
-        return JSON.stringify(problem);
+//         var problem={
+//             first: selectaa[0],
+//             second: selectaa[1],
+//             third: selectaa[2],
+//             fourth: selectaa[3],
+//             op: op,
+//             op1: op1,
+//             op2: op2,
+//             answer: answer
+//         }
+//         return JSON.stringify(problem);
 
-    }
+//     }
 
-    var operationfunc = function(){
-        var randomop=Math.floor((Math.random() * 2 ) + 0) ;
-        var operation = "+";
-        if(randomop){
-            operation='-';
-        }
-        return operation;
-    }
+//     var operationfunc = function(){
+//         var randomop=Math.floor((Math.random() * 2 ) + 0) ;
+//         var operation = "+";
+//         if(randomop){
+//             operation='-';
+//         }
+//         return operation;
+//     }
 
-    var generatenumber= function(selectlevel){
-        //number array for problem
-        var numbers=[];
-        // first number of problem
-        numbers[0]=Math.floor(Math.random() * (15 - 0)) + 1;
-        numbers[1]=0;
-        numbers[2]=0;
-        numbers[3]=0;
-        // get second number of problem
-        do{
-            numbers[1]=Math.floor(Math.random() * (15 - 0)) + 1;
-        }while(numbers[1] == numbers[0]);
-        // third number
-        if(numbers[0]>9 && numbers[1]>9){
-            do{
-                numbers[2]=Math.floor(Math.random() * (9 - 0)) + 1;
-            }while(numbers[1] == numbers[2] || numbers[0] == numbers[2]);
-        } else{
-            do{
-                numbers[2]=Math.floor(Math.random() * (15 - 0)) + 1;
-            }while(numbers[1] == numbers[2] || numbers[0] == numbers[2]);
-        }
+//     var generatenumber= function(selectlevel){
+//         //number array for problem
+//         var numbers=[];
+//         // first number of problem
+//         numbers[0]=Math.floor(Math.random() * (15 - 0)) + 1;
+//         numbers[1]=0;
+//         numbers[2]=0;
+//         numbers[3]=0;
+//         // get second number of problem
+//         do{
+//             numbers[1]=Math.floor(Math.random() * (15 - 0)) + 1;
+//         }while(numbers[1] == numbers[0]);
+//         // third number
+//         if(numbers[0]>9 && numbers[1]>9){
+//             do{
+//                 numbers[2]=Math.floor(Math.random() * (9 - 0)) + 1;
+//             }while(numbers[1] == numbers[2] || numbers[0] == numbers[2]);
+//         } else{
+//             do{
+//                 numbers[2]=Math.floor(Math.random() * (15 - 0)) + 1;
+//             }while(numbers[1] == numbers[2] || numbers[0] == numbers[2]);
+//         }
         
-        //
-        var matcharray=10;
-        // array for third number of problem
-        // getting third number from this array
-        var canarray=[];
+//         //
+//         var matcharray=10;
+//         // array for third number of problem
+//         // getting third number from this array
+//         var canarray=[];
         
-        
-
-        // making "canarray"
-        for(var i=0; i<3;i++){
-            if(numbers[i]<10){
-                canarray.push(10 - numbers[i]);
-            }
-        }
-        // length of canarray
-        var count = canarray.length;
-        // getting fourth number of problem
-        //do{
-            var insteadnumber=Math.floor(Math.random() * count) + 0;
-            numbers[3]=canarray[insteadnumber];
-        //}while(numbers[0]== numbers[3] || numbers[1]== numbers[3] || numbers[2]== numbers[3]);
-
-
-        var postionarray=[0,1,2,3];
         
 
-        var returnx=[];
-        returnx[0]=0;
-        returnx[1]=0;
-        returnx[2]=0;
-        returnx[3]=0;
-        // randomize position of numbers on problem
-        for(var i=0; i<4; i++){
-            var position=Math.floor((Math.random() * postionarray.length) + 0) ;
-            position=postionarray[position];
-            var index=postionarray.indexOf(position);
+//         // making "canarray"
+//         for(var i=0; i<3;i++){
+//             if(numbers[i]<10){
+//                 canarray.push(10 - numbers[i]);
+//             }
+//         }
+//         // length of canarray
+//         var count = canarray.length;
+//         // getting fourth number of problem
+//         //do{
+//             var insteadnumber=Math.floor(Math.random() * count) + 0;
+//             numbers[3]=canarray[insteadnumber];
+//         //}while(numbers[0]== numbers[3] || numbers[1]== numbers[3] || numbers[2]== numbers[3]);
+
+
+//         var postionarray=[0,1,2,3];
+        
+
+//         var returnx=[];
+//         returnx[0]=0;
+//         returnx[1]=0;
+//         returnx[2]=0;
+//         returnx[3]=0;
+//         // randomize position of numbers on problem
+//         for(var i=0; i<4; i++){
+//             var position=Math.floor((Math.random() * postionarray.length) + 0) ;
+//             position=postionarray[position];
+//             var index=postionarray.indexOf(position);
             
-            postionarray.splice(index, 1);
-            returnx[position] = numbers[i];
+//             postionarray.splice(index, 1);
+//             returnx[position] = numbers[i];
 
-        }
+//         }
 
 
         
-        return returnx;
+//         return returnx;
 
-    }
+//     }
 
-}).service('problemservice20', function($rootScope, $localStorage) {
+// })
+.service('problemservice19', function($rootScope, $localStorage) {
     this.generateProblem= function( level){
         var insteadlevel= $localStorage.level;
         var selectlevel=insteadlevel;
@@ -502,8 +504,8 @@ angular.module('starter.services', [])
         //number array for problem
         var numbers=[];
         // first number of problem
-        var firstarray=[2,3,4,5,6,7,8,9,10,11,12,13,14,15,20,25];
-        var pos=Math.floor(Math.random() * (15 + 1)) + 0;
+        var firstarray=[2,3,4,5,6,7,8,9,10,11,12,20,25];
+        var pos=Math.floor(Math.random() * (12 + 1)) + 0;
         numbers[0] = firstarray[pos];
         numbers[1]=0;
         numbers[2]=0;
@@ -565,7 +567,7 @@ angular.module('starter.services', [])
 
     }
 
-}).service('problemservice21', function($rootScope, $localStorage) {
+}).service('problemservice20', function($rootScope, $localStorage) {
     this.generateProblem= function( level){
         var insteadlevel= $localStorage.level;
         var selectlevel=insteadlevel;
@@ -615,7 +617,7 @@ angular.module('starter.services', [])
         
 
     }
-}).service('problemservice22', function($rootScope, $localStorage) {
+}).service('problemservice21', function($rootScope, $localStorage) {
     this.generateProblem= function( level){
         var insteadlevel= $localStorage.level;
         var selectlevel=insteadlevel;
@@ -705,7 +707,7 @@ angular.module('starter.services', [])
         
 
     }
-}).service('problemservice23', function($rootScope, $localStorage) {
+}).service('problemservice22', function($rootScope, $localStorage) {
     this.generateProblem= function( level){
         var insteadlevel= $localStorage.level;
         var selectlevel=insteadlevel;
@@ -802,7 +804,7 @@ angular.module('starter.services', [])
         
 
     }
-}).service('problemservice24', function($rootScope, $localStorage) {
+}).service('problemservice23', function($rootScope, $localStorage) {
     this.generateProblem= function( level){
         var insteadlevel= $localStorage.level;
         var selectlevel=insteadlevel;
@@ -812,7 +814,7 @@ angular.module('starter.services', [])
         
         var signpos=  Math.floor(Math.random() * (1 + 1)) + 0;
         var insteadanswer = selectaa[1]/selectaa[0];
-        if(signpos==0){
+        // if(signpos==0){
             if(insteadanswer > 0.5) {
                 answer='>';
             } else if(insteadanswer == 0.5){
@@ -820,15 +822,15 @@ angular.module('starter.services', [])
             } else {
                 answer='<';
             }
-        } else{
-            if(insteadanswer > 0.5) {
-                answer='<';
-            } else if(insteadanswer == 0.5){
-                answer= '='
-            } else {
-                answer='>';
-            }
-        }
+        // } else{
+        //     if(insteadanswer > 0.5) {
+        //         answer='<';
+        //     } else if(insteadanswer == 0.5){
+        //         answer= '='
+        //     } else {
+        //         answer='>';
+        //     }
+        // }
         
         
         //var answer=(int1.toFixed(2) + parseFloat(aaaa))*25;
@@ -870,6 +872,130 @@ angular.module('starter.services', [])
         // get min and max value second number
         var minmax= getMinMax(numbers[0]);
         numbers[1]= Math.floor(Math.random() * (minmax[1] - (minmax[0] - 1))) + minmax[0];
+        return numbers;
+        
+
+    }
+})
+.service('problemservice24', function($rootScope, $localStorage) {
+    this.generateProblem= function( level){
+        var insteadlevel= $localStorage.level;
+        var selectlevel=insteadlevel;
+        var selectaa=[];
+        selectaa = generatenumber(selectlevel);
+        
+        var firstpro = '' + selectaa[1] + '/' + selectaa[0];
+        var secondpro ='' + selectaa[3] + '/' + selectaa[2];
+        var answer ='' + selectaa[1] * selectaa[3] + '/' + selectaa[0] * selectaa[2];
+        
+        
+
+
+        var problem={
+            first: firstpro,
+            second: secondpro,
+            op: 'x',
+            answer: answer
+        }
+        return JSON.stringify(problem);
+
+    }
+
+    var mathgcd = function(a, b){
+        while(b != 0){
+            var z= a % b;
+            a = b;
+            b = z
+        }
+        return a;
+    }
+    var generatenumber= function(selectlevel){
+        //number array for problem
+        var numbers=[];
+        var problems = [2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11, 12, 13, 14, 15, 16, 20, 25, 30, 35, 40, 45, 50];
+        do{
+            var select1= Math.floor(Math.random() * (21 - 0)) + 1;
+
+        // first number of problem
+            numbers[0]=problems[select1];
+
+            if(select1 > 9){
+                select1 = 9;
+            }
+            var select2= Math.floor(Math.random() * ((select1 - 1 ) + 1)) + 0;
+            numbers[1]=problems[select2];
+
+            var select3= Math.floor(Math.random() * (21 - 0)) + 1;
+            numbers[2] = problems[select3];
+            if(select3 > 9){
+                select3 = 9;
+            }
+            var select4= Math.floor(Math.random() * ((select3 - 1 ) + 1)) + 0;
+            numbers[3]=problems[select4];
+
+        } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[3], numbers[2])!=1 || mathgcd(numbers[3], numbers[0])!=1 || mathgcd(numbers[1], numbers[2])!=1);
+        // get min and max value second number
+        
+        return numbers;
+        
+
+    }
+})
+.service('problemservice25', function($rootScope, $localStorage) {
+    this.generateProblem= function( level){
+        var insteadlevel= $localStorage.level;
+        var selectlevel=insteadlevel;
+        var selectaa=[];        
+        selectaa = generatenumber(selectlevel);
+        
+        var firstpro = '' + selectaa[1] + '/' + selectaa[0];
+        var secondpro ='' + selectaa[2] + '/' + selectaa[1];
+        var answer ='' + selectaa[2] + '/' + selectaa[0];
+        
+        
+
+
+        var problem={
+            first: firstpro,
+            second: secondpro,
+            op: 'x',
+            answer: answer
+        }
+        return JSON.stringify(problem);
+
+    }
+
+    var mathgcd = function(a, b){
+        while(b != 0){
+            var z= a % b;
+            a = b;
+            b = z
+        }
+        return a;
+    }
+    var generatenumber= function(selectlevel){
+        //number array for problem
+        var numbers=[];
+        var problems = [1, 2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11, 12, 13, 14, 15, 16, 20, 25, 30, 35, 40, 45, 50];
+        do{
+            var select1= Math.floor(Math.random() * (21 - 1)) + 2;
+
+        // first number of problem
+            numbers[0]=problems[select1];
+
+            if(select1 > 9){
+                select1 = 9;
+            }
+            var select2= Math.floor(Math.random() * ((select1 - 1 ) + 0)) + 1;
+            numbers[1]=problems[select2];
+
+            
+            var select3= Math.floor(Math.random() * ((select2 - 1 ) + 1)) + 0;
+            numbers[2]=problems[select3];
+
+        } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[1])!=1 || mathgcd(numbers[2], numbers[0])!=1 );
+        // get min and max value second number
+        
         return numbers;
         
 
