@@ -29,14 +29,18 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     $localStorage.entershowflag='0';
     $localStorage.swipeshowflag='0';
 
+    if(!$localStorage.completedlevel){
+      $localStorage.completedlevel = 1;
+    }
+
 
     $scope.mapbarlists=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
       28,29,30,31,32];
 
 
     $scope.levelclick=function(e){
-      //alert(e);
-      if(e <= Number($localStorage.completedlevel) || !$localStorage.completedlevel){
+      
+      if(e <= Number($localStorage.completedlevel)){
         $rootScope.level=e;
         $localStorage.level=e;
         $state.go('game', {selectedlevel: e});
@@ -53,11 +57,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     }
 
-    $scope.animationfoot = function(){
-       
-      var footcss={};
-
-       if($localStorage.completedlevel ){
+    $scope.$on("$ionicView.enter", function(event, data){
+      // if($localStorage.completedlevel ){
           if(Number($localStorage.completedlevel) > Number($localStorage.level)){
 
 
@@ -65,16 +66,34 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
             var left = angular.element(document.querySelector("#mapcircle"+$localStorage.completedlevel)).prop('offsetLeft');
             console.log("completedlevel="+$localStorage.completedlevel + " top="+ top+ " left="+ left);
             angular.element("#locationimg").animate({left:left+'px', top : top - 11*vw +'px'},2000,'linear');
+          } else if(Number($localStorage.completedlevel) == 1) {
+            var top = angular.element(document.querySelector("#mapcircle1")).prop('offsetTop');
+            var left = angular.element(document.querySelector("#mapcircle1")).prop('offsetLeft');
+            
+            angular.element("#locationimg").animate({left:left+'px', top : top - 11*vw +'px'},500,'linear');
           }
-        } else {
-          var top = angular.element(document.querySelector("#mapcircle1")).prop('offsetTop');
-          var left = angular.element(document.querySelector("#mapcircle1")).prop('offsetLeft');
+        // }
+        // else {
+        //   var top = angular.element(document.querySelector("#mapcircle1")).prop('offsetTop');
+        //   var left = angular.element(document.querySelector("#mapcircle1")).prop('offsetLeft');
          
-           footcss={
-            'top': top - 11*vw + 'px',
-            'left': left + 'px'
-            }
-        }
+        //    angular.element("#locationimg").animate({left:left+'px', top : top - 11*vw +'px'},2000,'linear');
+        // }
+    });
+
+    $scope.animationfoot = function(){
+       
+      var footcss={};
+      // if(Number($localStorage.completedlevel) ==1 ){
+      //   var top = angular.element(document.querySelector("#mapcircle1")).prop('offsetTop');
+      //   var left = angular.element(document.querySelector("#mapcircle1")).prop('offsetLeft');
+      // }
+
+      // footcss ={
+      //   'top' : top - 11 * vw + 'px',
+      //   'left': left + 'px'
+      // }
+        
      
         
       
@@ -231,19 +250,20 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       }else if($scope.level==18){
         problem = JSON.parse(problemservice18.generateProblem($scope.level));
         
-        insteadpro=''+problem.first+problem.op1+problem.second+problem.op2+problem.third;
+        insteadpro=''+problem.first+'+'+problem.second+'+'+problem.third;
       }else if($scope.level==19){
         problem = JSON.parse(problemservice19.generateProblem($scope.level));
         
-        insteadpro=''+problem.first+problem.op+problem.second+problem.op1+problem.third + problem.op2 + problem.fourth ;
+        insteadpro=''+problem.first+problem.op+problem.second+problem.op1+problem.third ;
       }else if($scope.level==20){
         problem = JSON.parse(problemservice20.generateProblem($scope.level));
         
-        insteadpro=''+problem.first+problem.op+problem.second+problem.op1+problem.third ;
+        insteadpro=''+problem.first+problem.op+problem.second+problem.op1+'?'+'/'+'?';
+
       }else if($scope.level==21){
         problem = JSON.parse(problemservice21.generateProblem($scope.level));
         
-        insteadpro=''+problem.first+problem.op+problem.second+problem.op1 ;
+        insteadpro=''+problem.first+problem.op+problem.second ;
       } else if($scope.level==22){
         problem = JSON.parse(problemservice22.generateProblem($scope.level));
         
@@ -443,15 +463,21 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       
       nowtime= currenttime;
       $scope.score+=1000;
-      if(differenttime<=2000){
-        $scope.starlists.push(correctcount+1);
-        $scope.starlists.push(correctcount+2);
-        correctcount+=2;
-
-      } else if(differenttime >2000 && differenttime<=3000){
+      if($scope.level == 20 || $scope.level == 24){
         $scope.starlists.push(correctcount+1);
         correctcount+=1;
+      } else {
+        if(differenttime<=2000){
+          $scope.starlists.push(correctcount+1);
+          $scope.starlists.push(correctcount+2);
+          correctcount+=2;
+
+        } else if(differenttime >2000 && differenttime<=3000){
+          $scope.starlists.push(correctcount+1);
+          correctcount+=1;
+        }
       }
+      
        if(correctcount>=20){
         correctcount=0;
         $scope.starlists=[];
@@ -462,7 +488,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
           $localStorage.entershowflag=$scope.entershowflag;
           $localStorage.swipeshowflag=$scope.swipeshowflag;
-        $state.go('mapview');
+          $state.go('mapview');
        }
       solutionQueue.shift();
       stackSize--;

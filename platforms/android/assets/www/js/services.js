@@ -296,27 +296,39 @@ angular.module('starter.services', [])
         var insteadlevel= $localStorage.level;
         var selectlevel=insteadlevel;
         var selectaa=generatenumber(selectlevel);
-        var answer=selectaa[0];
+        var answer=0;
+        var first, second, third;
+        var op0 = operationfunc();
+        if(op0=='+'){
+            answer +=selectaa[0];
+            first = selectaa[0];
+        } else{
+            answer -=selectaa[0];
+            first = '-' + selectaa[0];
+        }
+
         var op1= operationfunc();
-        console.log("op1="+ op1);
         if(op1=='+'){
             answer +=selectaa[1];
+            second = selectaa[1];
         } else{
             answer -=selectaa[1];
+            second = '(-' + selectaa[1] + ')';
         }
         var op2= operationfunc();
         console.log("op2="+ op2);
         if(op2=='+'){
             answer +=selectaa[2];
+            third = selectaa[2];
         } else{
             answer -=selectaa[2];
+            third = '(-' + selectaa[2] + ')';
         }
         var problem={
-            first: selectaa[0],
-            second: selectaa[1],
-            third: selectaa[2],
-            op1: op1,
-            op2: op2,
+            first: first,
+            second: second,
+            third: third,
+            op0: op0,
             answer: answer
         }
         return JSON.stringify(problem);
@@ -688,7 +700,7 @@ angular.module('starter.services', [])
         //number array for problem
         var numbers=[];
         // first number of problem
-        numbers[0]=Math.floor(Math.random() * (100 - 2)) + 3;
+        numbers[0]=Math.floor(Math.random() * (60 - 2)) + 3;
         
         
         // get second number of problem
@@ -915,23 +927,42 @@ angular.module('starter.services', [])
         var problems = [2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11, 12, 13, 14, 15, 16, 20, 25, 30, 35, 40, 45, 50];
         do{
             var select1= Math.floor(Math.random() * (21 - 0)) + 1;
+            var select11 = 0;
+            var select3 = 0;
+
 
         // first number of problem
             numbers[0]=problems[select1];
 
-            if(select1 > 9){
-                select1 = 9;
+            if(select1 > 10){
+                select11 = 10;
+            } else {
+                select11 = select1;
             }
-            var select2= Math.floor(Math.random() * ((select1 - 1 ) + 1)) + 0;
+            var select2= Math.floor(Math.random() * ((select11 - 1 ) + 1)) + 0;
             numbers[1]=problems[select2];
 
-            var select3= Math.floor(Math.random() * (21 - 0)) + 1;
-            numbers[2] = problems[select3];
-            if(select3 > 9){
-                select3 = 9;
+            //Math.floor(Math.random() * (max - (min - 1))) + min;
+            // get denometor of second
+            if(numbers[0] < 13){
+                numbers[2] = Math.floor(Math.random() * (12 - 1)) + 2;
+            } else if( numbers[0] == 13){
+                numbers[2] = Math.floor(Math.random() * (3 - 1)) + 2;
+            } else if( numbers[0] == 14 ) {
+                numbers[2] = 2;
+            } else if ( numbers[0] == 15 || numbers[0] == 16) {
+                numbers[2] = Math.floor(Math.random() * (4 - 1)) + 2;
+            } else if ( numbers[0] == 20 || numbers[0] == 25 || numbers[0] == 30 || numbers[0] == 40 || numbers[0] == 50 ) {
+                numbers[2] = Math.floor(Math.random() * (10 - 1)) + 2;
+            } else if ( numbers[0] == 35 || numbers[0] == 45) {
+                var numberlists = [2, 10];
+
+                select3 = Math.floor(Math.random() * (1 + 1)) + 0;
+                numbers[2] = numberlists[select3];
             }
-            var select4= Math.floor(Math.random() * ((select3 - 1 ) + 1)) + 0;
-            numbers[3]=problems[select4];
+
+            var select4 = numbers[2] - 1;
+            numbers[3]= Math.floor(Math.random() * (select4 + 1)) + 0;
 
         } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[3], numbers[2])!=1 || mathgcd(numbers[3], numbers[0])!=1 || mathgcd(numbers[1], numbers[2])!=1);
         // get min and max value second number
@@ -976,9 +1007,9 @@ angular.module('starter.services', [])
     var generatenumber= function(selectlevel){
         //number array for problem
         var numbers=[];
-        var problems = [1, 2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11, 12, 13, 14, 15, 16, 20, 25, 30, 35, 40, 45, 50];
+        var problems = [2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11, 12, 13, 14, 15, 16, 20, 25, 30, 35, 40, 45, 50];
         do{
-            var select1= Math.floor(Math.random() * (21 - 1)) + 2;
+            var select1= Math.floor(Math.random() * (20 - 1)) + 2;
 
         // first number of problem
             numbers[0]=problems[select1];
