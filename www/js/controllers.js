@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'])
+angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate', 'ngSanitize'])
 
 .controller('MapviewController', function($scope, $stateParams, $state, $ionicScrollDelegate,$timeout, $window, $rootScope, $localStorage, $ionicPopup) {
 
@@ -258,27 +258,34 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       }else if($scope.level==20){
         problem = JSON.parse(problemservice20.generateProblem($scope.level));
         
-        insteadpro=''+problem.first+problem.op+problem.second+problem.op1+'?'+'/'+'?';
+         // insteadpro=''+problem.first+problem.op+problem.second+problem.op1+'?'+'/'+'?';
 
+        insteadpro = "<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div> =";
       }else if($scope.level==21){
         problem = JSON.parse(problemservice21.generateProblem($scope.level));
         
-        insteadpro=''+problem.first+problem.op+problem.second ;
+        // insteadpro=''+problem.first+problem.op+problem.second ;
+        insteadpro = "<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>";
       } else if($scope.level==22){
         problem = JSON.parse(problemservice22.generateProblem($scope.level));
         
-        insteadpro=''+problem.first+problem.op+problem.second+problem.op1 ;
+        // insteadpro=''+problem.first+problem.op+problem.second+problem.op1 ;
+        insteadpro =problem.op + "<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>";
       }
       else if($scope.level==23){
         problem = JSON.parse(problemservice23.generateProblem($scope.level));
-        insteadpro=''+problem.first+problem.op+problem.second+problem.op1 +'1/2' ;
+        // insteadpro=''+problem.first+problem.op+problem.second+problem.op1 +'1/2' ;
+        insteadpro ="<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>"+"<div class='compareop'>___</div>"+"<div class='frac'><span>1</span><span class='symbol'>/</span><span class='bottom'>2</span></div>";
       } else if($scope.level==24){
         problem = JSON.parse(problemservice24.generateProblem($scope.level));
-          insteadpro=''+problem.first+problem.op+problem.second;
+          // insteadpro=''+problem.first+problem.op+problem.second;
+
+          insteadpro ="<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.forth+"</span></div>";
       }
       else if($scope.level==25){
         problem = JSON.parse(problemservice25.generateProblem($scope.level));
-          insteadpro=''+problem.first+problem.op+problem.second;
+          // insteadpro=''+problem.first+problem.op+problem.second;
+          insteadpro ="<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.forth+"</span></div>";
       }
 
         
@@ -389,8 +396,16 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     }
 
+    $scope.divideflag = false;
+
     $scope.keydivideclick= function(){
-      $scope.answer += '/';
+      if($scope.divideflag == false){
+        $scope.divideflag = true;
+        $scope.insteadanswer = '';
+        $scope.insteadanswer="<div class='frac'><span>"+$scope.answer+"</span><span class='symbol'>/</span><span class='bottom'>"+"</span></div>";
+        $scope.answer += '/';
+      }
+      
     }
 
     $scope.keyclick=function(e){
@@ -404,17 +419,31 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         } else{
           $localStorage.keyclickflag ='2';
         }
+
         $scope.answer += e;
+
+        if($scope.divideflag){
+          var value = $scope.answer.split("/");
+          $scope.insteadanswer = '';
+          $scope.insteadanswer="<div class='frac'><span>"+value[0]+"</span><span class='symbol'>/</span><span class='bottom'>"+value[1]+"</span></div>";
+        } else {
+          $scope.insteadanswer = $scope.answer;
+        }
+        
+         
     }
 
 
     $scope.keyaddclick=function(){
+      $scope.divideflag = false;
        if($scope.answer.indexOf('-')>-1){
         var strans= $scope.answer.split("-");
           $scope.answer = strans[1];
        } else{
             $scope.answer = '-' + $scope.answer;
        }
+
+       $scope.insteadanswer= $scope.answer;
     }
     $scope.arrowclick= function(e){
 
@@ -430,6 +459,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     }
 
     $scope.enter= function() {
+      $scope.divideflag = false;
+      $scope.insteadanswer = '';
       if($localStorage.enterclickflag == '0'){
           $localStorage.enterclickflag = '1';
           entertimefunc();
@@ -445,6 +476,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           $scope.answer = '';
     }
     $scope.swipefunc= function(){
+      $scope.divideflag = false;
+      $scope.insteadanswer = '';
       $scope.answer = '';
       if($localStorage.swipeclickflag == '0'){
           $localStorage.swipeclickflag = '1';

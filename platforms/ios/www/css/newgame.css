@@ -133,7 +133,7 @@
 	left: 58%; top: 53%; z-index: 50;
 } 
 #enterclick p{
-	margin-left: -4vw;
+	margin-left: -4vw; margin-bottom: 0px;
 }
 .porblemcontent{
 	width: 22vw; height: 8vw; border-radius: 7px; background-color: #faf9fa; border: 3px solid #9a9897;	
@@ -152,6 +152,25 @@
 }
 
 
+
+.frac{
+	display: inline-block; position: relative; vertical-align: middle; text-align: center; letter-spacing: 0.001em;
+}
+
+.frac >span {
+	display: block;	padding: 0.1em; 
+}
+.frac span.bottom {
+	border-top: thin solid black;
+}
+
+.frac span.symbol {
+	display: none;
+}
+.compareop{
+	display: inline-block; position: relative; vertical-align: middle; text-align: center; letter-spacing: 0.001em; top: 10px;
+
+}
 
 @-webkit-keyframes enteranimation{
 	0% {top: 12vw;}

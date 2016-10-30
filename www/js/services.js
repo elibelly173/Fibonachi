@@ -745,10 +745,9 @@ angular.module('starter.services', [])
 
 
         var problem={
-            first: first,
+            first: selectaa[1],
             second: second,
-            op: '/',
-            op1: '=',
+            op: op2,
           //  op2: op2,
             answer: answer
         }
@@ -904,8 +903,10 @@ angular.module('starter.services', [])
 
 
         var problem={
-            first: firstpro,
-            second: secondpro,
+            first: selectaa[1],
+            second: selectaa[0],
+            third: selectaa[3],
+            forth: selectaa[2],
             op: 'x',
             answer: answer
         }
@@ -987,8 +988,10 @@ angular.module('starter.services', [])
 
 
         var problem={
-            first: firstpro,
-            second: secondpro,
+            first: selectaa[1],
+            second: selectaa[0],
+            third: selectaa[2],
+            forth: selectaa[1],
             op: 'x',
             answer: answer
         }
