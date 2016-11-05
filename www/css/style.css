@@ -55,6 +55,46 @@
 
 }
 
+
+
+.startmain{
+	width: 100vw; height: 100vh; background: url("../img/start.jpg"); background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.startbutton{
+	position: absolute; left: 53vw; top: 45vw;
+	width: 10vw;
+}
+
+.videoclass{
+	width: 100vw; height: 100vh; position: absolute; top: 0px; z-index: 15;
+}
+.videowrapper{
+	width: 100vw; height: 100vh; position: absolute; top: 0px; z-index: 20;
+}
+
+
+*::-webkit-media-controls-panel {
+  display: none!important;
+  -webkit-appearance: none;
+}
+
+/* Old shadow dom for play button */
+
+*::--webkit-media-controls-play-button {
+  display: none!important;
+  -webkit-appearance: none;
+}
+
+/* New shadow dom for play button */
+
+/* This one works */
+
+*::-webkit-media-controls-start-playback-button {
+  display: none!important;
+  -webkit-appearance: none;
+}
 /*@-webkit-keyframes animationfoot{
 	from{top: 0px; opacity: 0}
 	to{top: 85%; opacity: 1}

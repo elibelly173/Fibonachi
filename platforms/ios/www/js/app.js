@@ -24,10 +24,21 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services','ng
 })
 .config(function($stateProvider, $urlRouterProvider) {
 
-  $stateProvider.state('mapview', {
+  $stateProvider
+  .state('startview', {
     url: '/',
+    templateUrl: 'templates/start.html',
+    controller: 'StartviewController',
+  })
+  .state('mapview', {
+    url: '/mapview',
     templateUrl: 'templates/mapview.html',
     controller: 'MapviewController',
+  })
+  .state('cutscreen', {
+    url: '/cutscreen',
+    templateUrl: 'templates/cutscreen.html',
+    controller: 'CutscreenviewController',
   })
 
   .state('game', {

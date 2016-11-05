@@ -1,4 +1,26 @@
 angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate', 'ngSanitize'])
+.controller('StartviewController', function($scope, $stateParams, $state,$timeout) {
+    $scope.startclcik = function(){
+      $state.go('cutscreen');
+    }
+})
+.controller('CutscreenviewController', function($scope, $stateParams, $state, $timeout) {
+  $scope.gotomaview = function(){
+      $state.go('mapview');
+    }
+
+    $timeout(function() {
+        var video = document.getElementById("videoplay");
+        video.controls =false;
+        video.play();
+        
+    }, 5);
+
+    $timeout(function() {
+        $state.go('mapview');
+        
+    }, 13000);
+})
 
 .controller('MapviewController', function($scope, $stateParams, $state, $ionicScrollDelegate,$timeout, $window, $rootScope, $localStorage, $ionicPopup) {
 
@@ -40,19 +62,19 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     $scope.levelclick=function(e){
       
-      if(e <= Number($localStorage.completedlevel)){
+      // if(e <= Number($localStorage.completedlevel)){
+      //   $rootScope.level=e;
+      //   $localStorage.level=e;
+      //   $state.go('game', {selectedlevel: e});
+      // } else {
+      //    var alertPopup = $ionicPopup.alert({
+      //     title: 'Warning!',
+      //     template: 'Please select level less than '+$localStorage.completedlevel
+      //    });
+      // }
         $rootScope.level=e;
         $localStorage.level=e;
         $state.go('game', {selectedlevel: e});
-      } else {
-         var alertPopup = $ionicPopup.alert({
-          title: 'Warning!',
-          template: 'Please select level less than '+$localStorage.completedlevel
-         });
-      }
-        // $rootScope.level=e;
-        // $localStorage.level=e;
-        // $state.go('game', {selectedlevel: e});
       
 
     }
