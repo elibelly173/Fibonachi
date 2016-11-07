@@ -41,6 +41,14 @@ module.exports = [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
+    },
+    {
+        "id": "jaeger.Html5Video.Html5Video",
+        "file": "plugins/jaeger.Html5Video/www/Html5Video.js",
+        "pluginId": "jaeger.Html5Video",
+        "clobbers": [
+            "plugins.html5Video"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -52,7 +60,8 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-vibration": "2.1.2",
     "cordova-plugin-whitelist": "1.2.2",
-    "ionic-plugin-keyboard": "2.2.1"
+    "ionic-plugin-keyboard": "2.2.1",
+    "jaeger.Html5Video": "1.2.2"
 };
 // BOTTOM OF METADATA
 });

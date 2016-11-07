@@ -55,6 +55,43 @@
 
 }
 
+
+
+.startmain{
+	width: 100vw; height: 100vh; background: url("../img/start.jpg"); background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.startbutton{
+	position: absolute; left: 53vw; top: 45vw;
+	width: 10vw;
+}
+
+.videoclass{
+	width: 100vw; height: 100vh; 
+}
+.videowrapper{
+	width: 100vw; height: 100vh; position: absolute; top: 0px; z-index: 20; background: url("../img/video/video3.mp4");
+}
+
+
+.over-lay{
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	min-width: 100vw; min-height: 100vh;
+	background: rgba(19,19,19,.5);
+}
+
+video{
+	position: fixed; right: 0; bottom: 0;
+    min-width: 100%; min-height: 100%;
+    width: 100vw; height: 100vh; z-index: -100;
+    background: url(polina.jpg) no-repeat;
+    background-size: cover;
+}
+
 /*@-webkit-keyframes animationfoot{
 	from{top: 0px; opacity: 0}
 	to{top: 85%; opacity: 1}

@@ -8,12 +8,30 @@ module.exports = [
             "navigator.notification",
             "navigator"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "id": "cordova-plugin-device.device",
+        "pluginId": "cordova-plugin-device",
+        "clobbers": [
+            "device"
+        ]
+    },
+    {
+        "file": "plugins/jaeger.Html5Video/www/Html5Video.js",
+        "id": "jaeger.Html5Video.Html5Video",
+        "pluginId": "jaeger.Html5Video",
+        "clobbers": [
+            "plugins.html5Video"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-vibration": "2.1.2"
+    "cordova-plugin-vibration": "2.1.2",
+    "cordova-plugin-device": "1.1.2",
+    "jaeger.Html5Video": "1.2.2"
 }
 // BOTTOM OF METADATA
 });

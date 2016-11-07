@@ -1,4 +1,37 @@
 angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate', 'ngSanitize'])
+.controller('StartviewController', function($scope, $stateParams, $state,$timeout) {
+  $scope.mapflag=false;
+    $scope.startclcik = function(){
+      $scope.videoflag= true;
+      $timeout(function() {
+        if(!$scope.mapflag){
+          $state.go('mapview');
+        }
+        
+      }, 13000);
+    }
+
+    $scope.gotomapview = function(){
+      $scope.mapflag=true;
+      $state.go('mapview');
+    }
+})
+.controller('CutscreenviewController', function($scope, $stateParams, $state, $timeout) {
+  // var video = document.getElementById("videoplay");
+  // $scope.gotomaview = function(){
+  //   // video.pause();
+  //   // video.currentTime = 0;
+  //     $state.go('mapview');
+  //   }
+
+
+  //   $timeout(function() {
+  //       // video.pause();
+  //       // video.currentTime = 0;
+  //       $state.go('mapview');
+        
+  //   }, 13000);
+})
 
 .controller('MapviewController', function($scope, $stateParams, $state, $ionicScrollDelegate,$timeout, $window, $rootScope, $localStorage, $ionicPopup) {
 
@@ -40,19 +73,19 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     $scope.levelclick=function(e){
       
-      if(e <= Number($localStorage.completedlevel)){
+      // if(e <= Number($localStorage.completedlevel)){
+      //   $rootScope.level=e;
+      //   $localStorage.level=e;
+      //   $state.go('game', {selectedlevel: e});
+      // } else {
+      //    var alertPopup = $ionicPopup.alert({
+      //     title: 'Warning!',
+      //     template: 'Please select level less than '+$localStorage.completedlevel
+      //    });
+      // }
         $rootScope.level=e;
         $localStorage.level=e;
         $state.go('game', {selectedlevel: e});
-      } else {
-         var alertPopup = $ionicPopup.alert({
-          title: 'Warning!',
-          template: 'Please select level less than '+$localStorage.completedlevel
-         });
-      }
-        // $rootScope.level=e;
-        // $localStorage.level=e;
-        // $state.go('game', {selectedlevel: e});
       
 
     }

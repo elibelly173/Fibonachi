@@ -11,6 +11,10 @@
                         {
                             "xml": "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -19,6 +23,12 @@
     },
     "installed_plugins": {
         "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "com.ionicframework.myapp850516"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ionicframework.myapp850516"
+        },
+        "jaeger.Html5Video": {
             "PACKAGE_NAME": "com.ionicframework.myapp850516"
         }
     },
@@ -32,9 +42,27 @@
                 "navigator.notification",
                 "navigator"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
+        },
+        {
+            "file": "plugins/jaeger.Html5Video/www/Html5Video.js",
+            "id": "jaeger.Html5Video.Html5Video",
+            "pluginId": "jaeger.Html5Video",
+            "clobbers": [
+                "plugins.html5Video"
+            ]
         }
     ],
     "plugin_metadata": {
-        "cordova-plugin-vibration": "2.1.2"
+        "cordova-plugin-vibration": "2.1.2",
+        "cordova-plugin-device": "1.1.2",
+        "jaeger.Html5Video": "1.2.2"
     }
 }

@@ -1,25 +1,36 @@
 angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate', 'ngSanitize'])
 .controller('StartviewController', function($scope, $stateParams, $state,$timeout) {
+  $scope.mapflag=false;
     $scope.startclcik = function(){
-      $state.go('cutscreen');
+      $scope.videoflag= true;
+      $timeout(function() {
+        if(!$scope.mapflag){
+          $state.go('mapview');
+        }
+        
+      }, 13000);
+    }
+
+    $scope.gotomapview = function(){
+      $scope.mapflag=true;
+      $state.go('mapview');
     }
 })
 .controller('CutscreenviewController', function($scope, $stateParams, $state, $timeout) {
-  $scope.gotomaview = function(){
-      $state.go('mapview');
-    }
+  // var video = document.getElementById("videoplay");
+  // $scope.gotomaview = function(){
+  //   // video.pause();
+  //   // video.currentTime = 0;
+  //     $state.go('mapview');
+  //   }
 
-    $timeout(function() {
-        var video = document.getElementById("videoplay");
-        video.controls =false;
-        video.play();
-        
-    }, 5);
 
-    $timeout(function() {
-        $state.go('mapview');
+  //   $timeout(function() {
+  //       // video.pause();
+  //       // video.currentTime = 0;
+  //       $state.go('mapview');
         
-    }, 13000);
+  //   }, 13000);
 })
 
 .controller('MapviewController', function($scope, $stateParams, $state, $ionicScrollDelegate,$timeout, $window, $rootScope, $localStorage, $ionicPopup) {

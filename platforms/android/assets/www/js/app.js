@@ -7,6 +7,8 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services','ng
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
+
+    
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -24,10 +26,21 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services','ng
 })
 .config(function($stateProvider, $urlRouterProvider) {
 
-  $stateProvider.state('mapview', {
+  $stateProvider
+  .state('startview', {
     url: '/',
+    templateUrl: 'templates/start.html',
+    controller: 'StartviewController',
+  })
+  .state('mapview', {
+    url: '/mapview',
     templateUrl: 'templates/mapview.html',
     controller: 'MapviewController',
+  })
+  .state('cutscreen', {
+    url: '/cutscreen',
+    templateUrl: 'templates/cutscreen.html',
+    controller: 'CutscreenviewController',
   })
 
   .state('game', {
