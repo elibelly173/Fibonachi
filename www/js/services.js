@@ -1035,4 +1035,66 @@ angular.module('starter.services', [])
 
     }
 })
+.service('problemservice26', function($rootScope, $localStorage) {
+    this.generateProblem= function( level){
+        var insteadlevel= $localStorage.level;
+        var selectlevel=insteadlevel;
+        var selectaa=[];        
+        selectaa = generatenumber(selectlevel);
+        
+        var firstpro = selectaa[1] * selectaa[3]/(selectaa[4] * selectaa[5]);
+        var secondpro =selectaa[0] * selectaa[2]/(selectaa[4] * selectaa[5]);
+        var answer ='' + firstpro + '/' + secondpro;
+        
+        
+
+
+        var problem={
+            first: selectaa[1],
+            second: selectaa[0],
+            third: selectaa[3],
+            forth: selectaa[2],
+            op: 'x',
+            answer: answer
+        }
+        return JSON.stringify(problem);
+
+    }
+
+    var mathgcd = function(a, b){
+        while(b != 0){
+            var z= a % b;
+            a = b;
+            b = z
+        }
+        return a;
+    }
+    var generatenumber= function(selectlevel){
+        //number array for problem
+        var numbers=[];
+        var problems = [2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11, 12, 13, 14, 15, 16, 20, 25, 30, 35, 40, 45, 50];
+        do{
+            
+
+        // first number of problem
+        //Math.floor(Math.random() * (max - (min - 1))) + min;
+            numbers[0]=Math.floor(Math.random() * (20 - 2)) + 3;
+
+            numbers[1]= Math.floor(Math.random() * ((numbers[0] - 1) - 1)) + 2;
+            
+
+            numbers[2]= Math.floor(Math.random() * (20 - 2)) + 3;
+            numbers[3]= Math.floor(Math.random() * ((numbers[2] - 1) - 1)) + 2;
+            numbers[4] = mathgcd(numbers[2], numbers[1]);
+            numbers[5] = mathgcd(numbers[3], numbers[0]);
+
+        // } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[3])!=1 || ( numbers[4]==1 && numbers[5]!=1) || ( numbers[4] != 1 && numbers[5]==1) || numbers[0] == numbers[3] || numbers[1] == numbers[2]);
+         } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[3])!=1 || (numbers[4] ==1 && numbers[5] ==1) || numbers[0] == numbers[3] || numbers[1] == numbers[2]);
+        // get min and max value second number
+        
+        return numbers;
+        
+
+    }
+})
 ;

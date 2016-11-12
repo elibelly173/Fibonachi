@@ -49,9 +49,16 @@
 
     <div class="blockContainer">
         <div ng-repeat="arryproblem in arryproblems track by $index" class="porblemcontent problem{{$index}}" id="problem{{$index}}" ng-style="animation({{$index}})" ng-bind-html="arryproblem">
+
            <!--  {{arryproblem}} -->
         </div>
+       
         <div id="question"></div>
+        <div id="fraction-click" ng-if="level26flag">
+            <div class="cross-line" id="crossline{{list1}}" ng-repeat="list1 in list2s" ng-if="questionboxflag[list1]"></div>
+            <div class="answer-box" id="answerbox{{list1}}" ng-repeat="list1 in list2s" ng-if="questionboxflag[list1]" ng-click="answerboxclicked({{list1}})">{{level26value[list1]}}</div>
+            <div class="question-box" id="questionbox{{list1}}" ng-repeat="list1 in list2s" ng-click="questionboxclicked({{list1}})"></div>
+        </div>
 
         <div id="entercss" ng-if="entershowflag=='1'">To Enter</div>
         <img src="img/hand.png" id="enterpng" ng-if="entershowflag=='1'">

@@ -55,8 +55,12 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     $rootScope.alpha1=alpha1*180/3.14;
     $rootScope.alpha2=360-$rootScope.alpha1;
 
-
+    // if not click key, value is 0,
+    // if only clicked one, 1
+    // if clicked 2+ or enter, 2
     $localStorage.keyclickflag='0';
+    // if not click enter, value is 0,
+    // if only clicked one, 1
     $localStorage.enterclickflag='0';
     $localStorage.swipeclickflag='0';
     $localStorage.entershowflag='0';
@@ -73,19 +77,19 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     $scope.levelclick=function(e){
       
-      // if(e <= Number($localStorage.completedlevel)){
-      //   $rootScope.level=e;
-      //   $localStorage.level=e;
-      //   $state.go('game', {selectedlevel: e});
-      // } else {
-      //    var alertPopup = $ionicPopup.alert({
-      //     title: 'Warning!',
-      //     template: 'Please select level less than '+$localStorage.completedlevel
-      //    });
-      // }
+      if(e <= Number($localStorage.completedlevel)){
         $rootScope.level=e;
         $localStorage.level=e;
         $state.go('game', {selectedlevel: e});
+      } else {
+         var alertPopup = $ionicPopup.alert({
+          title: 'Warning!',
+          template: 'Please select level less than '+$localStorage.completedlevel
+         });
+      }
+        // $rootScope.level=e;
+        // $localStorage.level=e;
+        // $state.go('game', {selectedlevel: e});
       
 
     }
@@ -149,7 +153,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 })
 .controller('GameController', function($scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $cordovaVibration, $window, $rootScope, $animate, $localStorage,
            problemservice, problemservice17, problemservice18, problemservice19, problemservice20, problemservice21, problemservice22,
-           problemservice23, problemservice24, problemservice25) {
+           problemservice23, problemservice24, problemservice25, problemservice26) {
    $scope.list1s=[0,1,2,3,4,5,6];
    $scope.list2s=[1,2,3,4];
    $scope.listbutton1s=[1,3,5,7,9];
@@ -176,6 +180,22 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    $scope.entershowflag='0';
    $scope.swipeshowflag='0';
 
+//  flags for fraction design effect (level 26)
+    // when clicked level 26, true
+    $scope.level26flag = false;
+    // On level 26, it is for inputing obvious factor
+    $scope.questionboxflag = [];
+    // On level 26, when click answerbox, you can input there using keyboard
+    $scope.answerboxflag = [];
+    // On level 26, init value of answerbox
+    $scope.level26value = [1, 1, 1, 1, 1];
+    // on level26, if click answerbox, you can't input answer
+    $scope.keyenterclickedflag = true;
+
+    // $scope.questionboxflag2 = false;
+    // $scope.questionboxflag3 = false;
+    // $scope.questionboxflag4 = false;
+
 
 
 
@@ -184,23 +204,45 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    var compareproblem=0;
 
 
-   if($scope.level == 21){
-    $scope.axisflag=1;
-   } else if($scope.level == 22) {
-      $scope.axisflag=2;
-   } else if($scope.level == 23) {
-      $scope.axisflag=3;
+   // if($scope.level == 21){
+   //  $scope.axisflag=1;
+   // } else if($scope.level == 22) {
+   //    $scope.axisflag=2;
+   // } else if($scope.level == 23) {
+   //    $scope.axisflag=3;
+   // }
+
+
+   switch($scope.level){
+      case 21:
+        $scope.axisflag=1;
+        break;
+      case 22:
+        $scope.axisflag=2;
+        break;
+      case 23:
+        $scope.axisflag=3;
+        break;
+      case 26:
+        $scope.level26flag=true;
+        break;
    }
+
    if($scope.level>20){
     $scope.addop=0;
    }
+
+   // list of problems
    $scope.arryproblems=[];
+   // magazine size
    var stackSize=0;
 
    var problemtime= 3000;
    //var arrayproblems=[];
    //$scope.arryproblems=[];
    // answer array
+
+   // list of answer
    var solutionQueue = [];
    var mytimeout, myproblemtime;
    var keytime, entertime, swipetime;
@@ -216,7 +258,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
      }
 
     };
-
+    // currently, no need
     $scope.onTimeoutproblem = function() {
         
         if(stackSize<8){
@@ -233,6 +275,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
      }
 
     };
+
+    // for starting enter animation and swipe animation
     var keytimefunc = function(){
       if($localStorage.enterclickflag == '0'){
         //$rootScope.
@@ -241,6 +285,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         $scope.swipeshowflag='1';
       }
     }
+
+    // showing enter animation
 
     var entertimefunc = function(){
       if($scope.entershowflag=='1'){
@@ -251,6 +297,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       
     }
 
+
+    // showing and removing swipe animation
     var swipetimefunc = function(){
       $scope.swipeshowflag='0';
     }
@@ -260,7 +308,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
 
 
-
+    // currently, no need
     var stopTimer= function(){
       stackSize=0;
           $scope.arryproblems=[];
@@ -270,6 +318,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           $state.go('mapview');
     };
     
+
+    // making as level
     var makeproblem= function(){
       var problem, insteadpro;
       if($scope.level<17){
@@ -320,6 +370,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           // insteadpro=''+problem.first+problem.op+problem.second;
           insteadpro ="<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.forth+"</span></div>";
       }
+      else if($scope.level==26){
+        problem = JSON.parse(problemservice26.generateProblem($scope.level));
+          // insteadpro=''+problem.first+problem.op+problem.second;
+           insteadpro ="<div class='frac'><span on-swipe-left='swipecross(1)' ng-click='swipecross(1)' on-swipe-right='swipecross(1)'>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom' on-swipe-left='swipecross(2)' on-swipe-right='swipecross(2)'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span on-swipe-left='swipecross(3)' on-swipe-right='swipecross(3)'>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom' on-swipe-left='swipecross(4)' on-swipe-right='swipecross(4)'>"+problem.forth+"</span></div>";
+      }
 
         
         solutionQueue.push(problem.answer);
@@ -331,6 +386,28 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
        stackSize++;
     }
 
+    // function for level 26
+    // To input answer boxes, click each answer box
+    $scope.answerboxclicked = function(order) {
+      $scope.answerboxflag = [];
+      $scope.level26value[order] = '';
+      $scope.keyenterclickedflag = false;
+      if(!$scope.answerboxflag[order]){
+        $scope.answerboxflag[order] = true;
+      } 
+    }
+
+    // when click question box, answer box and cross line appear on level 26
+    $scope.questionboxclicked = function (order) {
+      
+      if(!$scope.questionboxflag[order]){
+        $scope.questionboxflag[order] = true;
+      } else {
+        $scope.questionboxflag[order] = false;
+      }
+     
+    }
+    // problem animation
    $scope.animation= function(e){
     var animcss={};
     if( e == compareproblem){
@@ -376,7 +453,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     return animcss;
    }
 
-   
+   // 
     $scope.$on("$ionicView.loaded",  function(){      
       $scope.paused=true;
       $scope.entershowflag=$localStorage.entershowflag;
@@ -442,7 +519,31 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     }
 
     $scope.keyclick=function(e){
-      // if key was only clicked, value is 1, if not, value is 2.
+      // if there is clicked answer box, can input there
+      if($scope.answerboxflag[1] == true){
+        
+          $scope.level26value[1] +=  e;
+       
+      } else if($scope.answerboxflag[2] == true) {
+       
+          $scope.level26value[2] +=  e;
+       
+      } else if($scope.answerboxflag[3] == true) {
+        
+          $scope.level26value[3] +=  e;
+       
+      } else if($scope.answerboxflag[4] == true) {
+        
+          $scope.level26value[4] +=  e;
+        
+      } else{
+
+
+
+
+
+        // when input answer
+        // 
         if($localStorage.keyclickflag == '0' && $localStorage.enterclickflag == '0'){
           $localStorage.keyclickflag = '1';
           keytime = $timeout(keytimefunc, 5000);
@@ -462,6 +563,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         } else {
           $scope.insteadanswer = $scope.answer;
         }
+      }
         
          
     }
@@ -492,11 +594,17 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     }
 
     $scope.enter= function() {
-      $scope.divideflag = false;
-      $scope.insteadanswer = '';
-      if($localStorage.enterclickflag == '0'){
-          $localStorage.enterclickflag = '1';
-          entertimefunc();
+      if($scope.keyenterclickedflag){
+        $scope.divideflag = false;
+        $scope.insteadanswer = '';
+
+        // level26 flags initialize
+        $scope.questionboxflag=[];
+        $scope.answerboxflag = [];
+
+        if($localStorage.enterclickflag == '0'){
+            $localStorage.enterclickflag = '1';
+            entertimefunc();
         } 
         
 
@@ -507,7 +615,13 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           }
         
           $scope.answer = '';
+      } else {
+        $scope.keyenterclickedflag = true;
+        $scope.answerboxflag = [];
+      }
     }
+
+
     $scope.swipefunc= function(){
       $scope.divideflag = false;
       $scope.insteadanswer = '';

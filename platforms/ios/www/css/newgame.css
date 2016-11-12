@@ -172,6 +172,59 @@
 
 }
 
+.cross-line{
+	width: 3.5vw; height: 1.5px; background: black; position: absolute; z-index: 110;
+}
+
+#crossline1{
+	top: 2vw; left: 6.9vw;
+}
+#crossline2{
+	top: 6vw; left: 6.9vw;
+}
+#crossline3{
+	top: 2vw; left: 12.1vw;
+}
+#crossline4{
+	top: 6vw; left: 12.1vw;
+}
+.question-box{
+	position: absolute; width: 4vw; height: 4vw;  z-index: 111;
+}
+
+#questionbox1{
+	top: 0; left: 6.5vw;
+}
+#questionbox2{
+	top: 4vw; left: 6.5vw;
+}
+#questionbox3{
+	top: 0vw; left: 11.8vw;
+}
+#questionbox4{
+	top: 4vw; left: 11.8vw;
+}
+
+.answer-box{
+	position: absolute; width: 4vw; height: 4vw; background-color: green; z-index: 112; display: flex; align-items: center; justify-content: center;
+}
+
+#answerbox1{
+	top: -2vw; left: 3vw;
+}
+#answerbox2{
+	top: 6vw; left: 3vw;
+}
+#answerbox3{
+	top: -2vw; left: 15vw;
+}
+#answerbox4{
+	top: 6vw; left: 15vw;
+}
+#fraction-click {
+	top: 51vh; left: 30vw; z-index: 80; width: 22vw; height: 8vw; position: relative;
+}
+
 @-webkit-keyframes enteranimation{
 	0% {top: 12vw;}
 	100% {top: 18vw;}
