@@ -77,19 +77,19 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     $scope.levelclick=function(e){
       
-      if(e <= Number($localStorage.completedlevel)){
+      // if(e <= Number($localStorage.completedlevel)){
+      //   $rootScope.level=e;
+      //   $localStorage.level=e;
+      //   $state.go('game', {selectedlevel: e});
+      // } else {
+      //    var alertPopup = $ionicPopup.alert({
+      //     title: 'Warning!',
+      //     template: 'Please select level less than '+$localStorage.completedlevel
+      //    });
+      // }
         $rootScope.level=e;
         $localStorage.level=e;
         $state.go('game', {selectedlevel: e});
-      } else {
-         var alertPopup = $ionicPopup.alert({
-          title: 'Warning!',
-          template: 'Please select level less than '+$localStorage.completedlevel
-         });
-      }
-        // $rootScope.level=e;
-        // $localStorage.level=e;
-        // $state.go('game', {selectedlevel: e});
       
 
     }
