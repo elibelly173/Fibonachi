@@ -1042,11 +1042,11 @@ angular.module('starter.services', [])
         var selectaa=[];        
         selectaa = generatenumber(selectlevel);
         
-        var firstpro = selectaa[1] * selectaa[3]/(selectaa[4] * selectaa[5]);
-        var secondpro =selectaa[0] * selectaa[2]/(selectaa[4] * selectaa[5]);
+        var firstpro = selectaa[1] * selectaa[3]/selectaa[6];
+        var secondpro =selectaa[0] * selectaa[2]/selectaa[6];
         var answer ='' + firstpro + '/' + secondpro;
         
-        
+        console.log("answer="+ answer);
 
 
         var problem={
@@ -1078,18 +1078,21 @@ angular.module('starter.services', [])
 
         // first number of problem
         //Math.floor(Math.random() * (max - (min - 1))) + min;
-            numbers[0]=Math.floor(Math.random() * (20 - 2)) + 3;
+            numbers[0]=Math.floor(Math.random() * (9 - 2)) + 3;
 
             numbers[1]= Math.floor(Math.random() * ((numbers[0] - 1) - 1)) + 2;
             
 
-            numbers[2]= Math.floor(Math.random() * (20 - 2)) + 3;
+            numbers[2]= Math.floor(Math.random() * (9 - 2)) + 3;
             numbers[3]= Math.floor(Math.random() * ((numbers[2] - 1) - 1)) + 2;
             numbers[4] = mathgcd(numbers[2], numbers[1]);
             numbers[5] = mathgcd(numbers[3], numbers[0]);
+            var ordermulti = Math.floor(Math.random() * (3 + 1)) + 0;
+            numbers[6] = numbers[3 - ordermulti];
+            numbers[ordermulti] *=  numbers[3 - ordermulti];
 
         // } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[3])!=1 || ( numbers[4]==1 && numbers[5]!=1) || ( numbers[4] != 1 && numbers[5]==1) || numbers[0] == numbers[3] || numbers[1] == numbers[2]);
-         } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[3])!=1 || (numbers[4] ==1 && numbers[5] ==1) || numbers[0] == numbers[3] || numbers[1] == numbers[2]);
+         } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[3])!=1 || numbers[4] !=1 || numbers[5] != 1 || numbers[1] >= numbers[0] || numbers[3] >= numbers[2]);
         // get min and max value second number
         
         return numbers;

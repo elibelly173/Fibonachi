@@ -389,6 +389,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     // function for level 26
     // To input answer boxes, click each answer box
     $scope.answerboxclicked = function(order) {
+      $scope.clickedorder = order;
       $scope.answerboxflag = [];
       $scope.level26value[order] = '';
       $scope.keyenterclickedflag = false;
@@ -399,12 +400,20 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     // when click question box, answer box and cross line appear on level 26
     $scope.questionboxclicked = function (order) {
+      $scope.clickedorder = order;
       
       if(!$scope.questionboxflag[order]){
         $scope.questionboxflag[order] = true;
       } else {
         $scope.questionboxflag[order] = false;
       }
+
+      $scope.answerboxflag = [];
+      $scope.level26value[order] = '';
+      $scope.keyenterclickedflag = false;
+      if(!$scope.answerboxflag[order]){
+        $scope.answerboxflag[order] = true;
+      } 
      
     }
     // problem animation
@@ -520,23 +529,13 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     $scope.keyclick=function(e){
       // if there is clicked answer box, can input there
-      if($scope.answerboxflag[1] == true){
+      if($scope.answerboxflag[$scope.clickedorder] == true){
         
-          $scope.level26value[1] +=  e;
+          $scope.level26value[$scope.clickedorder] +=  e;
+          $scope.answerboxflag = [];
+          $scope.keyenterclickedflag = true;
        
-      } else if($scope.answerboxflag[2] == true) {
-       
-          $scope.level26value[2] +=  e;
-       
-      } else if($scope.answerboxflag[3] == true) {
-        
-          $scope.level26value[3] +=  e;
-       
-      } else if($scope.answerboxflag[4] == true) {
-        
-          $scope.level26value[4] +=  e;
-        
-      } else{
+      }  else{
 
 
 
@@ -598,9 +597,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         $scope.divideflag = false;
         $scope.insteadanswer = '';
 
-        // level26 flags initialize
-        $scope.questionboxflag=[];
-        $scope.answerboxflag = [];
+        
 
         if($localStorage.enterclickflag == '0'){
             $localStorage.enterclickflag = '1';
@@ -633,7 +630,12 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     }
 
     var rightanswer= function(){
-      
+      // level26 flags initialize
+        $scope.questionboxflag=[];
+        $scope.answerboxflag = [];
+
+
+
       compareproblem+=1;
       var currentdate= new Date();
       var currenttime= currentdate.getTime();
