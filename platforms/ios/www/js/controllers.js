@@ -43,8 +43,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     var devicewidth=$window.innerWidth;
     
     var deviceheight=$window.innerHeight;
+
     var vh=deviceheight/100;
     var vw=devicewidth/100;
+    $rootScope.vh = vh;
+    $rootScope.vw = vw;
     var ratiovhvw=vh/vw;
     var ratioangle=180/3.14;
     var alpha1=Math.atan(7*ratiovhvw/25);
@@ -153,7 +156,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 })
 .controller('GameController', function($scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $cordovaVibration, $window, $rootScope, $animate, $localStorage,
            problemservice, problemservice17, problemservice18, problemservice19, problemservice20, problemservice21, problemservice22,
-           problemservice23, problemservice24, problemservice25, problemservice26) {
+           problemservice23, problemservice24, problemservice25, problemservice26, problemservice27) {
    $scope.list1s=[0,1,2,3,4,5,6];
    $scope.list2s=[1,2,3,4];
    $scope.listbutton1s=[1,3,5,7,9];
@@ -179,6 +182,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
    $scope.entershowflag='0';
    $scope.swipeshowflag='0';
+   $scope.fractionflag = false;
 
 //  flags for fraction design effect (level 26)
     // when clicked level 26, true
@@ -223,13 +227,16 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       case 23:
         $scope.axisflag=3;
         break;
-      case 26:
+      case 26: case 27:
         $scope.level26flag=true;
         break;
    }
 
    if($scope.level>20){
     $scope.addop=0;
+   }
+   if($scope.level>=20){
+    $scope.fractionflag=true;
    }
 
    // list of problems
@@ -375,6 +382,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           // insteadpro=''+problem.first+problem.op+problem.second;
            insteadpro ="<div class='frac'><span on-swipe-left='swipecross(1)' ng-click='swipecross(1)' on-swipe-right='swipecross(1)'>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom' on-swipe-left='swipecross(2)' on-swipe-right='swipecross(2)'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span on-swipe-left='swipecross(3)' on-swipe-right='swipecross(3)'>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom' on-swipe-left='swipecross(4)' on-swipe-right='swipecross(4)'>"+problem.forth+"</span></div>";
       }
+      else if($scope.level==27){
+        problem = JSON.parse(problemservice27.generateProblem($scope.level));
+          // insteadpro=''+problem.first+problem.op+problem.second;
+           insteadpro ="<div class='frac'><span on-swipe-left='swipecross(1)' ng-click='swipecross(1)' on-swipe-right='swipecross(1)'>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom' on-swipe-left='swipecross(2)' on-swipe-right='swipecross(2)'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span on-swipe-left='swipecross(3)' on-swipe-right='swipecross(3)'>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom' on-swipe-left='swipecross(4)' on-swipe-right='swipecross(4)'>"+problem.forth+"</span></div>";
+      }
 
         
         solutionQueue.push(problem.answer);
@@ -422,13 +434,21 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     if( e == compareproblem){
       if($scope.level==25){
         animcss= {
-          'top': '51vh',
+          'top': 85*$rootScope.vh - 21*$rootScope.vw,
           'left': '30vw',
           'z-index': 52
         };
+      } else if($scope.level !=25 && $scope.fractionflag){
+        animcss= {
+          'top': 85*$rootScope.vh - 21*$rootScope.vw,
+          'left': '30vw',
+          'z-index': 52,
+          'transition': 'all 700ms',
+          'transition-timing-function': 'linear'
+        };
       } else {
         animcss= {
-          'top': '51vh',
+          'top': 85*$rootScope.vh - 17.5*$rootScope.vw,
           'left': '30vw',
           'z-index': 52,
           'transition': 'all 700ms',
@@ -443,7 +463,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         };
       } else {
         var animcss={
-          'top': '20vh',
+          'top': 9*$rootScope.vh + 6*$rootScope.vw,
           'left': '11vw',
           'z-index': 51,
           '-webkit-animation': 'animationtop1',

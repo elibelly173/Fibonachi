@@ -53,7 +53,8 @@
            <!--  {{arryproblem}} -->
         </div>
        
-        <div id="question"></div>
+        <div id="question" ng-if="fractionflag"></div>
+        <div id="question1" ng-if="!fractionflag"></div>
         <div id="fraction-click" ng-if="level26flag">
             <div class="cross-line" id="crossline{{list1}}" ng-repeat="list1 in list2s" ng-if="questionboxflag[list1]"></div>
             <div class="answer-box" id="answerbox{{list1}}" ng-repeat="list1 in list2s" ng-if="questionboxflag[list1]" ng-click="answerboxclicked({{list1}})">{{level26value[list1]}}</div>
@@ -65,7 +66,8 @@
         <div id="swipecss" ng-if="swipeshowflag=='1'">To Delete</div>
         <img src="img/hand.png" id="swipepng" ng-if="swipeshowflag=='1'">
         <!-- <div id="question">{{question}}</div> -->
-        <div id="enterclick" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()"><p ng-bind-html="insteadanswer"></p></div>
+        <div id="enterclick" ng-if="fractionflag" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()"><p ng-bind-html="insteadanswer"></p></div>
+         <div id="enterclick1" ng-if="!fractionflag" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()"><p ng-bind-html="insteadanswer"></p></div>
 
     </div>
     <!-- keyboard -->
@@ -78,7 +80,7 @@
     <div id="keyadd" class="keypng3" ng-click="keyaddclick()" ng-if="axisflag === 0"></div>
     <div id="keydivide" class="keypng4" ng-click="keydivideclick()" ng-if="axisflag === 0"></div> -->
     <div id="keyadd" class="keypng3" ng-click="keyaddclick()" ng-if="axisflag === 0"></div>
-    <div id="keydivide" class="keypng4" ng-click="keydivideclick()" ng-if="axisflag === 0"></div>
+    <div id="keydivide" class="keypng4" ng-click="keydivideclick()" ng-if="axisflag === 0 && fractionflag"></div>
 
     <div class="keyboardcontaioner" ng-if="axisflag === 0">
 

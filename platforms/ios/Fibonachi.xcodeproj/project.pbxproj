@@ -199,7 +199,7 @@
 				LastUpgradeCheck = 0510;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 42BUJ7W943;
+						DevelopmentTeam = 5XQXWUGVKZ;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -298,7 +298,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 42BUJ7W943;
+				DEVELOPMENT_TEAM = 5XQXWUGVKZ;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -308,8 +308,8 @@
 				INFOPLIST_FILE = "Fibonachi/Fibonachi-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				PRODUCT_NAME = Fibonachi;
-				PROVISIONING_PROFILE = "9aae9b92-9f91-4dac-a722-ab522790e3be";
-				PROVISIONING_PROFILE_SPECIFIER = "Akio-WildCard-Liverowing";
+				PROVISIONING_PROFILE = "b8d19906-5c6a-40e8-a1aa-1cebfa4f5508";
+				PROVISIONING_PROFILE_SPECIFIER = "magnetic-wildcard";
 			};
 			name = Debug;
 		};
@@ -324,15 +324,15 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = 42BUJ7W943;
+				DEVELOPMENT_TEAM = 5XQXWUGVKZ;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fibonachi/Fibonachi-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Fibonachi/Fibonachi-Info.plist";
 				PRODUCT_NAME = Fibonachi;
-				PROVISIONING_PROFILE = "9aae9b92-9f91-4dac-a722-ab522790e3be";
-				PROVISIONING_PROFILE_SPECIFIER = "Akio-WildCard-Liverowing";
+				PROVISIONING_PROFILE = "b8d19906-5c6a-40e8-a1aa-1cebfa4f5508";
+				PROVISIONING_PROFILE_SPECIFIER = "magnetic-wildcard";
 			};
 			name = Release;
 		};
