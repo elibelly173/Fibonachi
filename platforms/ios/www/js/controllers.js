@@ -207,6 +207,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    var correctcount=0;
    var compareproblem=0;
 
+   $scope.problemorder = 0;
+
 
    // if($scope.level == 21){
    //  $scope.axisflag=1;
@@ -230,6 +232,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       case 26: case 27:
         $scope.level26flag=true;
         break;
+      case 28:
+        $scope.level26flag=true;
+        $scope.level28flag=true;
+        break;
+
    }
 
    if($scope.level>20){
@@ -241,6 +248,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
    // list of problems
    $scope.arryproblems=[];
+   $scope.insteadarryproblems=[];
    // magazine size
    var stackSize=0;
 
@@ -319,6 +327,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     var stopTimer= function(){
       stackSize=0;
           $scope.arryproblems=[];
+          $scope.insteadarryproblems=[];
           $timeout.cancel(mytimeout);
           $timeout.cancel(myproblemtime);
           $scope.paused = false;
@@ -328,7 +337,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     // making as level
     var makeproblem= function(){
-      var problem, insteadpro;
+      var problem, insteadpro, insteadpro1;
       if($scope.level<17){
         problem = JSON.parse(problemservice.generateProblem($scope.level));
         
@@ -380,17 +389,32 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       else if($scope.level==26){
         problem = JSON.parse(problemservice26.generateProblem($scope.level));
           // insteadpro=''+problem.first+problem.op+problem.second;
-           insteadpro ="<div class='frac'><span on-swipe-left='swipecross(1)' ng-click='swipecross(1)' on-swipe-right='swipecross(1)'>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom' on-swipe-left='swipecross(2)' on-swipe-right='swipecross(2)'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span on-swipe-left='swipecross(3)' on-swipe-right='swipecross(3)'>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom' on-swipe-left='swipecross(4)' on-swipe-right='swipecross(4)'>"+problem.forth+"</span></div>";
+           insteadpro ="<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.forth+"</span></div>";
       }
       else if($scope.level==27){
         problem = JSON.parse(problemservice27.generateProblem($scope.level));
           // insteadpro=''+problem.first+problem.op+problem.second;
-           insteadpro ="<div class='frac'><span on-swipe-left='swipecross(1)' ng-click='swipecross(1)' on-swipe-right='swipecross(1)'>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom' on-swipe-left='swipecross(2)' on-swipe-right='swipecross(2)'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span on-swipe-left='swipecross(3)' on-swipe-right='swipecross(3)'>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom' on-swipe-left='swipecross(4)' on-swipe-right='swipecross(4)'>"+problem.forth+"</span></div>";
+           insteadpro ="<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.forth+"</span></div>";
+      }
+      else if($scope.level==28){
+
+            var select26 = Math.floor(Math.random() * (1 + 1)) + 0;
+            if(select26){
+              problem = JSON.parse(problemservice27.generateProblem($scope.level));
+            } else {
+              problem = JSON.parse(problemservice26.generateProblem($scope.level));
+            }
+            
+          // insteadpro=''+problem.first+problem.op+problem.second;
+           insteadpro ="<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>" + '/'  + "<div class='frac'><span>"+problem.forth+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.third+"</span></div>";
+           insteadpro1 ="<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.forth+"</span></div>";
       }
 
         
         solutionQueue.push(problem.answer);
         $scope.arryproblems.push(insteadpro);
+        $scope.insteadarryproblems.push(insteadpro1);
+        
         if($scope.arryproblems.length == 1) {
          $scope.question= $scope.arryproblems[0];
         }
@@ -428,6 +452,14 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       } 
      
     }
+
+
+    $scope.signboxclicked = function () {
+      $scope.arryproblems[$scope.problemorder] = $scope.insteadarryproblems[$scope.problemorder];
+
+    }
+
+
     // problem animation
    $scope.animation= function(e){
     var animcss={};
@@ -501,6 +533,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         $scope.timer=$localStorage.timer;
         $localStorage.pauseedflag='0';
         $scope.arryproblems = $localStorage.arryproblems;
+        $scope.problemorder = Number($localStorage.problemorder);
+        $scope.insteadarryproblems = $localStorage.insteadarryproblems;
         solutionQueue = $localStorage.solutionQueue;
         correctcount = Number($localStorage.correctcount);
         $scope.question = $scope.arryproblems[0];
@@ -528,6 +562,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       $localStorage.correctcount=correctcount;
       $localStorage.solutionQueue=solutionQueue;
       $localStorage.arryproblems=$scope.arryproblems;
+      $localStorage.problemorder=$scope.problemorder;
+      $localStorage.insteadarryproblems=$scope.insteadarryproblems;
       $localStorage.timer=$scope.timer;
       $localStorage.compareproblem=compareproblem;
       $localStorage.score=$scope.score;
@@ -651,6 +687,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     var rightanswer= function(){
       // level26 flags initialize
+        $scope.problemorder += 1;
         $scope.questionboxflag=[];
         $scope.answerboxflag = [];
 

@@ -207,7 +207,9 @@
 .question-box{
 	position: absolute; width: 4vw; height: 4vw;  z-index: 111;
 }
-
+.sign-box{
+	position: absolute; width: 4vw; height: 4vw;  z-index: 111; top: 2.5vw; left: 8vw; /*background-color: red;*/
+}
 #questionbox1{
 	top: 0; left: 6.5vw;
 }
