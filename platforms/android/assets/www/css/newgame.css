@@ -130,27 +130,43 @@
 #enterclick{
 	width: 17vw; height: 17vw;  background-image: url(../img/new/answer1.png); background-repeat: no-repeat; background-size: 100% 100%;
 	display: flex; align-items: center; justify-content: center; font-size: 5vw; position: absolute; 
-	left: 58%; top: 53%; z-index: 50;
-} 
+	left: 58%;  z-index: 50; bottom: calc(8vw - 7vh); bottom: -webkit-calc(8vw - 7vh);
+}
+
 #enterclick p{
 	margin-left: -4vw; margin-bottom: 0px;
 }
+
+#enterclick1{
+	width: 17vw; height: 11vw;  background-image: url(../img/new/answer.png); background-repeat: no-repeat; background-size: 100% 100%;
+	display: flex; align-items: center; justify-content: center; font-size: 5vw; position: absolute; 
+	left: 58%;  z-index: 50; bottom: calc(8vw - 7vh); bottom: -webkit-calc(8vw - 7vh);
+}
+#enterclick1 p{
+	margin-left: -4vw; margin-bottom: 0px;
+}
+
 .porblemcontent{
 	width: 22vw; height: 8vw; border-radius: 7px; background-color: #faf9fa; border: 3px solid #9a9897;	
 	display: flex; align-items: center; justify-content: center;  position: absolute; 
     background: transparent; border-color: transparent; 
     transition:bottom 1s ease-in,width .2s ease-in,height .2s ease-in,border-color .2s ease-in,font-size .2s ease-in;
-    /*font-size: 5vw;*/  font-size: 3vw;
+    /*font-size: 5vw;*/  font-size: 4.5vw;
 }
 
 #question{
 	width: 29vw; height: 17vw; display: flex; align-items: center; justify-content: center; font-size: 5vw; position: absolute;
 	background-image: url(../img/new/question1.png); background-color: transparent; border-radius: 0px !important;
 	border: 0px solid transparent; background-repeat: no-repeat; background-size: 100% 100%; 
-	top: 53%; left: 24%; z-index: 50;
-	transition:bottom 1s ease-in,width .2s ease-in,height .2s ease-in,border-color .2s ease-in,font-size .2s ease-in;
+	left: 24%; z-index: 50; bottom: calc(8vw - 7vh); bottom: -webkit-calc(8vw - 7vh);
 }
-
+#question1{
+	width: 29vw; height: 11vw; display: flex; align-items: center; justify-content: center; font-size: 5vw; position: absolute;
+	background-image: url(../img/new/problem.png); background-color: transparent; border-radius: 0px !important;
+	border: 0px solid transparent; background-repeat: no-repeat; background-size: 100% 100%; 
+	left: 24%; z-index: 50; bottom: calc(8vw - 7vh); bottom: -webkit-calc(8vw - 7vh);
+	
+}
 
 
 .frac{
@@ -170,6 +186,62 @@
 .compareop{
 	display: inline-block; position: relative; vertical-align: middle; text-align: center; letter-spacing: 0.001em; top: 10px;
 
+}
+
+.cross-line{
+	width: 3.5vw; height: 1.5px; background: black; position: absolute; z-index: 110;
+}
+
+#crossline1{
+	top: 2vw; left: 6.9vw;
+}
+#crossline2{
+	top: 6vw; left: 6.9vw;
+}
+#crossline3{
+	top: 2vw; left: 12.1vw;
+}
+#crossline4{
+	top: 6vw; left: 12.1vw;
+}
+.question-box{
+	position: absolute; width: 4vw; height: 4vw;  z-index: 111;
+}
+.sign-box{
+	position: absolute; width: 4vw; height: 4vw;  z-index: 111; top: 2.5vw; left: 8vw; /*background-color: red;*/
+}
+#questionbox1{
+	top: 0; left: 6.5vw;
+}
+#questionbox2{
+	top: 4vw; left: 6.5vw;
+}
+#questionbox3{
+	top: 0vw; left: 11.8vw;
+}
+#questionbox4{
+	top: 4vw; left: 11.8vw;
+}
+
+.answer-box{
+	position: absolute; width: 3.5vw; height: 3.5vw; background-color: blue; z-index: 112; display: flex; align-items: center; justify-content: center;
+	color: yellow; font-size: 3vw;
+}
+
+#answerbox1{
+	top: -2.5vw; left: 3vw;
+}
+#answerbox2{
+	top: 7vw; left: 3vw;
+}
+#answerbox3{
+	top: -2.5vw; left: 16vw;
+}
+#answerbox4{
+	top: 7vw; left: 16vw;
+}
+#fraction-click {
+	 left: 30vw; z-index: 80; width: 22vw; height: 8vw; position: relative; top: calc(85vh - 21vw); top: -webkit-calc(85vh - 21vw);
 }
 
 @-webkit-keyframes enteranimation{
@@ -201,13 +273,13 @@
 }
 
 @-webkit-keyframes animationtop1{
-	from{top: 26vh; opacity: 0}
-	to{top: 26vh; opacity: 1}
+	from{opacity: 0}
+	to{opacity: 1}
 }
 
 @keyframes animationtop1{
-	from{top: 26vh; opacity: 0}
-	to{top: 26vh; opacity: 1}
+	from{ opacity: 0}
+	to{ opacity: 1}
 }
 
 

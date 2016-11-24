@@ -183,6 +183,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    $scope.entershowflag='0';
    $scope.swipeshowflag='0';
    $scope.fractionflag = false;
+   $scope.addflag = false;
 
 //  flags for fraction design effect (level 26)
     // when clicked level 26, true
@@ -202,6 +203,9 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
 
 
+   var touchposx = 0;
+   var touchposy = 0;
+   var touchstartflag = false;
 
 
    var correctcount=0;
@@ -245,6 +249,40 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    if($scope.level>=20){
     $scope.fractionflag=true;
    }
+
+   if($scope.level>12){
+    $scope.addflag=true;
+   }
+
+
+  $scope.touchstart = function(e) {
+    e.preventDefault();
+    var touch = e.originalEvent.changedTouches[0] || e.originalEvent.touches[0] || e.touches[0] || e.changedTouches[0];
+     touchposx = touch.pageX;
+     touchposy = touch.pageY;
+     if(touchposx > 44*$rootScope.vw) {
+        console.log("aaa");
+       touchstartflag = true;
+     }
+   
+  }
+  $scope.touchend = function(e) {
+    e.preventDefault();
+    var touch = e.originalEvent.changedTouches[0] || e.originalEvent.touches[0] || e.touches[0] || e.changedTouches[0];
+    var x = touch.pageX;
+    var y = touch.pageY;
+    if(touchstartflag && x > 44 * $rootScope.vw) {
+      if(Math.abs(y - touchposy) > 3 * $rootScope.vw) {
+        $scope.arryproblems[$scope.problemorder] = $scope.insteadarryproblems[$scope.problemorder];
+        touchstartflag = false;
+      }
+    }
+  }
+
+
+
+
+   
 
    // list of problems
    $scope.arryproblems=[];
@@ -406,7 +444,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
             }
             
           // insteadpro=''+problem.first+problem.op+problem.second;
-           insteadpro ="<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>" + '/'  + "<div class='frac'><span>"+problem.forth+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.third+"</span></div>";
+           insteadpro ="<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>" + '&divide'  + "<div class='frac'><span>"+problem.forth+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.third+"</span></div>";
            insteadpro1 ="<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.forth+"</span></div>";
       }
 

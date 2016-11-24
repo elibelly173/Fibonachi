@@ -63,8 +63,9 @@
 }
 
 .startbutton{
-	position: absolute; left: 53vw; top: 82vh;
-	width: 10vw;
+	position: absolute; 
+	/*left: 53vw; top: 82vh; width: 10vw;*/
+	left: 46.5vw; top: 82vh; width: 23vw; padding: 0px 6vw; padding-bottom: 5vh;
 }
 
 .videoclass{

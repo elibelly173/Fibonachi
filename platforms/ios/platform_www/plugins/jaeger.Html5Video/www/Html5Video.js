@@ -1,4 +1,5 @@
-cordova.define("jaeger.Html5Video.Html5Video", function(require, exports, module) { var exec = require("cordova/exec");
+cordova.define("jaeger.Html5Video.Html5Video", function(require, exports, module) {
+var exec = require("cordova/exec");
 var Html5Video = function() {};
 
 Html5Video.prototype._videos = {};
