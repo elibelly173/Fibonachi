@@ -129,7 +129,7 @@
 
 #enterclick{
 	width: 17vw; height: 17vw;  background-image: url(../img/new/answer1.png); background-repeat: no-repeat; background-size: 100% 100%;
-	display: flex; align-items: center; justify-content: center; font-size: 5vw; position: absolute; 
+	display: flex; align-items: center; justify-content: center; font-size: 4.5vw; position: absolute; 
 	left: 58%;  z-index: 50; bottom: calc(8vw - 7vh); bottom: -webkit-calc(8vw - 7vh);
 }
 
@@ -139,7 +139,7 @@
 
 #enterclick1{
 	width: 17vw; height: 11vw;  background-image: url(../img/new/answer.png); background-repeat: no-repeat; background-size: 100% 100%;
-	display: flex; align-items: center; justify-content: center; font-size: 5vw; position: absolute; 
+	display: flex; align-items: center; justify-content: center; font-size: 4.5vw; position: absolute; 
 	left: 58%;  z-index: 50; bottom: calc(8vw - 7vh); bottom: -webkit-calc(8vw - 7vh);
 }
 #enterclick1 p{
@@ -170,7 +170,7 @@
 
 
 .frac{
-	display: inline-block; position: relative; vertical-align: middle; text-align: center; letter-spacing: 0.001em; width: 6.5vw; height: 8.5vw;
+	display: inline-block; position: relative; vertical-align: middle; text-align: center; letter-spacing: 0.001em; width: 6.8vw; height: 8.5vw;
 }
 
 .frac >span {

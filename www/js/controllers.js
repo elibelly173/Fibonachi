@@ -636,11 +636,13 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     $scope.divideflag = false;
 
+    // insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
+
     $scope.keydivideclick= function(){
       if($scope.divideflag == false){
         $scope.divideflag = true;
         $scope.insteadanswer = '';
-        $scope.insteadanswer="<div class='frac'><span>"+$scope.answer+"</span><span class='symbol'>/</span><span class='bottom'>"+"</span></div>";
+        $scope.insteadanswer="<div class='frac'><span class='topfrac'>"+$scope.answer+"</span><hr class='hr-line'><span class='bottom'>"+"</span></div>";
         $scope.answer += '/';
       }
       
@@ -677,7 +679,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         if($scope.divideflag){
           var value = $scope.answer.split("/");
           $scope.insteadanswer = '';
-          $scope.insteadanswer="<div class='frac'><span>"+value[0]+"</span><span class='symbol'>/</span><span class='bottom'>"+value[1]+"</span></div>";
+          $scope.insteadanswer="<div class='frac'><span class='topfrac'>"+value[0]+"</span><hr class='hr-line'><span class='bottom'>"+value[1]+"</span></div>";
         } else {
           $scope.insteadanswer = $scope.answer;
         }

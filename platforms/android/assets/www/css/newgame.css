@@ -129,7 +129,7 @@
 
 #enterclick{
 	width: 17vw; height: 17vw;  background-image: url(../img/new/answer1.png); background-repeat: no-repeat; background-size: 100% 100%;
-	display: flex; align-items: center; justify-content: center; font-size: 5vw; position: absolute; 
+	display: flex; align-items: center; justify-content: center; font-size: 4.5vw; position: absolute; 
 	left: 58%;  z-index: 50; bottom: calc(8vw - 7vh); bottom: -webkit-calc(8vw - 7vh);
 }
 
@@ -139,7 +139,7 @@
 
 #enterclick1{
 	width: 17vw; height: 11vw;  background-image: url(../img/new/answer.png); background-repeat: no-repeat; background-size: 100% 100%;
-	display: flex; align-items: center; justify-content: center; font-size: 5vw; position: absolute; 
+	display: flex; align-items: center; justify-content: center; font-size: 4.5vw; position: absolute; 
 	left: 58%;  z-index: 50; bottom: calc(8vw - 7vh); bottom: -webkit-calc(8vw - 7vh);
 }
 #enterclick1 p{
@@ -170,57 +170,66 @@
 
 
 .frac{
-	display: inline-block; position: relative; vertical-align: middle; text-align: center; letter-spacing: 0.001em;
+	display: inline-block; position: relative; vertical-align: middle; text-align: center; letter-spacing: 0.001em; width: 6.8vw; height: 8.5vw;
 }
 
 .frac >span {
-	display: block;	padding: 0.1em; 
-}
-.frac span.bottom {
-	border-top: thin solid black;
+	display: block;	padding: 0.1em; width: 6.5vw; position: absolute; 
 }
 
+/*.frac span.bottom {
+	border-top: thin solid black;
+}*/
+
+.hr-line{
+	margin: 1px 0px; top: 4vw; width: 6vw; position: absolute; height: 1.5px; background-color: black;
+}
+.topfrac{top: 0px; }
+.bottom{ top: 4.4vw; position: absolute;}
 .frac span.symbol {
 	display: none;
 }
+
+
+
 .compareop{
 	display: inline-block; position: relative; vertical-align: middle; text-align: center; letter-spacing: 0.001em; top: 10px;
 
 }
 
 .cross-line{
-	width: 3.5vw; height: 1.5px; background: black; position: absolute; z-index: 110;
+	width: 5vw; height: 1.5px; background: black; position: absolute; z-index: 110; 
 }
 
 #crossline1{
-	top: 2vw; left: 6.9vw;
+	top: 2vw; left: 4vw;
 }
 #crossline2{
-	top: 6vw; left: 6.9vw;
+	top: 6vw; left: 4vw;
 }
 #crossline3{
-	top: 2vw; left: 12.1vw;
+	top: 2vw; left: 12.9vw;
 }
 #crossline4{
-	top: 6vw; left: 12.1vw;
+	top: 6vw; left: 12.9vw;
 }
 .question-box{
-	position: absolute; width: 4vw; height: 4vw;  z-index: 111;
+	position: absolute; width: 6vw; height: 4vw;  z-index: 111;
 }
 .sign-box{
-	position: absolute; width: 4vw; height: 4vw;  z-index: 111; top: 2.5vw; left: 8vw; /*background-color: red;*/
+	position: absolute; width: 4vw; height: 4vw;  z-index: 111; top: 2.5vw; left: 8.3vw; /*background-color: red;*/
 }
 #questionbox1{
-	top: 0; left: 6.5vw;
+	top: 0; left: 3.5vw;
 }
 #questionbox2{
-	top: 4vw; left: 6.5vw;
+	top: 4vw; left: 3.5vw;
 }
 #questionbox3{
-	top: 0vw; left: 11.8vw;
+	top: 0vw; left: 12.5vw;
 }
 #questionbox4{
-	top: 4vw; left: 11.8vw;
+	top: 4vw; left: 12.5vw;
 }
 
 .answer-box{
