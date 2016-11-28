@@ -55,11 +55,11 @@
        
         <div id="question" ng-if="fractionflag"></div>
         <div id="question1" ng-if="!fractionflag"></div>
-        <div id="fraction-click" ng-if="level26flag" ng-touchstart="touchstart($event)" ng-touchend="touchend($event)">
+        <div id="fraction-click" ng-if="level26flag">
             <div class="cross-line" id="crossline{{list1}}" ng-repeat="list1 in list2s" ng-if="questionboxflag[list1]"></div>
             <div class="answer-box" id="answerbox{{list1}}" ng-repeat="list1 in list2s" ng-if="questionboxflag[list1]" ng-click="answerboxclicked({{list1}})">{{level26value[list1]}}</div>
             <div class="question-box" id="questionbox{{list1}}" ng-repeat="list1 in list2s" ng-click="questionboxclicked({{list1}})"></div>
-            <!-- <div class="sign-box" id="sign-box" ng-click="signboxclicked()" ng-if="level28flag"></div> -->
+            <div class="sign-box" id="sign-box" ng-click="signboxclicked()" ng-if="level28flag"></div>
         </div>
 
         <div id="entercss" ng-if="entershowflag=='1'">To Enter</div>
