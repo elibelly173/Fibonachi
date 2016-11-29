@@ -201,7 +201,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     // $scope.questionboxflag3 = false;
     // $scope.questionboxflag4 = false;
 
-
+    var firstclickedflag = false; //  flag for level 28
 
    var touchposx = 0;
    var touchposy = 0;
@@ -273,8 +273,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     var y = touch.pageY;
     if(touchstartflag && x > 44 * $rootScope.vw) {
       if(Math.abs(y - touchposy) > 3 * $rootScope.vw) {
-        $scope.arryproblems[$scope.problemorder] = $scope.insteadarryproblems[$scope.problemorder];
+        // $scope.arryproblems[$scope.problemorder] = $scope.insteadarryproblems[$scope.problemorder];
+        angular.element("#problem" + compareproblem + " .bottomfracproblem").animate({top : 0 +'px'},200,'linear');
+        angular.element("#problem" + compareproblem + " .topfracproblem").animate({top : 4.4*$rootScope.vw +'px'},200,'linear');
         touchstartflag = false;
+        firstclickedflag = true;
       }
     }
   }
@@ -490,13 +493,13 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     }
 
     // when click question box, answer box and cross line appear on level 26
-    var firstclickedflag = false; //  flag for level 28
+    
     $scope.questionboxclicked = function (order) {
 
       if($scope.level == 28 && !firstclickedflag){
-        firstclickedflag = true;
-        angular.element("#problem" + compareproblem + " .bottomfracproblem").animate({top : 0 +'px'},200,'linear');
-        angular.element("#problem" + compareproblem + " .topfracproblem").animate({top : 4.4*$rootScope.vw +'px'},200,'linear');
+        // firstclickedflag = true;
+        // angular.element("#problem" + compareproblem + " .bottomfracproblem").animate({top : 0 +'px'},200,'linear');
+        // angular.element("#problem" + compareproblem + " .topfracproblem").animate({top : 4.4*$rootScope.vw +'px'},200,'linear');
       } else {
           $scope.clickedorder = order;
       
