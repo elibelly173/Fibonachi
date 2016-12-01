@@ -62,9 +62,15 @@
             <div class="sign-box" id="sign-box" ng-click="signboxclicked()" ng-if="level28flag"></div>
         </div>
 
-        <div id="entercss" ng-if="entershowflag=='1'">To Enter</div>
-        <img src="img/hand.png" id="enterpng" ng-if="entershowflag=='1'">
-        <div id="swipecss" ng-if="swipeshowflag=='1'">To Delete</div>
+        <div id="fraction-click" ng-if="level20flag">
+            <div class="cross-line" id="crossline20{{list1}}" ng-repeat="list1 in listlevel20" ng-if="questionboxflag[list1]"></div>
+            <div class="answer-box" id="answerbox20{{list1}}" ng-repeat="list1 in listlevel20" ng-if="questionboxflag[list1]" ng-click="answerboxclicked({{list1}})">{{level26value[list1]}}</div>
+            <div class="question-box" id="questionbox20{{list1}}" ng-repeat="list1 in listlevel20" ng-click="questionboxclicked({{list1}})"></div>
+        </div>
+
+        <div id="entercss" ng-if="entershowflag=='1' && level == 1">tap to enter</div>
+        <img src="img/hand.png" id="enterpng" ng-if="entershowflag=='1' && level == 1">
+        <div id="swipecss" ng-if="swipeshowflag=='1'">swipe to delete</div>
         <img src="img/hand.png" id="swipepng" ng-if="swipeshowflag=='1'">
         <!-- <div id="question">{{question}}</div> -->
         <div id="enterclick" ng-if="fractionflag" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()"><p ng-bind-html="insteadanswer"></p></div>

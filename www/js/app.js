@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic','starter.controllers', 'starter.services','ngCordova', 'ngTouch'])
+angular.module('starter', ['ionic','starter.controllers', 'starter.services','ngCordova', 'ngTouch', 'ionic-native-transitions'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -34,6 +34,10 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services','ng
   })
   .state('mapview', {
     url: '/mapview',
+    // nativeTransitions: {
+    //     "type": "fade",
+    //     "duration": 700
+    // },
     templateUrl: 'templates/mapview.html',
     controller: 'MapviewController',
   })
@@ -45,6 +49,11 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services','ng
 
   .state('game', {
     url: '/game',
+    nativeTransitions: {
+        "type": "slide",
+        "direction": "left",
+        "duration": 700
+    },
     params: {
       selectedlevel:0
     },

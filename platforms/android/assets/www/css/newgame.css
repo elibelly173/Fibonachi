@@ -121,7 +121,7 @@
 	left: 51%; top: 6vw;
 }
 #swipepng{
-	position: absolute; height: 13vw; z-index: 201; left: 59%; top: 18vw; 
+	position: absolute; height: 13vw; z-index: 201; left: 59%; /*top: 18vw;*/ top: calc(85vh - 28vw); top: -webkit-calc(85vh - 28vw);
 	-webkit-animation: swipeanimation 2s infinite; -webkit-animation-direction: alternate;
 	animation: swipeanimation 2s infinite; animation-direction: alternate;
 
@@ -213,6 +213,13 @@
 #crossline4{
 	top: 6vw; left: 12.9vw;
 }
+
+#crossline201{
+	top: 2vw; left: 8.7vw;
+}
+#crossline202{
+	top: 6vw; left: 8.7vw;
+}
 .question-box{
 	position: absolute; width: 6vw; height: 4vw;  z-index: 111;
 }
@@ -232,6 +239,13 @@
 	top: 4vw; left: 12.5vw;
 }
 
+#questionbox201{
+	top: 0; left: 8vw; 
+}
+#questionbox202{
+	top: 4vw; left: 8vw; 
+}
+
 .answer-box{
 	position: absolute; width: 3.5vw; height: 3.5vw; background-color: blue; z-index: 112; display: flex; align-items: center; justify-content: center;
 	color: yellow; font-size: 3vw;
@@ -249,17 +263,34 @@
 #answerbox4{
 	top: 7vw; left: 16vw;
 }
+
+#answerbox201{
+	top: -2.5vw; left: 12vw;
+}
+#answerbox202{
+	top: 7vw; left: 12vw;
+}
 #fraction-click {
 	 left: 30vw; z-index: 80; width: 22vw; height: 8vw; position: relative; top: calc(85vh - 21vw); top: -webkit-calc(85vh - 21vw);
 }
 
-@-webkit-keyframes enteranimation{
+/*@-webkit-keyframes enteranimation{
 	0% {top: 12vw;}
 	100% {top: 18vw;}
 }
 @keyframes enteranimation{
 	0% {top: 12vw;}
 	100% {top: 18vw;}
+}
+*/
+
+@-webkit-keyframes enteranimation{
+	0% {top: 12vw;}
+	100% {top: -webkit-calc(85vh - 26.2vw);}
+}
+@keyframes enteranimation{
+	0% {top: 12vw;}
+	100% {top: calc(85vh - 26.2vw)}
 }
 
 @-webkit-keyframes swipeanimation{

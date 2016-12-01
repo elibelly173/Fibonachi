@@ -93,6 +93,19 @@ video{
     background-size: cover;
 }
 
+
+
+.fade-in-out.ng-enter, .fade-in-out .ng-enter {
+  -webkit-animation: fadeIn 0.3s;
+  -moz-animation: fadeIn 0.3s;
+  animation: fadeIn 0.3s;
+  position: absolute; }
+.fade-in-out.ng-leave, .fade-in-out .ng-leave {
+  -webkit-animation: fadeOut 0.3s;
+  -moz-animation: fadeOut 0.3s;
+  animation: fadeOut 0.3s;
+  position: absolute; }
+
 /*@-webkit-keyframes animationfoot{
 	from{top: 0px; opacity: 0}
 	to{top: 85%; opacity: 1}

@@ -1,5 +1,5 @@
-angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate', 'ngSanitize'])
-.controller('StartviewController', function($scope, $stateParams, $state,$timeout) {
+angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate', 'ngSanitize', 'ionic-native-transitions'])
+.controller('StartviewController', function($scope, $stateParams, $state,$timeout, $ionicNativeTransitions) {
   $scope.mapflag=false;
     $scope.startclcik = function(){
       $scope.videoflag= true;
@@ -13,7 +13,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     $scope.gotomapview = function(){
       $scope.mapflag=true;
-      $state.go('mapview');
+      // $state.go('mapview');
+      $ionicNativeTransitions.stateGo('mapview', {}, {}, {
+        "type": "fade",
+        "duration": 1000, // in milliseconds (ms), default 400 
+      });
     }
 })
 .controller('CutscreenviewController', function($scope, $stateParams, $state, $timeout) {
@@ -93,6 +97,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         $rootScope.level=e;
         $localStorage.level=e;
         $state.go('game', {selectedlevel: e});
+        // $ionicNativeTransitions.stateGo('game', {selectedlevel: e}, {}, {
+        //   "type": "slide",
+        //   "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next') 
+        //   "duration": 500, // in milliseconds (ms), default 400 
+        // });
       
 
     }
@@ -154,11 +163,12 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     // }
 	 
 })
-.controller('GameController', function($scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $cordovaVibration, $window, $rootScope, $animate, $localStorage,
+.controller('GameController', function($ionicNativeTransitions, $scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $cordovaVibration, $window, $rootScope, $animate, $localStorage,
            problemservice, problemservice17, problemservice18, problemservice19, problemservice20, problemservice21, problemservice22,
            problemservice23, problemservice24, problemservice25, problemservice26, problemservice27) {
    $scope.list1s=[0,1,2,3,4,5,6];
    $scope.list2s=[1,2,3,4];
+   $scope.listlevel20 = [1,2];
    $scope.listbutton1s=[1,3,5,7,9];
    $scope.listbutton2s=[2,4,6,8,0];
    $scope.listproblems=[0,1,2,3,4,5,6,7];
@@ -188,6 +198,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 //  flags for fraction design effect (level 26)
     // when clicked level 26, true
     $scope.level26flag = false;
+    $scope.level20flag = false;
     // On level 26, it is for inputing obvious factor
     $scope.questionboxflag = [];
     // On level 26, when click answerbox, you can input there using keyboard
@@ -224,6 +235,10 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
 
    switch($scope.level){
+      case 20:
+        $scope.level20flag=true;
+        
+        break;
       case 21:
         $scope.axisflag=1;
         break;
@@ -372,7 +387,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           $timeout.cancel(mytimeout);
           $timeout.cancel(myproblemtime);
           $scope.paused = false;
-          $state.go('mapview');
+          $ionicNativeTransitions.stateGo('mapview', {}, {}, {
+            "type": "slide",
+            "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next') 
+            "duration": 500, // in milliseconds (ms), default 400 
+          });
     };
     
 
@@ -400,7 +419,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         
          // insteadpro=''+problem.first+problem.op+problem.second+problem.op1+'?'+'/'+'?';
 
-        insteadpro = "<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div> =";
+        insteadpro = "<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>";
       }else if($scope.level==21){
         problem = JSON.parse(problemservice21.generateProblem($scope.level));
         
@@ -633,7 +652,12 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       $localStorage.timer=$scope.timer;
       $localStorage.compareproblem=compareproblem;
       $localStorage.score=$scope.score;
-      $state.go('mapview');
+      // $state.go('mapview');
+      $ionicNativeTransitions.stateGo('mapview', {}, {}, {
+        "type": "slide",
+        "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next') 
+        "duration": 500, // in milliseconds (ms), default 400 
+      });
 
     }
 
@@ -797,7 +821,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
           $localStorage.entershowflag=$scope.entershowflag;
           $localStorage.swipeshowflag=$scope.swipeshowflag;
-          $state.go('mapview');
+          $ionicNativeTransitions.stateGo('mapview', {}, {}, {
+            "type": "slide",
+            "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next') 
+            "duration": 500, // in milliseconds (ms), default 400 
+          });
        }
       solutionQueue.shift();
       stackSize--;
