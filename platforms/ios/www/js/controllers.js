@@ -37,7 +37,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
   //   }, 13000);
 })
 
-.controller('MapviewController', function($scope, $stateParams, $state, $ionicScrollDelegate,$timeout, $window, $rootScope, $localStorage, $ionicPopup) {
+.controller('MapviewController', function($ionicNativeTransitions, $scope, $stateParams, $state, $ionicScrollDelegate,$timeout, $window, $rootScope, $localStorage, $ionicPopup) {
 
 	$timeout(function() {
         var scrollView = $ionicScrollDelegate.$getByHandle('page1');
@@ -96,12 +96,12 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       // }
         $rootScope.level=e;
         $localStorage.level=e;
-        $state.go('game', {selectedlevel: e});
-        // $ionicNativeTransitions.stateGo('game', {selectedlevel: e}, {}, {
-        //   "type": "slide",
-        //   "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next') 
-        //   "duration": 500, // in milliseconds (ms), default 400 
-        // });
+        // $state.go('game', {selectedlevel: e});
+        $ionicNativeTransitions.stateGo('game', {}, {}, {
+          "type": "slide",
+          "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next') 
+          "duration": 500, // in milliseconds (ms), default 400 
+        });
       
 
     }
@@ -163,7 +163,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     // }
 	 
 })
-.controller('GameController', function($ionicNativeTransitions, $scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $cordovaVibration, $window, $rootScope, $animate, $localStorage,
+.controller('GameController', function($timeout, $ionicNativeTransitions, $scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $cordovaVibration, $window, $rootScope, $animate, $localStorage,
            problemservice, problemservice17, problemservice18, problemservice19, problemservice20, problemservice21, problemservice22,
            problemservice23, problemservice24, problemservice25, problemservice26, problemservice27) {
    $scope.list1s=[0,1,2,3,4,5,6];
@@ -187,13 +187,15 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    $scope.paused = true;
    $scope.answer='';
    $scope.addop=1;
-   $scope.level= $stateParams.selectedlevel;
+   // $scope.level= $stateParams.selectedlevel;
+   $scope.level = $rootScope.level;
    $scope.axisflag=0;
 
    $scope.entershowflag='0';
    $scope.swipeshowflag='0';
    $scope.fractionflag = false;
    $scope.addflag = false;
+   $scope.rightanswerflag = false;
 
 //  flags for fraction design effect (level 26)
     // when clicked level 26, true
@@ -776,6 +778,18 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           swipetimefunc();
         } 
     }
+    var animimagecount=1;
+    $scope.achiimage = "img/achianim/achiAnim1.png";
+    var countUp = function() {
+        animimagecount +=1;
+        $scope.achiimage = "img/achianim/achiAnim"+animimagecount+".png";
+        if(animimagecount <15){
+          $timeout(countUp, 50);
+        } else {
+          animimagecount = 1;
+        }
+        
+    }
 
     var rightanswer= function(){
       // level26 flags initialize
@@ -784,6 +798,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         $scope.answerboxflag = [];
 
         firstclickedflag = false;
+        $scope.rightanswerflag = true;
+        $timeout(countUp, 50);
 
 
 

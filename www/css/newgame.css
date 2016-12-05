@@ -19,7 +19,7 @@
 }
 
 .catpng{
-	position: absolute; bottom: 15vh; width: 14vw; left: 13vw; z-index: 29;
+	position: absolute; bottom: 15vh; width: 20vw; left: 10vw; z-index: 29;
 }
 
 .left1png{
@@ -170,11 +170,11 @@
 
 
 .frac{
-	display: inline-block; position: relative; vertical-align: middle; text-align: center; letter-spacing: 0.001em; width: 6.8vw; height: 8.5vw;
+	display: inline-block; position: relative; vertical-align: middle; text-align: center; letter-spacing: 0.001em; width: 7.5vw; height: 8.5vw;
 }
 
 .frac >span {
-	display: block;	padding: 0.1em; width: 6.5vw; position: absolute; 
+	display: block;	padding: 0.1em; width: 7.2vw; position: absolute; 
 }
 
 /*.frac span.bottom {
@@ -182,7 +182,7 @@
 }*/
 
 .hr-line{
-	margin: 1px 0px; top: 4vw; width: 6vw; position: absolute; height: 1.5px; background-color: black;
+	margin: 1px 0.5vw; top: 4vw; width: 6vw; position: absolute; height: 1.5px; background-color: black;
 }
 .topfrac{top: 0px; }
 .bottom{ top: 4.4vw; position: absolute;}

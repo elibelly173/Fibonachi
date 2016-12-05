@@ -49,14 +49,6 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services','ng
 
   .state('game', {
     url: '/game',
-    nativeTransitions: {
-        "type": "slide",
-        "direction": "left",
-        "duration": 700
-    },
-    params: {
-      selectedlevel:0
-    },
     controller: 'GameController',
     templateUrl: 'templates/game.html',
   });
