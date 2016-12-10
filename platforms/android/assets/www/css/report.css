@@ -1,0 +1,59 @@
+.reportmain{
+	width: 100vw; height: 100vh; background-image: url('../img/report/vinyet.png'); background-size: 100% 100%; text-align: center;
+}
+
+.report-aa {
+	width: 76%; margin-top: 2vw;
+}
+
+.report-icon {
+	position: absolute; width: 12vw;
+}
+
+
+#report-back {
+	left: 25vw; top: 42vw;
+}
+
+#report-continue {
+	left: 45vw; top: 42vw;
+}
+
+#report-exit {
+	left: 66vw; top: 42vw;
+}
+
+.speedlists {
+	position: absolute; width: 5.5vw; top: 22vw;
+}
+#speedlists0{
+	 left: 51vw;
+}
+
+#speedlists1{
+	 left: 57.5vw;
+}
+#speedlists2{
+	 left: 64vw;
+}
+#speedlists3{
+	 left: 70.5vw;
+}
+
+.accuracylists{
+	position: absolute; width: 5.5vw; top: 30vw;
+}
+
+#accuracylists0{
+	 left: 51vw;
+}
+
+#accuracylists1{
+	 left: 57.5vw;
+}
+#accuracylists2{
+	 left: 64vw;
+}
+#accuracylists3{
+	 left: 70.5vw;
+}

@@ -46,8 +46,15 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services','ng
     templateUrl: 'templates/cutscreen.html',
     controller: 'CutscreenviewController',
   })
+  .state('reportscreen', {
+    cache: false,
+    url: '/reportscreen',
+    templateUrl: 'templates/report.html',
+    controller: 'ReportController',
+  })
 
   .state('game', {
+    cache: false,
     url: '/game',
     controller: 'GameController',
     templateUrl: 'templates/game.html',

@@ -37,6 +37,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
   //   }, 13000);
 })
 
+
 .controller('MapviewController', function($ionicNativeTransitions, $scope, $stateParams, $state, $ionicScrollDelegate,$timeout, $window, $rootScope, $localStorage, $ionicPopup) {
 
 	$timeout(function() {
@@ -163,7 +164,64 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     // }
 	 
 })
-.controller('GameController', function($timeout, $ionicNativeTransitions, $scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $cordovaVibration, $window, $rootScope, $animate, $localStorage,
+
+.controller('ReportController', function($scope, $stateParams, $state, $timeout, $rootScope, $ionicNativeTransitions, $ionicHistory, $localStorage) {
+  // $scope.starlists=[1,2,3,4];
+
+  // $ionicHistory.clearHistory();
+  $scope.speedlists = ['img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
+  $scope.accuracylists = ['img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
+
+
+  if($rootScope.levelspeed == 100){
+    $scope.speedlists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png'];
+  } else if($rootScope.levelspeed > 75 && $rootScope.levelspeed <= 99){
+    $scope.speedlists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png', 'img/report/outline.png'];
+  } else if($rootScope.levelspeed > 50 && $rootScope.levelspeed <= 74){
+    $scope.speedlists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/outline.png', 'img/report/outline.png'];
+  } else if($rootScope.levelspeed > 0 && $rootScope.levelspeed <= 49){
+    $scope.speedlists = ['img/report/report_star.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
+  }
+
+  if($rootScope.levelaccuracy == 100){
+    $scope.accuracylists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png'];
+  } else if($rootScope.levelaccuracy > 75 && $rootScope.levelaccuracy <= 99){
+    $scope.accuracylists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png', 'img/report/outline.png'];
+  } else if($rootScope.levelaccuracy > 50 && $rootScope.levelaccuracy <= 74){
+    $scope.accuracylists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/outline.png', 'img/report/outline.png'];
+  } else if($rootScope.levelaccuracy > 0 && $rootScope.levelaccuracy <= 49){
+    $scope.accuracylists = ['img/report/report_star.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
+  }
+
+
+  $scope.backfunc = function (){
+    $ionicNativeTransitions.stateGo('game', {}, {}, {
+          "type": "slide",
+          "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next') 
+          "duration": 500, // in milliseconds (ms), default 400 
+        });
+  }
+  $scope.continuefunc = function (){
+    $rootScope.level +=1;
+    $localStorage.level = $rootScope.level;
+    $ionicNativeTransitions.stateGo('game', {}, {}, {
+          "type": "slide",
+          "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next') 
+          "duration": 500, // in milliseconds (ms), default 400 
+        });
+  }
+  $scope.exitfunc = function (){
+    $ionicNativeTransitions.stateGo('mapview', {}, {}, {
+          "type": "slide",
+          "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next') 
+          "duration": 500, // in milliseconds (ms), default 400 
+        });
+  }
+
+
+
+})
+.controller('GameController', function($ionicHistory, $timeout, $ionicNativeTransitions, $scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $cordovaVibration, $window, $rootScope, $animate, $localStorage,
            problemservice, problemservice17, problemservice18, problemservice19, problemservice20, problemservice21, problemservice22,
            problemservice23, problemservice24, problemservice25, problemservice26, problemservice27) {
    $scope.list1s=[0,1,2,3,4,5,6];
@@ -173,7 +231,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    $scope.listbutton2s=[2,4,6,8,0];
    $scope.listproblems=[0,1,2,3,4,5,6,7];
    $scope.listbuttons=[1,2,3,4,5,6,7,8,9,0];
-   $scope.starlists = [];
+   
   // $scope.starlists=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
    // $scope.arrowlists=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,,27,
    //    28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,
@@ -181,95 +239,155 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    $scope.arrowlists=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,,27,
       28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49];
     //  $scope.arrowlists=[0,1,2,3,4,5,6,7,8,9,10];
-
-   $scope.timer=0;
-   $scope.score=0;
-   $scope.paused = true;
-   $scope.answer='';
-   $scope.addop=1;
-   // $scope.level= $stateParams.selectedlevel;
-   $scope.level = $rootScope.level;
-   $scope.axisflag=0;
-
-   $scope.entershowflag='0';
-   $scope.swipeshowflag='0';
-   $scope.fractionflag = false;
-   $scope.addflag = false;
-   $scope.rightanswerflag = false;
-
-//  flags for fraction design effect (level 26)
-    // when clicked level 26, true
-    $scope.level26flag = false;
-    $scope.level20flag = false;
-    // On level 26, it is for inputing obvious factor
-    $scope.questionboxflag = [];
-    // On level 26, when click answerbox, you can input there using keyboard
-    $scope.answerboxflag = [];
-    // On level 26, init value of answerbox
-    $scope.level26value = [1, 1, 1, 1, 1];
-    // on level26, if click answerbox, you can't input answer
-    $scope.keyenterclickedflag = true;
-
-    // $scope.questionboxflag2 = false;
-    // $scope.questionboxflag3 = false;
-    // $scope.questionboxflag4 = false;
-
+   
     var firstclickedflag = false; //  flag for level 28
 
-   var touchposx = 0;
-   var touchposy = 0;
-   var touchstartflag = false;
+       var touchposx = 0;
+       var touchposy = 0;
+       var touchstartflag = false;
 
 
-   var correctcount=0;
-   var compareproblem=0;
+       var correctcount=0;
+       var compareproblem=0;
+       var levelerrorcount = 0;
 
-   $scope.problemorder = 0;
+       var stackSize=0;
+
+       var problemtime= 3000;
+       //var arrayproblems=[];
+       //$scope.arryproblems=[];
+       // answer array
+
+       // list of answer
+       var solutionQueue = [];
+       var mytimeout, myproblemtime;
+       var keytime, entertime, swipetime;
+       var count=0;
+       var nowdate= new Date();
+       var nowtime= nowdate.getTime();
+
+       $scope.starlists = [];
+
+      console.log("adfafdsfadsfsdf");
 
 
-   // if($scope.level == 21){
-   //  $scope.axisflag=1;
-   // } else if($scope.level == 22) {
-   //    $scope.axisflag=2;
-   // } else if($scope.level == 23) {
-   //    $scope.axisflag=3;
-   // }
+       $scope.timer=0;
+       $scope.score=0;
+       $scope.paused = true;
+       $scope.answer='';
+       $scope.addop=1;
+       // $scope.level= $stateParams.selectedlevel;
+       $scope.level = $rootScope.level;
+       $scope.axisflag=0;
+
+       $scope.entershowflag='0';
+       $scope.swipeshowflag='0';
+       $scope.fractionflag = false;
+       $scope.addflag = false;
+       $scope.rightanswerflag = false;
+
+    //  flags for fraction design effect (level 26)
+        // when clicked level 26, true
+        $scope.level26flag = false;
+        $scope.level20flag = false;
+        // On level 26, it is for inputing obvious factor
+        $scope.questionboxflag = [];
+        // On level 26, when click answerbox, you can input there using keyboard
+        $scope.answerboxflag = [];
+        // On level 26, init value of answerbox
+        $scope.level26value = [1, 1, 1, 1, 1];
+        // on level26, if click answerbox, you can't input answer
+        $scope.keyenterclickedflag = true;
 
 
-   switch($scope.level){
-      case 20:
-        $scope.level20flag=true;
+       $scope.problemorder = 0;
+
+       switch($scope.level){
+          case 20:
+            $scope.level20flag=true;
+            
+            break;
+          case 21:
+            $scope.axisflag=1;
+            break;
+          case 22:
+            $scope.axisflag=2;
+            break;
+          case 23:
+            $scope.axisflag=3;
+            break;
+          case 26: case 27:
+            $scope.level26flag=true;
+            break;
+          case 28:
+            $scope.level26flag=true;
+            $scope.level28flag=true;
+            break;
+
+       }
+
+       if($scope.level>20){
+        $scope.addop=0;
+       }
+       if($scope.level>=20){
+        $scope.fractionflag=true;
+       }
+
+       if($scope.level>12){
+        $scope.addflag=true;
+       }
+
+       // list of problems
+       $scope.arryproblems=[];
+       $scope.insteadarryproblems=[];
+       
+
+
+   $scope.$on("$ionicView.loaded",  function(){      
+      
+
+
+
+
+
+
+
+
+      $scope.paused=true;
+      $scope.entershowflag=$localStorage.entershowflag;
+      $scope.swipeshowflag=$localStorage.swipeshowflag;
+
+      // if($localStorage.entershowflag == '1'){
+      //   $scope.entershowflag=1;
+      // }
+      // if($localStorage.swipeshowflag == '1'){
+      //   $scope.swipeshowflag=1;
+      // }
+      
+      
+      mytimeout = $timeout($scope.onTimeout, 1000);
+      if($localStorage.pauseedflag == '1' && $localStorage.pauseedlevel == $localStorage.level){
+        $scope.timer=$localStorage.timer;
+        $localStorage.pauseedflag='0';
+        $scope.arryproblems = $localStorage.arryproblems;
+        $scope.problemorder = Number($localStorage.problemorder);
+        $scope.insteadarryproblems = $localStorage.insteadarryproblems;
+        solutionQueue = $localStorage.solutionQueue;
+        correctcount = Number($localStorage.correctcount);
+        $scope.question = $scope.arryproblems[0];
+        compareproblem=$localStorage.compareproblem;
+        $scope.score=$localStorage.score;
+        for(var ii=0; ii<correctcount; ii++){
+          $scope.starlists.push(ii+1);
+        }
+      } else{
         
-        break;
-      case 21:
-        $scope.axisflag=1;
-        break;
-      case 22:
-        $scope.axisflag=2;
-        break;
-      case 23:
-        $scope.axisflag=3;
-        break;
-      case 26: case 27:
-        $scope.level26flag=true;
-        break;
-      case 28:
-        $scope.level26flag=true;
-        $scope.level28flag=true;
-        break;
+        
+        makeproblem();
+        makeproblem();
+      }
+    });
 
-   }
-
-   if($scope.level>20){
-    $scope.addop=0;
-   }
-   if($scope.level>=20){
-    $scope.fractionflag=true;
-   }
-
-   if($scope.level>12){
-    $scope.addflag=true;
-   }
 
 
   $scope.touchstart = function(e) {
@@ -304,24 +422,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
    
 
-   // list of problems
-   $scope.arryproblems=[];
-   $scope.insteadarryproblems=[];
-   // magazine size
-   var stackSize=0;
-
-   var problemtime= 3000;
-   //var arrayproblems=[];
-   //$scope.arryproblems=[];
-   // answer array
-
-   // list of answer
-   var solutionQueue = [];
-   var mytimeout, myproblemtime;
-   var keytime, entertime, swipetime;
-   var count=0;
-   var nowdate= new Date();
-   var nowtime= nowdate.getTime();
+   
     $scope.onTimeout = function() {
       
       $scope.timer++;
@@ -602,42 +703,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    }
 
    // 
-    $scope.$on("$ionicView.loaded",  function(){      
-      $scope.paused=true;
-      $scope.entershowflag=$localStorage.entershowflag;
-      $scope.swipeshowflag=$localStorage.swipeshowflag;
-
-      // if($localStorage.entershowflag == '1'){
-      //   $scope.entershowflag=1;
-      // }
-      // if($localStorage.swipeshowflag == '1'){
-      //   $scope.swipeshowflag=1;
-      // }
-      
-      
-      mytimeout = $timeout($scope.onTimeout, 1000);
-      if($localStorage.pauseedflag == '1' && $localStorage.pauseedlevel == $localStorage.level){
-        $scope.timer=$localStorage.timer;
-        $localStorage.pauseedflag='0';
-        $scope.arryproblems = $localStorage.arryproblems;
-        $scope.problemorder = Number($localStorage.problemorder);
-        $scope.insteadarryproblems = $localStorage.insteadarryproblems;
-        solutionQueue = $localStorage.solutionQueue;
-        correctcount = Number($localStorage.correctcount);
-        $scope.question = $scope.arryproblems[0];
-        compareproblem=$localStorage.compareproblem;
-        $scope.score=$localStorage.score;
-        for(var ii=0; ii<correctcount; ii++){
-          $scope.starlists.push(ii+1);
-        }
-      } else{
-        
-        
-        makeproblem();
-        makeproblem();
-      }
-    });
-
+    
     $scope.clikedpause= function(){
 
       $localStorage.entershowflag = $scope.entershowflag;
@@ -804,6 +870,15 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
 
       compareproblem+=1;
+
+      $rootScope.levelspeed = compareproblem * 180/$scope.timer;
+      if($rootScope.levelspeed > 100) $rootScope.levelspeed =100;
+
+      $rootScope.levelaccuracy = (compareproblem - levelerrorcount) * 100/compareproblem;
+      if($rootScope.levelaccuracy > 100) $rootScope.levelaccuracy =100;
+      else if($rootScope.levelaccuracy < 0) $rootScope.levelaccuracy =0;
+
+
       var currentdate= new Date();
       var currenttime= currentdate.getTime();
     //  problemtime= problemtime + Math.ceil(((currenttime - nowtime) - problemtime)*0.05);
@@ -830,16 +905,23 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
        if(correctcount>=20){
         correctcount=0;
         $scope.starlists=[];
+        $localStorage.pauseedflag='0';
+          // $localStorage.clear();
           if(Number($localStorage.completedlevel) <= Number($localStorage.level) || !$localStorage.completedlevel){
             $localStorage.completedlevel = Number($localStorage.level)+1;
             
           }
 
+          $timeout.cancel(mytimeout);
+          // $ionicHistory.nextViewOptions({
+          //   historyRoot: true
+          // });
+
           $localStorage.entershowflag=$scope.entershowflag;
           $localStorage.swipeshowflag=$scope.swipeshowflag;
-          $ionicNativeTransitions.stateGo('mapview', {}, {}, {
+          $ionicNativeTransitions.stateGo('reportscreen', {}, {}, {
             "type": "slide",
-            "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next') 
+            "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next') 
             "duration": 500, // in milliseconds (ms), default 400 
           });
        }
@@ -854,6 +936,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       if(correctcount>0){
         correctcount-=1;
       }
+      levelerrorcount ++;
       
       $scope.starlists.splice(correctcount,1);
       $scope.answer = '';
