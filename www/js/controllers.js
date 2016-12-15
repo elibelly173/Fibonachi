@@ -16,7 +16,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       // $state.go('mapview');
       $ionicNativeTransitions.stateGo('mapview', {}, {}, {
         "type": "fade",
-        "duration": 1000, // in milliseconds (ms), default 400 
+        "duration": 1500, // in milliseconds (ms), default 400 
       });
     }
 })
@@ -232,13 +232,9 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    $scope.listproblems=[0,1,2,3,4,5,6,7];
    $scope.listbuttons=[1,2,3,4,5,6,7,8,9,0];
    
-  // $scope.starlists=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-   // $scope.arrowlists=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,,27,
-   //    28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,
-   //    67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99];
    $scope.arrowlists=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,,27,
       28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49];
-    //  $scope.arrowlists=[0,1,2,3,4,5,6,7,8,9,10];
+    
    
     var firstclickedflag = false; //  flag for level 28
 
@@ -254,10 +250,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
        var stackSize=0;
 
        var problemtime= 3000;
-       //var arrayproblems=[];
-       //$scope.arryproblems=[];
-       // answer array
-
+       
        // list of answer
        var solutionQueue = [];
        var mytimeout, myproblemtime;
@@ -267,8 +260,6 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
        var nowtime= nowdate.getTime();
 
        $scope.starlists = [];
-
-      console.log("adfafdsfadsfsdf");
 
 
        $scope.timer=0;
@@ -357,12 +348,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       $scope.entershowflag=$localStorage.entershowflag;
       $scope.swipeshowflag=$localStorage.swipeshowflag;
 
-      // if($localStorage.entershowflag == '1'){
-      //   $scope.entershowflag=1;
-      // }
-      // if($localStorage.swipeshowflag == '1'){
-      //   $scope.swipeshowflag=1;
-      // }
+      
       
       
       mytimeout = $timeout($scope.onTimeout, 1000);
@@ -477,11 +463,6 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       $scope.swipeshowflag='0';
     }
 
-
-
-
-
-
     // currently, no need
     var stopTimer= function(){
       stackSize=0;
@@ -520,43 +501,33 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       }else if($scope.level==20){
         problem = JSON.parse(problemservice20.generateProblem($scope.level));
         
-         // insteadpro=''+problem.first+problem.op+problem.second+problem.op1+'?'+'/'+'?';
-
         insteadpro = "<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>";
       }else if($scope.level==21){
         problem = JSON.parse(problemservice21.generateProblem($scope.level));
         
-        // insteadpro=''+problem.first+problem.op+problem.second ;
         insteadpro = "<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>";
       } else if($scope.level==22){
         problem = JSON.parse(problemservice22.generateProblem($scope.level));
-        
-        // insteadpro=''+problem.first+problem.op+problem.second+problem.op1 ;
+       
         insteadpro =problem.op + "<div class='frac'  class='topfrac'><span>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>";
       }
       else if($scope.level==23){
         problem = JSON.parse(problemservice23.generateProblem($scope.level));
-        // insteadpro=''+problem.first+problem.op+problem.second+problem.op1 +'1/2' ;
         insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>"+"<div class='compareop'>___</div>"+"<div class='frac'><span class='topfrac'>1</span><hr class='hr-line'><span class='bottom'>2</span></div>";
       } else if($scope.level==24){
         problem = JSON.parse(problemservice24.generateProblem($scope.level));
-          // insteadpro=''+problem.first+problem.op+problem.second;
-
           insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom'>"+problem.forth+"</span></div>";
       }
       else if($scope.level==25){
-        problem = JSON.parse(problemservice25.generateProblem($scope.level));
-          // insteadpro=''+problem.first+problem.op+problem.second;
+        problem = JSON.parse(problemservice25.generateProblem($scope.level));          
           insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom'>"+problem.forth+"</span></div>";
       }
       else if($scope.level==26){
-        problem = JSON.parse(problemservice26.generateProblem($scope.level));
-          // insteadpro=''+problem.first+problem.op+problem.second;
+        problem = JSON.parse(problemservice26.generateProblem($scope.level));          
            insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.forth+"</span></div>";
       }
       else if($scope.level==27){
-        problem = JSON.parse(problemservice27.generateProblem($scope.level));
-          // insteadpro=''+problem.first+problem.op+problem.second;
+        problem = JSON.parse(problemservice27.generateProblem($scope.level));          
            insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.forth+"</span></div>";
       }
       else if($scope.level==28){
@@ -568,15 +539,13 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
               problem = JSON.parse(problemservice26.generateProblem($scope.level));
             }
             
-          // insteadpro=''+problem.first+problem.op+problem.second;
+         
            insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
-           // insteadpro1 ="<div class='frac'><span>"+problem.first+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span>"+problem.third+"</span><span class='symbol'>/</span><span class='bottom'>"+problem.forth+"</span></div>";
       }
 
         
         solutionQueue.push(problem.answer);
         $scope.arryproblems.push(insteadpro);
-        // $scope.insteadarryproblems.push(insteadpro1);
         
         if($scope.arryproblems.length == 1) {
          $scope.question= $scope.arryproblems[0];
@@ -584,25 +553,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
        
        stackSize++;
     }
-    // if 
-    // var firstclickedflag = false;
-    // $(document).on("click", "#fraction-click", function() {
-    //   if($scope.level == 28 && !firstclickedflag){
-    //     firstclickedflag = true;
-    //     angular.element("#problem" + compareproblem + " .bottomfracproblem").animate({top : 0 +'px'},200,'linear');
-    //     angular.element("#problem" + compareproblem + " .topfracproblem").animate({top : 4.1*$rootScope.vw +'px'},200,'linear');
-    //   }
-    // });
+    
     // function for level 26
     // To input answer boxes, click each answer box
     
     $scope.answerboxclicked = function(order) {
-      // if(firstclickedflag == false){
-
-      //   // angular.element("#locationimg").animate({left:left+'px', top : top - 11*vw +'px'},500,'linear');
-      //   firstclickedflag = true;
-      // } else {
-
 
         $scope.clickedorder = order;
         $scope.answerboxflag = [];
@@ -753,10 +708,6 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
        
       }  else{
 
-
-
-
-
         // when input answer
         // 
         if($localStorage.keyclickflag == '0' && $localStorage.enterclickflag == '0'){
@@ -812,8 +763,6 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       if($scope.keyenterclickedflag){
         $scope.divideflag = false;
         $scope.insteadanswer = '';
-
-        
 
         if($localStorage.enterclickflag == '0'){
             $localStorage.enterclickflag = '1';
@@ -881,26 +830,24 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
       var currentdate= new Date();
       var currenttime= currentdate.getTime();
-    //  problemtime= problemtime + Math.ceil(((currenttime - nowtime) - problemtime)*0.05);
+    
       var differenttime= currenttime -nowtime;
 
       
       nowtime= currenttime;
       $scope.score+=1000;
-      if($scope.level == 20 || $scope.level == 24){
-        $scope.starlists.push(correctcount+1);
-        correctcount+=1;
-      } else {
+      
+
         if(differenttime<=2000){
           $scope.starlists.push(correctcount+1);
           $scope.starlists.push(correctcount+2);
           correctcount+=2;
 
-        } else if(differenttime >2000 && differenttime<=3000){
+        } else {
           $scope.starlists.push(correctcount+1);
           correctcount+=1;
         }
-      }
+      
       
        if(correctcount>=20){
         correctcount=0;
@@ -913,17 +860,17 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           }
 
           $timeout.cancel(mytimeout);
-          // $ionicHistory.nextViewOptions({
-          //   historyRoot: true
-          // });
+         
 
           $localStorage.entershowflag=$scope.entershowflag;
           $localStorage.swipeshowflag=$scope.swipeshowflag;
-          $ionicNativeTransitions.stateGo('reportscreen', {}, {}, {
-            "type": "slide",
-            "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next') 
-            "duration": 500, // in milliseconds (ms), default 400 
-          });
+
+          reportshowfunc();
+          // $ionicNativeTransitions.stateGo('reportscreen', {}, {}, {
+          //   "type": "slide",
+          //   "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next') 
+          //   "duration": 500, // in milliseconds (ms), default 400 
+          // });
        }
       solutionQueue.shift();
       stackSize--;
@@ -933,16 +880,119 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     }
 
     var wronganswer= function(){
-      if(correctcount>0){
-        correctcount-=1;
-      }
+      // if(correctcount>0){
+      //   correctcount-=1;
+      // }
       levelerrorcount ++;
       
-      $scope.starlists.splice(correctcount,1);
+      // $scope.starlists.splice(correctcount,1);
       $scope.answer = '';
       $cordovaVibration.vibrate(100);
     }
+
+
+    // Report Part
+  $scope.speedlists = ['img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
+  $scope.accuracylists = ['img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
+  $scope.reportflag = false;
+
+
+  var reportshowfunc = function(){
+    $scope.reportflag = true;
+
+      if($rootScope.levelspeed == 100){
+        $scope.speedlists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png'];
+      } else if($rootScope.levelspeed > 75 && $rootScope.levelspeed <= 99){
+        $scope.speedlists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png', 'img/report/outline.png'];
+      } else if($rootScope.levelspeed > 50 && $rootScope.levelspeed <= 74){
+        $scope.speedlists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/outline.png', 'img/report/outline.png'];
+      } else if($rootScope.levelspeed > 0 && $rootScope.levelspeed <= 49){
+        $scope.speedlists = ['img/report/report_star.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
+      }
+
+      if($rootScope.levelaccuracy == 100){
+        $scope.accuracylists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png'];
+      } else if($rootScope.levelaccuracy > 75 && $rootScope.levelaccuracy <= 99){
+        $scope.accuracylists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png', 'img/report/outline.png'];
+      } else if($rootScope.levelaccuracy > 50 && $rootScope.levelaccuracy <= 74){
+        $scope.accuracylists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/outline.png', 'img/report/outline.png'];
+      } else if($rootScope.levelaccuracy > 0 && $rootScope.levelaccuracy <= 49){
+        $scope.accuracylists = ['img/report/report_star.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
+      }
+
+      $timeout(function(){
+        angular.element("#real-report").animate({top:-10+'%'},300, function(){
+          angular.element("#real-report").animate({top:0+'%'}, 150);
+        });      
+      }, 100);
+      
+
+  }
+
+  $scope.removereportfunc = function(event){
+      angular.element("#real-report").animate({top:10+'%'},150, function(){
+          angular.element("#real-report").animate({top:-100+'%'}, 300, function(){
+              $scope.reportflag = false;
+              switch(event){
+                case "back":
+
+                // $ionicNativeTransitions.stateGo($state.current, {}, {}, {                     
+                //   });
+                  
+                  $state.go($state.current, {}, {reload: true});
+                  break;
+                case "continue":
+                  $rootScope.level +=1;
+                  $localStorage.level = $rootScope.level;
+                  //  $ionicNativeTransitions.stateGo($state.current, {}, {}, {                     
+                  // });
+
+                  $state.go($state.current, {}, {reload: true});
+                  break;
+                case "exit":
+                  $ionicNativeTransitions.stateGo('mapview', {}, {}, {
+                        "type": "slide",
+                        "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next') 
+                        "duration": 500, // in milliseconds (ms), default 400 
+                  });
+                  break;
+              }
+          });
+      });
+    
+  }
   
+
+
+  // $scope.backfunc = function (){
+  //   $scope.reportflag = false;
+  //   $state.go($state.current, {}, {reload: true});
+  //   // $ionicNativeTransitions.stateGo('game', {}, {}, {
+  //   //       "type": "slide",
+  //   //       "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next') 
+  //   //       "duration": 500, // in milliseconds (ms), default 400 
+  //   //     });
+  // }
+  // $scope.continuefunc = function (){
+  //   $scope.reportflag = false;
+  //   $rootScope.level +=1;
+  //   $localStorage.level = $rootScope.level;
+
+  //   $state.go($state.current, {}, {reload: true});
+  //   // $ionicNativeTransitions.stateGo('game', {}, {}, {
+  //   //       "type": "slide",
+  //   //       "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next') 
+  //   //       "duration": 500, // in milliseconds (ms), default 400 
+  //   //     });
+  // }
+  // $scope.exitfunc = function (){
+  //   $scope.reportflag = false;
+  //   $ionicNativeTransitions.stateGo('mapview', {}, {}, {
+  //         "type": "slide",
+  //         "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next') 
+  //         "duration": 500, // in milliseconds (ms), default 400 
+  //   });
+  // }
 
     
 
