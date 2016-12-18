@@ -1,0 +1,101 @@
+<ion-view>
+  <div class='gameview'>
+    <!-- top bar -->
+    <div class="topBar">
+        <img src="img/new/home.png"  id="back" ng-click="clikedpause()"/>
+        <p id="time">{{timer}}</p>
+        <p id="score">{{score}}</p>
+        <p id="highscore">{{level}}</p>
+        
+    </div>
+    
+
+    <div class="axisarrow" ng-if="axisflag === 1">
+        <div class="keyboardarrow">
+            <div class="firsttd"></div>
+            <div class="secondtd" ng-repeat="arrowlist in arrowlists" ng-click="arrowclick({{arrowlist}})">{{arrowlist}}</div>
+        </div>
+        
+
+    </div>
+     <div class="axisarrow1" ng-if="axisflag === 2">
+        <div class="keyboardarrow">
+            <div class="firsttd"></div>
+            <div class="secondtd" ng-repeat="arrowlist in arrowlists" ng-click="arrowclick({{arrowlist}})">{{arrowlist}}</div>
+        </div>
+    </div>
+    <div class="comparekeyboard" ng-if="axisflag === 3">
+        <button id="smallerbutton" ng-click="compareclick('<')"><</button>
+        <button id="equalbutton" ng-click="compareclick('=')">=</button>
+        <button id="higherbutton" ng-click="compareclick('>')">></button>
+
+    </div>
+    
+    <!-- problem -->
+
+    <div class="blockContainer">
+        <div ng-repeat="arryproblem in arryproblems track by $index" class="porblemcontent problem{{$index}}" id="problem{{$index}}" ng-style="animation({{$index}})" ng-bind-html="arryproblem">
+
+           <!--  {{arryproblem}} -->
+        </div>
+       
+        <div id="question" ng-if="fractionflag"></div>
+        <div id="question1" ng-if="!fractionflag"></div>
+        <div id="fraction-click" ng-if="level26flag" ng-touchstart="touchstart($event)" ng-touchend="touchend($event)">
+            <div class="cross-line" id="crossline{{list1}}" ng-repeat="list1 in list2s" ng-if="questionboxflag[list1]"></div>
+            <div class="answer-box" id="answerbox{{list1}}" ng-repeat="list1 in list2s" ng-if="questionboxflag[list1]" ng-click="answerboxclicked({{list1}})">{{level26value[list1]}}</div>
+            <div class="question-box" id="questionbox{{list1}}" ng-repeat="list1 in list2s" ng-click="questionboxclicked({{list1}})"></div>
+            <div class="sign-box" id="sign-box" ng-click="signboxclicked()" ng-if="level28flag"></div>
+        </div>
+
+        <div id="fraction-click" ng-if="level20flag">
+            <div class="cross-line" id="crossline20{{list1}}" ng-repeat="list1 in listlevel20" ng-if="questionboxflag[list1]"></div>
+            <div class="answer-box" id="answerbox20{{list1}}" ng-repeat="list1 in listlevel20" ng-if="questionboxflag[list1]" ng-click="answerboxclicked({{list1}})">{{level26value[list1]}}</div>
+            <div class="question-box" id="questionbox20{{list1}}" ng-repeat="list1 in listlevel20" ng-click="questionboxclicked({{list1}})"></div>
+        </div>
+
+        <div id="entercss" ng-if="entershowflag=='1' && level == 1">tap to enter</div>
+        <img src="img/hand.png" id="enterpng" ng-if="entershowflag=='1' && level == 1">
+        <div id="swipecss" ng-if="swipeshowflag=='1'">swipe to delete</div>
+        <img src="img/hand.png" id="swipepng" ng-if="swipeshowflag=='1'">
+        <div id="enterclick" ng-if="fractionflag" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()"><p ng-bind-html="insteadanswer"></p></div>
+         <div id="enterclick1" ng-if="!fractionflag" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()"><p ng-bind-html="insteadanswer"></p></div>
+
+    </div>
+    <!-- keyboard -->
+    
+    <div id="keyadd" class="keypng3" ng-click="keyaddclick()" ng-if="axisflag === 0 && addflag"></div>
+    <div id="keydivide" class="keypng4" ng-click="keydivideclick()" ng-if="axisflag === 0 && fractionflag"></div>
+
+    <div class="keyboardcontaioner" ng-if="axisflag === 0">
+
+        <div ng-repeat="listbutton in listbuttons" id="key{{listbutton}}" class="keyboard" style="background-image:url(img/key{{listbutton}}.png);" ng-click="keyclick({{listbutton}})" ng-if="axisflag === 0">
+        
+        </div>
+    </div>
+
+    <img src="img/girl.png" class="girlpng">
+    <img ng-src="{{achiimage}}" class="catpng">
+    
+    <img src="img/left1.png" class="left1png">
+    <img src="img/right1.png" class="right2png">
+    <img src="img/cloud.png" class="cloudpng">
+    <img src="img/new/star1.png" ng-repeat="starlist in starlists" class="starimg" id="starimg{{$index}}">
+
+    <div class="report-main" ng-if="reportflag">
+        <div id="real-report">
+            <img src="img/report/report_ground.png" class="report-aa"/>
+            <img src="img/report/success_title.png" class="report-title"/>
+            <img src="img/report/report_back.png" class="report-icon" id="report-back" ng-click="removereportfunc('back')" />
+            <img src="img/report/report_continue.png" class="report-icon" id="report-continue" ng-click="removereportfunc('continue')" />
+            <img src="img/report/report_exit.png" class="report-icon" id="report-exit" ng-click="removereportfunc('exit')" />
+
+            <img src="{{list1}}" ng-repeat="list1 in speedlists track by $index" class="speedlists" id="speedlists{{$index}}" />
+            <img src="{{list2}}" ng-repeat="list2 in accuracylists track by $index" class="accuracylists" id="accuracylists{{$index}}" />
+        </div>
+    </div>
+
+
+  </div>
+ 
+</ion-view>

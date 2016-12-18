@@ -5,7 +5,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       $scope.videoflag= true;
       $timeout(function() {
         if(!$scope.mapflag){
-          $state.go('mapview');
+          $scope.gotomapview();
         }
         
       }, 13000);
@@ -16,7 +16,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       // $state.go('mapview');
       $ionicNativeTransitions.stateGo('mapview', {}, {}, {
         "type": "fade",
-        "duration": 1500, // in milliseconds (ms), default 400 
+        "duration": 1000 // in milliseconds (ms), default 400 
       });
     }
 })
@@ -78,9 +78,34 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       $localStorage.completedlevel = 1;
     }
 
+    $scope.levelclickflag = false;
+    $scope.mapScrollFlag =true;
 
     $scope.mapbarlists=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
       28,29,30,31,32];
+
+
+    $rootScope.levelTitleList = [{id: 1, number:20, time: 40}, {id: 2, number:20, time: 40}, {id: 3, number:20, time: 40}, 
+          {id: 4, number:20, time: 40}, {id: 5, number:20, time: 40}, {id: 6, number:20, time: 45}, {id: 7, number:20, time: 25}, 
+          {id: 8, number:20, time: 35}, {id: 9, number:20, time: 45}, {id: 10, number:20, time: 45}, {id: 11, number:20, time: 40}, 
+          {id: 12, number:20, time: 40}, {id: 13, number:20, time: 40}, {id: 14, number:20, time: 40}, {id: 15, number:20, time: 30}, 
+          {id: 16, number:20, time: 40}, {id: 17, number:20, time: 50}, {id: 18, number:20, time: 50}, {id: 19, number:20, time: 50},
+          {id: 20, number:20, time: 50}, {id: 21, number:20, time: 40}, {id: 22, number:20, time: 40}, {id: 23, number:20, time: 40},
+          {id: 24, number:20, time: 40}, {id: 25, number:20, time: 45}, {id: 26, number:20, time: 50}, {id: 27, number:20, time: 55},
+          {id: 28, number:20, time: 55}, {id: 29, number:20, time: 55}, {id: 30, number:20, time: 40}, {id: 31, number:20, time: 40},
+          {id: 32, number:20, time: 50}];
+
+    $scope.onPopupClose = function() {
+
+      angular.element("#real-explain").animate({left:10+'%'},150, function(){
+          angular.element("#real-explain").animate({left:-100+'%'}, 300, function(){
+              
+          });
+      });
+      $timeout(function() {
+        $scope.levelclickflag = false;
+      }, 500);
+    }    
 
 
     $scope.levelclick=function(e){
@@ -95,16 +120,42 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       //     template: 'Please select level less than '+$localStorage.completedlevel
       //    });
       // }
-        $rootScope.level=e;
-        $localStorage.level=e;
-        // $state.go('game', {selectedlevel: e});
-        $ionicNativeTransitions.stateGo('game', {}, {}, {
-          "type": "slide",
-          "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next') 
-          "duration": 500, // in milliseconds (ms), default 400 
-        });
+
+      
+      $rootScope.level=e;
+      $localStorage.level=e;
+      $scope.levelclickflag = true;
+      $scope.mapScrollFlag =false;
+
+      $timeout(function(){
+        angular.element("#real-explain").animate({left:-10+'%'},300, function(){
+          angular.element("#real-explain").animate({left:0+'%'}, 150);
+        });      
+      }, 100);
+        
+        // // $state.go('game', {selectedlevel: e});
+        // $ionicNativeTransitions.stateGo('game', {}, {}, {
+        //   "type": "slide",
+        //   "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next') 
+        //   "duration": 500, // in milliseconds (ms), default 400 
+        // });
       
 
+    }
+
+    $scope.gotoGameview = function() {
+
+
+      angular.element("#real-explain").animate({left:10+'%'},150, function(){
+          angular.element("#real-explain").animate({left:-100+'%'}, 300, function(){
+              $scope.levelclickflag = false;
+              $ionicNativeTransitions.stateGo('game', {}, {}, {
+                "type": "slide",
+                "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next') 
+                "duration": 500, // in milliseconds (ms), default 400 
+              });
+          });
+      });
     }
 
     $scope.$on("$ionicView.enter", function(event, data){
@@ -235,7 +286,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    $scope.arrowlists=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,,27,
       28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49];
     
-   
+   // $ionicNativeTransitions.enable(true);
     var firstclickedflag = false; //  flag for level 28
 
        var touchposx = 0;
@@ -931,14 +982,14 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
   $scope.removereportfunc = function(event){
       angular.element("#real-report").animate({top:10+'%'},150, function(){
-          angular.element("#real-report").animate({top:-100+'%'}, 300, function(){
+          angular.element("#real-report").animate({top:-100+'vh'}, 300, function(){
               $scope.reportflag = false;
               switch(event){
                 case "back":
 
                 // $ionicNativeTransitions.stateGo($state.current, {}, {}, {                     
                 //   });
-                  
+                  // $ionicNativeTransitions.enable(false);
                   $state.go($state.current, {}, {reload: true});
                   break;
                 case "continue":
@@ -946,7 +997,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
                   $localStorage.level = $rootScope.level;
                   //  $ionicNativeTransitions.stateGo($state.current, {}, {}, {                     
                   // });
-
+                  // $ionicNativeTransitions.enable(false);
                   $state.go($state.current, {}, {reload: true});
                   break;
                 case "exit":

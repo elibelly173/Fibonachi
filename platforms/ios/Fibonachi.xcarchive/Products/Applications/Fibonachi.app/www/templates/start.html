@@ -1,0 +1,14 @@
+
+<ion-view>
+	<div class="startmain" ng-if="!videoflag">
+		<img src="img/start1.png" class="startbutton" ng-click="startclcik()">
+	</div>
+
+	<div class="over-lay" ng-if="videoflag" ng-click="gotomapview()">
+          <video autoplay loop muted class="video" webkit-playsinline playsinline requestFullScreen>
+            <source src="video/video2.mp4" type='video/mp4; codecs="h.264"' >
+            <source src="video/video2.webm" type="video/webm">
+          </video>
+    </div>
+		
+</ion-view>

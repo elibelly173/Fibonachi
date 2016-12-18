@@ -5,7 +5,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       $scope.videoflag= true;
       $timeout(function() {
         if(!$scope.mapflag){
-          $state.go('mapview');
+          $scope.gotomapview();
         }
         
       }, 13000);
@@ -16,7 +16,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       // $state.go('mapview');
       $ionicNativeTransitions.stateGo('mapview', {}, {}, {
         "type": "fade",
-        "duration": 1500, // in milliseconds (ms), default 400 
+        "duration": 1000 // in milliseconds (ms), default 400 
       });
     }
 })
@@ -235,7 +235,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    $scope.arrowlists=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,,27,
       28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49];
     
-   
+   // $ionicNativeTransitions.enable(true);
     var firstclickedflag = false; //  flag for level 28
 
        var touchposx = 0;
@@ -931,14 +931,14 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
   $scope.removereportfunc = function(event){
       angular.element("#real-report").animate({top:10+'%'},150, function(){
-          angular.element("#real-report").animate({top:-100+'%'}, 300, function(){
+          angular.element("#real-report").animate({top:-100+'vh'}, 300, function(){
               $scope.reportflag = false;
               switch(event){
                 case "back":
 
                 // $ionicNativeTransitions.stateGo($state.current, {}, {}, {                     
                 //   });
-                  
+                  // $ionicNativeTransitions.enable(false);
                   $state.go($state.current, {}, {reload: true});
                   break;
                 case "continue":
@@ -946,7 +946,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
                   $localStorage.level = $rootScope.level;
                   //  $ionicNativeTransitions.stateGo($state.current, {}, {}, {                     
                   // });
-
+                  // $ionicNativeTransitions.enable(false);
                   $state.go($state.current, {}, {reload: true});
                   break;
                 case "exit":
