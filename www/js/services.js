@@ -3,7 +3,7 @@
 angular.module('starter.services', [])
 
 .service('problemservice', function($rootScope, $localStorage) {
-	this.generateProblem= function( level){
+	this.generateProblem= function(level){
        // console.log($rootScope.level);
         var insteadlevel= $localStorage.level;
 		var selectlevel=0;
@@ -138,7 +138,10 @@ angular.module('starter.services', [])
             oppar2:oppar2,
             answer: solution
         }
-        return JSON.stringify(problem);
+
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
 
     	// return {
      //    	first: first,
@@ -226,7 +229,10 @@ angular.module('starter.services', [])
             op: '+',
             answer: selectaa[0] + selectaa[1]+ selectaa[2]
         }
-        return JSON.stringify(problem);
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
 
     }
 
@@ -331,7 +337,10 @@ angular.module('starter.services', [])
             op0: op0,
             answer: answer
         }
-        return JSON.stringify(problem);
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
 
     }
 
@@ -508,7 +517,10 @@ angular.module('starter.services', [])
             op1: 'x',
             answer: answer
         }
-        return JSON.stringify(problem);
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
 
     }
 
@@ -599,7 +611,10 @@ angular.module('starter.services', [])
             op1: '=',
             answer: answer
         }
-        return JSON.stringify(problem);
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
 
     }
     var gcd = function(a, b){
@@ -655,7 +670,10 @@ angular.module('starter.services', [])
             op1: '=',
             answer: answer
         }
-        return JSON.stringify(problem);
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
 
     }
     var getcommonfunc = function(number){
@@ -751,7 +769,10 @@ angular.module('starter.services', [])
           //  op2: op2,
             answer: answer
         }
-        return JSON.stringify(problem);
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
 
     }
     var getcommonfunc = function(number){
@@ -856,7 +877,10 @@ angular.module('starter.services', [])
             op2: signpos,
             answer: answer
         }
-        return JSON.stringify(problem);
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
 
     }
     var getMinMax = function(seletednumber){
@@ -910,7 +934,10 @@ angular.module('starter.services', [])
             op: 'x',
             answer: answer
         }
-        return JSON.stringify(problem);
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
 
     }
 
@@ -995,7 +1022,10 @@ angular.module('starter.services', [])
             op: 'x',
             answer: answer
         }
-        return JSON.stringify(problem);
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
 
     }
 
@@ -1057,7 +1087,10 @@ angular.module('starter.services', [])
             op: 'x',
             answer: answer
         }
-        return JSON.stringify(problem);
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
 
     }
 
@@ -1122,7 +1155,10 @@ angular.module('starter.services', [])
             op: 'x',
             answer: answer
         }
-        return JSON.stringify(problem);
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
 
     }
 

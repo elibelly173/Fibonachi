@@ -123,6 +123,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
       
       $rootScope.level=e;
+      $localStorage.levelTime=$rootScope.levelTitleList[e].time;
       $localStorage.level=e;
       $scope.levelclickflag = true;
       $scope.mapScrollFlag =false;
@@ -463,10 +464,17 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     $scope.onTimeout = function() {
       
       $scope.timer++;
+
+      if($rootScope.levelTitleList[$rootScope.level - 1].time > $scope.timer){
+        mytimeout = $timeout($scope.onTimeout, 1000);
+       
+      } else {
+         reportshowfunc('failed');
+      }
       
-     if($scope.paused){
-         mytimeout = $timeout($scope.onTimeout, 1000);
-     }
+     // if($scope.paused){
+     //     mytimeout = $timeout($scope.onTimeout, 1000);
+     // }
 
     };
     // currently, no need
@@ -900,7 +908,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         }
       
       
-       if(correctcount>=20){
+       if(correctcount >=$rootScope.levelTitleList[$rootScope.level - 1].number){
         correctcount=0;
         $scope.starlists=[];
         $localStorage.pauseedflag='0';
@@ -916,7 +924,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           $localStorage.entershowflag=$scope.entershowflag;
           $localStorage.swipeshowflag=$scope.swipeshowflag;
 
-          reportshowfunc();
+          reportshowfunc('success');
           // $ionicNativeTransitions.stateGo('reportscreen', {}, {}, {
           //   "type": "slide",
           //   "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next') 
@@ -948,8 +956,18 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
   $scope.reportflag = false;
 
 
-  var reportshowfunc = function(){
+  var reportshowfunc = function(status){
     $scope.reportflag = true;
+    if(status == 'failed'){
+      $scope.reportTitlePng = "faliure_title.png";
+      $scope.continueFlag = false;
+      $scope.speedlists = ['img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
+      $scope.accuracylists = ['img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
+    } else {
+      $scope.continueFlag = true;
+      $scope.reportTitlePng = "success_title.png";
+    
+    
 
       if($rootScope.levelspeed == 100){
         $scope.speedlists = ['img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png', 'img/report/report_star.png'];
@@ -970,6 +988,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       } else if($rootScope.levelaccuracy > 0 && $rootScope.levelaccuracy <= 49){
         $scope.accuracylists = ['img/report/report_star.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
       }
+    }
 
       $timeout(function(){
         angular.element("#real-report").animate({top:-10+'%'},300, function(){

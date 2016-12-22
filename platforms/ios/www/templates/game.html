@@ -85,9 +85,10 @@
     <div class="report-main" ng-if="reportflag">
         <div id="real-report">
             <img src="img/report/report_ground.png" class="report-aa"/>
-            <img src="img/report/success_title.png" class="report-title"/>
+            <img src="img/report/{{reportTitlePng}}" class="report-title"/>
             <img src="img/report/report_back.png" class="report-icon" id="report-back" ng-click="removereportfunc('back')" />
-            <img src="img/report/report_continue.png" class="report-icon" id="report-continue" ng-click="removereportfunc('continue')" />
+            <img src="img/report/report_continue.png" class="report-icon" id="report-continue" ng-click="removereportfunc('continue')" ng-if="continueFlag" />
+            <img src="img/report/continue_faliure.png" class="report-icon" id="report-continue-failed" ng-if="!continueFlag" />
             <img src="img/report/report_exit.png" class="report-icon" id="report-exit" ng-click="removereportfunc('exit')" />
 
             <img src="{{list1}}" ng-repeat="list1 in speedlists track by $index" class="speedlists" id="speedlists{{$index}}" />

@@ -27,7 +27,9 @@
 #report-continue {
 	left: 45vw; top: 42vw;
 }
-
+#report-continue-failed {
+	left: 45vw; top: 42vw;
+}
 #report-exit {
 	left: 66vw; top: 42vw;
 }

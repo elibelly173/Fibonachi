@@ -14,7 +14,7 @@
 		</ion-content> -->
 
 
-		<ion-content class="mapview" delegate-handle="page1" scrollbar-y="false" on-scroll="scrollmap()">
+		<ion-content class="mapview" id="map-content" has-bouncing="true" delegate-handle="page1" scrollbar-y="false" on-scroll="scrollmap()">
 			
 			<div class="page1">
 				<!-- <div id="mapbar6" class="mapbar"></div> -->
@@ -22,15 +22,24 @@
         		
        			<img src="img/levelicon.png" id="locationimg" ng-style="animationfoot();"/>
 
-       			<!-- <div class="level-explain-main" ng-if="levelclickflag">
-			        <div id="real-explain">
-			            <img src="img/level/level_popup_ground.png" class="level-popup-aa"/>
-			            <img src="img/level/level_popup_title.png" class="level-popup-title"/>
-			            
-			        </div>
-			    </div> -->
+       			<!-- <div class="level-explain-main" ng-if="levelclickflag"> -->
+       			
 
 			</div>
+
+			
 		</ion-content>
+		<div class="level-explain-main" id="level-explain-main" ng-if="levelclickflag">
+			        <div id="real-explain">
+			            <img src="img/title/level_ground.png" class="level-popup-aa"/>
+			            <img src="img/title/level/level{{level}}.png" class="level-popup-title"/>
+			            <img src="img/title/contents/content{{level}}.png" class="level-popup-content"/>
+			            <img src="img/title/number{{levelTitleList[level].number}}.png" class="level-popup-targetnumber"/>
+			            <img src="img/title/number{{levelTitleList[level].time}}.png" class="level-popup-targettime"/>
+			            <img src="img/title/Continue.png" class="level-popup-continue" ng-click="gotoGameview()"/>
+			            <div class="level-popup-close" ng-click="onPopupClose()"></div>
+			            
+			        </div>
+			</div>
 		
 </ion-view>
