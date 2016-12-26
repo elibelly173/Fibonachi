@@ -284,7 +284,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
    $scope.listproblems=[0,1,2,3,4,5,6,7];
    $scope.listbuttons=[1,2,3,4,5,6,7,8,9,0];
    
-   $scope.arrowlists=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,,27,
+   $scope.arrowlists=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
       28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49];
     
    // $ionicNativeTransitions.enable(true);
@@ -362,7 +362,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           case 26: case 27:
             $scope.level26flag=true;
             break;
-          case 28:
+          case 28: case 29:
             $scope.level26flag=true;
             $scope.level28flag=true;
             break;
@@ -433,7 +433,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     var touch = e.originalEvent.changedTouches[0] || e.originalEvent.touches[0] || e.touches[0] || e.changedTouches[0];
      touchposx = touch.pageX;
      touchposy = touch.pageY;
-     if(touchposx > 44*$rootScope.vw) {
+     if(touchposx > 30*$rootScope.vw) {
         console.log("aaa");
        touchstartflag = true;
      }
@@ -444,7 +444,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     var touch = e.originalEvent.changedTouches[0] || e.originalEvent.touches[0] || e.touches[0] || e.changedTouches[0];
     var x = touch.pageX;
     var y = touch.pageY;
-    if(touchstartflag && x > 44 * $rootScope.vw) {
+    if(touchstartflag && x > 30 * $rootScope.vw) {
       if(Math.abs(y - touchposy) > 3 * $rootScope.vw) {
         // $scope.arryproblems[$scope.problemorder] = $scope.insteadarryproblems[$scope.problemorder];
         angular.element("#problem" + compareproblem + " .bottomfracproblem").animate({top : 0 +'px'},200,'linear');
@@ -593,13 +593,47 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
             var select26 = Math.floor(Math.random() * (1 + 1)) + 0;
             if(select26){
-              problem = JSON.parse(problemservice27.generateProblem($scope.level));
+              problem = JSON.parse(problemservice27.generateProblem(27));
             } else {
-              problem = JSON.parse(problemservice26.generateProblem($scope.level));
+              problem = JSON.parse(problemservice26.generateProblem(26));
             }
             
          
            insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
+      }
+      else if($scope.level==29){
+
+            var selectlevel = Math.floor(Math.random() * (29 - 23)) + 24;
+            
+              problem = JSON.parse(problemservice27.generateProblem($scope.level));
+                     
+           insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
+           switch(selectlevel){
+              case 24:
+                problem = JSON.parse(problemservice24.generateProblem(24));
+                insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom'>"+problem.forth+"</span></div>";
+                break;
+              case 25:
+                problem = JSON.parse(problemservice25.generateProblem(25));          
+                insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom'>"+problem.forth+"</span></div>";
+                break;
+              case 26:
+                problem = JSON.parse(problemservice26.generateProblem(26));          
+                insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.forth+"</span></div>";
+                break;
+              case 27:
+                problem = JSON.parse(problemservice27.generateProblem(27));          
+                insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.forth+"</span></div>";
+                break;
+              case 28:
+                problem = JSON.parse(problemservice27.generateProblem(27));
+                insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
+                break;
+              case 29:
+                problem = JSON.parse(problemservice26.generateProblem(26));
+                insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
+                break;
+           }
       }
 
         

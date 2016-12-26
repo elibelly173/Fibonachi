@@ -914,7 +914,8 @@ angular.module('starter.services', [])
 })
 .service('problemservice24', function($rootScope, $localStorage) {
     this.generateProblem= function( level){
-        var insteadlevel= $localStorage.level;
+        // var insteadlevel= $localStorage.level;
+        var insteadlevel= level;
         var selectlevel=insteadlevel;
         var selectaa=[];
         selectaa = generatenumber(selectlevel);
@@ -1002,7 +1003,8 @@ angular.module('starter.services', [])
 })
 .service('problemservice25', function($rootScope, $localStorage) {
     this.generateProblem= function( level){
-        var insteadlevel= $localStorage.level;
+        // var insteadlevel= $localStorage.level;
+        var insteadlevel= level;
         var selectlevel=insteadlevel;
         var selectaa=[];        
         selectaa = generatenumber(selectlevel);
@@ -1067,7 +1069,8 @@ angular.module('starter.services', [])
 })
 .service('problemservice26', function($rootScope, $localStorage) {
     this.generateProblem= function( level){
-        var insteadlevel= $localStorage.level;
+        // var insteadlevel= $localStorage.level;
+        var insteadlevel= level;
         var selectlevel=insteadlevel;
         var selectaa=[];        
         selectaa = generatenumber(selectlevel);
@@ -1135,7 +1138,8 @@ angular.module('starter.services', [])
 })
 .service('problemservice27', function($rootScope, $localStorage) {
     this.generateProblem= function( level){
-        var insteadlevel= $localStorage.level;
+        // var insteadlevel= $localStorage.level;
+        var insteadlevel= level;
         var selectlevel=insteadlevel;
         var selectaa=[];        
         selectaa = generatenumber(selectlevel);
