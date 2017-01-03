@@ -64,8 +64,14 @@
     </div>
     <!-- keyboard -->
     
-    <div id="keyadd" class="keypng3" ng-click="keyaddclick()" ng-if="axisflag === 0 && addflag"></div>
-    <div id="keydivide" class="keypng4" ng-click="keydivideclick()" ng-if="axisflag === 0 && fractionflag"></div>
+    <!-- <div id="keyadd" class="keypng3" ng-click="keyaddclick()" ng-if="axisflag === 0 && addflag"></div>
+    <div id="keydivide" class="keypng4" ng-click="keydivideclick()" ng-if="axisflag === 0 && fractionflag"></div> -->
+    <div id="keyadd" class="keypng3" ng-click="keyaddclick()"></div>
+    <div id="keydivide" class="keypng4" ng-click="keydivideclick()"></div>
+    <div id="keydecimal" class="keypng5" ng-click="keydecimalclick()"></div>
+    <div id="keyequal" class="keypng6" ng-click="compareclick('=')"></div>
+    <div id="keyright" class="keypng7" ng-click="compareclick('>')"></div>
+    <div id="keyleft" class="keypng8" ng-click="compareclick('<')"></div>
 
     <div class="keyboardcontaioner" ng-if="axisflag === 0">
 

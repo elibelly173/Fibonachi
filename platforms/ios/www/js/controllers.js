@@ -275,7 +275,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 })
 .controller('GameController', function($ionicHistory, $timeout, $ionicNativeTransitions, $scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $cordovaVibration, $window, $rootScope, $animate, $localStorage,
            problemservice, problemservice17, problemservice18, problemservice19, problemservice20, problemservice21, problemservice22,
-           problemservice23, problemservice24, problemservice25, problemservice26, problemservice27) {
+           problemservice23, problemservice24, problemservice25, problemservice26, problemservice27, problemservice30, problemservice31) {
    $scope.list1s=[0,1,2,3,4,5,6];
    $scope.list2s=[1,2,3,4];
    $scope.listlevel20 = [1,2];
@@ -341,7 +341,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         $scope.level26value = [1, 1, 1, 1, 1];
         // on level26, if click answerbox, you can't input answer
         $scope.keyenterclickedflag = true;
-
+        $scope.decimalFlag = false;
 
        $scope.problemorder = 0;
 
@@ -465,12 +465,12 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       
       $scope.timer++;
 
-      if($rootScope.levelTitleList[$rootScope.level - 1].time > $scope.timer){
-        mytimeout = $timeout($scope.onTimeout, 1000);
+      // if($rootScope.levelTitleList[$rootScope.level - 1].time > $scope.timer){
+      //   mytimeout = $timeout($scope.onTimeout, 1000);
        
-      } else {
-         reportshowfunc('failed');
-      }
+      // } else {
+      //    reportshowfunc('failed');
+      // }
       
      // if($scope.paused){
      //     mytimeout = $timeout($scope.onTimeout, 1000);
@@ -634,9 +634,17 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
                 insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
                 break;
            }
+      }else if($scope.level==30){
+        problem = JSON.parse(problemservice30.generateProblem($scope.level));
+         insteadpro = "<div class='normalfrac'><div class='top-numerator'><span>"+problem.first+"</span></div><div class='bottom-denominator'><span>"+problem.second+"</span></div></div>";
+        // insteadpro = "<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>";
+      }
+      else if($scope.level==31){
+        problem = JSON.parse(problemservice31.generateProblem($scope.level));
+        insteadpro=''+problem.first+problem.op+problem.second;
       }
 
-        
+        console.log("answer= " + problem.answer );
         solutionQueue.push(problem.answer);
         $scope.arryproblems.push(insteadpro);
         
@@ -839,6 +847,13 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
        $scope.insteadanswer= $scope.answer;
     }
+
+    $scope.keydecimalclick = function(){
+      if(!$scope.decimalFlag) {
+        $scope.answer +='.';
+        $scope.insteadanswer = $scope.answer;
+      }
+    }
     $scope.arrowclick= function(e){
 
       if(solutionQueue[0] <= (e+5) && solutionQueue[0] >= (e - 5)){
@@ -856,7 +871,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       if($scope.keyenterclickedflag){
         $scope.divideflag = false;
         $scope.insteadanswer = '';
-
+         $scope.decimalFlag = false;
         if($localStorage.enterclickflag == '0'){
             $localStorage.enterclickflag = '1';
             entertimefunc();

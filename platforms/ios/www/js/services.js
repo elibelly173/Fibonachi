@@ -1212,4 +1212,111 @@ angular.module('starter.services', [])
 
     }
 })
+.service('problemservice30', function($rootScope, $localStorage) {
+    this.generateProblem= function( level){
+        // var insteadlevel= $localStorage.level;
+        var insteadlevel= level;
+        var selectlevel=insteadlevel;
+        var selectaa=[];
+        selectaa = generatenumber(selectlevel);
+        
+       
+        var answer =''+selectaa[1]/selectaa[0];
+        if(answer.length > 4) {
+            answer =(selectaa[1]/selectaa[0]).toFixed(3);
+        }
+        
+
+
+        var problem={
+            first: selectaa[1],
+            second: selectaa[0],
+            answer: answer
+        }
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
+
+    }
+
+    var mathgcd = function(a, b){
+        while(b != 0){
+            var z= a % b;
+            a = b;
+            b = z
+        }
+        return a;
+    }
+    var generatenumber= function(selectlevel){
+        //number array for problem
+        var numbers=[];
+        var problems = [2, 3, 4, 5, 5, 10, 10, 10, 100, 100, 100, 100, 100, 100, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000];
+        do{
+            var select1= Math.floor(Math.random() * (21 + 1)) + 0;
+            
+        // first number of problem
+            numbers[0]=problems[select1];
+
+        
+            numbers[1]= Math.floor(Math.random() * ((numbers[0] - 1 ) - 0)) + 1;
+            
+
+        } while(mathgcd(numbers[1], numbers[0])!=1);
+        // get min and max value second number
+        
+        return numbers;
+        
+
+    }
+})
+.service('problemservice31', function($rootScope, $localStorage) {
+    this.generateProblem= function( level){
+        var insteadlevel= $localStorage.level;
+        var selectlevel=insteadlevel;
+        var selectaa=[];
+        
+        selectaa=generatenumber(selectlevel);
+        
+       
+        // if(signpos==0){
+            if(selectaa[0]/10 > selectaa[1]/100) {
+                answer='>';
+            } else if(selectaa[0]/10 == selectaa[1]/100){
+                answer= '='
+            } else {
+                answer='<';
+            }
+       
+        
+
+
+        var problem={
+            first: selectaa[0]/10,
+            second: selectaa[1]/100,
+            op: '___',
+            answer: answer
+        }
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
+
+    }   
+
+    var generatenumber= function(selectlevel){
+        //number array for problem
+        var numbers=[];
+        // first number of problem
+        numbers[0]=Math.floor(Math.random() * (9 - 0)) + 1;
+        
+        
+        // get min and max value second number
+        
+        numbers[1]= Math.floor(Math.random() * (99 - 0)) + 1;
+        return numbers;
+        
+
+    }
+})
 ;

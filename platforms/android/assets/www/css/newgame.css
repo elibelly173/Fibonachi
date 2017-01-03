@@ -7,12 +7,31 @@
 
 .keypng4{
 	position: absolute; background-size: 100% 100%; width: 7vw; height: 6vw; background-image: url("../img/divide.png");
-	bottom: 30vh; right: 1vw; z-index: 50;
+	bottom: 30vh; left: 1vw; z-index: 50;
 }
 
 .keypng3{
 	position: absolute; background-size: 100% 100%; width: 7vw; height: 6vw; background-image: url("../img/negative.png");
+	bottom: 18vh; left: 1vw; z-index: 50;
+}
+
+.keypng5 {
+	position: absolute; background-size: 100% 100%; width: 7vw; height: 6vw; background-image: url("../img/decimal.png");
+	bottom: 42vh; left: 1vw; z-index: 50;
+}
+.keypng7{
+	position: absolute; background-size: 100% 100%; width: 7vw; height: 8.5vw; background-image: url("../img/right.png");
+	bottom: 34vh; right: 1vw; z-index: 50;
+}
+
+.keypng6{
+	position: absolute; background-size: 100% 100%; width: 7vw; height: 8.5vw; background-image: url("../img/equal.png");
 	bottom: 18vh; right: 1vw; z-index: 50;
+}
+
+.keypng8 {
+	position: absolute; background-size: 100% 100%; width: 7vw; height: 8.5vw; background-image: url("../img/left.png");
+	bottom: 51vh; right: 1vw; z-index: 50;
 }
 .girlpng{
 	position: absolute; bottom: 14vh; width: 13.5vw; left: 72vw;
@@ -168,6 +187,35 @@
 	
 }
 
+
+
+
+
+
+.normalfrac { display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    letter-spacing: 0.001em;
+    text-align: center; width: 12vw; height: 8.5vw;
+}
+.normalfrac .top-numerator {
+    position: absolute; width: 100%; top: 0px;
+    text-align: center;
+}
+
+.normalfrac .bottom-denominator {
+    position: absolute; width: 100%; top: 4.4vw;
+    text-align: center;
+}
+
+.normalfrac .bottom-denominator >span{
+	border-top: 2px solid black;
+}
+
+
+.normalfrac span {
+	padding: 0.1em; display: inline-block;
+}
 
 .frac{
 	display: inline-block; position: relative; vertical-align: middle; text-align: center; letter-spacing: 0.001em; width: 7.5vw; height: 8.5vw;
