@@ -7,19 +7,19 @@
 
 .keypng4{
 	position: absolute; background-size: 100% 100%; width: 7vw; height: 6vw; background-image: url("../img/divide.png");
-	bottom: 30vh; left: 1vw; z-index: 50;
+	bottom: 30vh; right: 1vw; z-index: 50;
 }
 
 .keypng3{
 	position: absolute; background-size: 100% 100%; width: 7vw; height: 6vw; background-image: url("../img/negative.png");
-	bottom: 18vh; left: 1vw; z-index: 50;
+	bottom: 18vh; right: 1vw; z-index: 50;
 }
 
 .keypng5 {
 	position: absolute; background-size: 100% 100%; width: 7vw; height: 6vw; background-image: url("../img/decimal.png");
-	bottom: 42vh; left: 1vw; z-index: 50;
+	bottom: 42vh; right: 1vw; z-index: 50;
 }
-.keypng7{
+/*.keypng7{
 	position: absolute; background-size: 100% 100%; width: 7vw; height: 8.5vw; background-image: url("../img/right.png");
 	bottom: 34vh; right: 1vw; z-index: 50;
 }
@@ -32,7 +32,7 @@
 .keypng8 {
 	position: absolute; background-size: 100% 100%; width: 7vw; height: 8.5vw; background-image: url("../img/left.png");
 	bottom: 51vh; right: 1vw; z-index: 50;
-}
+}*/
 .girlpng{
 	position: absolute; bottom: 14vh; width: 13.5vw; left: 72vw;
 }
@@ -158,8 +158,8 @@
 
 #enterclick1{
 	width: 17vw; height: 11vw;  background-image: url(../img/new/answer.png); background-repeat: no-repeat; background-size: 100% 100%;
-	display: flex; align-items: center; justify-content: center; font-size: 4.5vw; position: absolute; 
-	left: 58%;  z-index: 50; bottom: calc(8vw - 7vh); bottom: -webkit-calc(8vw - 7vh);
+	display: flex; align-items: center; justify-content: center;  position: absolute; 
+	left: 58%;  z-index: 50; bottom: calc(8vw - 7vh); bottom: -webkit-calc(8vw - 7vh); /*font-size: 4.5vw;*/ font-size: 4vw;
 }
 #enterclick1 p{
 	margin-left: -4vw; margin-bottom: 0px;
@@ -170,7 +170,7 @@
 	display: flex; align-items: center; justify-content: center;  position: absolute; 
     background: transparent; border-color: transparent; 
     transition:bottom 1s ease-in,width .2s ease-in,height .2s ease-in,border-color .2s ease-in,font-size .2s ease-in;
-    /*font-size: 5vw;*/  font-size: 4.5vw;
+    font-size: 4vw;  /*font-size: 4.5vw;*/
 }
 
 #question{
@@ -180,7 +180,7 @@
 	left: 24%; z-index: 50; bottom: calc(8vw - 7vh); bottom: -webkit-calc(8vw - 7vh);
 }
 #question1{
-	width: 29vw; height: 11vw; display: flex; align-items: center; justify-content: center; font-size: 5vw; position: absolute;
+	/*width: 29vw;*/ width: 31vw; height: 11vw; display: flex; align-items: center; justify-content: center; font-size: 5vw; position: absolute;
 	background-image: url(../img/new/problem.png); background-color: transparent; border-radius: 0px !important;
 	border: 0px solid transparent; background-repeat: no-repeat; background-size: 100% 100%; 
 	left: 24%; z-index: 50; bottom: calc(8vw - 7vh); bottom: -webkit-calc(8vw - 7vh);

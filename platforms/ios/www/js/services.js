@@ -1319,4 +1319,54 @@ angular.module('starter.services', [])
 
     }
 })
+.service('problemservice32', function($rootScope, $localStorage) {
+    this.generateProblem= function( level){
+        var insteadlevel= $localStorage.level;
+        var selectlevel=insteadlevel;
+        var selectaa=[];
+        
+        selectaa=generatenumber(selectlevel);
+        
+        var problem={
+            first: selectaa[0],
+            second: selectaa[1],
+            op: 'x',
+            answer: selectaa[2]
+        }
+        // return JSON.stringify(problem);
+        if($localStorage.levelTime){
+            return JSON.stringify(problem);
+        } 
+
+    }   
+
+    var generatenumber= function(selectlevel){
+        //number array for problem
+        var numbers=[];
+        var firstNumber, secondNumber, firstPow, secondPow;
+        var answer;
+        do {
+            // first number of problem
+            firstNumber=Math.floor(Math.random() * (9 - 1)) + 2;
+            
+            
+            // get min and max value second number
+            
+            secondNumber= Math.floor(Math.random() * (20 - 1)) + 2;
+            firstPow= Math.floor(Math.random() * (3 - 0)) + 1;
+            secondPow= Math.floor(Math.random() * (3 - 0)) + 1;
+
+            numbers[0] = firstNumber/Math.pow(10, firstPow);
+            numbers[1] = secondNumber/Math.pow(10, secondPow);
+
+            answer = numbers[0] * numbers[1];
+            numbers[2] = answer;
+
+
+        } while(firstNumber * secondNumber>99 || answer<0.001);
+        return numbers;
+        
+
+    }
+})
 ;

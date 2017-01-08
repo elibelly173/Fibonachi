@@ -123,7 +123,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
       
       $rootScope.level=e;
-      $localStorage.levelTime=$rootScope.levelTitleList[e].time;
+      $localStorage.levelTime=$rootScope.levelTitleList[e-1].time;
       $localStorage.level=e;
       $scope.levelclickflag = true;
       $scope.mapScrollFlag =false;
@@ -275,7 +275,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 })
 .controller('GameController', function($ionicHistory, $timeout, $ionicNativeTransitions, $scope, $stateParams, $state, $ionicScrollDelegate, $timeout, $interval, $cordovaVibration, $window, $rootScope, $animate, $localStorage,
            problemservice, problemservice17, problemservice18, problemservice19, problemservice20, problemservice21, problemservice22,
-           problemservice23, problemservice24, problemservice25, problemservice26, problemservice27, problemservice30, problemservice31) {
+           problemservice23, problemservice24, problemservice25, problemservice26, problemservice27, problemservice30, problemservice31, problemservice32) {
    $scope.list1s=[0,1,2,3,4,5,6];
    $scope.list2s=[1,2,3,4];
    $scope.listlevel20 = [1,2];
@@ -328,6 +328,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
        $scope.fractionflag = false;
        $scope.addflag = false;
        $scope.rightanswerflag = false;
+       $scope.deciamlflag = false;
 
     //  flags for fraction design effect (level 26)
         // when clicked level 26, true
@@ -356,7 +357,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           case 22:
             $scope.axisflag=2;
             break;
-          case 23:
+          case 23: case 31:
             $scope.axisflag=3;
             break;
           case 26: case 27:
@@ -366,17 +367,19 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
             $scope.level26flag=true;
             $scope.level28flag=true;
             break;
-
+          case 30: case 32:
+            $scope.deciamlflag = true;
+            break;
        }
 
        if($scope.level>20){
         $scope.addop=0;
        }
-       if($scope.level>=20){
+       if($scope.level>=20 && $scope.level<31){
         $scope.fractionflag=true;
        }
 
-       if($scope.level>12){
+       if($scope.level>=12){
         $scope.addflag=true;
        }
 
@@ -453,6 +456,32 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         firstclickedflag = true;
       }
     }
+  }
+
+
+  $scope.onTouchDotStart = function(e) {
+    e.preventDefault();
+    var touch = e.originalEvent.changedTouches[0] || e.originalEvent.touches[0] || e.touches[0] || e.changedTouches[0];
+     var x = touch.pageX;
+     var y = touch.pageY;
+     
+   
+  }
+  $scope.onTouchDotEnd = function(e) {
+    e.preventDefault();
+    var touch = e.originalEvent.changedTouches[0] || e.originalEvent.touches[0] || e.touches[0] || e.changedTouches[0];
+    var x = touch.pageX;
+    var y = touch.pageY;
+    
+  }
+
+  $scope.onTouchDotMove = function(e) {
+    e.preventDefault();
+    var touch = e.originalEvent.changedTouches[0] || e.originalEvent.touches[0] || e.touches[0] || e.changedTouches[0];
+    var x = touch.pageX;
+    var y = touch.pageY;
+    console.log("touch-move"+x);
+    
   }
 
 
@@ -642,6 +671,10 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       else if($scope.level==31){
         problem = JSON.parse(problemservice31.generateProblem($scope.level));
         insteadpro=''+problem.first+problem.op+problem.second;
+      }else if($scope.level==32){
+        problem = JSON.parse(problemservice32.generateProblem($scope.level));
+        
+        insteadpro=''+problem.first+problem.op+problem.second;
       }
 
         console.log("answer= " + problem.answer );
@@ -711,13 +744,13 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       if($scope.level==25){
         animcss= {
           'top': 85*$rootScope.vh - 21*$rootScope.vw,
-          'left': '30vw',
+          'left': '31vw',
           'z-index': 52
         };
       } else if($scope.level !=25 && $scope.fractionflag){
         animcss= {
           'top': 85*$rootScope.vh - 21*$rootScope.vw,
-          'left': '30vw',
+          'left': '31vw',
           'z-index': 52,
           'transition': 'all 700ms',
           'transition-timing-function': 'linear'
@@ -725,7 +758,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       } else {
         animcss= {
           'top': 85*$rootScope.vh - 17.5*$rootScope.vw,
-          'left': '30vw',
+          'left': '31vw',
           'z-index': 52,
           'transition': 'all 700ms',
           'transition-timing-function': 'linear'
@@ -848,12 +881,21 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
        $scope.insteadanswer= $scope.answer;
     }
 
+    // $scope.keydecimalclick = function(){
+    //   if(!$scope.decimalFlag) {
+    //     $scope.answer +='.';
+    //     $scope.insteadanswer = $scope.answer;
+    //   }
+    // }
+
     $scope.keydecimalclick = function(){
       if(!$scope.decimalFlag) {
+        // $scope.answer +='<span>.</span>';
         $scope.answer +='.';
         $scope.insteadanswer = $scope.answer;
       }
     }
+
     $scope.arrowclick= function(e){
 
       if(solutionQueue[0] <= (e+5) && solutionQueue[0] >= (e - 5)){
