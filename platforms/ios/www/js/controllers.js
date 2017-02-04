@@ -1,8 +1,22 @@
 angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate', 'ngSanitize', 'ionic-native-transitions'])
-.controller('StartviewController', function($scope, $stateParams, $state,$timeout, $ionicNativeTransitions) {
+.controller('StartviewController', function($scope, $stateParams, $state,$timeout, $ionicNativeTransitions, $window) {
   $scope.mapflag=false;
+
+  var devicewidth=$window.innerWidth; 
+  var deviceheight=$window.innerHeight;
+  if((devicewidth/deviceheight) > (1334/750)){
+    $scope.videoDeviceFlag = true;
+  } else {
+    $scope.videoDeviceFlag = false;
+  }
+
     $scope.startclcik = function(){
-      $scope.videoflag= true;
+      //in android "playimage"
+      $scope.videoPreviewFlag= true;
+      $timeout(function() {
+        $scope.videoflag= true;
+        }, 800);
+      
       $timeout(function() {
         if(!$scope.mapflag){
           $scope.gotomapview();
@@ -160,6 +174,9 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     }
 
     $scope.$on("$ionicView.enter", function(event, data){
+
+      $rootScope.completedlevel = $localStorage.completedlevel;
+      // $rootScope.completedlevel = 32;
       // if($localStorage.completedlevel ){
           if(Number($localStorage.completedlevel) > Number($localStorage.level)){
 
@@ -305,6 +322,10 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
        
        // list of answer
        var solutionQueue = [];
+
+       //In level 24 ~ 27 when denomenator is equal to 1, we should remove denomenator from fraction.
+       $scope.denometor111 = [];
+
        var mytimeout, myproblemtime;
        var keytime, entertime, swipetime;
        var count=0;
@@ -329,6 +350,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
        $scope.addflag = false;
        $scope.rightanswerflag = false;
        $scope.deciamlflag = false;
+       $scope.cloud25flag = false;
+       $scope.bubbleAnswerFlag = false;
+
+
+       $scope.fiboballFlag = false;
 
     //  flags for fraction design effect (level 26)
         // when clicked level 26, true
@@ -353,12 +379,18 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
             break;
           case 21:
             $scope.axisflag=1;
+            $scope.bubbleAnswerFlag = true;
             break;
           case 22:
             $scope.axisflag=2;
+            $scope.bubbleAnswerFlag = true;
             break;
           case 23: case 31:
             $scope.axisflag=3;
+            break;
+          case 25:
+            $scope.cloud25flag=true;
+            $scope.level26flag=true;
             break;
           case 26: case 27:
             $scope.level26flag=true;
@@ -414,6 +446,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         $scope.problemorder = Number($localStorage.problemorder);
         $scope.insteadarryproblems = $localStorage.insteadarryproblems;
         solutionQueue = $localStorage.solutionQueue;
+        $scope.denometor111 = $localStorage.denometor111;
         correctcount = Number($localStorage.correctcount);
         $scope.question = $scope.arryproblems[0];
         compareproblem=$localStorage.compareproblem;
@@ -487,12 +520,46 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
 
 
-   
+   $scope.onTimerColor = function (){
+      if($scope.timer<($rootScope.levelTitleList[$rootScope.level - 1].time -10)){
+        return {"color": 'green'};
+      } 
+      // else if( ($rootScope.levelTitleList[$rootScope.level - 1].time -10) < $scope.timer<$rootScope.levelTitleList[$rootScope.level - 1].time) {
+      //   return {"color": "yellow"};
+      // } 
+      else if( $rootScope.levelTitleList[$rootScope.level - 1].time <= $scope.timer) {
+        return {"color": "yellow"};
+      } 
+
+      // if($scope.timer<5){
+      //   return {"color": 'green'};
+      // } 
+      // else if( 5 <= $scope.timer<10) {
+      //   return {"color": "yellow"};
+      // } 
+      
+   }
 
    
     $scope.onTimeout = function() {
       
       $scope.timer++;
+
+      // console.log($rootScope.levelTitleList[$rootScope.level - 1].time);
+      // console.log($scope.timer);
+      if($scope.timer<($rootScope.levelTitleList[$rootScope.level - 1].time -10)){
+        $scope.timer_color = "greencolor";
+        // console.log("greencolor");
+      } else if( ($rootScope.levelTitleList[$rootScope.level - 1].time - 10) <= $scope.timer && $scope.timer < $rootScope.levelTitleList[$rootScope.level - 1].time) {
+        $scope.timer_color = "yellowcolor";
+        
+      } else if( $rootScope.levelTitleList[$rootScope.level - 1].time <= $scope.timer) {
+        $scope.timer_color = "redcolor";
+        
+      } 
+
+      
+      
 
       // if($rootScope.levelTitleList[$rootScope.level - 1].time > $scope.timer){
       //   mytimeout = $timeout($scope.onTimeout, 1000);
@@ -501,9 +568,9 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       //    reportshowfunc('failed');
       // }
       
-     // if($scope.paused){
-     //     mytimeout = $timeout($scope.onTimeout, 1000);
-     // }
+     if($scope.paused){
+         mytimeout = $timeout($scope.onTimeout, 1000);
+     }
 
     };
     // currently, no need
@@ -589,34 +656,53 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       }else if($scope.level==20){
         problem = JSON.parse(problemservice20.generateProblem($scope.level));
         
-        insteadpro = "<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>";
+        insteadpro = "<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>";
       }else if($scope.level==21){
         problem = JSON.parse(problemservice21.generateProblem($scope.level));
         
-        insteadpro = "<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>";
+        insteadpro = "<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>";
       } else if($scope.level==22){
         problem = JSON.parse(problemservice22.generateProblem($scope.level));
        
-        insteadpro =problem.op + "<div class='frac'  class='topfrac'><span>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>";
+        insteadpro =problem.op + "<div class='frac'  class='topfrac'><span>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>";
       }
       else if($scope.level==23){
         problem = JSON.parse(problemservice23.generateProblem($scope.level));
-        insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>"+"<div class='compareop'>___</div>"+"<div class='frac'><span class='topfrac'>1</span><hr class='hr-line'><span class='bottom'>2</span></div>";
+        insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>"+"<div class='compareop'>___</div>"+"<div class='frac'><span class='topfrac'>1</span><div class='hr-line'></div><span class='bottom'>2</span></div>";
       } else if($scope.level==24){
         problem = JSON.parse(problemservice24.generateProblem($scope.level));
-          insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom'>"+problem.forth+"</span></div>";
+
+        if(problem.second == 1){
+          insteadpro ="<div class='frac_1'>"+problem.first+"</div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+        } else {
+          insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+        }
+        
       }
       else if($scope.level==25){
-        problem = JSON.parse(problemservice25.generateProblem($scope.level));          
-          insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom'>"+problem.forth+"</span></div>";
+        problem = JSON.parse(problemservice25.generateProblem($scope.level));
+        if(problem.second == 1){
+          insteadpro ="<div class='frac_1'>"+problem.first+"</div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+        } else {
+          insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+        }          
+        
       }
       else if($scope.level==26){
         problem = JSON.parse(problemservice26.generateProblem($scope.level));          
-           insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.forth+"</span></div>";
+        if(problem.second == 1){
+          insteadpro ="<div class='frac_1'>"+problem.first+"</div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+        } else {
+          insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+        }         
       }
       else if($scope.level==27){
         problem = JSON.parse(problemservice27.generateProblem($scope.level));          
-           insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.forth+"</span></div>";
+        if(problem.second == 1){
+          insteadpro ="<div class='frac_1'>"+problem.first+"</div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+        } else {
+          insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+        }         
       }
       else if($scope.level==28){
 
@@ -628,7 +714,11 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
             }
             
          
-           insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
+           if(problem.second == 1){
+              insteadpro ="<div class='frac_1'>"+problem.first+"</div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+            } else {
+              insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+            }         
       }
       else if($scope.level==29){
 
@@ -636,37 +726,53 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
             
               problem = JSON.parse(problemservice27.generateProblem($scope.level));
                      
-           insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
+           insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><div class='hr-line'></div><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
            switch(selectlevel){
               case 24:
                 problem = JSON.parse(problemservice24.generateProblem(24));
-                insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom'>"+problem.forth+"</span></div>";
+                if(problem.second == 1){
+                  insteadpro ="<div class='frac_1'>"+problem.first+"</div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+                } else {
+                  insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+                }         
                 break;
               case 25:
                 problem = JSON.parse(problemservice25.generateProblem(25));          
-                insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom'>"+problem.forth+"</span></div>";
+                if(problem.second == 1){
+                  insteadpro ="<div class='frac_1'>"+problem.first+"</div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+                } else {
+                  insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+                }         
                 break;
               case 26:
                 problem = JSON.parse(problemservice26.generateProblem(26));          
-                insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.forth+"</span></div>";
+                if(problem.second == 1){
+                  insteadpro ="<div class='frac_1'>"+problem.first+"</div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+                } else {
+                  insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+                }         
                 break;
               case 27:
                 problem = JSON.parse(problemservice27.generateProblem(27));          
-                insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" +problem.op  + "<div class='frac'><span class='topfrac'>"+problem.third+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.forth+"</span></div>";
+                if(problem.second == 1){
+          insteadpro ="<div class='frac_1'>"+problem.first+"</div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+        } else {
+          insteadpro ="<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" +problem.op+ "<div class='frac'><span class='topfrac'>"+problem.third+"</span><div class='hr-line'></div><span class='bottom'>"+problem.forth+"</span></div>";
+        }         
                 break;
               case 28:
                 problem = JSON.parse(problemservice27.generateProblem(27));
-                insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
+                insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><div class='hr-line'></div><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
                 break;
               case 29:
                 problem = JSON.parse(problemservice26.generateProblem(26));
-                insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
+                insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><div class='hr-line'></div><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
                 break;
            }
       }else if($scope.level==30){
         problem = JSON.parse(problemservice30.generateProblem($scope.level));
          insteadpro = "<div class='normalfrac'><div class='top-numerator'><span>"+problem.first+"</span></div><div class='bottom-denominator'><span>"+problem.second+"</span></div></div>";
-        // insteadpro = "<div class='frac'><span  class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>";
+        // insteadpro = "<div class='frac'><span  class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>";
       }
       else if($scope.level==31){
         problem = JSON.parse(problemservice31.generateProblem($scope.level));
@@ -679,6 +785,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
         console.log("answer= " + problem.answer );
         solutionQueue.push(problem.answer);
+        $scope.denometor111.push(problem.second);
         $scope.arryproblems.push(insteadpro);
         
         if($scope.arryproblems.length == 1) {
@@ -743,13 +850,13 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     if( e == compareproblem){
       if($scope.level==25){
         animcss= {
-          'top': 85*$rootScope.vh - 21*$rootScope.vw,
+          'top': 83*$rootScope.vh - 21*$rootScope.vw,
           'left': '31vw',
           'z-index': 52
         };
       } else if($scope.level !=25 && $scope.fractionflag){
         animcss= {
-          'top': 85*$rootScope.vh - 21*$rootScope.vw,
+          'top': 83*$rootScope.vh - 21*$rootScope.vw,
           'left': '31vw',
           'z-index': 52,
           'transition': 'all 700ms',
@@ -757,7 +864,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         };
       } else {
         animcss= {
-          'top': 85*$rootScope.vh - 17.5*$rootScope.vw,
+          'top': 83*$rootScope.vh - 17.5*$rootScope.vw,
           'left': '31vw',
           'z-index': 52,
           'transition': 'all 700ms',
@@ -803,6 +910,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       $localStorage.pauseedlevel=$localStorage.level;
       $localStorage.correctcount=correctcount;
       $localStorage.solutionQueue=solutionQueue;
+      $localStorage.denometor111 = $scope.denometor111;
       $localStorage.arryproblems=$scope.arryproblems;
       $localStorage.problemorder=$scope.problemorder;
       $localStorage.insteadarryproblems=$scope.insteadarryproblems;
@@ -820,13 +928,14 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
 
     $scope.divideflag = false;
 
-    // insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><hr class='hr-line'><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><hr class='hr-line'><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
+    // insteadpro ="<div class='frac'><span class='topfrac'>"+problem.first+"</span><div class='hr-line'></div><span class='bottom'>"+problem.second+"</span></div>" + "<div class='frac-op'>&divide</div>"  + "<div class='frac'><span class='topfrac topfracproblem'>"+problem.forth+"</span><div class='hr-line'></div><span class='bottom bottomfracproblem'>"+problem.third+"</span></div>";
 
     $scope.keydivideclick= function(){
       if($scope.divideflag == false){
         $scope.divideflag = true;
         $scope.insteadanswer = '';
-        $scope.insteadanswer="<div class='frac'><span class='topfrac'>"+$scope.answer+"</span><hr class='hr-line'><span class='bottom'>"+"</span></div>";
+        // $scope.insteadanswer= "<div class='normalfrac'><div class='top-numerator'><span>"+$scope.answer+"</span></div><div class='bottom-denominator'><span>"+"</span></div></div>";
+        $scope.insteadanswer="<div class='frac'><span class='topfrac'>"+$scope.answer+"</span><div class='hr-line'></div><span class='bottom'>"+"</span></div>";
         $scope.answer += '/';
       }
       
@@ -859,7 +968,8 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         if($scope.divideflag){
           var value = $scope.answer.split("/");
           $scope.insteadanswer = '';
-          $scope.insteadanswer="<div class='frac'><span class='topfrac'>"+value[0]+"</span><hr class='hr-line'><span class='bottom'>"+value[1]+"</span></div>";
+          $scope.insteadanswer= "<div class='normalfrac'><div class='top-numerator'><span>"+value[0]+"</span></div><div class='bottom-denominator'><span>"+value[1]+"</span></div></div>";
+          // $scope.insteadanswer="<div class='frac'><span class='topfrac'>"+value[0]+"</span><div class='hr-line'></div><span class='bottom'>"+value[1]+"</span></div>";
         } else {
           $scope.insteadanswer = $scope.answer;
         }
@@ -948,10 +1058,25 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
     var countUp = function() {
         animimagecount +=1;
         $scope.achiimage = "img/achianim/achiAnim"+animimagecount+".png";
-        if(animimagecount <15){
-          $timeout(countUp, 50);
+        if(animimagecount <10){
+          $timeout(countUp, 70);
         } else {
           animimagecount = 1;
+        }
+        
+    }
+
+
+
+    var fiboAnimCount=1;
+    $scope.fiboimage = "img/fiboanim/fiboanim1.png";
+    var countFiboUp = function() {
+        fiboAnimCount +=1;
+        $scope.fiboimage = "img/fiboanim/fiboanim"+fiboAnimCount+".png";
+        if(fiboAnimCount <10){
+          $timeout(countFiboUp, 50);
+        } else {
+          fiboAnimCount = 1;
         }
         
     }
@@ -1005,7 +1130,10 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
         $localStorage.pauseedflag='0';
           // $localStorage.clear();
           if(Number($localStorage.completedlevel) <= Number($localStorage.level) || !$localStorage.completedlevel){
-            $localStorage.completedlevel = Number($localStorage.level)+1;
+            if($rootScope.levelspeed == 100 && $rootScope.levelaccuracy == 100){
+              $localStorage.completedlevel = Number($localStorage.level)+1;
+            }
+            
             
           }
 
@@ -1023,6 +1151,7 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
           // });
        }
       solutionQueue.shift();
+      $scope.denometor111.shift();
       stackSize--;
       makeproblem();
         
@@ -1034,10 +1163,19 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       //   correctcount-=1;
       // }
       levelerrorcount ++;
+      $scope.fiboballFlag = true;
+      $timeout(function(){
+        angular.element("#fibo_ball").animate({top:28+'%'},100, function(){
+            $scope.fiboballFlag = false;
+            $timeout(countFiboUp, 50);
+            $cordovaVibration.vibrate(100);
+        });
+      }, 20);   
+
       
       // $scope.starlists.splice(correctcount,1);
       $scope.answer = '';
-      $cordovaVibration.vibrate(100);
+      
     }
 
 
@@ -1055,7 +1193,12 @@ angular.module('starter.controllers', ['ionic','ngStorage','ngLoad', 'ngAnimate'
       $scope.speedlists = ['img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
       $scope.accuracylists = ['img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png', 'img/report/outline.png'];
     } else {
-      $scope.continueFlag = true;
+      if(Number($localStorage.completedlevel) > $scope.level){
+        $scope.continueFlag = true;
+      } else {
+        $scope.continueFlag = false;
+      }
+      
       $scope.reportTitlePng = "success_title.png";
     
     

@@ -20,7 +20,7 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services','ng
       cordova.plugins.Keyboard.disableScroll(true);
     }
     if(window.StatusBar) {
-      StatusBar.styleDefault();
+      StatusBar.hide();
     }
   });
 })

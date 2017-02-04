@@ -44,14 +44,14 @@
     </array>
     <key>UIRequiresFullScreen</key>
     <true/>
+    <key>UIInterfaceOrientation</key>
+    <array>
+      <string>UIInterfaceOrientationLandscapeLeft</string>
+    </array>
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSAllowsArbitraryLoads</key>
       <true/>
     </dict>
-    <key>UIInterfaceOrientation</key>
-    <array>
-      <string>UIInterfaceOrientationLandscapeLeft</string>
-    </array>
   </dict>
 </plist>

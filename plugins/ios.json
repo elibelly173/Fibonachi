@@ -7,9 +7,6 @@
         "files": {}
     },
     "installed_plugins": {
-        "com.telerik.plugins.nativepagetransitions": {
-            "PACKAGE_NAME": "com.ionicframework.myapp850516"
-        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ionicframework.myapp850516"
         },
@@ -30,11 +27,10 @@
         },
         "jaeger.Html5Video": {
             "PACKAGE_NAME": "com.ionicframework.myapp850516"
-        }
-    },
-    "dependent_plugins": {
-        "cordova-plugin-webserver": {
+        },
+        "com.telerik.plugins.nativepagetransitions": {
             "PACKAGE_NAME": "com.ionicframework.myapp850516"
         }
-    }
+    },
+    "dependent_plugins": {}
 }

@@ -18,7 +18,7 @@
 			
 			<div class="page1">
 				<!-- <div id="mapbar6" class="mapbar"></div> -->
-        		<div id="mapcircle{{mapbarlist}}" class="mapcircle" ng-click="levelclick({{mapbarlist}})" ng-repeat="mapbarlist in mapbarlists">{{mapbarlist}}</div>
+        		<div id="mapcircle{{mapbarlist}}"  ng-click="levelclick({{mapbarlist}})" ng-class="completedlevel > mapbarlist? 'mapcircle2' : 'mapcircle'" ng-repeat="mapbarlist in mapbarlists">{{mapbarlist}}</div>
         		
        			<img src="img/levelicon.png" id="locationimg" ng-style="animationfoot();"/>
 

@@ -8,6 +8,9 @@
 .mapcircle{position: absolute;font-size: 4.5vw; width: 9vw;height: 9vw;border-radius: 5vw;background: white;
 	color: black; border:1vw #e0e0df solid; /*text-align: center;*/ font-weight: bold; z-index: 100; 
 	display: flex; align-items: center; justify-content: center;}
+.mapcircle2{position: absolute;font-size: 4.5vw; width: 9vw;height: 9vw;border-radius: 5vw;background: white;
+	color: black; border:1vw red solid; /*text-align: center;*/ font-weight: bold; z-index: 100; 
+	display: flex; align-items: center; justify-content: center; box-shadow: 0px 0px 40px -3px #faf6c0; background-color:rgba(254,251,219,1);}
 .mapbar{position: absolute;height: 1.2vh;background: white; /*width: 20vw;*/}
 .moveleft{left:calc(20vw + 2.8vh); left:-webkit-calc(20vw + 2.8vh);}
 .moveright{left:calc(45vw + 2.8vh); left:-webkit-calc(45vw + 2.8vh); }
@@ -58,14 +61,14 @@
 
 
 .startmain{
-	width: 100vw; height: 100vh; background: url("../img/start.jpg"); background-repeat: no-repeat;
+	width: 100vw; height: 100vh; background: url("../img/start.png"); background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 
 .startbutton{
 	position: absolute; 
-	/*left: 53vw; top: 82vh; width: 10vw;*/
-	left: 46.5vw; top: 82vh; width: 23vw; padding: 0px 6vw; padding-bottom: 5vh;
+	/*left: 53vw; top: 82vh; width: 10vw; padding: 0px 6vw; padding-bottom: 5vh;*/
+	left: 43.5vw; top: 75.5vh; width: 25vw;  
 }
 
 .videoclass{
@@ -76,7 +79,16 @@
 }
 
 
-.over-lay{
+.cut-video{
+	width: 102vw; 
+}
+
+.cut-video1{
+	height: 100vh; 
+}
+
+
+/*.over-lay{
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -91,7 +103,7 @@ video{
     width: 100vw; height: 100vh; z-index: -100;
     background: url(polina.jpg) no-repeat;
     background-size: cover;
-}
+}*/
 
 
 

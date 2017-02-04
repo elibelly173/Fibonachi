@@ -3,7 +3,7 @@
     <!-- top bar -->
     <div class="topBar">
         <img src="img/new/home.png"  id="back" ng-click="clikedpause()"/>
-        <p id="time">{{timer}}</p>
+        <p id="time" class="{{timer_color}}">{{timer}}</p>
         <p id="score">{{score}}</p>
         <p id="highscore">{{level}}</p>
         
@@ -46,12 +46,21 @@
        
         <div id="question" ng-if="fractionflag"></div>
         <div id="question1" ng-if="!fractionflag"></div>
-        <div id="fraction-click" ng-if="level26flag" ng-touchstart="touchstart($event)" ng-touchend="touchend($event)">
+        <div id="fraction-click" ng-if="level26flag && denometor111[0]!=1" ng-touchstart="touchstart($event)" ng-touchend="touchend($event)">
             <div class="cross-line" id="crossline{{list1}}" ng-repeat="list1 in list2s" ng-if="questionboxflag[list1]"></div>
             <div class="answer-box" id="answerbox{{list1}}" ng-repeat="list1 in list2s" ng-if="questionboxflag[list1]" ng-click="answerboxclicked({{list1}})">{{level26value[list1]}}</div>
             <div class="question-box" id="questionbox{{list1}}" ng-repeat="list1 in list2s" ng-click="questionboxclicked({{list1}})"></div>
             <div class="sign-box" id="sign-box" ng-click="signboxclicked()" ng-if="level28flag"></div>
         </div>
+
+        <div id="fraction-click" ng-if="level26flag && denometor111[0]==1" ng-touchstart="touchstart($event)" ng-touchend="touchend($event)">
+            <div class="cross-line" id="crosslineDen{{list1}}" ng-repeat="list1 in list2s" ng-if="questionboxflag[list1]"></div>
+            <div class="answer-box" id="answerboxDen{{list1}}" ng-repeat="list1 in list2s" ng-if="questionboxflag[list1]" ng-click="answerboxclicked({{list1}})">{{level26value[list1]}}</div>
+            <div class="question-box" id="questionboxDen{{list1}}" ng-repeat="list1 in list2s" ng-click="questionboxclicked({{list1}})"></div>
+            <div class="sign-box" id="sign-box" ng-click="signboxclicked()" ng-if="level28flag"></div>
+        </div>
+
+
 
         <div id="fraction-click" ng-if="level20flag">
             <div class="cross-line" id="crossline20{{list1}}" ng-repeat="list1 in listlevel20" ng-if="questionboxflag[list1]"></div>
@@ -63,7 +72,7 @@
         <img src="img/hand.png" id="enterpng" ng-if="entershowflag=='1' && level == 1">
         <div id="swipecss" ng-if="swipeshowflag=='1'">swipe to delete</div>
         <img src="img/hand.png" id="swipepng" ng-if="swipeshowflag=='1'">
-        <div id="enterclick" ng-if="fractionflag" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()">
+        <div id="enterclick" ng-if="fractionflag && !bubbleAnswerFlag" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()">
             <p ng-bind-html="insteadanswer"></p>
         </div>
         <!-- <div id="enterclick1" ng-if="!fractionflag" ng-click="enter()" on-swipe-left="swipefunc()" on-swipe-right="swipefunc()" ng-touchstart="onTouchDotStart($event)" ng-touchend="onTouchDotEnd($event)" ng-touchmove="onTouchDotMove($event)">
@@ -95,13 +104,16 @@
         </div>
     </div>
 
-    <img src="img/girl.png" class="girlpng">
+    <!-- <img src="img/girl.png" class="girlpng"> -->
     <img ng-src="{{achiimage}}" class="catpng">
+    <img ng-src="{{fiboimage}}" class="girlpng">
+    <!-- <img src="img/fiboanim/fibo_ball.png" class="fibo_ball" ng-if="fiboballFlag"> -->
+    <img src="img/fiboanim/fibo_ball.png" id="fibo_ball" class="fibo_ball" ng-if="fiboballFlag">
     
     <img src="img/left1.png" class="left1png">
     <img src="img/right1.png" class="right2png">
-    <img src="img/cloud.png" class="cloudpng">
-    <img src="img/new/star1.png" ng-repeat="starlist in starlists" class="starimg" id="starimg{{$index}}">
+    <img src="img/cloud.png" class="cloudpng" ng-if="!cloud25flag">
+    <img src="img/ticks/tick{{$index+1}}.png" ng-repeat="starlist in starlists" class="starimg" id="starimg{{$index}}">
 
     <div class="report-main" ng-if="reportflag">
         <div id="real-report">

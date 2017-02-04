@@ -95,9 +95,9 @@
 .topBar #time{position:absolute;right:67.5%;top:8px;margin:0;font-size:3vw;font-weight:bold; color: black;}
 
 .topBar #highscore{position:absolute; right:25%; top:8px; margin:0; font-weight:bold; color: black; font-size: 3vw;}
-.topBar #score{position:absolute; left:43%;  margin:0; font-size:3vw;  width: 20%; top: 8px; padding-top: 4vh;
-	 background-image: url("../img/new/Score.png"); background-size: 100% 100%; height: 10vh; text-align: center;
-	 color: black;
+.topBar #score{position:absolute; left:43%;  margin:0; font-size:3vw;  width: 20%; top: -2vw; padding-top: 5vw;
+	 background-image: url("../img/new/Score.png"); background-size: 100% 100%; height: 10vw; text-align: center;
+	 color: black; 
 } 
 
 

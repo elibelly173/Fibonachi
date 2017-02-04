@@ -139,17 +139,9 @@ angular.module('starter.services', [])
             answer: solution
         }
 
-        if($localStorage.levelTime){
+        
             return JSON.stringify(problem);
-        } 
-
-    	// return {
-     //    	first: first,
-     //    	second: second,
-     //    	op: op,
-     //    	answer: solution
-    	// };
-
+       
 	}
 
 	var generatenumber= function(selectlevel, topvalue, bottomvalue){
@@ -229,10 +221,8 @@ angular.module('starter.services', [])
             op: '+',
             answer: selectaa[0] + selectaa[1]+ selectaa[2]
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
+        return JSON.stringify(problem);
+       
 
     }
 
@@ -337,11 +327,8 @@ angular.module('starter.services', [])
             op0: op0,
             answer: answer
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
-
+        return JSON.stringify(problem);
+        
     }
 
     var operationfunc = function(){
@@ -517,11 +504,7 @@ angular.module('starter.services', [])
             op1: 'x',
             answer: answer
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
-
+        return JSON.stringify(problem);
     }
 
     var generatenumber= function(selectlevel){
@@ -611,11 +594,7 @@ angular.module('starter.services', [])
             op1: '=',
             answer: answer
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
-
+        return JSON.stringify(problem);
     }
     var gcd = function(a, b){
         if(!b){
@@ -670,10 +649,7 @@ angular.module('starter.services', [])
             op1: '=',
             answer: answer
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
+        return JSON.stringify(problem);
 
     }
     var getcommonfunc = function(number){
@@ -769,10 +745,7 @@ angular.module('starter.services', [])
           //  op2: op2,
             answer: answer
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
+        return JSON.stringify(problem);
 
     }
     var getcommonfunc = function(number){
@@ -877,10 +850,7 @@ angular.module('starter.services', [])
             op2: signpos,
             answer: answer
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
+        return JSON.stringify(problem);
 
     }
     var getMinMax = function(seletednumber){
@@ -935,10 +905,7 @@ angular.module('starter.services', [])
             op: 'x',
             answer: answer
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
+        return JSON.stringify(problem);
 
     }
 
@@ -953,9 +920,9 @@ angular.module('starter.services', [])
     var generatenumber= function(selectlevel){
         //number array for problem
         var numbers=[];
-        var problems = [2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11, 12, 13, 14, 15, 16, 20, 25, 30, 35, 40, 45, 50];
+        var problems = [1, 2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11, 12, 13, 14, 15, 16, 20, 25, 30, 35, 40, 45, 50];
         do{
-            var select1= Math.floor(Math.random() * (21 - 0)) + 1;
+            var select1= Math.floor(Math.random() * (22 + 1)) + 0;
             var select11 = 0;
             var select3 = 0;
 
@@ -963,13 +930,15 @@ angular.module('starter.services', [])
         // first number of problem
             numbers[0]=problems[select1];
 
-            if(select1 > 10){
-                select11 = 10;
-            } else {
-                select11 = select1;
-            }
-            var select2= Math.floor(Math.random() * ((select11 - 1 ) + 1)) + 0;
-            numbers[1]=problems[select2];
+            // if(select1 > 10){
+            //     select11 = 10;
+            // } else {
+            //     select11 = select1;
+            // }
+            // var select2= Math.floor(Math.random() * ((select11 - 1 ) + 0)) + 1;
+            // numbers[1]=problems[select2];
+            numbers[1] = Math.floor(Math.random() * (9 - 1)) + 2
+
 
             //Math.floor(Math.random() * (max - (min - 1))) + min;
             // get denometor of second
@@ -1011,7 +980,13 @@ angular.module('starter.services', [])
         
         var firstpro = '' + selectaa[1] + '/' + selectaa[0];
         var secondpro ='' + selectaa[2] + '/' + selectaa[1];
-        var answer ='' + selectaa[2] + '/' + selectaa[0];
+        var answer ='';
+        if(selectaa[0] == 1){
+            answer += selectaa[2];
+        } else {
+            answer += selectaa[2] + '/' + selectaa[0];
+        }
+        
         
         
 
@@ -1024,10 +999,7 @@ angular.module('starter.services', [])
             op: 'x',
             answer: answer
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
+        return JSON.stringify(problem);
 
     }
 
@@ -1042,9 +1014,9 @@ angular.module('starter.services', [])
     var generatenumber= function(selectlevel){
         //number array for problem
         var numbers=[];
-        var problems = [2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11, 12, 13, 14, 15, 16, 20, 25, 30, 35, 40, 45, 50];
+        var problems = [1, 2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11, 12, 13, 14, 15, 16, 20, 25, 30, 35, 40, 45, 50];
         do{
-            var select1= Math.floor(Math.random() * (20 - 1)) + 2;
+            var select1= Math.floor(Math.random() * (22 + 1)) + 0;
 
         // first number of problem
             numbers[0]=problems[select1];
@@ -1052,12 +1024,12 @@ angular.module('starter.services', [])
             if(select1 > 9){
                 select1 = 9;
             }
-            var select2= Math.floor(Math.random() * ((select1 - 1 ) + 0)) + 1;
-            numbers[1]=problems[select2];
+            var select2= Math.floor(Math.random() * (9 - 1)) + 2;
+            numbers[1]=select2;
 
             
-            var select3= Math.floor(Math.random() * ((select2 - 1 ) + 1)) + 0;
-            numbers[2]=problems[select3];
+            var select3= Math.floor(Math.random() * ((select2 - 1 ) + 0)) + 1;
+            numbers[2]=select3;
 
         } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[1])!=1 || mathgcd(numbers[2], numbers[0])!=1 );
         // get min and max value second number
@@ -1077,7 +1049,14 @@ angular.module('starter.services', [])
         
         var firstpro = selectaa[1] * selectaa[3]/selectaa[6];
         var secondpro =selectaa[0] * selectaa[2]/selectaa[6];
-        var answer ='' + firstpro + '/' + secondpro;
+        // var answer ='' + firstpro + '/' + secondpro;
+        var answer = '';
+        if(selectaa[0] == 1){
+            answer += firstpro;
+        } else {
+            answer += firstpro + '/' + secondpro;
+        }
+        
         
         console.log("answer="+ answer);
 
@@ -1090,10 +1069,7 @@ angular.module('starter.services', [])
             op: 'x',
             answer: answer
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
+        return JSON.stringify(problem);
 
     }
 
@@ -1114,9 +1090,9 @@ angular.module('starter.services', [])
 
         // first number of problem
         //Math.floor(Math.random() * (max - (min - 1))) + min;
-            numbers[0]=Math.floor(Math.random() * (9 - 2)) + 3;
+            numbers[0]=Math.floor(Math.random() * (9 - 0)) + 1;
 
-            numbers[1]= Math.floor(Math.random() * ((numbers[0] - 1) - 1)) + 2;
+            numbers[1]= Math.floor(Math.random() * (9 - 1)) + 2;
             
 
             numbers[2]= Math.floor(Math.random() * (9 - 2)) + 3;
@@ -1128,7 +1104,7 @@ angular.module('starter.services', [])
             numbers[ordermulti] *=  numbers[3 - ordermulti];
 
         // } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[3])!=1 || ( numbers[4]==1 && numbers[5]!=1) || ( numbers[4] != 1 && numbers[5]==1) || numbers[0] == numbers[3] || numbers[1] == numbers[2]);
-         } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[3])!=1 || numbers[4] !=1 || numbers[5] != 1 || numbers[1] >= numbers[0] || numbers[3] >= numbers[2]);
+         } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[3])!=1 || numbers[4] !=1 || numbers[5] != 1 || numbers[3] >= numbers[2]);
         // get min and max value second number
         
         return numbers;
@@ -1146,7 +1122,14 @@ angular.module('starter.services', [])
         
         var firstpro = selectaa[1] * selectaa[3]/(selectaa[6] * selectaa[7]);
         var secondpro =selectaa[0] * selectaa[2]/(selectaa[6] * selectaa[7]);
-        var answer ='' + firstpro + '/' + secondpro;
+        // var answer ='' + firstpro + '/' + secondpro;
+
+        var answer = '';
+        if(selectaa[0] == 1){
+            answer += firstpro;
+        } else {
+            answer += firstpro + '/' + secondpro;
+        }
         
         console.log("answer="+ answer);
 
@@ -1159,10 +1142,7 @@ angular.module('starter.services', [])
             op: 'x',
             answer: answer
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
+        return JSON.stringify(problem);
 
     }
 
@@ -1183,9 +1163,9 @@ angular.module('starter.services', [])
 
         // first number of problem
         //Math.floor(Math.random() * (max - (min - 1))) + min;
-            numbers[0]=Math.floor(Math.random() * (9 - 2)) + 3;
+            numbers[0]=Math.floor(Math.random() * (9 - 0)) + 1;
 
-            numbers[1]= Math.floor(Math.random() * ((numbers[0] - 1) - 1)) + 2;
+            numbers[1]= Math.floor(Math.random() * (9 - 1)) + 2;
             
 
             numbers[2]= Math.floor(Math.random() * (9 - 2)) + 3;
@@ -1204,7 +1184,7 @@ angular.module('starter.services', [])
             numbers[2] *= numbers[7];
 
         // } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[3])!=1 || ( numbers[4]==1 && numbers[5]!=1) || ( numbers[4] != 1 && numbers[5]==1) || numbers[0] == numbers[3] || numbers[1] == numbers[2]);
-         } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[3])!=1 || numbers[4] !=1 || numbers[5] != 1 || numbers[1] >= numbers[0] || numbers[3] >= numbers[2]);
+         } while(mathgcd(numbers[1], numbers[0])!=1 || mathgcd(numbers[2], numbers[3])!=1 || numbers[4] !=1 || numbers[5] != 1 || numbers[3] >= numbers[2]);
         // get min and max value second number
         
         return numbers;
@@ -1233,10 +1213,7 @@ angular.module('starter.services', [])
             second: selectaa[0],
             answer: answer
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
+        return JSON.stringify(problem);
 
     }
 
@@ -1297,10 +1274,7 @@ angular.module('starter.services', [])
             op: '___',
             answer: answer
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
+        return JSON.stringify(problem);
 
     }   
 
@@ -1333,10 +1307,7 @@ angular.module('starter.services', [])
             op: 'x',
             answer: selectaa[2]
         }
-        // return JSON.stringify(problem);
-        if($localStorage.levelTime){
-            return JSON.stringify(problem);
-        } 
+        return JSON.stringify(problem);
 
     }   
 
@@ -1360,10 +1331,10 @@ angular.module('starter.services', [])
             numbers[1] = secondNumber/Math.pow(10, secondPow);
 
             answer = numbers[0] * numbers[1];
-            numbers[2] = answer;
+            numbers[2] = firstNumber * secondNumber/Math.pow(10, firstPow + secondPow);
 
 
-        } while(firstNumber * secondNumber>99 || answer<0.001);
+        } while(firstNumber * secondNumber>99 || answer<0.01);
         return numbers;
         
 
