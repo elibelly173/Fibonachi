@@ -1,0 +1,23 @@
+dependencies: \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/BulletCollision/NarrowPhaseCollision/btMinkowskiPenetrationDepthSolver.cpp \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/BulletCollision/NarrowPhaseCollision/btMinkowskiPenetrationDepthSolver.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/BulletCollision/NarrowPhaseCollision/btConvexPenetrationDepthSolver.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/BulletCollision/NarrowPhaseCollision/btSimplexSolverInterface.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btVector3.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btScalar.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btMinMax.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btAlignedAllocator.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletCollision//NarrowPhaseCollision/btSubSimplexConvexCast.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/BulletCollision/NarrowPhaseCollision/btConvexCast.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btTransform.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btMatrix3x3.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btQuaternion.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btQuadWord.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btIDebugDraw.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletCollision//NarrowPhaseCollision/btGjkPairDetector.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/BulletCollision/NarrowPhaseCollision/btDiscreteCollisionDetectorInterface.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletCollision//CollisionShapes/btCollisionMargin.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletCollision//CollisionShapes/btConvexShape.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletCollision//CollisionShapes/btCollisionShape.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletCollision//BroadphaseCollision/btBroadphaseProxy.h

@@ -1,0 +1,1176 @@
+//
+//  GameScene.cpp
+//  fibonachi-cpp
+//
+//  Created by Future on 2/18/17.
+//
+//
+
+#include "GameScene.h"
+#include "MapviewScene.h"
+#include "FractionLayer.h"
+#include "FractionAnswerLayer.h"
+using namespace ui;
+
+
+Scene* GameScene::createScene(int level)
+{
+    // 'scene' is an autorelease object
+    UserDefault::getInstance()->setIntegerForKey("Level",level);
+    
+    auto scene = Scene::create();
+    
+    // 'layer' is an autorelease object
+    auto layer = GameScene::create();
+    
+    // add layer as a child to scene
+    scene->addChild(layer);
+    
+    // return the scene
+    return scene;
+}
+
+// on "init" you need to initialize your instance
+bool GameScene::init()
+{
+    //////////////////////////////
+    // 1. super init first
+    if ( !Layer::init() )
+    {
+        return false;
+    }
+    
+    level =UserDefault::getInstance()->getIntegerForKey("Level");
+    screenSize = Director::getInstance()->getWinSize();
+    
+    initFlags();
+    getLevelProblems();
+    initScreen();
+    initFiboAchi();
+    initProAns();
+    initanswerLayer();
+    initTimerScore();
+    
+    initKey();
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    
+    listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
+    listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
+    listener->onTouchCancelled = CC_CALLBACK_2(GameScene::onTouchCancelled, this);
+    
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    this->schedule(schedule_selector(GameScene::UpdateTimer),1.0f);
+    this->scheduleUpdate();
+    return true;
+}
+
+void GameScene::initFlags(){
+    if(level>19 && level<23){
+        fractionFlag = 1;
+    } else if(level==23){
+        fractionFlag =2;
+    } else if(level > 23 && level<=25){
+        fractionFlag =3;
+    } else if(level > 25){
+        fractionFlag =4;
+    }
+    else {
+        fractionFlag = 0;
+    }
+    
+    if(level>=12){
+        addKeyFlag = true;
+    }
+    
+    switch(level){
+        case 21:
+            axisFlag = 1;
+            break;
+        case 22:
+            axisFlag = 2;
+            break;
+        case 23: case 31:
+            axisFlag = 3;
+            break;
+        default:
+            axisFlag = 0;
+            break;
+    }
+
+}
+
+
+
+
+void GameScene::initScreen(){
+    
+    
+    auto background = Sprite::create("gameboard.png"); //here the background.png is a "red screen" png.
+    background->setPosition(screenSize.width/2, screenSize.height/2);
+    this->addChild(background);
+    background->setScale(screenSize.width/background->getContentSize().width, screenSize.height/background->getContentSize().height);
+    
+    
+    auto cloudBg = Sprite::create("res/game/cloud.png"); //here the background.png is a "red screen" png.
+    cloudBg->setPosition(screenSize.width*0.25, screenSize.height*0.71);
+    this->addChild(cloudBg);
+    cloudBg->setScale(screenSize.width*0.33/cloudBg->getContentSize().width, screenSize.height*0.35/cloudBg->getContentSize().height);
+    
+    Button* homeButton = Button::create("res/game/home.png", "res/game/home.png");
+    
+    homeButton->setPosition(Vec2(screenSize.width*0.05, screenSize.height*0.9));
+    homeButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoHome, this, (int)2));
+    homeButton->setScale(screenSize.width * 0.05f/homeButton->getContentSize().width);
+    
+    this->addChild(homeButton);
+    
+    
+    auto scoreImg = Sprite::create("res/game/Score.png"); //here the background.png is a "red screen" png.
+    scoreImg->setPosition(screenSize.width/2, this->screenSize.height);
+    scoreImg->setAnchorPoint(Point(0.5f,1.0f));
+    this->addChild(scoreImg);
+    scoreImg->setScale(screenSize.width*0.2/scoreImg->getContentSize().width);
+    
+    
+    
+    
+    
+    
+
+}
+
+void GameScene::initFiboAchi(){
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/achianim/achianim.plist");
+    
+    auto achispr = Sprite::createWithSpriteFrameName("achiAnim1.png");
+    achispr->setTag(TAG_SPRITE_ACHI);
+    
+    achispr->setPosition(screenSize.width*0.32, screenSize.height*0.16);
+    achispr->setAnchorPoint(Point(1.0f,0.0f));
+    achispr->setScale(screenSize.width*0.22/achispr->getContentSize().width);
+    this->addChild(achispr);
+    
+    
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/fibo/fibo.plist");
+    
+    auto fibospr = Sprite::createWithSpriteFrameName("fibo0.png");
+    fibospr->setTag(TAG_SPRITE_FIBO);
+    
+    fibospr->setPosition(screenSize.width*0.63, screenSize.height*0.14);
+    fibospr->setAnchorPoint(Point(0.0f,0.0f));
+    fibospr->setScale(screenSize.width*0.15/achispr->getContentSize().width);
+    this->addChild(fibospr);
+}
+
+void GameScene::achianim(){
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/achianim/achianim.plist");
+    
+    auto spr = (Sprite*)this->getChildByTag(TAG_SPRITE_ACHI);
+    auto animation = Animation::create();
+    animation->setDelayPerUnit(0.08);
+    
+    for (int i = 0; i<10; i++) {
+        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format("achiAnim%d.png", i+1));
+        animation->addSpriteFrame(frame);
+    }
+    
+    auto animate = Animate::create(animation);
+    spr->runAction(animate);
+}
+
+void GameScene::fiboanim(){
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/fibo/fibo.plist");
+    
+    auto spr = (Sprite*)this->getChildByTag(TAG_SPRITE_FIBO);
+    auto animation = Animation::create();
+    animation->setDelayPerUnit(0.05);
+    
+    for (int i = 0; i<14; i++) {
+        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format("fibo%d.png", i));
+        animation->addSpriteFrame(frame);
+    }
+    
+    auto animate = Animate::create(animation);
+    spr->runAction(animate);
+}
+
+void GameScene::getLevelProblems(){
+    CCLOG("level=%d", this->level);
+    
+    ValueMap data;
+    std::string path = FileUtils::getInstance()->fullPathForFilename(StringUtils::format("res/plist/level%d.plist", this->level));
+    data = FileUtils::getInstance()->getValueMapFromFile(path);
+    this->arrLevelsProblems = data.at("anspro").asValueVector();
+    
+    
+    ValueMap data1;
+    std::string path1 = FileUtils::getInstance()->fullPathForFilename("res/plist/levels.plist");
+    data1 = FileUtils::getInstance()->getValueMapFromFile(path1);
+    auto arrLevels = data1.at("levels").asValueVector();
+    
+    ValueMap sdata = (arrLevels[level]).asValueMap();
+   
+    targettime =  sdata["targettime"].asInt();
+
+
+
+}
+
+void GameScene::initKey(){
+    
+    if(axisFlag == 0){
+        
+            for(int ii=0; ii<10; ii++){
+                Button* keyButton = Button::create(StringUtils::format("res/key/key%d.png", (ii + 1)),
+                                                   StringUtils::format("res/key/key%d.png", (ii + 1)));
+                
+                
+                keyButton->setPosition(Vec2(screenSize.width*0.05+screenSize.width*ii/10, screenSize.height*0.04f));
+                keyButton->setAnchorPoint(Point(0.5f,0.0f));
+                keyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+                keyButton->setTag(TAG_GAME_KEY+ii);
+                keyButton->setScale(screenSize.width * 0.07f/keyButton->getContentSize().width);
+                
+                this->addChild(keyButton);
+            }
+        
+        if(addKeyFlag){
+            Button* addKeyButton = Button::create("res/key/negative.png", "res/key/negative.png");
+            
+            
+            addKeyButton->setPosition(Vec2(screenSize.width*0.95, screenSize.height*0.06f + screenSize.width * 0.08f));
+            addKeyButton->setAnchorPoint(Point(0.5f,0.0f));
+            addKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+            addKeyButton->setTag(TAG_GAME_KEYADD);
+            addKeyButton->setScale(screenSize.width * 0.07f/addKeyButton->getContentSize().width);
+            
+            this->addChild(addKeyButton);
+        }
+        
+        if(fractionFlag>0){
+            Button* fractionKeyButton = Button::create("res/key/divide.png", "res/key/divide.png");
+            
+            
+            fractionKeyButton->setPosition(Vec2(screenSize.width*0.95, screenSize.height*0.08f + screenSize.width * 0.16f));
+            fractionKeyButton->setAnchorPoint(Point(0.5f,0.0f));
+            fractionKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+            fractionKeyButton->setTag(TAG_GAME_KEYFRACTION);
+            fractionKeyButton->setScale(screenSize.width * 0.07f/fractionKeyButton->getContentSize().width);
+            
+            this->addChild(fractionKeyButton);
+        }
+    } else if(axisFlag == 1 || axisFlag == 2){
+        auto numberline1Spr = Sprite::Sprite::create(StringUtils::format("res/key/numberline%d.png", axisFlag));
+        numberline1Spr->setTag(TAG_GAME_KEYNUMBERLINE1);
+        
+        numberline1Spr->setPosition(screenSize.width*0.5, screenSize.height*0.03f);
+        numberline1Spr->setAnchorPoint(Point(0.5f,0.0f));
+        numberline1Spr->setScale(screenSize.width*0.9/numberline1Spr->getContentSize().width);
+        this->addChild(numberline1Spr);
+
+    } else if(axisFlag == 3){
+        Button* smallKeyButton = Button::create("res/key/left.png", "res/key/left.png");
+        
+        
+        smallKeyButton->setPosition(Vec2(screenSize.width*0.3, screenSize.height*0.04f));
+        smallKeyButton->setAnchorPoint(Point(0.5f,0.0f));
+        smallKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+        smallKeyButton->setTag(TAG_GAME_KEYSMALL);
+        smallKeyButton->setScale(screenSize.width * 0.07f/smallKeyButton->getContentSize().width);
+        
+        this->addChild(smallKeyButton);
+        
+        Button* equalKeyButton = Button::create("res/key/equal.png", "res/key/equal.png");
+        
+        
+        equalKeyButton->setPosition(Vec2(screenSize.width*0.5, screenSize.height*0.04f));
+        equalKeyButton->setAnchorPoint(Point(0.5f,0.0f));
+        equalKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+        equalKeyButton->setTag(TAG_GAME_KEYEQUAL);
+        equalKeyButton->setScale(screenSize.width * 0.07f/equalKeyButton->getContentSize().width);
+        
+        this->addChild(equalKeyButton);
+        
+        
+        Button* bigKeyButton = Button::create("res/key/right.png", "res/key/right.png");
+        
+        
+        bigKeyButton->setPosition(Vec2(screenSize.width*0.7, screenSize.height*0.04f));
+        bigKeyButton->setAnchorPoint(Point(0.5f,0.0f));
+        bigKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+        bigKeyButton->setTag(TAG_GAME_KEYBIG);
+        bigKeyButton->setScale(screenSize.width * 0.07f/bigKeyButton->getContentSize().width);
+        
+        this->addChild(bigKeyButton);
+    }
+
+    
+}
+
+void GameScene::initProAns(){
+    if(fractionFlag>0){
+        auto problemImg = Sprite::create("res/game/question1.png"); //here the background.png is a "red screen" png.
+        problemImg->setPosition(screenSize.width*0.27, screenSize.height*0.16 + screenSize.width*0.08);
+        problemImg->setAnchorPoint(Point(0.0f,0.0f));
+        this->addChild(problemImg);
+        problemImg->setScale(screenSize.width*0.27/problemImg->getContentSize().width);
+        
+        if(axisFlag !=0){
+            
+        } else {
+            
+        
+            auto answerImg = Sprite::create("res/game/answer1.png"); //here the background.png is a "red screen" png.
+            answerImg->setPosition(screenSize.width*0.75, screenSize.height*0.16 + screenSize.width*0.08);
+            answerImg->setAnchorPoint(Point(1.0f,0.0f));
+            answerImg->setTag(TAG_GAME_ANSWERIMG);
+            this->addChild(answerImg);
+            answerImg->setScale(screenSize.width*0.15/answerImg->getContentSize().width);
+        }
+    } else {
+        auto problemImg = Sprite::create("res/game/problem.png"); //here the background.png is a "red screen" png.
+        problemImg->setPosition(screenSize.width*0.27, screenSize.height*0.16 + screenSize.width*0.08);
+        problemImg->setAnchorPoint(Point(0.0f,0.0f));
+        this->addChild(problemImg);
+        problemImg->setScale(screenSize.width*0.27/problemImg->getContentSize().width);
+        
+        auto answerImg = Sprite::create("res/game/answer.png"); //here the background.png is a "red screen" png.
+        answerImg->setPosition(screenSize.width*0.75, screenSize.height*0.16 + screenSize.width*0.08);
+        answerImg->setAnchorPoint(Point(1.0f,0.0f));
+        answerImg->setTag(TAG_GAME_ANSWERIMG);
+        this->addChild(answerImg);
+        answerImg->setScale(screenSize.width*0.15/answerImg->getContentSize().width);
+    }
+    
+    this->makeproblem();
+    this->makeproblem();
+
+}
+
+void GameScene::initTimerScore(){
+    auto timerLabel = Label::createWithSystemFont("0", "", screenSize.width*0.035);
+    timerLabel->setColor(Color3B::GREEN);
+    timerLabel->setPosition(screenSize.width*0.28, screenSize.height - screenSize.width*0.047);
+    timerLabel->setTag(TAG_GAME_TIMER);
+    this->addChild(timerLabel);
+    
+    auto scoreLabel = Label::createWithSystemFont("", "", screenSize.width*0.035);
+    scoreLabel->setColor(Color3B::BLACK);
+    scoreLabel->setPosition(screenSize.width*0.5, screenSize.height - screenSize.width*0.06);
+    scoreLabel->setTag(TAG_GAME_SCORE);
+    this->addChild(scoreLabel);
+    
+    
+    auto levelLabel = Label::createWithSystemFont(StringUtils::format("%d", level), "", screenSize.width*0.035);
+    levelLabel->setColor(Color3B::BLACK);
+    levelLabel->setPosition(screenSize.width*0.75, screenSize.height - screenSize.width*0.047);
+    levelLabel->setTag(TAG_GAME_LEVEL);
+    this->addChild(levelLabel);
+
+
+}
+
+void GameScene::UpdateTimer(float dt)
+{
+    timer+=1;
+    auto timerLabel = (Label*)this->getChildByTag(TAG_GAME_TIMER);
+    if(timer > targettime - 10 && timer < targettime){
+        timerLabel->setColor(Color3B::YELLOW);
+    } else if(timer >= targettime){
+        timerLabel->setColor(Color3B::RED);
+    }
+    timerLabel->setString(StringUtils::format("%d", timer));
+    
+}
+
+void GameScene::update(float delta)
+{
+    problemTime+=delta;
+}
+
+void GameScene::initanswerLayer(){
+//    auto answerLayer = Layer::create();
+//    this->addChild(answerLayer);
+//    answerLayer->setTag(TAG_GAME_ANSWERLAYER);
+    if(fractionFlag>0){
+        
+        auto answerLayer = new FractionAnswerLayer(0);//FractionLayer::create();
+        answerLayer->setPosition(screenSize.width*0.75, screenSize.height*0.16 + screenSize.width*0.08);
+        answerLayer->setTag(TAG_GAME_ANSWERLABEL);
+        this->addChild(answerLayer);
+        
+    } else {
+//        auto answer = StringUtils::format("%d", 77);
+        
+        auto answerlabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
+        answerlabel->setColor(Color3B::BLACK);
+        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.13);
+        answerlabel->setTag(TAG_GAME_ANSWERLABEL);
+        this->addChild(answerlabel);
+//        answerLayer->addChild(answerlabel);
+    }
+    
+    
+    
+}
+
+
+
+void GameScene::Fraction26(int mol1, int den1, int mol2, int den2, int order, float offsetPos){
+    
+    auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+order);
+    
+    auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", screenSize.width*0.04);
+    moleculeLabel->setColor(Color3B::BLACK);
+    moleculeLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.107);
+    //    moleculeLabel->setPosition(0, 0);
+    moleculeLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4);
+    problemLayer->addChild(moleculeLabel);
+    
+    auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "", screenSize.width*0.04);
+    denLabel->setColor(Color3B::BLACK);
+    denLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.068);
+    //    moleculeLabel->setPosition(0, 0);
+    denLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +1);
+    problemLayer->addChild(denLabel);
+    
+    auto lineSpr = Sprite::create("res/game/line.png");
+    lineSpr->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.085);
+    lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+//    lineSpr->setTag(TAG_FRACTION_LINE);
+    problemLayer->addChild(lineSpr);
+    
+    auto moleculeLabel2 = Label::createWithSystemFont(StringUtils::format("%d", mol2), "", screenSize.width*0.04);
+    moleculeLabel2->setColor(Color3B::BLACK);
+    moleculeLabel2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.107);
+    //    moleculeLabel->setPosition(0, 0);
+    moleculeLabel2->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +2);
+    problemLayer->addChild(moleculeLabel2);
+    
+    auto denLabel2 = Label::createWithSystemFont(StringUtils::format("%d", den2), "", screenSize.width*0.04);
+    denLabel2->setColor(Color3B::BLACK);
+    denLabel2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.068);
+    //    moleculeLabel->setPosition(0, 0);
+    denLabel2->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 + 3);
+    problemLayer->addChild(denLabel2);
+    
+    auto lineSpr2 = Sprite::create("res/game/line.png");
+    lineSpr2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.085);
+    lineSpr2->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr2->getContentSize().height);
+//    lineSpr2->setTag(TAG_FRACTION_LINE);
+    problemLayer->addChild(lineSpr2);
+
+    
+}
+
+void GameScene::makeproblem(){
+//    int YOUR_RESULT=rand()%(max-min)+min;
+    int randomnumber = arc4random()%((arrLevelsProblems.size() - 1) - 0) - 0;
+    ValueMap sdata = (arrLevelsProblems[randomnumber]).asValueMap();
+    
+    
+    auto answer1 = sdata["answer"].asString();
+    auto problemlayer = Layer::create();
+    this->addChild(problemlayer);
+    problemlayer->setTag(TAG_GAME_PROBLEM+problemCount);
+    if(problemCount == 0 && fractionFlag==0){
+        problemlayer->setPosition(screenSize.width*0.52, screenSize.height*0.16 + screenSize.width*0.04);
+    } else if(problemCount == 0 && fractionFlag>0){
+        problemlayer->setPosition(screenSize.width*0.52, screenSize.height*0.16 + screenSize.width*0.08);
+    }else {
+        problemlayer->setPosition(screenSize.width*0.34, screenSize.height*0.74-screenSize.width*0.085);
+    }
+    answerArray[problemCount] = answer1;
+    
+    
+    switch(fractionFlag){
+        case 0:
+        {
+            auto x1 =  sdata["x1"].asString();
+            
+            auto problemlabel = Label::createWithSystemFont(x1, "", screenSize.width*0.04);
+            problemlabel->setPosition(-screenSize.width*0.09, screenSize.width*0.085);
+            problemlabel->setColor(Color3B::BLACK);
+            
+            
+            problemlayer->addChild(problemlabel);
+            break;
+        }
+        case 1:
+        {
+            auto x1 =  sdata["x1"].asInt();
+            auto y1 =  sdata["y1"].asInt();
+            
+            
+            auto question1Layer = new FractionLayer(x1, y1, 0.0f, false);
+            problemlayer->addChild(question1Layer);
+            break;
+        }
+        case 2:
+        {
+            auto x1 =  sdata["x1"].asInt();
+            auto y1 =  sdata["y1"].asInt();
+            auto question1Layer = new FractionLayer(x1, y1, -0.06f, false);
+            problemlayer->addChild(question1Layer);
+            
+            
+            auto oplabel = Label::createWithSystemFont("___", "", screenSize.width*0.04);
+            oplabel->setPosition(-screenSize.width*0.09, screenSize.width*0.075);
+            oplabel->setColor(Color3B::BLACK);
+            problemlayer->addChild(oplabel);
+            
+            auto question2Layer = new FractionLayer(1, 2, 0.06f, false);
+            problemlayer->addChild(question2Layer);
+            break;
+        }
+        case 3:
+        {
+            auto x1 =  sdata["x1"].asInt();
+            auto y1 =  sdata["y1"].asInt();
+            auto x2 =  sdata["x2"].asInt();
+            auto y2 =  sdata["y2"].asInt();
+            
+            auto question1Layer = new FractionLayer(x1, y1, -0.04f, false);
+            problemlayer->addChild(question1Layer);
+            
+            auto oplabel = Label::createWithSystemFont("x", "", screenSize.width*0.04);
+            oplabel->setPosition(-screenSize.width*0.09, screenSize.width*0.085);
+            oplabel->setColor(Color3B::BLACK);
+            problemlayer->addChild(oplabel);
+            
+            auto question2Layer = new FractionLayer(x2, y2, 0.04f, false);
+            problemlayer->addChild(question2Layer);
+            break;
+        }
+        case 4:
+        {
+            auto x1 =  sdata["x1"].asInt();
+            auto y1 =  sdata["y1"].asInt();
+            auto x2 =  sdata["x2"].asInt();
+            auto y2 =  sdata["y2"].asInt();
+            
+            Fraction26(x1, y1, x2, y2, problemCount, 0.0f);
+            break;
+        }
+    }
+    
+    
+    problemCount++;
+    
+    
+}
+void GameScene::rightAnswer(){
+    if(problemTime <2000){
+        ticksCount+=2;
+    } else {
+        ticksCount +=1;
+    }
+    
+    problemTime = 0.0f;
+    removeProblem(rightCount);
+    rightCount++;
+    achianim();
+    animationProblem(rightCount);
+    updateScore();
+    
+    answer = 0;
+    answerString = "";
+    
+    
+    if(ticksCount >2){
+        onShowReportLayer();
+    } else {
+        makeproblem();
+    }
+
+}
+
+void GameScene::wrongAnswer(){
+    wrongCount++;
+    fiboanim();
+    answer = 0;
+    answerString = "";
+
+}
+
+void GameScene::enterAnswer(){
+    
+    if(fractionFlag>0){
+        
+        if(std::strcmp(answerString.c_str(), answerArray[rightCount].c_str()) == 0){
+            rightAnswer();
+        } else {
+            wrongAnswer();
+        }
+    } else {
+        if(answer == atoi(answerArray[rightCount].c_str())){
+            rightAnswer();
+        } else {
+            wrongAnswer();
+        }
+    }
+    
+}
+
+void GameScene::updateScore(){
+    score+=1000;
+    auto scoreLabel = (Label*)this->getChildByTag(TAG_GAME_SCORE);
+    scoreLabel->setString(StringUtils::format("%d", score));
+}
+
+void GameScene::onShowReportLayer(){
+    
+    levelSpeed = rightCount * 180/timer;
+    if(levelSpeed>100) levelSpeed = 100;
+    
+    levelAccuracy = (rightCount - wrongCount) *100/ rightCount;
+    if(levelAccuracy > 100)
+    {
+        levelAccuracy = 100;
+    } else if(levelAccuracy < 0)
+    {
+        levelAccuracy = 0;
+    }
+    
+    int speedStarCount =0;
+    int accuracyStarCount = 0;
+    if(levelSpeed ==100) speedStarCount = 4;
+    else if(levelSpeed>75 && levelSpeed<=99) speedStarCount = 3;
+    else if(levelSpeed >50 && levelSpeed <=75) speedStarCount = 2;
+    else speedStarCount = 1;
+    
+    if(levelAccuracy ==100) accuracyStarCount = 4;
+    else if(levelAccuracy>75 && levelAccuracy<=99) accuracyStarCount = 3;
+    else if(levelAccuracy >50 && levelAccuracy <=75) accuracyStarCount = 2;
+    else accuracyStarCount = 1;
+    
+    
+    auto vinyetBg = Sprite::create("res/title/Vinyet.png"); //here the background.png is a "red screen" png.
+    
+    vinyetBg->setPosition(screenSize.width/2, screenSize.height/2);
+    
+    vinyetBg->setScale(screenSize.width/vinyetBg->getContentSize().width, screenSize.height/vinyetBg->getContentSize().height);
+    
+    vinyetBg->setTag(TAG_GAME_VINEYET);
+    this->addChild(vinyetBg);
+    
+    
+    // Layer
+    auto reportLayer = Layer::create();
+    this->addChild(reportLayer);
+    reportLayer->setTag(TAG_GAME_REPORTLAYER);
+    reportLayer->setPosition(0, -screenSize.height);
+    
+    auto reportBg = Sprite::create("res/report/reportBg.png");
+    reportBg->setPosition(screenSize.width*0.5 , screenSize.height/2);
+    reportBg->setScale(screenSize.width*0.76/reportBg->getContentSize().width);
+    reportLayer->addChild(reportBg);
+    
+    //    CCLOG("level %d", level);
+    
+    
+    //Report title
+    if(levelSpeed == 100 && levelAccuracy == 100){
+        auto reportTitle = Sprite::create("res/report/success_title.png");
+        reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.5);
+        reportTitle->setScale(screenSize.width*0.45/reportTitle->getContentSize().width);
+        
+        reportLayer->addChild(reportTitle);
+        
+        Button* reportContinueButton = Button::create("res/report/report_continue.png", "res/report/report_continue.png");
+        reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.205f));
+        reportContinueButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+        reportContinueButton->setTag(TAG_GAME_REPORTCONTINUE);
+        reportContinueButton->setScale(this->screenSize.width * 0.1f/reportContinueButton->getContentSize().width);
+        reportLayer->addChild(reportContinueButton);
+        
+    } else {
+        auto reportTitle = Sprite::create("res/report/failure_title.png");
+        reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.5);
+        reportTitle->setScale(screenSize.width*0.6/reportTitle->getContentSize().width);
+        
+        reportLayer->addChild(reportTitle);
+        
+        Button* reportContinueButton = Button::create("res/report/continue_failure.png", "res/report/continue_failure.png");
+        reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.205f));
+        reportContinueButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+        reportContinueButton->setTag(TAG_GAME_REPORTFAILURE);
+        reportContinueButton->setScale(this->screenSize.width * 0.1f/reportContinueButton->getContentSize().width);
+        reportLayer->addChild(reportContinueButton);
+    }
+    
+    
+//    Top star
+    for(int ii=0; ii<speedStarCount; ii++){
+        auto starSpr = Sprite::create("res/report/star.png");
+        starSpr->setPosition(screenSize.width*0.54+screenSize.width*0.067*ii , screenSize.height/2+screenSize.width*0.035);
+        starSpr->setScale(screenSize.width*0.064/starSpr->getContentSize().width);
+        reportLayer->addChild(starSpr);
+    }
+    // Bottom star
+    for(int ii=0; ii<accuracyStarCount; ii++){
+        auto starSpr = Sprite::create("res/report/star.png");
+        starSpr->setPosition(screenSize.width*0.54+screenSize.width*0.067*ii , screenSize.height/2-screenSize.width*0.048);
+        starSpr->setScale(screenSize.width*0.064/starSpr->getContentSize().width);
+        reportLayer->addChild(starSpr);
+    }
+    
+    // report buttons
+    Button* reportBackButton = Button::create("res/report/report_back.png", "res/report/report_back.png");
+    reportBackButton->setPosition(Vec2(screenSize.width*0.34, screenSize.height*0.5 - screenSize.width * 0.205f));
+    reportBackButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+    reportBackButton->setTag(TAG_GAME_REPORTBACK);
+    reportBackButton->setScale(this->screenSize.width * 0.1f/reportBackButton->getContentSize().width);
+    reportLayer->addChild(reportBackButton);
+    
+    
+    
+    Button* reportExitButton = Button::create("res/report/report_exit.png", "res/report/report_exit.png");
+    reportExitButton->setPosition(Vec2(screenSize.width*0.7, screenSize.height*0.5 - screenSize.width * 0.205f));
+    reportExitButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+    reportExitButton->setTag(TAG_GAME_REPORTEXIT);
+    reportExitButton->setScale(this->screenSize.width * 0.1f/reportExitButton->getContentSize().width);
+    reportLayer->addChild(reportExitButton);
+
+    auto action_0 = MoveTo::create(0.4, Point(0 , screenSize.height*0.1));
+    auto action_1 = MoveTo::create(0.1, Point(0 , 0));
+    auto action_2 = Sequence::create(action_0, action_1, NULL);
+    //    auto action_3 = RepeatForever::create(action_2);
+    reportLayer->runAction(action_2);
+
+    
+    
+    
+}
+
+
+void GameScene::onRemoveReportLayer(int status){
+    auto *reportBg = (Sprite*)this->getChildByTag(TAG_GAME_VINEYET);
+    this->removeChild(reportBg);
+    
+    auto *reportLayer = (Layer*)this->getChildByTag(TAG_GAME_REPORTLAYER);
+    
+    auto action_0 = MoveTo::create(0.1, Point(0 , -screenSize.height*0.1));
+    auto action_1 = MoveTo::create(0.4, Point(0 , screenSize.height));
+    
+    
+    auto action_2 = CallFuncN::create( CC_CALLBACK_1(GameScene::reportCallback, this, (int)status));
+    auto action_3 = Sequence::create(action_0, action_1, action_2, NULL);
+    //    auto action_3 = RepeatForever::create(action_2);
+    reportLayer->runAction(action_3);
+    
+}
+
+
+void GameScene::reportCallback(Ref *sender, int status){
+    if(status == 1){
+        auto gameScene = GameScene::createScene(level);
+        Director::getInstance()->replaceScene(gameScene);
+    } else if(status == 2){
+        auto gameScene = GameScene::createScene(level+1);
+        Director::getInstance()->replaceScene(gameScene);
+    } else if(status == 3){
+//        auto mapScene = MapviewScene::createScene();
+        CCLOG("popsecne");
+        Director::getInstance()->popScene();
+    }
+    
+}
+
+
+
+
+void GameScene::removeProblem(int order){
+    
+    auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+order);
+    this->removeChild(problemLayer);
+    
+}
+
+
+
+
+void GameScene::animationProblem(int order){
+    auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+order);
+    auto destinationPos = Point(0,0);
+    if(fractionFlag>0) {
+        destinationPos = Point(screenSize.width*0.52, screenSize.height*0.16 + screenSize.width*0.08);
+    } else {
+        destinationPos = Point(screenSize.width*0.52, screenSize.height*0.16 + screenSize.width*0.04);
+    }
+    
+    
+    auto action_0 = MoveTo::create(0.7, destinationPos);
+    problemLayer->runAction(action_0);
+}
+
+void GameScene::gotoHome(Ref *pSender, Widget::TouchEventType type, int d)
+{
+    //    CCLOG("HelloWorld::setCallFunc_2() = %d", (int)d);
+}
+
+
+void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
+{
+    
+    switch (type)
+    {
+        case Widget::TouchEventType::BEGAN:
+           
+            break;
+            
+        case Widget::TouchEventType::MOVED:
+            
+            break;
+            
+        case Widget::TouchEventType::ENDED:
+        {
+            int keyTagValue = ((cocos2d::ui::Button*) pSender)->getTag();
+            switch (keyTagValue){
+                case TAG_GAME_KEYADD:
+                    answer *= -1;
+                    is_Negative *=-1;
+                    
+                    showAnswer(answer);
+                    break;
+                case TAG_GAME_KEYSMALL:
+                    CompareNumber(-1);
+                    break;
+                case TAG_GAME_KEYEQUAL:
+                    CompareNumber(0);
+                    break;
+                case TAG_GAME_KEYBIG:
+                    CompareNumber(1);
+                    break;
+                case TAG_GAME_KEYFRACTION:
+                    onClickDividerKey();
+                    break;
+                case TAG_GAME_REPORTBACK:
+                    onRemoveReportLayer(1);
+                    break;
+                case TAG_GAME_REPORTCONTINUE:
+                    onRemoveReportLayer(2);
+                    break;
+                case TAG_GAME_REPORTEXIT:
+                    onRemoveReportLayer(3);
+                    break;
+                default:
+                {
+                    if(selectedAnswerBox > 0){
+                        
+                        
+                    } else {
+                        if(fractionFlag>0){
+                            
+                            showFractionAnswer(keyTagValue);
+                        } else {
+                            answer = answer*10 + (keyTagValue%10)*is_Negative;
+                            showAnswer(answer);
+                        }
+                    }
+                    
+                    
+                    
+                    
+                    break;
+                }
+            }
+            
+            
+        }
+            break;
+            
+        case Widget::TouchEventType::CANCELED:
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+//    int keyTagValue = ((cocos2d::ui::Button*) pSender)->getTag();
+//    
+//    if(keyTagValue<211 && keyTagValue>0 && clickedkeycount%2 == 0){
+//        answer = answer*10 + keyTagValue%10;
+//        CCLOG("clickedkeycount = %d", clickedkeycount);
+//        CCLOG("keyTagValue = %d", keyTagValue);
+//            showAnswer(answer);
+//    }
+//    clickedkeycount++;
+    
+}
+
+void GameScene::showAnswerBox(int ans){
+    auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
+    auto boxLabel = (Label*)problemLayer->getChildByTag(TAG_GAME_MOLANS1LABEL + selectedAnswerBox -1);
+    boxLabel->setString(StringUtils::format("%d", ans%10));
+    selectedAnswerBox = 0;
+}
+
+void GameScene::CompareNumber(int ans){
+    if(ans == atoi(answerArray[rightCount].c_str())){
+        rightAnswer();
+    } else {
+        wrongAnswer();
+    }
+}
+
+void GameScene::onClickDividerKey(){
+    if(answerString != "" && !clickedDividerKeyFlag){
+        std::string keydividevalue = StringUtils::format("%s", "/");
+        answerString = StringUtils::format("%s%s", answerString.c_str(), keydividevalue.c_str());
+        clickedDividerKeyFlag = true;
+        auto answerLayer = (FractionAnswerLayer*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+        answerLayer->onClickDividerKey();
+    }
+    
+}
+
+void GameScene::showFractionAnswer(int keyValue){
+    
+    answerString = StringUtils::format("%s%d", answerString.c_str(), (keyValue%10));
+    auto answerLayer = (FractionAnswerLayer*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+    answerLayer->onClickNormalKey(keyValue);
+}
+
+void GameScene::showAnswer(int ans){
+
+    CCLOG("showanswer");
+    auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+    if(answer == 0 && is_Negative == -1){
+        answerLabel->setString("-");
+    } else{
+        answerLabel->setString(StringUtils::format("%d", answer));
+    }
+    
+}
+
+bool GameScene::onTouchBegan(Touch *touch, Event *event)
+{
+//    initialTouchPos[0] = touch->getLocation().x;
+//    initialTouchPos[1] = touch->getLocation().y;
+//    currentTouchPos[0] = touch->getLocation().x;
+//    currentTouchPos[1] = touch->getLocation().y;
+    
+    Point location = touch->getLocation();
+    if(axisFlag ==0){
+        auto answerSpr = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERIMG);
+        Rect answerSprRect = answerSpr->getBoundingBox();
+        
+        if(answerSprRect.containsPoint(location)){
+            initialAnswerTouchPos[0] = location.x;
+            initialAnswerTouchPos[1] = location.y;
+            currentAnswerTouchPos[0] = location.x;
+            currentAnswerTouchPos[1] = location.y;
+            
+            isAnswerTouchDown = true;
+            
+        }
+
+    }
+    
+    
+    
+    return true;
+}
+
+void GameScene::onTouchMoved(Touch *touch, Event *event)
+{
+    Point location = touch->getLocation();
+    if(axisFlag ==0){
+        auto answerSpr = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERIMG);
+        Rect answerSprRect = answerSpr->getBoundingBox();
+        
+        if(answerSprRect.containsPoint(location) && isAnswerTouchDown){
+            currentAnswerTouchPos[0] = location.x;
+            currentAnswerTouchPos[1] = location.y;
+        } else {
+            isAnswerTouchDown = false;
+        }
+    }
+    
+
+//    currentTouchPos[0] = touch->getLocation().x;
+//    currentTouchPos[1] = touch->getLocation().y;
+}
+
+void GameScene::onTouchEnded(Touch *touch, Event *event)
+{
+    if(isAnswerTouchDown){
+        if(fractionFlag==0){
+            auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+            answerLabel->setString("");
+            clickedDividerKeyFlag = false;
+//            answerString = "";
+            is_Negative = 1;
+        } else {
+            auto answerLayer = (FractionAnswerLayer*) this->getChildByTag(TAG_GAME_ANSWERLABEL);
+            answerLayer->reset();
+        }
+        clickedDividerKeyFlag = false;
+        
+                if (initialAnswerTouchPos[0] - currentAnswerTouchPos[0] > screenSize.width * 0.04)
+                {
+                    CCLOG("SWIPED LEFT");
+                    answer=0;
+                    answerString = "";
+                    
+                
+        
+                }
+                else if (initialAnswerTouchPos[0] - currentAnswerTouchPos[0] < - screenSize.width * 0.04)
+                {
+                    CCLOG("SWIPED RIGHT");
+                    answer=0;
+                    answerString = "";
+
+                    
+                }else {
+                    CCLOG("enter");
+                    
+                    enterAnswer();
+                }
+        isAnswerTouchDown = false;
+    } else if(axisFlag == 1 || axisFlag == 2) {
+        Point location = touch->getLocation();
+        
+        auto numberline1Spr = (Sprite*)this->getChildByTag(TAG_GAME_KEYNUMBERLINE1);
+        Rect numberline1SprRect = numberline1Spr->getBoundingBox();
+        
+        if(numberline1SprRect.containsPoint(location)){
+            auto answerpos = location.x;
+            float numberlineanswer = 0.0f;
+            if(axisFlag == 1){
+                
+                numberlineanswer = (answerpos - screenSize.width*0.15)/(screenSize.width*0.7);
+                CCLOG("answerpos%f", location.x);
+                CCLOG("numberlineanswer%f",numberlineanswer);
+                CCLOG("screensize%f", screenSize.width);
+            } else if (axisFlag == 2){
+                numberlineanswer = (screenSize.width*0.5 - answerpos)/(screenSize.width*0.35);
+            }
+            auto realanswer = atof(answerArray[rightCount].c_str());
+            if((realanswer+0.1) > numberlineanswer && (realanswer - 0.1)< numberlineanswer){
+                rightAnswer();
+            } else {
+                wrongAnswer();
+            }
+            
+            
+            
+        }
+    } else if(fractionFlag == 4){
+//        Point location = touch->getLocation();
+        auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
+        
+        auto target = static_cast<Layer*>(event->getCurrentTarget());
+        Point location = target->convertToNodeSpace(touch->getLocation());
+
+        
+        for(int i=0; i<4; i++){
+            if(!fractionBoxArray[i]){
+                
+                
+                auto molLabel1 = (Label*)problemLayer->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4 + i);
+                Rect molLabel1Rect = molLabel1->getBoundingBox();
+                CCLOG("xxxmax = %f", molLabel1Rect.getMaxX());
+                CCLOG("xxxmin = %f", molLabel1Rect.getMinX());
+                CCLOG("xxxlocation = %f", location.x);
+                
+                if(molLabel1Rect.containsPoint(location)){
+                    auto point = molLabel1->getPosition();
+                    auto lineSpr = Sprite::create("res/game/line.png");
+                    lineSpr->setPosition(point);
+                    lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+                    //    lineSpr->setTag(TAG_FRACTION_LINE);
+                    problemLayer->addChild(lineSpr);
+                    
+                    auto answerBoxSpr = Sprite::create("res/game/answerboxlayer.png");
+                    
+                    answerBoxSpr->setPosition(point.x + screenSize.width*0.01 * (-2) * ((i+1)%2 - 0.5) , point.y + screenSize.width*0.01 * (-2) * (i%2 - 0.5));
+                    answerBoxSpr->setScale(screenSize.width*0.045/answerBoxSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+                    answerBoxSpr->setTag(TAG_GAME_MOLANS1+i);
+                    problemLayer->addChild(answerBoxSpr);
+                    
+                    auto ansLabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
+                    ansLabel->setColor(Color3B::BLACK);
+                    ansLabel->setPosition(point.x - screenSize.width*0.01, point.y + screenSize.width*0.01);
+                    //    moleculeLabel->setPosition(0, 0);
+                    ansLabel->setTag(TAG_GAME_MOLANS1LABEL+i);
+                    problemLayer->addChild(ansLabel);
+                    selectedAnswerBox = i+1;
+                    fractionBoxArray[i] = true;
+                    
+                }
+
+            } else {
+                auto answerBoxSpr = (Sprite *)problemLayer->getChildByTag(TAG_GAME_MOLANS1 + i);
+                Rect boxSprRect = answerBoxSpr->getBoundingBox();
+                if(boxSprRect.containsPoint(location)){
+                    selectedAnswerBox = i+1;
+                    auto ansLabel = (Label*)problemLayer->getChildByTag(TAG_GAME_MOLANS1LABEL+i);
+                    ansLabel->setString("");
+                }
+            }
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        auto molLabel1 = (Label*)this->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4);
+//        Rect molLabel1Rect = molLabel1->getBoundingBox();
+//        
+//        auto denLabel1 = (Label*)this->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4+1);
+//        Rect denLabel1Rect = denLabel1->getBoundingBox();
+//        
+//        auto molLabel2 = (Label*)this->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4+2);
+//        Rect molLabel2Rect = molLabel2->getBoundingBox();
+//        
+//        auto denLabel2 = (Label*)this->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4+3);
+//        Rect denLabel2Rect = denLabel2->getBoundingBox();
+//        
+//        if(molLabel1Rect.containsPoint(location)){
+//            auto point = molLabel1->getPosition();
+//            auto lineSpr = Sprite::create("res/game/line.png");
+//            lineSpr->setPosition(point);
+//            lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+//            //    lineSpr->setTag(TAG_FRACTION_LINE);
+//            problemLayer->addChild(lineSpr);
+//            
+//            auto answerBoxSpr = Sprite::create("res/game/answerboxlayer.png");
+//            answerBoxSpr->setPosition(point.x - screenSize.width*0.01, point.y + screenSize.width*0.01);
+//            answerBoxSpr->setScale(screenSize.width*0.045/answerBoxSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+//            answerBoxSpr->setTag(TAG_GAME_MOLANS1);
+//            problemLayer->addChild(answerBoxSpr);
+//            
+//            auto ansLabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
+//            ansLabel->setColor(Color3B::BLACK);
+//            ansLabel->setPosition(point.x - screenSize.width*0.01, point.y + screenSize.width*0.01);
+//            //    moleculeLabel->setPosition(0, 0);
+//            ansLabel->setTag(TAG_FRACTION_MOLECULE);
+//            problemLayer->addChild(ansLabel);
+//            
+//        }
+        
+    }
+    
+}
+
+void GameScene::onTouchCancelled(Touch *touch, Event *event)
+{
+    onTouchEnded(touch, event);
+}
+
+
+
+
+

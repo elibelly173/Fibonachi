@@ -1,0 +1,11 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+proj.android/
+proj.android-studio/
+proj.tizen/
+proj.win8.1-universal/
+proj.win10/
+proj.win32/
+.DS_Store
+*.DS_Store
