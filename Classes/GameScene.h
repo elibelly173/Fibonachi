@@ -33,6 +33,8 @@ USING_NS_CC;
 #define TAG_GAME_KEYSMALL      215
 #define TAG_GAME_KEYEQUAL      216
 #define TAG_GAME_KEYBIG      217
+#define TAG_GAME_KEYDECIMAL      218
+#define TAG_GAME_KEYDIVIDER 300
 
 
 #define TAG_GAME_REPORTBACK      251
@@ -61,6 +63,8 @@ public:
     
     
     virtual bool init();
+    
+    void initTicks();
     virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
     virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
     virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
@@ -77,7 +81,9 @@ public:
     void initProAns();
     void makeproblem();
     
-    void Fraction26(int mol1, int den1,int mol2, int den2, int order, float offset);
+    void addTick(int order);
+    
+    void Fraction26(int mol1, int den1,int mol2, int den2, int order, float offset, std::string op);
     void makineAnsSpr();
     void initanswerLayer();
     void initTimerScore();
@@ -88,21 +94,33 @@ public:
     void showAnswerBox(int ans);
     void showAnswer(int ans);
     void showFractionAnswer(int keyValue);
+    void showDecimalAnswer(int keyValue);
     void removeProblem(int order);
     void animationProblem(int order);
     void onShowReportLayer();
     void onRemoveReportLayer(int status);
     void onClickDividerKey();
+    void onClickDeciamlKey();
+    void convertDividertoMultiSign();
+    
     
     void CompareNumber(int ans);
+    // left-right
+    void answerSwipeFunc();
+    // top - bottom
+    void fractionSwipeFunc();
+    
+    void onTapFractionItem(Touch *touch);
     
         
     void reportCallback(cocos2d::Ref* sender, int status);
     void onKeyTouchEvent(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
-    void gotoHome(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type, int d);
+    void gotoHome(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
 public:
     cocos2d::Size screenSize;
     ValueVector arrLevelsProblems;
+    
+    ValueVector arrTicks;
     int level;
     int timer = 0;
     int score = 0;
@@ -125,6 +143,9 @@ public:
     float initialTouchPos[2];
     float currentTouchPos[2];
     
+    float initialSwipeFractionPos[2];
+    float currentSwipeFractionPos[2];
+    
     float initialAnswerTouchPos[2];
     float currentAnswerTouchPos[2];
     int clickedKeyValue;
@@ -134,13 +155,19 @@ public:
     
     
     float levelSpeed, levelAccuracy;
+    int completedLevel;
     
     
 //    Flags
     int fractionFlag = 0;
+    bool deciamlFlag = 0;
     bool addKeyFlag = false;
     int axisFlag = 0;
     bool clickedDividerKeyFlag = false;
+    bool level28Flag = false;
+    bool swipe28Flag = false;
+    
+    bool fractionSwipeFlagArray[100];
 
 private:
     CREATE_FUNC(GameScene);

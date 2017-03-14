@@ -128,7 +128,7 @@
 			<key>16</key>
 			<string>value</string>
 			<key>x1</key>
-			<string>9+8</string>
+			<string>9+7</string>
 			<key>answer</key>
 			<string>16</string>
 		</dict>
@@ -176,7 +176,7 @@
 			<key>22</key>
 			<string>value</string>
 			<key>x1</key>
-			<string>7+4</string>
+			<string>7+6</string>
 			<key>answer</key>
 			<string>13</string>
 		</dict>

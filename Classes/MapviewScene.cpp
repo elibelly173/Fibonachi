@@ -38,14 +38,33 @@ bool MapviewScene::init()
     {
         return false;
     }
+    completedLevel =UserDefault::getInstance()->getIntegerForKey("completedLevel");
     
+//    CCLOG("completedLevel %d", completedLevel);
     
     this->scrollsize = Director::getInstance()->getWinSize();
     this->scrollframesize = Size(this->scrollsize.width, this->scrollsize.height);
     this->getLevelInfo();
     this->initscroll();
     this->initAddbutton();
+    showPos();
+    
+    
+    
     return true;
+}
+
+void MapviewScene::onEnterTransitionDidFinish() {
+    if(!enterFlag){
+        enterFlag = true;
+    } else{
+        int insteadlevel = UserDefault::getInstance()->getIntegerForKey("completedLevel");
+        if(insteadlevel> completedLevel){
+            int diff = insteadlevel - completedLevel;
+            completedLevel = insteadlevel;
+            movePos(diff);
+        }
+    }
 }
 
 void MapviewScene::getLevelInfo(){
@@ -82,7 +101,17 @@ void MapviewScene::initscroll(){
     //    float contentH = scrollView->getContentSize().height;
     //    float h = scrollView->getInnerContainerSize().height - contentH;
     //    float y = MIN(228+268*int((gCurrentStage-1)/3)-contentH/2, h);
-    scrollView->jumpToPercentVertical(100);
+    float y = 0.0f;
+    if(completedLevel>0){
+        ValueMap sdata = (arrLevels[completedLevel-1]).asValueMap();
+        y =  sdata["y"].asFloat();
+    } else {
+        y = 0.0f;
+    }
+    
+    
+    float scrollPos = (scrollframesize.width*4.4 - y)*100/(scrollframesize.width*4.4);
+    scrollView->jumpToPercentVertical(scrollPos);
     scrollView->setTag(TAG_MAP_SCROLL);
     this->addChild(scrollView);
 }
@@ -98,18 +127,114 @@ void MapviewScene::initAddbutton(){
         ValueMap sdata = (this->arrLevels[ii]).asValueMap();
         float x =  sdata["x"].asFloat();
         float y =  sdata["y"].asFloat();
-        Button* button1 = Button::create(StringUtils::format("res/levels_incomplete/%d.png", (ii + 1)),
-                                         StringUtils::format("res/levels_incomplete/%d.png", (ii + 1)));
-        
+        Button* button1;
+        if(ii<completedLevel){
+            button1 = Button::create(StringUtils::format("res/levels_complete/%d.png", (ii + 1)),
+                                     StringUtils::format("res/levels_complete/%d.png", (ii + 1)));
+            button1->setScale(this->scrollframesize.width * 0.18f/button1->getContentSize().width);
+        } else {
+            
+            button1 = Button::create(StringUtils::format("res/levels_incomplete/%d.png", (ii + 1)),
+                                     StringUtils::format("res/levels_incomplete/%d.png", (ii + 1)));
+            button1->setScale(this->scrollframesize.width * 0.13f/button1->getContentSize().width);
+        }
         button1->setPosition(Vec2(this->scrollframesize.width * x / 100.0f, this->scrollframesize.width *y/ 100.0f));
         button1->addTouchEventListener(CC_CALLBACK_2(MapviewScene::touchEvent, this, (int)ii+1));
-        button1->setScale(this->scrollframesize.width * 0.13f/button1->getContentSize().width);
+        button1->setTag(TAG_MAP_BUTTON+ii);
+        
 //        button1->setPressedActionEnabled(true);
         scrollView->addChild(button1);
         
     }
 
 }
+
+//void MapviewScene::initAddbutton(){
+//    
+//    cocos2d::ui::ScrollView *scrollView = (cocos2d::ui::ScrollView*)this->getChildByTag(TAG_MAP_SCROLL);
+//    
+//    
+//    for(int ii=0; ii<this->arrLevels.size(); ii++){
+//        
+//        ValueMap sdata = (this->arrLevels[ii]).asValueMap();
+//        float x =  sdata["x"].asFloat();
+//        float y =  sdata["y"].asFloat();
+//        Sprite* button1;
+//        if(ii<completedLevel){
+//            button1 = Sprite::create(StringUtils::format("res/levels_complete/%d.png", (ii + 1)));
+//            button1->setScale(this->scrollframesize.width * 0.16f/button1->getContentSize().width);
+//        } else {
+//            
+//            button1 = Sprite::create(StringUtils::format("res/levels_incomplete/%d.png", (ii + 1)));
+//            button1->setScale(this->scrollframesize.width * 0.13f/button1->getContentSize().width);
+//        }
+//        button1->setPosition(Vec2(this->scrollframesize.width * x / 100.0f, this->scrollframesize.width *y/ 100.0f));
+////        button1->addTouchEventListener(CC_CALLBACK_2(MapviewScene::touchEvent, this, (int)ii+1));
+//        button1->setTag(TAG_MAP_BUTTON+ii);
+//        
+//        //        button1->setPressedActionEnabled(true);
+//        scrollView->addChild(button1);
+//        
+//    }
+//    
+//}
+
+void MapviewScene::showPos(){
+    if(completedLevel<32){
+        cocos2d::ui::ScrollView *scrollView = (cocos2d::ui::ScrollView*)this->getChildByTag(TAG_MAP_SCROLL);
+        ValueMap sdata = (arrLevels[completedLevel]).asValueMap();
+        float x =  sdata["x"].asFloat();
+        float y =  sdata["y"].asFloat();
+        
+        auto footSpr = Sprite::create("res/levelicon.png"); //here the background.png is a "red screen" png.
+        footSpr->setPosition(Vec2(scrollframesize.width * x / 100.0f, scrollframesize.width *y/ 100.0f));
+        footSpr->setTag(TAG_MAP_FOOTICON);
+        footSpr->setAnchorPoint(Point(0.5f,0.1f));
+        scrollView->addChild(footSpr);
+        footSpr->setScale(scrollsize.width * 0.1/footSpr->getContentSize().width);
+    }
+    
+}
+
+void MapviewScene::movePos(int diff){
+    if(completedLevel<32){
+        cocos2d::ui::ScrollView *scrollView = (cocos2d::ui::ScrollView*)this->getChildByTag(TAG_MAP_SCROLL);
+        ValueMap sdata = (arrLevels[completedLevel]).asValueMap();
+        float x =  sdata["x"].asFloat();
+        float y =  sdata["y"].asFloat();
+        
+        for(int ii=0; ii<diff; ii++){
+            ValueMap sdata1 = (arrLevels[completedLevel-1 - ii]).asValueMap();
+            float xx =  sdata1["x"].asFloat();
+            float yy =  sdata1["y"].asFloat();
+            auto *button = (Button*)scrollView->getChildByTag(TAG_MAP_BUTTON+completedLevel-1 - ii);
+            scrollView->removeChild(button);
+            
+            Button* button1;
+            button1 = Button::create(StringUtils::format("res/levels_complete/%d.png", completedLevel -ii),
+                                     StringUtils::format("res/levels_complete/%d.png", completedLevel -ii));
+            button1->setScale(this->scrollframesize.width * 0.18f/button1->getContentSize().width);
+            
+            button1->setPosition(Vec2(this->scrollframesize.width * xx / 100.0f, this->scrollframesize.width *yy/ 100.0f));
+            button1->addTouchEventListener(CC_CALLBACK_2(MapviewScene::touchEvent, this, completedLevel- ii));
+            button1->setTag(TAG_MAP_BUTTON+completedLevel-1 -ii);
+            
+            
+            scrollView->addChild(button1);
+        }
+        
+        
+        
+
+        
+        
+        auto footSpr = (Sprite*) scrollView->getChildByTag(TAG_MAP_FOOTICON);
+        auto action_0 = MoveTo::create(0.4, Point(scrollframesize.width * x / 100.0f, scrollframesize.width *y/ 100.0f));
+        footSpr->runAction(action_0);
+    }
+}
+
+
 
 void MapviewScene::showLevelExplainacreen(int level){
     
@@ -179,7 +304,7 @@ void MapviewScene::showLevelExplainacreen(int level){
     
     
     // adding target time and target number
-    ValueMap sdata = (this->arrLevels[level]).asValueMap();
+    ValueMap sdata = (this->arrLevels[level-1]).asValueMap();
     int targetnumber =  sdata["targetnumber"].asInt();
     int targettime =  sdata["targettime"].asInt();
     
@@ -234,6 +359,10 @@ void MapviewScene::showLevelExplainacreen(int level){
 void MapviewScene::touchEvent(Ref *pSender, Widget::TouchEventType type, int d)
 {
 //    CCLOG("HelloWorld::setCallFunc_2() = %d", (int)d);
+//    if(this->onShowLevelFlag && d<=(completedLevel+1)) {
+//        this->showLevelExplainacreen(d);
+//    }
+    
     if(this->onShowLevelFlag) {
         this->showLevelExplainacreen(d);
     }

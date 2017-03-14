@@ -78,7 +78,7 @@ void FractionAnswerLayer::makeDenomentor(){
     if(denomentorCount == 0){
         lineSprScale = 0.03;
     } else {
-        lineSprScale+=0.03*1.5;
+        lineSprScale+=0.025;
     }
     denomentorCount++;
     auto lineSpr = (Sprite*)this->getChildByTag(TAG_FRACTIONANSWER_LINE);

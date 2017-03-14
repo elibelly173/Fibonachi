@@ -14,11 +14,34 @@ FractionLayer::FractionLayer(int molecule, int denomentor, float offset, bool fl
     den = denomentor;
     offsetPos = offset;
     allowswipeFlag = flag1;
+    getDenSize(denomentor);
     init();
 }
 
 FractionLayer::~FractionLayer(){
     
+}
+
+
+void FractionLayer::getDenSize(int denomentor){
+    int instead1 = denomentor;
+    int instead2 = mol;
+    int size1 = 0, size2 = 0;
+    while(instead1 > 0){
+        instead1 = (int)(instead1/10);
+        size1++;
+    }
+    
+    while(instead2 > 0){
+        instead2 = (int)(instead2/10);
+        size2++;
+    }
+    
+    if(size1>size2){
+        fraSize = size1;
+    } else {
+        fraSize = size2;
+    }
 }
 bool FractionLayer::init(){
     screenSize = Director::getInstance()->getWinSize();
@@ -39,19 +62,19 @@ bool FractionLayer::init(){
     
     auto lineSpr = Sprite::create("res/game/line.png");
     lineSpr->setPosition(-screenSize.width*0.09+offsetPos*screenSize.width, screenSize.width*0.085);
-    lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+    lineSpr->setScale(screenSize.width*0.025 * fraSize/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
     lineSpr->setTag(TAG_FRACTION_LINE);
     this->addChild(lineSpr);
     
-    auto listener = EventListenerTouchOneByOne::create();
-    listener->setSwallowTouches(true);
-    
-    listener->onTouchBegan = CC_CALLBACK_2(FractionLayer::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(FractionLayer::onTouchMoved, this);
-    listener->onTouchEnded = CC_CALLBACK_2(FractionLayer::onTouchEnded, this);
-    listener->onTouchCancelled = CC_CALLBACK_2(FractionLayer::onTouchCancelled, this);
-    
-    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+//    auto listener = EventListenerTouchOneByOne::create();
+//    listener->setSwallowTouches(true);
+//    
+//    listener->onTouchBegan = CC_CALLBACK_2(FractionLayer::onTouchBegan, this);
+//    listener->onTouchMoved = CC_CALLBACK_2(FractionLayer::onTouchMoved, this);
+//    listener->onTouchEnded = CC_CALLBACK_2(FractionLayer::onTouchEnded, this);
+//    listener->onTouchCancelled = CC_CALLBACK_2(FractionLayer::onTouchCancelled, this);
+//    
+//    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
     
     
     return true;

@@ -8,7 +8,7 @@
 			<key>1</key>
 			<string>value</string>
 			<key>x1</key>
-			<string>2</string>
+			<string>15</string>
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
@@ -18,7 +18,7 @@
 			<key>op</key>
 			<string>x</string>
 			<key>answer</key>
-			<string>4/5</string>
+			<string>6</string>
 		</dict>
 		<dict>
 			<key>2</key>
@@ -88,7 +88,7 @@
 			<key>6</key>
 			<string>value</string>
 			<key>x1</key>
-			<string>3</string>
+			<string>14</string>
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
@@ -98,7 +98,7 @@
 			<key>op</key>
 			<string>x</string>
 			<key>answer</key>
-			<string>9/7</string>
+			<string>6</string>
 		</dict>
 		<dict>
 			<key>7</key>
@@ -140,13 +140,13 @@
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
-			<string>3</string>
-			<key>y2</key>
 			<string>7</string>
+			<key>y2</key>
+			<string>18</string>
 			<key>op</key>
 			<string>x</string>
 			<key>answer</key>
-			<string>18/7</string>
+			<string>7/3</string>
 		</dict>
 		<dict>
 			<key>10</key>

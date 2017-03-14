@@ -21,6 +21,8 @@ USING_NS_CC;
 #define TAG_MAP_SCROLL      1
 #define TAG_MAP_VINEYET      2
 #define TAG_MAP_LEVELLAYER      3
+#define TAG_MAP_FOOTICON      4
+#define TAG_MAP_BUTTON 2000
 class MapviewScene : public cocos2d::Layer
 {
 public:
@@ -28,10 +30,19 @@ public:
     
     
     virtual bool init();
+    virtual void onEnterTransitionDidFinish();
     void initscroll();
     void initAddbutton();
     void showLevelExplainacreen(int level);
     void getLevelInfo();
+    
+    void showPos();
+    void movePos(int diff);
+    
+//    virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
+//    virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
+//    virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
+//    virtual void onTouchCancelled(cocos2d::Touch*, cocos2d::Event*);
     
     void touchEvent(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type, int d);
     void scheduleCallback(float delta);
@@ -43,6 +54,9 @@ public:
     bool onShowLevelFlag= true;
     ValueVector arrLevels;
     int selectedLevel;
+    int completedLevel = 0;
+    
+    bool enterFlag = false;
    
 private:
     CREATE_FUNC(MapviewScene);

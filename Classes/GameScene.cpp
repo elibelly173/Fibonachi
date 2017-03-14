@@ -43,6 +43,8 @@ bool GameScene::init()
     level =UserDefault::getInstance()->getIntegerForKey("Level");
     screenSize = Director::getInstance()->getWinSize();
     
+    completedLevel =UserDefault::getInstance()->getIntegerForKey("completedLevel");
+    
     initFlags();
     getLevelProblems();
     initScreen();
@@ -50,7 +52,7 @@ bool GameScene::init()
     initProAns();
     initanswerLayer();
     initTimerScore();
-    
+    initTicks();
     initKey();
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
@@ -65,6 +67,30 @@ bool GameScene::init()
     this->scheduleUpdate();
     return true;
 }
+void GameScene::initTicks(){
+    
+    ValueMap data;
+    std::string path = FileUtils::getInstance()->fullPathForFilename("res/plist/ticks.plist");
+    data = FileUtils::getInstance()->getValueMapFromFile(path);
+    arrTicks = data.at("ticks").asValueVector();
+    
+    
+}
+
+void GameScene::addTick(int order){
+    if(order<20){
+        ValueMap sdata = (arrTicks[order]).asValueMap();
+        float x =  sdata["x"].asFloat();
+        float y =  sdata["y"].asFloat();
+        float w =  sdata["w"].asFloat();
+        float h =  sdata["h"].asFloat();
+        auto tick1spr = Sprite::create(StringUtils::format("res/ticks/tick%d.png", (order + 1)));
+        tick1spr->setPosition(screenSize.width*x, screenSize.height*y);
+        this->addChild(tick1spr);
+        tick1spr->setScale(screenSize.width*w/tick1spr->getContentSize().width, screenSize.height*h/tick1spr->getContentSize().height);
+    }
+    
+}
 
 void GameScene::initFlags(){
     if(level>19 && level<23){
@@ -73,8 +99,14 @@ void GameScene::initFlags(){
         fractionFlag =2;
     } else if(level > 23 && level<=25){
         fractionFlag =3;
-    } else if(level > 25){
+    } else if(level > 25 && level<30){
         fractionFlag =4;
+    } else if(level == 30){
+        fractionFlag = 1;
+        deciamlFlag = true;
+    } else if(level == 32) {
+        fractionFlag = 0;
+        deciamlFlag = true;
     }
     else {
         fractionFlag = 0;
@@ -121,7 +153,7 @@ void GameScene::initScreen(){
     Button* homeButton = Button::create("res/game/home.png", "res/game/home.png");
     
     homeButton->setPosition(Vec2(screenSize.width*0.05, screenSize.height*0.9));
-    homeButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoHome, this, (int)2));
+    homeButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoHome, this));
     homeButton->setScale(screenSize.width * 0.05f/homeButton->getContentSize().width);
     
     this->addChild(homeButton);
@@ -202,7 +234,7 @@ void GameScene::getLevelProblems(){
     ValueMap data;
     std::string path = FileUtils::getInstance()->fullPathForFilename(StringUtils::format("res/plist/level%d.plist", this->level));
     data = FileUtils::getInstance()->getValueMapFromFile(path);
-    this->arrLevelsProblems = data.at("anspro").asValueVector();
+    arrLevelsProblems = data.at("anspro").asValueVector();
     
     
     ValueMap data1;
@@ -210,7 +242,7 @@ void GameScene::getLevelProblems(){
     data1 = FileUtils::getInstance()->getValueMapFromFile(path1);
     auto arrLevels = data1.at("levels").asValueVector();
     
-    ValueMap sdata = (arrLevels[level]).asValueMap();
+    ValueMap sdata = (arrLevels[level-1]).asValueMap();
    
     targettime =  sdata["targettime"].asInt();
 
@@ -253,13 +285,26 @@ void GameScene::initKey(){
             Button* fractionKeyButton = Button::create("res/key/divide.png", "res/key/divide.png");
             
             
-            fractionKeyButton->setPosition(Vec2(screenSize.width*0.95, screenSize.height*0.08f + screenSize.width * 0.16f));
+            fractionKeyButton->setPosition(Vec2(screenSize.width*0.95, screenSize.height*0.08f + screenSize.width * 0.13f));
             fractionKeyButton->setAnchorPoint(Point(0.5f,0.0f));
             fractionKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
             fractionKeyButton->setTag(TAG_GAME_KEYFRACTION);
             fractionKeyButton->setScale(screenSize.width * 0.07f/fractionKeyButton->getContentSize().width);
             
             this->addChild(fractionKeyButton);
+        }
+        
+        if(deciamlFlag){
+            Button* deciamlButton = Button::create("res/key/decimal.png", "res/key/decimal.png");
+            
+            
+            deciamlButton->setPosition(Vec2(screenSize.width*0.95, screenSize.height*0.1f + screenSize.width * 0.18f));
+            deciamlButton->setAnchorPoint(Point(0.5f,0.0f));
+            deciamlButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+            deciamlButton->setTag(TAG_GAME_KEYDECIMAL);
+            deciamlButton->setScale(screenSize.width * 0.07f/deciamlButton->getContentSize().width);
+            
+            this->addChild(deciamlButton);
         }
     } else if(axisFlag == 1 || axisFlag == 2){
         auto numberline1Spr = Sprite::Sprite::create(StringUtils::format("res/key/numberline%d.png", axisFlag));
@@ -394,13 +439,19 @@ void GameScene::initanswerLayer(){
 //    auto answerLayer = Layer::create();
 //    this->addChild(answerLayer);
 //    answerLayer->setTag(TAG_GAME_ANSWERLAYER);
-    if(fractionFlag>0){
+    if(fractionFlag>0 && !deciamlFlag){
         
         auto answerLayer = new FractionAnswerLayer(0);//FractionLayer::create();
         answerLayer->setPosition(screenSize.width*0.75, screenSize.height*0.16 + screenSize.width*0.08);
         answerLayer->setTag(TAG_GAME_ANSWERLABEL);
         this->addChild(answerLayer);
         
+    } else if(fractionFlag>0 && deciamlFlag){
+        auto answerlabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
+        answerlabel->setColor(Color3B::BLACK);
+        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.17);
+        answerlabel->setTag(TAG_GAME_ANSWERLABEL);
+        this->addChild(answerlabel);
     } else {
 //        auto answer = StringUtils::format("%d", 77);
         
@@ -418,29 +469,44 @@ void GameScene::initanswerLayer(){
 
 
 
-void GameScene::Fraction26(int mol1, int den1, int mol2, int den2, int order, float offsetPos){
+void GameScene::Fraction26(int mol1, int den1, int mol2, int den2, int order, float offsetPos, std::string op){
     
     auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+order);
     
-    auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", screenSize.width*0.04);
-    moleculeLabel->setColor(Color3B::BLACK);
-    moleculeLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.107);
-    //    moleculeLabel->setPosition(0, 0);
-    moleculeLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4);
-    problemLayer->addChild(moleculeLabel);
+    if(den1 != 1){
+        auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", screenSize.width*0.04);
+        moleculeLabel->setColor(Color3B::BLACK);
+        moleculeLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.107);
+        moleculeLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4);
+        problemLayer->addChild(moleculeLabel);
+        
+        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "", screenSize.width*0.04);
+        denLabel->setColor(Color3B::BLACK);
+        denLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.068);
+        denLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +1);
+        problemLayer->addChild(denLabel);
+        
+        auto lineSpr = Sprite::create("res/game/line.png");
+        lineSpr->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.085);
+        lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+        
+        problemLayer->addChild(lineSpr);
+    } else {
+        auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", screenSize.width*0.04);
+        moleculeLabel->setColor(Color3B::BLACK);
+        moleculeLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.085);
+        moleculeLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4);
+        problemLayer->addChild(moleculeLabel);
+        
+        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "", 0);
+        denLabel->setColor(Color3B::BLACK);
+        denLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.068);
+        denLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +1);
+        problemLayer->addChild(denLabel);
+    }
     
-    auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "", screenSize.width*0.04);
-    denLabel->setColor(Color3B::BLACK);
-    denLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.068);
-    //    moleculeLabel->setPosition(0, 0);
-    denLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +1);
-    problemLayer->addChild(denLabel);
     
-    auto lineSpr = Sprite::create("res/game/line.png");
-    lineSpr->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.085);
-    lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
-//    lineSpr->setTag(TAG_FRACTION_LINE);
-    problemLayer->addChild(lineSpr);
+    
     
     auto moleculeLabel2 = Label::createWithSystemFont(StringUtils::format("%d", mol2), "", screenSize.width*0.04);
     moleculeLabel2->setColor(Color3B::BLACK);
@@ -458,9 +524,25 @@ void GameScene::Fraction26(int mol1, int den1, int mol2, int den2, int order, fl
     
     auto lineSpr2 = Sprite::create("res/game/line.png");
     lineSpr2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.085);
-    lineSpr2->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr2->getContentSize().height);
+    lineSpr2->setScale(screenSize.width*0.045/lineSpr2->getContentSize().width, screenSize.width*0.003/lineSpr2->getContentSize().height);
 //    lineSpr2->setTag(TAG_FRACTION_LINE);
     problemLayer->addChild(lineSpr2);
+    
+    if(std::strcmp(op.c_str(), "x") == 0){
+        auto oplabel = Label::createWithSystemFont("x", "", screenSize.width*0.04);
+        oplabel->setPosition(-screenSize.width*0.09, screenSize.width*0.085);
+        oplabel->setColor(Color3B::BLACK);
+        problemLayer->addChild(oplabel);
+    } else {
+        Button* dividerSprbutton = Button::create("res/game/dividersprite.png", "res/game/dividersprite.png");
+        dividerSprbutton->setPosition(Vec2(-screenSize.width*0.09, screenSize.width*0.085));
+        dividerSprbutton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+        dividerSprbutton->setTag(TAG_GAME_KEYDIVIDER + order);
+        dividerSprbutton->setScale(screenSize.width*0.02/dividerSprbutton->getContentSize().width);
+        problemLayer->addChild(dividerSprbutton);
+        fractionSwipeFlagArray[order] = true;
+        
+    }
 
     
 }
@@ -550,8 +632,9 @@ void GameScene::makeproblem(){
             auto y1 =  sdata["y1"].asInt();
             auto x2 =  sdata["x2"].asInt();
             auto y2 =  sdata["y2"].asInt();
+            auto op =  sdata["op"].asString();
             
-            Fraction26(x1, y1, x2, y2, problemCount, 0.0f);
+            Fraction26(x1, y1, x2, y2, problemCount, 0.0f, op);
             break;
         }
     }
@@ -563,8 +646,11 @@ void GameScene::makeproblem(){
 }
 void GameScene::rightAnswer(){
     if(problemTime <2000){
+        addTick(ticksCount);
+        addTick(ticksCount+1);
         ticksCount+=2;
     } else {
+        addTick(ticksCount);
         ticksCount +=1;
     }
     
@@ -577,9 +663,12 @@ void GameScene::rightAnswer(){
     
     answer = 0;
     answerString = "";
+    for(int i =0; i<4; i++){
+        fractionBoxArray[i] = false;
+    }
     
     
-    if(ticksCount >2){
+    if(ticksCount >20){
         onShowReportLayer();
     } else {
         makeproblem();
@@ -597,7 +686,7 @@ void GameScene::wrongAnswer(){
 
 void GameScene::enterAnswer(){
     
-    if(fractionFlag>0){
+    if(fractionFlag>0 || deciamlFlag){
         
         if(std::strcmp(answerString.c_str(), answerArray[rightCount].c_str()) == 0){
             rightAnswer();
@@ -613,6 +702,121 @@ void GameScene::enterAnswer(){
     }
     
 }
+
+void GameScene::answerSwipeFunc(){
+    if(fractionFlag==0 || deciamlFlag){
+        auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+        answerLabel->setString("");
+        clickedDividerKeyFlag = false;
+        is_Negative = 1;
+    } else {
+        auto answerLayer = (FractionAnswerLayer*) this->getChildByTag(TAG_GAME_ANSWERLABEL);
+        answerLayer->reset();
+    }
+    clickedDividerKeyFlag = false;
+    
+    if (initialAnswerTouchPos[0] - currentAnswerTouchPos[0] > screenSize.width * 0.04)
+    {
+        CCLOG("SWIPED LEFT");
+        answer=0;
+        answerString = "";
+        
+        
+    }
+    else if (initialAnswerTouchPos[0] - currentAnswerTouchPos[0] < - screenSize.width * 0.04)
+    {
+        CCLOG("SWIPED RIGHT");
+        answer=0;
+        answerString = "";
+        
+    }else {
+        CCLOG("enter");
+        
+        enterAnswer();
+    }
+    isAnswerTouchDown = false;
+}
+
+void GameScene::onTapFractionItem(Touch *touch){
+    auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
+    
+    Point layerLocation = problemLayer->getPosition();
+    Point location = Point(touch->getLocation().x - layerLocation.x, touch->getLocation().y - layerLocation.y);
+    
+    for(int i=0; i<4; i++){
+        if(!fractionBoxArray[i]){
+            auto molLabel1 = (Label*)problemLayer->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4 + i);
+            Rect molLabel1Rect = molLabel1->getBoundingBox();
+            
+            if(molLabel1Rect.containsPoint(location)){
+                auto point = molLabel1->getPosition();
+                auto lineSpr = Sprite::create("res/game/line.png");
+                lineSpr->setPosition(point);
+                lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+                //    lineSpr->setTag(TAG_FRACTION_LINE);
+                problemLayer->addChild(lineSpr);
+                
+                auto answerBoxSpr = Sprite::create("res/game/answerboxlayer.png");
+                auto ansLabel = Label::createWithSystemFont("", "", screenSize.width*0.03);
+                
+                float xx, yy;
+                if(point.x < -screenSize.width*0.09){
+                    xx = - screenSize.width*0.02;
+                } else {
+                    xx = screenSize.width*0.02;
+                }
+                
+                if(point.y < screenSize.width*0.085){
+                    yy = -screenSize.width*0.02;
+                } else {
+                    yy = screenSize.width*0.02;
+                }
+                answerBoxSpr->setPosition(point.x + xx , point.y + yy);
+                ansLabel->setPosition(point.x + xx , point.y + yy);
+                
+                answerBoxSpr->setScale(screenSize.width*0.035/answerBoxSpr->getContentSize().width);
+                answerBoxSpr->setTag(TAG_GAME_MOLANS1+i);
+                problemLayer->addChild(answerBoxSpr);
+                
+                
+                ansLabel->setColor(Color3B::BLACK);
+                //                    ansLabel->setPosition(point.x - screenSize.width*0.03, point.y + screenSize.width*0.03);
+                //    moleculeLabel->setPosition(0, 0);
+                ansLabel->setTag(TAG_GAME_MOLANS1LABEL+i);
+                problemLayer->addChild(ansLabel);
+                selectedAnswerBox = i+1;
+                fractionBoxArray[i] = true;
+                
+            }
+            
+        } else {
+            auto answerBoxSpr = (Sprite *)problemLayer->getChildByTag(TAG_GAME_MOLANS1 + i);
+            Rect boxSprRect = answerBoxSpr->getBoundingBox();
+            if(boxSprRect.containsPoint(location)){
+                selectedAnswerBox = i+1;
+                auto ansLabel = (Label*)problemLayer->getChildByTag(TAG_GAME_MOLANS1LABEL+i);
+                ansLabel->setString("");
+            }
+        }
+        
+    }
+}
+
+void GameScene::fractionSwipeFunc(){
+    auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
+    auto *topLabel = (Label*)problemLayer->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4 + 2);
+    auto *bottpmLabel = (Label*)problemLayer->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4 + 3);
+    
+    auto action_0 = MoveTo::create(0.1, Point(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.068));
+    topLabel->runAction(action_0);
+    auto action_1 = MoveTo::create(0.1, Point(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.107));
+    bottpmLabel->runAction(action_1);
+    fractionSwipeFlagArray[rightCount] = false;
+    
+}
+
+
+
 
 void GameScene::updateScore(){
     score+=1000;
@@ -673,6 +877,9 @@ void GameScene::onShowReportLayer(){
     
     //Report title
     if(levelSpeed == 100 && levelAccuracy == 100){
+        if(level > completedLevel){
+            UserDefault::getInstance()->setIntegerForKey("completedLevel",level);
+        }
         auto reportTitle = Sprite::create("res/report/success_title.png");
         reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.5);
         reportTitle->setScale(screenSize.width*0.45/reportTitle->getContentSize().width);
@@ -773,6 +980,7 @@ void GameScene::reportCallback(Ref *sender, int status){
         Director::getInstance()->replaceScene(gameScene);
     } else if(status == 3){
 //        auto mapScene = MapviewScene::createScene();
+//        Director::getInstance()->replaceScene(mapScene);
         CCLOG("popsecne");
         Director::getInstance()->popScene();
     }
@@ -806,9 +1014,47 @@ void GameScene::animationProblem(int order){
     problemLayer->runAction(action_0);
 }
 
-void GameScene::gotoHome(Ref *pSender, Widget::TouchEventType type, int d)
+void GameScene::gotoHome(Ref *pSender, Widget::TouchEventType type)
 {
-    //    CCLOG("HelloWorld::setCallFunc_2() = %d", (int)d);
+    switch (type)
+    {
+        case Widget::TouchEventType::BEGAN:
+            
+            break;
+            
+        case Widget::TouchEventType::MOVED:
+            
+            break;
+            
+        case Widget::TouchEventType::ENDED:
+        {
+            Director::getInstance()->popScene();
+            break;
+        }
+            
+        case Widget::TouchEventType::CANCELED:
+            
+            break;
+            
+        default:
+            break;
+    }
+
+    //    auto mapScene = MapviewScene::createScene();
+//    Director::getInstance()->replaceScene(mapScene);
+}
+
+void GameScene::convertDividertoMultiSign(){
+    auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
+    
+    auto *dividersign = (Button*)problemLayer->getChildByTag(TAG_GAME_KEYDIVIDER + rightCount);
+    problemLayer->removeChild(dividersign);
+    
+    
+    auto oplabel = Label::createWithSystemFont("x", "", screenSize.width*0.04);
+    oplabel->setPosition(-screenSize.width*0.09, screenSize.width*0.085);
+    oplabel->setColor(Color3B::BLACK);
+    problemLayer->addChild(oplabel);
 }
 
 
@@ -828,54 +1074,71 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
         case Widget::TouchEventType::ENDED:
         {
             int keyTagValue = ((cocos2d::ui::Button*) pSender)->getTag();
-            switch (keyTagValue){
-                case TAG_GAME_KEYADD:
-                    answer *= -1;
-                    is_Negative *=-1;
-                    
-                    showAnswer(answer);
-                    break;
-                case TAG_GAME_KEYSMALL:
-                    CompareNumber(-1);
-                    break;
-                case TAG_GAME_KEYEQUAL:
-                    CompareNumber(0);
-                    break;
-                case TAG_GAME_KEYBIG:
-                    CompareNumber(1);
-                    break;
-                case TAG_GAME_KEYFRACTION:
-                    onClickDividerKey();
-                    break;
-                case TAG_GAME_REPORTBACK:
-                    onRemoveReportLayer(1);
-                    break;
-                case TAG_GAME_REPORTCONTINUE:
-                    onRemoveReportLayer(2);
-                    break;
-                case TAG_GAME_REPORTEXIT:
-                    onRemoveReportLayer(3);
-                    break;
-                default:
-                {
-                    if(selectedAnswerBox > 0){
+            if(keyTagValue == (TAG_GAME_KEYDIVIDER + rightCount)){
+                convertDividertoMultiSign();
+            } else {
+                switch (keyTagValue){
+                    case TAG_GAME_KEYADD:
+                        answer *= -1;
+                        is_Negative *=-1;
                         
+                        showAnswer(answer);
+                        break;
+                    case TAG_GAME_KEYSMALL:
+                        CompareNumber(-1);
+                        break;
+                    case TAG_GAME_KEYEQUAL:
+                        CompareNumber(0);
+                        break;
+                    case TAG_GAME_KEYBIG:
+                        CompareNumber(1);
+                        break;
+                    case TAG_GAME_KEYFRACTION:
+                        onClickDividerKey();
+                        break;
+                    case TAG_GAME_KEYDECIMAL:
+                        onClickDeciamlKey();
+                        break;
+                    case TAG_GAME_REPORTBACK:
+                        onRemoveReportLayer(1);
+                        break;
+                    case TAG_GAME_REPORTCONTINUE:
+                        onRemoveReportLayer(2);
+                        break;
+                    case TAG_GAME_REPORTEXIT:
+                        onRemoveReportLayer(3);
+                        break;
                         
-                    } else {
-                        if(fractionFlag>0){
+                    default:
+                    {
+                        if(selectedAnswerBox > 0){
+                            showAnswerBox(keyTagValue);
                             
-                            showFractionAnswer(keyTagValue);
                         } else {
-                            answer = answer*10 + (keyTagValue%10)*is_Negative;
-                            showAnswer(answer);
+                            if(fractionFlag>0 && !deciamlFlag){
+                                
+                                showFractionAnswer(keyTagValue);
+                            } else if(fractionFlag>0 && deciamlFlag){
+                                showDecimalAnswer(keyTagValue);
+                            }else {
+                                if(deciamlFlag){
+                                    showDecimalAnswer(keyTagValue);
+                                } else {
+                                    answer = answer*10 + (keyTagValue%10)*is_Negative;
+                                    showAnswer(answer);
+                                }
+                                
+                            }
                         }
+                        
+                        
+                        
+                        
+                        break;
                     }
-                    
-                    
-                    
-                    
-                    break;
                 }
+            
+            
             }
             
             
@@ -928,11 +1191,30 @@ void GameScene::onClickDividerKey(){
     
 }
 
+void GameScene::onClickDeciamlKey(){
+    if(answerString == ""){
+        answerString ="0";
+    }
+    
+    std::string keydeciamlvalue = StringUtils::format("%s", ".");
+    answerString = StringUtils::format("%s%s", answerString.c_str(), keydeciamlvalue.c_str());
+    auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+    answerLabel->setString(answerString);
+    
+}
+
 void GameScene::showFractionAnswer(int keyValue){
     
     answerString = StringUtils::format("%s%d", answerString.c_str(), (keyValue%10));
     auto answerLayer = (FractionAnswerLayer*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
     answerLayer->onClickNormalKey(keyValue);
+}
+
+void GameScene::showDecimalAnswer(int keyValue){
+    
+    answerString = StringUtils::format("%s%d", answerString.c_str(), (keyValue%10));
+    auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+    answerLabel->setString(answerString);
 }
 
 void GameScene::showAnswer(int ans){
@@ -971,6 +1253,19 @@ bool GameScene::onTouchBegan(Touch *touch, Event *event)
 
     }
     
+    if(fractionSwipeFlagArray[rightCount] == true){
+        
+        auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
+        Point layerLocation = problemLayer->getPosition();
+        Point convertedLocation = Point(touch->getLocation().x - layerLocation.x, touch->getLocation().y - layerLocation.y);
+        
+        if(convertedLocation.x<(-screenSize.width*0.02) && convertedLocation.x>=(-screenSize.width*0.08) && convertedLocation.y<screenSize.width*0.16 && convertedLocation.y>=screenSize.width*0.02){
+            initialSwipeFractionPos[0] = convertedLocation.x;
+            initialSwipeFractionPos[1] = convertedLocation.y;
+            swipe28Flag = true;
+        }
+    }
+    
     
     
     return true;
@@ -991,6 +1286,21 @@ void GameScene::onTouchMoved(Touch *touch, Event *event)
         }
     }
     
+    
+    auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
+    Point layerLocation = problemLayer->getPosition();
+    Point convertedLocation = Point(touch->getLocation().x - layerLocation.x, touch->getLocation().y - layerLocation.y);
+    
+    if(convertedLocation.x<(-screenSize.width*0.02) && convertedLocation.x>=(-screenSize.width*0.08) && convertedLocation.y<screenSize.width*0.16 && convertedLocation.y>=screenSize.width*0.02 && swipe28Flag){
+        currentSwipeFractionPos[0] = convertedLocation.x;
+        currentSwipeFractionPos[1] = convertedLocation.y;
+       
+        
+    } else {
+        swipe28Flag = false;
+    }
+
+    
 
 //    currentTouchPos[0] = touch->getLocation().x;
 //    currentTouchPos[1] = touch->getLocation().y;
@@ -999,40 +1309,7 @@ void GameScene::onTouchMoved(Touch *touch, Event *event)
 void GameScene::onTouchEnded(Touch *touch, Event *event)
 {
     if(isAnswerTouchDown){
-        if(fractionFlag==0){
-            auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
-            answerLabel->setString("");
-            clickedDividerKeyFlag = false;
-//            answerString = "";
-            is_Negative = 1;
-        } else {
-            auto answerLayer = (FractionAnswerLayer*) this->getChildByTag(TAG_GAME_ANSWERLABEL);
-            answerLayer->reset();
-        }
-        clickedDividerKeyFlag = false;
-        
-                if (initialAnswerTouchPos[0] - currentAnswerTouchPos[0] > screenSize.width * 0.04)
-                {
-                    CCLOG("SWIPED LEFT");
-                    answer=0;
-                    answerString = "";
-                    
-                
-        
-                }
-                else if (initialAnswerTouchPos[0] - currentAnswerTouchPos[0] < - screenSize.width * 0.04)
-                {
-                    CCLOG("SWIPED RIGHT");
-                    answer=0;
-                    answerString = "";
-
-                    
-                }else {
-                    CCLOG("enter");
-                    
-                    enterAnswer();
-                }
-        isAnswerTouchDown = false;
+        answerSwipeFunc();
     } else if(axisFlag == 1 || axisFlag == 2) {
         Point location = touch->getLocation();
         
@@ -1045,9 +1322,7 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
             if(axisFlag == 1){
                 
                 numberlineanswer = (answerpos - screenSize.width*0.15)/(screenSize.width*0.7);
-                CCLOG("answerpos%f", location.x);
-                CCLOG("numberlineanswer%f",numberlineanswer);
-                CCLOG("screensize%f", screenSize.width);
+                
             } else if (axisFlag == 2){
                 numberlineanswer = (screenSize.width*0.5 - answerpos)/(screenSize.width*0.35);
             }
@@ -1062,104 +1337,30 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
             
         }
     } else if(fractionFlag == 4){
-//        Point location = touch->getLocation();
-        auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
         
-        auto target = static_cast<Layer*>(event->getCurrentTarget());
-        Point location = target->convertToNodeSpace(touch->getLocation());
-
-        
-        for(int i=0; i<4; i++){
-            if(!fractionBoxArray[i]){
-                
-                
-                auto molLabel1 = (Label*)problemLayer->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4 + i);
-                Rect molLabel1Rect = molLabel1->getBoundingBox();
-                CCLOG("xxxmax = %f", molLabel1Rect.getMaxX());
-                CCLOG("xxxmin = %f", molLabel1Rect.getMinX());
-                CCLOG("xxxlocation = %f", location.x);
-                
-                if(molLabel1Rect.containsPoint(location)){
-                    auto point = molLabel1->getPosition();
-                    auto lineSpr = Sprite::create("res/game/line.png");
-                    lineSpr->setPosition(point);
-                    lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
-                    //    lineSpr->setTag(TAG_FRACTION_LINE);
-                    problemLayer->addChild(lineSpr);
-                    
-                    auto answerBoxSpr = Sprite::create("res/game/answerboxlayer.png");
-                    
-                    answerBoxSpr->setPosition(point.x + screenSize.width*0.01 * (-2) * ((i+1)%2 - 0.5) , point.y + screenSize.width*0.01 * (-2) * (i%2 - 0.5));
-                    answerBoxSpr->setScale(screenSize.width*0.045/answerBoxSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
-                    answerBoxSpr->setTag(TAG_GAME_MOLANS1+i);
-                    problemLayer->addChild(answerBoxSpr);
-                    
-                    auto ansLabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
-                    ansLabel->setColor(Color3B::BLACK);
-                    ansLabel->setPosition(point.x - screenSize.width*0.01, point.y + screenSize.width*0.01);
-                    //    moleculeLabel->setPosition(0, 0);
-                    ansLabel->setTag(TAG_GAME_MOLANS1LABEL+i);
-                    problemLayer->addChild(ansLabel);
-                    selectedAnswerBox = i+1;
-                    fractionBoxArray[i] = true;
-                    
-                }
-
-            } else {
-                auto answerBoxSpr = (Sprite *)problemLayer->getChildByTag(TAG_GAME_MOLANS1 + i);
-                Rect boxSprRect = answerBoxSpr->getBoundingBox();
-                if(boxSprRect.containsPoint(location)){
-                    selectedAnswerBox = i+1;
-                    auto ansLabel = (Label*)problemLayer->getChildByTag(TAG_GAME_MOLANS1LABEL+i);
-                    ansLabel->setString("");
-                }
-            }
+        if(swipe28Flag == true){
             
+            swipe28Flag = false;
+                
+                if (initialSwipeFractionPos[1] - currentSwipeFractionPos[1] > screenSize.width * 0.04)
+                {
+                    CCLOG("SWIPED top");
+                    fractionSwipeFunc();
+                    
+                }
+                else if (initialSwipeFractionPos[1] - currentSwipeFractionPos[1] < - screenSize.width * 0.04)
+                {
+                    CCLOG("SWIPED bottom");
+                    fractionSwipeFunc();
+                    
+                }else {
+                    CCLOG("enter");
+                    onTapFractionItem(touch);
+                }
+            
+        } else {
+            onTapFractionItem(touch);
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-//        auto molLabel1 = (Label*)this->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4);
-//        Rect molLabel1Rect = molLabel1->getBoundingBox();
-//        
-//        auto denLabel1 = (Label*)this->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4+1);
-//        Rect denLabel1Rect = denLabel1->getBoundingBox();
-//        
-//        auto molLabel2 = (Label*)this->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4+2);
-//        Rect molLabel2Rect = molLabel2->getBoundingBox();
-//        
-//        auto denLabel2 = (Label*)this->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4+3);
-//        Rect denLabel2Rect = denLabel2->getBoundingBox();
-//        
-//        if(molLabel1Rect.containsPoint(location)){
-//            auto point = molLabel1->getPosition();
-//            auto lineSpr = Sprite::create("res/game/line.png");
-//            lineSpr->setPosition(point);
-//            lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
-//            //    lineSpr->setTag(TAG_FRACTION_LINE);
-//            problemLayer->addChild(lineSpr);
-//            
-//            auto answerBoxSpr = Sprite::create("res/game/answerboxlayer.png");
-//            answerBoxSpr->setPosition(point.x - screenSize.width*0.01, point.y + screenSize.width*0.01);
-//            answerBoxSpr->setScale(screenSize.width*0.045/answerBoxSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
-//            answerBoxSpr->setTag(TAG_GAME_MOLANS1);
-//            problemLayer->addChild(answerBoxSpr);
-//            
-//            auto ansLabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
-//            ansLabel->setColor(Color3B::BLACK);
-//            ansLabel->setPosition(point.x - screenSize.width*0.01, point.y + screenSize.width*0.01);
-//            //    moleculeLabel->setPosition(0, 0);
-//            ansLabel->setTag(TAG_FRACTION_MOLECULE);
-//            problemLayer->addChild(ansLabel);
-//            
-//        }
         
     }
     

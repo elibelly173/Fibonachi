@@ -26,6 +26,7 @@ public:
     FractionLayer(int mol, int den, float offset, bool flag1);
     ~FractionLayer();
     virtual bool init();
+    void getDenSize(int den);
     virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
     virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
     virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
@@ -34,6 +35,8 @@ public:
 public:
     int mol;
     int den;
+    int fraSize = 0;
+    
     float offsetPos = 0.0f;
     bool allowswipeFlag = false;
     cocos2d::Size screenSize;
