@@ -13,11 +13,11 @@
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
-			<string>5</string>
-			<key>y2</key>
 			<string>2</string>
+			<key>y2</key>
+			<string>5</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>6</string>
 		</dict>
@@ -29,11 +29,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>5</string>
-			<key>y2</key>
 			<string>4</string>
+			<key>y2</key>
+			<string>5</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>24/7</string>
 		</dict>
@@ -45,11 +45,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>4</string>
-			<key>y2</key>
 			<string>3</string>
+			<key>y2</key>
+			<string>4</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>15/7</string>
 		</dict>
@@ -61,11 +61,11 @@
 			<key>y1</key>
 			<string>8</string>
 			<key>x2</key>
-			<string>9</string>
-			<key>y2</key>
 			<string>8</string>
+			<key>y2</key>
+			<string>9</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>7/9</string>
 		</dict>
@@ -77,11 +77,11 @@
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
-			<string>56</string>
-			<key>y2</key>
 			<string>3</string>
+			<key>y2</key>
+			<string>56</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>3/7</string>
 		</dict>
@@ -93,11 +93,11 @@
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
-			<string>7</string>
-			<key>y2</key>
 			<string>3</string>
+			<key>y2</key>
+			<string>7</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>6</string>
 		</dict>
@@ -109,11 +109,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>9</string>
-			<key>y2</key>
 			<string>14</string>
+			<key>y2</key>
+			<string>9</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>4/9</string>
 		</dict>
@@ -129,7 +129,7 @@
 			<key>y2</key>
 			<string>2</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>2/5</string>
 		</dict>
@@ -141,11 +141,11 @@
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
-			<string>18</string>
-			<key>y2</key>
 			<string>7</string>
+			<key>y2</key>
+			<string>18</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>7/3</string>
 		</dict>
@@ -157,11 +157,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>4</string>
-			<key>y2</key>
 			<string>3</string>
+			<key>y2</key>
+			<string>4</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>9/7</string>
 		</dict>
@@ -173,11 +173,11 @@
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
-			<string>21</string>
-			<key>y2</key>
 			<string>2</string>
+			<key>y2</key>
+			<string>21</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>2/3</string>
 		</dict>
@@ -189,11 +189,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>15</string>
-			<key>y2</key>
 			<string>2</string>
+			<key>y2</key>
+			<string>15</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>2/21</string>
 		</dict>
@@ -205,11 +205,11 @@
 			<key>y1</key>
 			<string>40</string>
 			<key>x2</key>
-			<string>7</string>
-			<key>y2</key>
 			<string>5</string>
+			<key>y2</key>
+			<string>7</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>9/56</string>
 		</dict>
@@ -221,11 +221,11 @@
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
-			<string>6</string>
-			<key>y2</key>
 			<string>5</string>
+			<key>y2</key>
+			<string>6</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>5/2</string>
 		</dict>
@@ -237,11 +237,11 @@
 			<key>y1</key>
 			<string>5</string>
 			<key>x2</key>
-			<string>4</string>
-			<key>y2</key>
 			<string>3</string>
+			<key>y2</key>
+			<string>4</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>27/5</string>
 		</dict>
@@ -253,11 +253,11 @@
 			<key>y1</key>
 			<string>5</string>
 			<key>x2</key>
-			<string>3</string>
-			<key>y2</key>
 			<string>2</string>
+			<key>y2</key>
+			<string>3</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>4/5</string>
 		</dict>
@@ -269,11 +269,11 @@
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
-			<string>21</string>
-			<key>y2</key>
 			<string>2</string>
+			<key>y2</key>
+			<string>21</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>2/3</string>
 		</dict>
@@ -285,11 +285,11 @@
 			<key>y1</key>
 			<string>6</string>
 			<key>x2</key>
-			<string>3</string>
-			<key>y2</key>
 			<string>2</string>
+			<key>y2</key>
+			<string>3</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>5/9</string>
 		</dict>
@@ -301,11 +301,11 @@
 			<key>y1</key>
 			<string>21</string>
 			<key>x2</key>
-			<string>8</string>
-			<key>y2</key>
 			<string>3</string>
+			<key>y2</key>
+			<string>8</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>5/56</string>
 		</dict>
@@ -317,11 +317,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>63</string>
-			<key>y2</key>
 			<string>4</string>
+			<key>y2</key>
+			<string>63</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>4/49</string>
 		</dict>
@@ -333,11 +333,11 @@
 			<key>y1</key>
 			<string>24</string>
 			<key>x2</key>
-			<string>4</string>
-			<key>y2</key>
 			<string>3</string>
+			<key>y2</key>
+			<string>4</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>5/32</string>
 		</dict>
@@ -355,11 +355,11 @@
 			<key>y1</key>
 			<string>5</string>
 			<key>x2</key>
-			<string>7</string>
-			<key>y2</key>
 			<string>4</string>
+			<key>y2</key>
+			<string>7</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>16/5</string>
 		</dict>
@@ -371,11 +371,11 @@
 			<key>y1</key>
 			<string>12</string>
 			<key>x2</key>
-			<string>4</string>
-			<key>y2</key>
 			<string>3</string>
+			<key>y2</key>
+			<string>4</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>5/16</string>
 		</dict>
@@ -387,11 +387,11 @@
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
-			<string>9</string>
-			<key>y2</key>
 			<string>4</string>
+			<key>y2</key>
+			<string>9</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>8</string>
 		</dict>
@@ -403,11 +403,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>9</string>
-			<key>y2</key>
 			<string>5</string>
+			<key>y2</key>
+			<string>9</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>10/7</string>
 		</dict>
@@ -419,11 +419,11 @@
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
-			<string>5</string>
-			<key>y2</key>
 			<string>4</string>
+			<key>y2</key>
+			<string>5</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>12</string>
 		</dict>
@@ -435,11 +435,11 @@
 			<key>y1</key>
 			<string>30</string>
 			<key>x2</key>
-			<string>6</string>
-			<key>y2</key>
 			<string>5</string>
+			<key>y2</key>
+			<string>6</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>7/36</string>
 		</dict>
@@ -451,11 +451,11 @@
 			<key>y1</key>
 			<string>5</string>
 			<key>x2</key>
-			<string>3</string>
-			<key>y2</key>
 			<string>2</string>
+			<key>y2</key>
+			<string>3</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>16/5</string>
 		</dict>
@@ -467,11 +467,11 @@
 			<key>y1</key>
 			<string>3</string>
 			<key>x2</key>
-			<string>5</string>
-			<key>y2</key>
 			<string>2</string>
+			<key>y2</key>
+			<string>5</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>8/3</string>
 		</dict>
@@ -483,11 +483,11 @@
 			<key>y1</key>
 			<string>9</string>
 			<key>x2</key>
-			<string>15</string>
-			<key>y2</key>
 			<string>2</string>
+			<key>y2</key>
+			<string>15</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>2/27</string>
 		</dict>
@@ -499,11 +499,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>3</string>
-			<key>y2</key>
 			<string>2</string>
+			<key>y2</key>
+			<string>3</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>10/7</string>
 		</dict>
@@ -515,11 +515,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>8</string>
-			<key>y2</key>
 			<string>7</string>
+			<key>y2</key>
+			<string>8</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>9/8</string>
 		</dict>
@@ -531,11 +531,11 @@
 			<key>y1</key>
 			<string>8</string>
 			<key>x2</key>
-			<string>7</string>
-			<key>y2</key>
 			<string>5</string>
+			<key>y2</key>
+			<string>7</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>15/8</string>
 		</dict>
@@ -547,11 +547,11 @@
 			<key>y1</key>
 			<string>15</string>
 			<key>x2</key>
-			<string>5</string>
-			<key>y2</key>
 			<string>3</string>
+			<key>y2</key>
+			<string>5</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>7/25</string>
 		</dict>
@@ -563,11 +563,11 @@
 			<key>y1</key>
 			<string>3</string>
 			<key>x2</key>
-			<string>45</string>
-			<key>y2</key>
 			<string>8</string>
+			<key>y2</key>
+			<string>45</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>8/27</string>
 		</dict>
@@ -579,11 +579,11 @@
 			<key>y1</key>
 			<string>40</string>
 			<key>x2</key>
-			<string>7</string>
-			<key>y2</key>
 			<string>5</string>
+			<key>y2</key>
+			<string>7</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>3/56</string>
 		</dict>
@@ -595,11 +595,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>5</string>
-			<key>y2</key>
 			<string>4</string>
+			<key>y2</key>
+			<string>5</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>12/7</string>
 		</dict>
@@ -611,11 +611,11 @@
 			<key>y1</key>
 			<string>9</string>
 			<key>x2</key>
-			<string>5</string>
-			<key>y2</key>
 			<string>2</string>
+			<key>y2</key>
+			<string>5</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>14/9</string>
 		</dict>
@@ -627,11 +627,11 @@
 			<key>y1</key>
 			<string>1</string>
 			<key>x2</key>
-			<string>7</string>
-			<key>y2</key>
 			<string>5</string>
+			<key>y2</key>
+			<string>7</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>30</string>
 		</dict>
@@ -643,11 +643,11 @@
 			<key>y1</key>
 			<string>5</string>
 			<key>x2</key>
-			<string>3</string>
-			<key>y2</key>
 			<string>2</string>
+			<key>y2</key>
+			<string>3</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>8/5</string>
 		</dict>
@@ -659,11 +659,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>5</string>
-			<key>y2</key>
 			<string>3</string>
+			<key>y2</key>
+			<string>5</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>6/7</string>
 		</dict>	
@@ -685,11 +685,11 @@
 			<key>y1</key>
 			<string>49</string>
 			<key>x2</key>
-			<string>25</string>
-			<key>y2</key>
 			<string>14</string>
+			<key>y2</key>
+			<string>25</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>16/35</string>
 		</dict>
@@ -701,11 +701,11 @@
 			<key>y1</key>
 			<string>35</string>
 			<key>x2</key>
-			<string>15</string>
-			<key>y2</key>
 			<string>14</string>
+			<key>y2</key>
+			<string>15</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>12/25</string>
 		</dict>
@@ -717,11 +717,11 @@
 			<key>y1</key>
 			<string>15</string>
 			<key>x2</key>
-			<string>49</string>
-			<key>y2</key>
 			<string>12</string>
+			<key>y2</key>
+			<string>49</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>8/35</string>
 		</dict>
@@ -733,11 +733,11 @@
 			<key>y1</key>
 			<string>25</string>
 			<key>x2</key>
-			<string>21</string>
-			<key>y2</key>
 			<string>10</string>
+			<key>y2</key>
+			<string>21</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>6/35</string>
 		</dict>
@@ -749,11 +749,11 @@
 			<key>y1</key>
 			<string>21</string>
 			<key>x2</key>
-			<string>25</string>
-			<key>y2</key>
 			<string>9</string>
+			<key>y2</key>
+			<string>25</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>6/35</string>
 		</dict>
@@ -765,11 +765,11 @@
 			<key>y1</key>
 			<string>21</string>
 			<key>x2</key>
-			<string>25</string>
-			<key>y2</key>
 			<string>14</string>
+			<key>y2</key>
+			<string>25</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>16/15</string>
 		</dict>
@@ -781,11 +781,11 @@
 			<key>y1</key>
 			<string>15</string>
 			<key>x2</key>
-			<string>21</string>
-			<key>y2</key>
 			<string>10</string>
+			<key>y2</key>
+			<string>21</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>14/9</string>
 		</dict>
@@ -797,11 +797,11 @@
 			<key>y1</key>
 			<string>3</string>
 			<key>x2</key>
-			<string>28</string>
-			<key>y2</key>
 			<string>9</string>
+			<key>y2</key>
+			<string>28</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>21/4</string>
 		</dict>
@@ -813,11 +813,11 @@
 			<key>y1</key>
 			<string>15</string>
 			<key>x2</key>
-			<string>35</string>
-			<key>y2</key>
 			<string>9</string>
+			<key>y2</key>
+			<string>35</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>12/25</string>
 		</dict>
@@ -829,11 +829,11 @@
 			<key>y1</key>
 			<string>5</string>
 			<key>x2</key>
-			<string>63</string>
-			<key>y2</key>
 			<string>25</string>
+			<key>y2</key>
+			<string>63</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>35/9</string>
 		</dict>
@@ -845,11 +845,11 @@
 			<key>y1</key>
 			<string>49</string>
 			<key>x2</key>
-			<string>25</string>
-			<key>y2</key>
 			<string>14</string>
+			<key>y2</key>
+			<string>25</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>4/35</string>
 		</dict>
@@ -861,11 +861,11 @@
 			<key>y1</key>
 			<string>45</string>
 			<key>x2</key>
-			<string>21</string>
-			<key>y2</key>
 			<string>10</string>
+			<key>y2</key>
+			<string>21</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>4/27</string>
 		</dict>
@@ -877,11 +877,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>15</string>
-			<key>y2</key>
 			<string>14</string>
+			<key>y2</key>
+			<string>15</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>10/3</string>
 		</dict>
@@ -893,11 +893,11 @@
 			<key>y1</key>
 			<string>9</string>
 			<key>x2</key>
-			<string>25</string>
-			<key>y2</key>
 			<string>12</string>
+			<key>y2</key>
+			<string>25</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>28/15</string>
 		</dict>
@@ -909,11 +909,11 @@
 			<key>y1</key>
 			<string>24</string>
 			<key>x2</key>
-			<string>20</string>
-			<key>y2</key>
 			<string>9</string>
+			<key>y2</key>
+			<string>20</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>15/32</string>
 		</dict>
@@ -925,11 +925,11 @@
 			<key>y1</key>
 			<string>15</string>
 			<key>x2</key>
-			<string>35</string>
-			<key>y2</key>
 			<string>9</string>
+			<key>y2</key>
+			<string>35</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>6/25</string>
 		</dict>
@@ -941,11 +941,11 @@
 			<key>y1</key>
 			<string>25</string>
 			<key>x2</key>
-			<string>28</string>
-			<key>y2</key>
 			<string>15</string>
+			<key>y2</key>
+			<string>28</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>21/20</string>
 		</dict>
@@ -957,11 +957,11 @@
 			<key>y1</key>
 			<string>25</string>
 			<key>x2</key>
-			<string>28</string>
-			<key>y2</key>
 			<string>15</string>
+			<key>y2</key>
+			<string>28</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>9/20</string>
 		</dict>
@@ -973,11 +973,11 @@
 			<key>y1</key>
 			<string>25</string>
 			<key>x2</key>
-			<string>49</string>
-			<key>y2</key>
 			<string>15</string>
+			<key>y2</key>
+			<string>49</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>9/35</string>
 		</dict>
@@ -989,11 +989,11 @@
 			<key>y1</key>
 			<string>63</string>
 			<key>x2</key>
-			<string>45</string>
-			<key>y2</key>
 			<string>28</string>
+			<key>y2</key>
+			<string>45</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>32/81</string>
 		</dict>
@@ -1005,11 +1005,11 @@
 			<key>y1</key>
 			<string>5</string>
 			<key>x2</key>
-			<string>21</string>
-			<key>y2</key>
 			<string>10</string>
+			<key>y2</key>
+			<string>21</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>16/7</string>
 		</dict>
@@ -1027,11 +1027,11 @@
 			<key>y1</key>
 			<string>21</string>
 			<key>x2</key>
-			<string>15</string>
-			<key>y2</key>
 			<string>14</string>
+			<key>y2</key>
+			<string>15</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>10/9</string>
 		</dict>
@@ -1043,11 +1043,11 @@
 			<key>y1</key>
 			<string>10</string>
 			<key>x2</key>
-			<string>56</string>
-			<key>y2</key>
 			<string>25</string>
+			<key>y2</key>
+			<string>56</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>35/16</string>
 		</dict>
@@ -1059,11 +1059,11 @@
 			<key>y1</key>
 			<string>5</string>
 			<key>x2</key>
-			<string>21</string>
-			<key>y2</key>
 			<string>10</string>
+			<key>y2</key>
+			<string>21</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>8/3</string>
 		</dict>
@@ -1075,11 +1075,11 @@
 			<key>y1</key>
 			<string>45</string>
 			<key>x2</key>
-			<string>21</string>
-			<key>y2</key>
 			<string>10</string>
+			<key>y2</key>
+			<string>21</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>14/27</string>
 		</dict>
@@ -1091,11 +1091,11 @@
 			<key>y1</key>
 			<string>10</string>
 			<key>x2</key>
-			<string>42</string>
-			<key>y2</key>
 			<string>25</string>
+			<key>y2</key>
+			<string>42</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>35/12</string>
 		</dict>
@@ -1107,11 +1107,11 @@
 			<key>y1</key>
 			<string>9</string>
 			<key>x2</key>
-			<string>49</string>
-			<key>y2</key>
 			<string>12</string>
+			<key>y2</key>
+			<string>49</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>32/21</string>
 		</dict>
@@ -1123,11 +1123,11 @@
 			<key>y1</key>
 			<string>7</string>
 			<key>x2</key>
-			<string>45</string>
-			<key>y2</key>
 			<string>14</string>
+			<key>y2</key>
+			<string>45</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>10/9</string>
 		</dict>
@@ -1139,11 +1139,11 @@
 			<key>y1</key>
 			<string>9</string>
 			<key>x2</key>
-			<string>35</string>
-			<key>y2</key>
 			<string>6</string>
+			<key>y2</key>
+			<string>35</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>8/15</string>
 		</dict>
@@ -1155,11 +1155,11 @@
 			<key>y1</key>
 			<string>25</string>
 			<key>x2</key>
-			<string>49</string>
-			<key>y2</key>
 			<string>10</string>
+			<key>y2</key>
+			<string>49</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>12/35</string>
 		</dict>
@@ -1171,11 +1171,11 @@
 			<key>y1</key>
 			<string>3</string>
 			<key>x2</key>
-			<string>35</string>
-			<key>y2</key>
 			<string>9</string>
+			<key>y2</key>
+			<string>35</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>15/7</string>
 		</dict>
@@ -1187,11 +1187,11 @@
 			<key>y1</key>
 			<string>3</string>
 			<key>x2</key>
-			<string>28</string>
-			<key>y2</key>
 			<string>9</string>
+			<key>y2</key>
+			<string>28</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>21/4</string>
 		</dict>
@@ -1203,11 +1203,11 @@
 			<key>y1</key>
 			<string>63</string>
 			<key>x2</key>
-			<string>15</string>
-			<key>y2</key>
 			<string>14</string>
+			<key>y2</key>
+			<string>15</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>4/27</string>
 		</dict>
@@ -1219,11 +1219,11 @@
 			<key>y1</key>
 			<string>12</string>
 			<key>x2</key>
-			<string>25</string>
-			<key>y2</key>
 			<string>9</string>
+			<key>y2</key>
+			<string>25</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>21/20</string>
 		</dict>
@@ -1235,11 +1235,11 @@
 			<key>y1</key>
 			<string>10</string>
 			<key>x2</key>
-			<string>28</string>
-			<key>y2</key>
 			<string>15</string>
+			<key>y2</key>
+			<string>28</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>21/8</string>
 		</dict>
@@ -1251,11 +1251,11 @@
 			<key>y1</key>
 			<string>9</string>
 			<key>x2</key>
-			<string>25</string>
-			<key>y2</key>
 			<string>12</string>
+			<key>y2</key>
+			<string>25</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>8/15</string>
 		</dict>
@@ -1267,11 +1267,11 @@
 			<key>y1</key>
 			<string>49</string>
 			<key>x2</key>
-			<string>15</string>
-			<key>y2</key>
 			<string>14</string>
+			<key>y2</key>
+			<string>15</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>8/21</string>
 		</dict>
@@ -1283,11 +1283,11 @@
 			<key>y1</key>
 			<string>12</string>
 			<key>x2</key>
-			<string>35</string>
-			<key>y2</key>
 			<string>9</string>
+			<key>y2</key>
+			<string>35</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>21/20</string>
 		</dict>
@@ -1299,11 +1299,11 @@
 			<key>y1</key>
 			<string>10</string>
 			<key>x2</key>
-			<string>49</string>
-			<key>y2</key>
 			<string>15</string>
+			<key>y2</key>
+			<string>49</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>27/14</string>
 		</dict>
@@ -1315,11 +1315,11 @@
 			<key>y1</key>
 			<string>3</string>
 			<key>x2</key>
-			<string>35</string>
-			<key>y2</key>
 			<string>9</string>
+			<key>y2</key>
+			<string>35</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>15/7</string>
 		</dict>
@@ -1336,11 +1336,11 @@
 			<key>y1</key>
 			<string>24</string>
 			<key>x2</key>
-			<string>28</string>
-			<key>y2</key>
 			<string>9</string>
+			<key>y2</key>
+			<string>28</string>
 			<key>op</key>
-			<string>/</string>
+			<string>x</string>
 			<key>answer</key>
 			<string>15/32</string>
 		</dict>				

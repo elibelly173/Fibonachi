@@ -67,6 +67,38 @@ void MapviewScene::onEnterTransitionDidFinish() {
     }
 }
 
+void MapviewScene::initAddbutton(){
+    
+    cocos2d::ui::ScrollView *scrollView = (cocos2d::ui::ScrollView*)this->getChildByTag(TAG_MAP_SCROLL);
+    
+    
+    for(int ii=0; ii<this->arrLevels.size(); ii++){
+        
+        ValueMap sdata = (this->arrLevels[ii]).asValueMap();
+        float x =  sdata["x"].asFloat();
+        float y =  sdata["y"].asFloat();
+        Button* button1;
+        if(ii<completedLevel){
+            button1 = Button::create(StringUtils::format("res/levels_complete/%d.png", (ii + 1)),
+                                     StringUtils::format("res/levels_complete/%d.png", (ii + 1)));
+            button1->setScale(this->scrollframesize.width * 0.18f/button1->getContentSize().width);
+        } else {
+            
+            button1 = Button::create(StringUtils::format("res/levels_incomplete/%d.png", (ii + 1)),
+                                     StringUtils::format("res/levels_incomplete/%d.png", (ii + 1)));
+            button1->setScale(this->scrollframesize.width * 0.13f/button1->getContentSize().width);
+        }
+        button1->setPosition(Vec2(this->scrollframesize.width * x / 100.0f, this->scrollframesize.width *y/ 100.0f));
+        button1->addTouchEventListener(CC_CALLBACK_2(MapviewScene::touchEvent, this, (int)ii+1));
+        button1->setTag(TAG_MAP_BUTTON+ii);
+        
+        //        button1->setPressedActionEnabled(true);
+        scrollView->addChild(button1);
+        
+    }
+    
+}
+
 void MapviewScene::getLevelInfo(){
     ValueMap data;
     std::string path = FileUtils::getInstance()->fullPathForFilename("res/plist/levels.plist");
@@ -117,37 +149,7 @@ void MapviewScene::initscroll(){
 }
 
 
-void MapviewScene::initAddbutton(){
-    
-    cocos2d::ui::ScrollView *scrollView = (cocos2d::ui::ScrollView*)this->getChildByTag(TAG_MAP_SCROLL);
-    
-    
-    for(int ii=0; ii<this->arrLevels.size(); ii++){
-        
-        ValueMap sdata = (this->arrLevels[ii]).asValueMap();
-        float x =  sdata["x"].asFloat();
-        float y =  sdata["y"].asFloat();
-        Button* button1;
-        if(ii<completedLevel){
-            button1 = Button::create(StringUtils::format("res/levels_complete/%d.png", (ii + 1)),
-                                     StringUtils::format("res/levels_complete/%d.png", (ii + 1)));
-            button1->setScale(this->scrollframesize.width * 0.18f/button1->getContentSize().width);
-        } else {
-            
-            button1 = Button::create(StringUtils::format("res/levels_incomplete/%d.png", (ii + 1)),
-                                     StringUtils::format("res/levels_incomplete/%d.png", (ii + 1)));
-            button1->setScale(this->scrollframesize.width * 0.13f/button1->getContentSize().width);
-        }
-        button1->setPosition(Vec2(this->scrollframesize.width * x / 100.0f, this->scrollframesize.width *y/ 100.0f));
-        button1->addTouchEventListener(CC_CALLBACK_2(MapviewScene::touchEvent, this, (int)ii+1));
-        button1->setTag(TAG_MAP_BUTTON+ii);
-        
-//        button1->setPressedActionEnabled(true);
-        scrollView->addChild(button1);
-        
-    }
 
-}
 
 //void MapviewScene::initAddbutton(){
 //    
