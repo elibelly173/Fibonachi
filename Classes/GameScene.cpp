@@ -530,13 +530,13 @@ void GameScene::onSwipeAnimation(){
     
     if(fractionFlag>0){
         
-        swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.18);
-        pos =screenSize.height*0.16 + screenSize.width*0.18;
+        swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.195);
+        pos =screenSize.height*0.16 + screenSize.width*0.195;
         
     } else {
         
-        swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.13);
-        pos =screenSize.height*0.16 + screenSize.width*0.13;
+        swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.145);
+        pos =screenSize.height*0.16 + screenSize.width*0.145;
     }
     
     auto action_0 = MoveTo::create(1.2, Point(screenSize.width*0.77, pos));
