@@ -20,6 +20,10 @@ USING_NS_CC;
 #define TAG_SPRITE_FIBO      51
 #define TAG_GAME_VINEYET      52
 #define TAG_GAME_REPORTLAYER      53
+#define TAG_GAME_TAPSPR      54
+#define TAG_GAME_TAPANIM      55
+#define TAG_GAME_SWIPEANIM      56
+#define TAG_GAME_SWIPESPR      57
 #define TAG_GAME_PROBLEM      1000
 #define TAG_GAME_PROBLEM_ELEMENT      1100
 #define TAG_GAME_ANSWERLAYER      100
@@ -111,6 +115,10 @@ public:
     void fractionSwipeFunc();
     
     void onTapFractionItem(Touch *touch);
+    void onTapAnimation();
+    void removeTapAnimation();
+    void onSwipeAnimation();
+    void removeSwipeAnimation();
     
         
     void reportCallback(cocos2d::Ref* sender, int status);
@@ -157,6 +165,9 @@ public:
     float levelSpeed, levelAccuracy;
     int completedLevel;
     
+    float taptimer = 0.0f;
+    float swipetimer = 0.0f;
+    
     
 //    Flags
     int fractionFlag = 0;
@@ -168,6 +179,10 @@ public:
     bool swipe28Flag = false;
     
     bool fractionSwipeFlagArray[100];
+    int tapClickedFlag = 0;
+    bool onshowedTapAnimFlag = false;
+    bool onshowedSwipeAnimFlag = false;
+    int swipeFlag = 0;
 
 private:
     CREATE_FUNC(GameScene);

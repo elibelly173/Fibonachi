@@ -364,9 +364,33 @@ void MapviewScene::touchEvent(Ref *pSender, Widget::TouchEventType type, int d)
 //    if(this->onShowLevelFlag && d<=(completedLevel+1)) {
 //        this->showLevelExplainacreen(d);
 //    }
+    switch (type)
+    {
+        case Widget::TouchEventType::BEGAN:
+            
+            break;
+            
+        case Widget::TouchEventType::MOVED:
+            
+            break;
+            
+        case Widget::TouchEventType::ENDED:
+        {
+            if(this->onShowLevelFlag) {
+                this->showLevelExplainacreen(d);
+            }
+       
+            break;
+        }
+            
+        case Widget::TouchEventType::CANCELED:
+            
+            break;
+            
+        default:
+            break;
+
     
-    if(this->onShowLevelFlag) {
-        this->showLevelExplainacreen(d);
     }
 }
 
