@@ -133,8 +133,11 @@ void GameScene::initFlags(){
             break;
     }
     
-    tapClickedFlag =UserDefault::getInstance()->getIntegerForKey("tapflag");
-    swipeFlag =UserDefault::getInstance()->getIntegerForKey("swipeflag");
+//    tapClickedFlag =UserDefault::getInstance()->getIntegerForKey("tapflag");
+//    swipeFlag =UserDefault::getInstance()->getIntegerForKey("swipeflag");
+    tapenteranimFlag = UserDefault::getInstance()->getIntegerForKey("tapenteranimFlag");
+    level20animFlag = UserDefault::getInstance()->getIntegerForKey("level20animFlag");
+    level21animFlag = UserDefault::getInstance()->getIntegerForKey("level21animFlag");
 
 }
 
@@ -290,11 +293,11 @@ void GameScene::initKey(){
             Button* fractionKeyButton = Button::create("res/key/divide.png", "res/key/divide.png");
             
             
-            fractionKeyButton->setPosition(Vec2(screenSize.width*0.95, screenSize.height*0.08f + screenSize.width * 0.13f));
+            fractionKeyButton->setPosition(Vec2(screenSize.width*0.95, screenSize.height*0.08 + screenSize.width * 0.13));
             fractionKeyButton->setAnchorPoint(Point(0.5f,0.0f));
             fractionKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
             fractionKeyButton->setTag(TAG_GAME_KEYFRACTION);
-            fractionKeyButton->setScale(screenSize.width * 0.07f/fractionKeyButton->getContentSize().width);
+            fractionKeyButton->setScale(screenSize.width * 0.07/fractionKeyButton->getContentSize().width);
             
             this->addChild(fractionKeyButton);
         }
@@ -315,7 +318,7 @@ void GameScene::initKey(){
         auto numberline1Spr = Sprite::Sprite::create(StringUtils::format("res/key/numberline%d.png", axisFlag));
         numberline1Spr->setTag(TAG_GAME_KEYNUMBERLINE1);
         
-        numberline1Spr->setPosition(screenSize.width*0.5, screenSize.height*0.03f);
+        numberline1Spr->setPosition(screenSize.width*0.5, screenSize.height*0.03);
         numberline1Spr->setAnchorPoint(Point(0.5f,0.0f));
         numberline1Spr->setScale(screenSize.width*0.9/numberline1Spr->getContentSize().width);
         this->addChild(numberline1Spr);
@@ -424,42 +427,44 @@ void GameScene::initTimerScore(){
 
 void GameScene::UpdateTimer(float dt)
 {
-    timer+=1;
-    auto timerLabel = (Label*)this->getChildByTag(TAG_GAME_TIMER);
-    if(timer > targettime - 10 && timer < targettime){
-        timerLabel->setColor(Color3B::YELLOW);
-    } else if(timer >= targettime){
-        timerLabel->setColor(Color3B::RED);
+    if(firstEnterFlag){
+        timer+=1;
+        auto timerLabel = (Label*)this->getChildByTag(TAG_GAME_TIMER);
+        if(timer > targettime - 10 && timer < targettime){
+            timerLabel->setColor(Color3B::YELLOW);
+        } else if(timer >= targettime){
+            timerLabel->setColor(Color3B::RED);
+        }
+        timerLabel->setString(StringUtils::format("%d", timer));
     }
-    timerLabel->setString(StringUtils::format("%d", timer));
+    
+    
+    if(!level20animFlag && level==20){
+        level20animFlag = true;
+        UserDefault::getInstance()->setIntegerForKey("level20animFlag", true);
+        onCancelFrAnim();
+    }
+    
+    if(!level21animFlag && level==21){
+        level21animFlag = true;
+        UserDefault::getInstance()->setIntegerForKey("level21animFlag", true);
+        onNlineAnim();
+    }
+    
     
 }
 
 void GameScene::update(float delta)
 {
     problemTime+=delta;
-    
-    if(tapClickedFlag == 1){
+    if(tapentertimeFlag){
         taptimer+=delta;
     }
     
-    if(taptimer>3 && !onshowedTapAnimFlag){
-        tapClickedFlag = 2;
-        taptimer = 0.0f;
-        onTapAnimation();
-        
-    }
-    
-    if(swipeFlag == 1){
-        swipetimer+= delta;
-    }
-    
-    if(swipetimer > 3 && !onshowedSwipeAnimFlag){
-        swipeFlag = 2;
-        swipetimer = 0.0f;
+    if(taptimer > 2 && tapentertimeFlag){
+        taptimer = 0;
         onSwipeAnimation();
     }
-    
 }
 
 void GameScene::onTapAnimation(){
@@ -493,15 +498,11 @@ void GameScene::onTapAnimation(){
     auto action_2 = Sequence::create(action_0, action_1, NULL);
     auto action_3 = RepeatForever::create(action_2);
     tapAnimhand->runAction(action_3);
-    
-    
-    
-
-    
-    
 }
+
 void GameScene::removeTapAnimation(){
     onshowedTapAnimFlag = false;
+    tapentertimeFlag = true;
     CCLOG("remove TapAnim");
     
     auto tapAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_TAPSPR);
@@ -511,9 +512,75 @@ void GameScene::removeTapAnimation(){
     this->removeChild(tapAnimhand);
 }
 
+void GameScene::onOneByOneAnimation(){
+    
+    if(fractionFlag>0 && !deciamlFlag){
+//        auto inseadAns = answerArray[rightCount].c_str();
+        
+            std::stringstream test(StringUtils::format("%s", answerArray[rightCount].c_str()));
+            std::string segment;
+            std::vector<std::string> seglist;
+        
+            while(std::getline(test, segment, '/'))
+            {
+                seglist.push_back(segment);
+            }
+        answer = 1;
+        showFractionAnswer(atoi(seglist[0].c_str()));
+        onClickDividerKey();
+        showFractionAnswer(atoi(seglist[1].c_str()));
+        
+    } else if(deciamlFlag){
+        answer = 1;
+        showDecimalAnswer1(answerArray[rightCount]);
+    } else {
+        auto inseadAns = atoi(answerArray[rightCount].c_str());
+        answer = atoi(answerArray[rightCount].c_str());
+        showAnswer(inseadAns);
+    }
+    onShowedOneAnimFlag = true;
+    auto oneAnimTitle = Sprite::create("res/animation/answer-this-one.png");
+    oneAnimTitle->setTag(TAG_GAME_ONESPR);
+   
+    oneAnimTitle->setScale(screenSize.width*0.25/oneAnimTitle->getContentSize().width);
+    oneAnimTitle->setAnchorPoint(Vec2(0.5, 1));
+    this->addChild(oneAnimTitle);
+    
+    auto oneAnimhand = Sprite::create("res/animation/taphand.png");
+    oneAnimhand->setTag(TAG_GAME_ONEANIM);
+    oneAnimhand->setScale(screenSize.width*0.13/oneAnimhand->getContentSize().width);
+    oneAnimhand->setAnchorPoint(Vec2(0, 0.8));
+    
+    this->addChild(oneAnimhand);
+    
+    if(fractionFlag>0){
+         oneAnimTitle->setPosition(screenSize.width*0.43, screenSize.height*0.16 + screenSize.width*0.3);
+        
+        oneAnimhand->setPosition(screenSize.width*0.43, screenSize.height*0.16 + screenSize.width*0.16);
+    }
+     else {
+        oneAnimTitle->setPosition(screenSize.width*0.43, screenSize.height*0.16 + screenSize.width*0.27);
+        oneAnimhand->setPosition(screenSize.width*0.43, screenSize.height*0.16 + screenSize.width*0.12);
+    }
+    
+}
+
+void GameScene::removeOneByOneAnimation(){
+    onShowedOneAnimFlag = false;
+    CCLOG("remove TapAnim");
+    
+    auto oneAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_ONESPR);
+    this->removeChild(oneAnimTitle);
+    
+    auto oneAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_ONEANIM);
+    this->removeChild(oneAnimhand);
+}
+
+
+
 void GameScene::onSwipeAnimation(){
     onshowedSwipeAnimFlag = true;
-    
+    tapentertimeFlag = false;
     auto swipeAnimTitle = Sprite::create("res/animation/swipedelete.png");
     swipeAnimTitle->setPosition(screenSize.width*0.65, screenSize.height*0.16 + screenSize.width*0.35);
     swipeAnimTitle->setTag(TAG_GAME_SWIPESPR);
@@ -544,13 +611,6 @@ void GameScene::onSwipeAnimation(){
     auto action_2 = Sequence::create(action_0, action_1, NULL);
     auto action_3 = RepeatForever::create(action_2);
     swipeAnimhand->runAction(action_3);
-
-    
-    
-
-    
-    
-
 }
 
 void GameScene::removeSwipeAnimation(){
@@ -562,6 +622,122 @@ void GameScene::removeSwipeAnimation(){
     this->removeChild(swipeAnimhand);
     
 }
+
+
+void GameScene::onCancelFrAnim(){
+    onshowedCancelFrAnimFlag = true;
+    auto canFrAnimTitle = Sprite::create("res/animation/cancelfraction.png");
+    canFrAnimTitle->setPosition(screenSize.width*0.43, screenSize.height*0.16 + screenSize.width*0.3);
+    canFrAnimTitle->setTag(TAG_GAME_CANCELFRSPR);
+    canFrAnimTitle->setScale(screenSize.width*0.35/canFrAnimTitle->getContentSize().width);
+    this->addChild(canFrAnimTitle);
+    
+    
+    auto canFrAnimhand1 = Sprite::create("res/animation/left_hand.png");
+    canFrAnimhand1->setTag(TAG_GAME_CANCELFRANIM1);
+    canFrAnimhand1->setScale(screenSize.width*0.11/canFrAnimhand1->getContentSize().width);
+    canFrAnimhand1->setAnchorPoint(Vec2(1, 1));
+    this->addChild(canFrAnimhand1);
+    
+    float pos1 = 0.0f;
+    
+    canFrAnimhand1->setPosition(screenSize.width*0.3, screenSize.height*0.16 + screenSize.width*0.19);
+    pos1 =screenSize.height*0.16 + screenSize.width*0.19;
+    
+    
+    auto action_4 = MoveTo::create(1.2, Point(screenSize.width*0.4, pos1));
+    auto action_5 = MoveTo::create(0, Point(screenSize.width*0.3, pos1));
+    auto action_6 = Sequence::create(action_4, action_5, NULL);
+    auto action_7 = RepeatForever::create(action_6);
+    canFrAnimhand1->runAction(action_7);
+}
+
+void GameScene::removeCancelFrAnim(){
+    onshowedCancelFrAnimFlag = false;
+    auto canFrAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_CANCELFRSPR);
+    this->removeChild(canFrAnimTitle);
+    
+    auto canFrAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_CANCELFRANIM1);
+    this->removeChild(canFrAnimhand);
+    onTapFrAnim();
+}
+
+
+
+void GameScene::onTapFrAnim(){
+    onshowedTapFrAnimFlag = true;
+    auto tapFrAnimTitle = Sprite::create("res/animation/Fraction.png");
+    tapFrAnimTitle->setPosition(screenSize.width*0.65, screenSize.height*0.16 + screenSize.width*0.35);
+    tapFrAnimTitle->setTag(TAG_GAME_TAPFRSPR);
+    tapFrAnimTitle->setScale(screenSize.width*0.35/tapFrAnimTitle->getContentSize().width);
+    this->addChild(tapFrAnimTitle);
+    
+    auto tapFrAnimhand = Sprite::create("res/animation/left_hand.png");
+    tapFrAnimhand->setTag(TAG_GAME_TAPFRANIM);
+    tapFrAnimhand->setScale(screenSize.width*0.11/tapFrAnimhand->getContentSize().width);
+    tapFrAnimhand->setAnchorPoint(Vec2(1, 1));
+    this->addChild(tapFrAnimhand);
+    
+    float pos = 0.0f;
+    
+    tapFrAnimhand->setPosition(screenSize.width*0.85, screenSize.height*0.08 + screenSize.width * 0.16);
+    pos =screenSize.height*0.08 + screenSize.width * 0.16;
+    
+    
+    auto action_0 = MoveTo::create(1.2, Point(screenSize.width*0.95, pos));
+    auto action_1 = MoveTo::create(0, Point(screenSize.width*0.85, pos));
+    auto action_2 = Sequence::create(action_0, action_1, NULL);
+    auto action_3 = RepeatForever::create(action_2);
+    tapFrAnimhand->runAction(action_3);
+    
+}
+
+void GameScene::removeTapFrAnim(){
+    onshowedTapFrAnimFlag = false;
+    auto tapFrAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_TAPFRSPR);
+    this->removeChild(tapFrAnimTitle);
+    
+    auto tapFrAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_TAPFRANIM);
+    this->removeChild(tapFrAnimhand);
+}
+
+void GameScene::onNlineAnim(){
+    onshowedNlineAnimFlag = true;
+    auto nlineAnimTitle = Sprite::create("res/animation/Numberline.png");
+    nlineAnimTitle->setTag(TAG_GAME_NLINESPR);
+    nlineAnimTitle->setPosition(screenSize.width*0.5, screenSize.height*0.03 + screenSize.width*0.08);
+    nlineAnimTitle->setScale(screenSize.width*0.35/nlineAnimTitle->getContentSize().width);
+    nlineAnimTitle->setAnchorPoint(Vec2(0.5, 0));
+    this->addChild(nlineAnimTitle);
+    
+    auto nlineAnimhand = Sprite::create("res/animation/nline_hand.png");
+    nlineAnimhand->setTag(TAG_GAME_NLINEANIM);
+    nlineAnimhand->setScale(screenSize.width*0.13/nlineAnimhand->getContentSize().width);
+    nlineAnimhand->setAnchorPoint(Vec2(0.2, 0));
+    
+    this->addChild(nlineAnimhand);
+    nlineAnimhand->setPosition(screenSize.width*0.2, screenSize.height*0.03 + screenSize.width*0.08);
+    
+    auto action_0 = RotateTo::create(1.2f, 15.0f);
+    auto action_1 = RotateTo::create(0, -15.0f);
+    auto action_2 = Sequence::create(action_0, action_1, NULL);
+    auto action_3 = RepeatForever::create(action_2);
+    nlineAnimhand->runAction(action_3);
+}
+
+void GameScene::removeNlineAnim(){
+    onshowedNlineAnimFlag = false;
+    
+    
+    auto nlineAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_NLINESPR);
+    this->removeChild(nlineAnimTitle);
+    
+    auto nlineAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_NLINEANIM);
+    this->removeChild(nlineAnimhand);
+}
+
+
+
 void GameScene::initanswerLayer(){
 //    auto answerLayer = Layer::create();
 //    this->addChild(answerLayer);
@@ -674,6 +850,50 @@ void GameScene::Fraction26(int mol1, int den1, int mol2, int den2, int order, fl
     
 }
 
+
+void GameScene::Fraction20(int mol1, int den1, int order){
+    
+    auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+order);
+    
+        auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", 0);
+        moleculeLabel->setColor(Color3B::BLACK);
+        moleculeLabel->setPosition(0, 0);
+        moleculeLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4);
+        problemLayer->addChild(moleculeLabel);
+        
+        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "", 0);
+        denLabel->setColor(Color3B::BLACK);
+        denLabel->setPosition(0, 0);
+        denLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +1);
+        problemLayer->addChild(denLabel);
+    
+    
+    
+    
+    
+    auto moleculeLabel2 = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", screenSize.width*0.04);
+    moleculeLabel2->setColor(Color3B::BLACK);
+    moleculeLabel2->setPosition(-screenSize.width*0.09, screenSize.width*0.107);
+    //    moleculeLabel->setPosition(0, 0);
+    moleculeLabel2->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +2);
+    problemLayer->addChild(moleculeLabel2);
+    
+    auto denLabel2 = Label::createWithSystemFont(StringUtils::format("%d", den1), "", screenSize.width*0.04);
+    denLabel2->setColor(Color3B::BLACK);
+    denLabel2->setPosition(-screenSize.width*0.09, screenSize.width*0.068);
+    //    moleculeLabel->setPosition(0, 0);
+    denLabel2->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 + 3);
+    problemLayer->addChild(denLabel2);
+    
+    auto lineSpr2 = Sprite::create("res/game/line.png");
+    lineSpr2->setPosition(-screenSize.width*0.09, screenSize.width*0.085);
+    lineSpr2->setScale(screenSize.width*0.045/lineSpr2->getContentSize().width, screenSize.width*0.003/lineSpr2->getContentSize().height);
+    //    lineSpr2->setTag(TAG_FRACTION_LINE);
+    problemLayer->addChild(lineSpr2);
+    
+    
+}
+
 void GameScene::makeproblem(){
 //    int YOUR_RESULT=rand()%(max-min)+min;
     int randomnumber = arc4random()%((arrLevelsProblems.size() - 1) - 0) - 0;
@@ -709,12 +929,20 @@ void GameScene::makeproblem(){
         }
         case 1:
         {
-            auto x1 =  sdata["x1"].asInt();
-            auto y1 =  sdata["y1"].asInt();
+            if(level == 20){
+                auto x1 =  sdata["x1"].asInt();
+                auto y1 =  sdata["y1"].asInt();
+                
+                Fraction20(x1, y1, problemCount);
+            } else {
+                auto x1 =  sdata["x1"].asInt();
+                auto y1 =  sdata["y1"].asInt();
+                
+                
+                auto question1Layer = new FractionLayer(x1, y1, 0.0f, false);
+                problemlayer->addChild(question1Layer);
+            }
             
-            
-            auto question1Layer = new FractionLayer(x1, y1, 0.0f, false);
-            problemlayer->addChild(question1Layer);
             break;
         }
         case 2:
@@ -780,7 +1008,7 @@ void GameScene::rightAnswer(){
         addTick(ticksCount);
         ticksCount +=1;
     }
-    
+    wrongCountofOne = 0;
     problemTime = 0.0f;
     removeProblem(rightCount);
     rightCount++;
@@ -805,9 +1033,20 @@ void GameScene::rightAnswer(){
 
 void GameScene::wrongAnswer(){
     wrongCount++;
+    if(axisFlag == 0){
+        wrongCountofOne++;
+    }
+    
     fiboanim();
     answer = 0;
     answerString = "";
+    Device::vibrate(0.6f);
+    if(wrongCountofOne == 3)
+    {
+        onOneByOneAnimation();
+        wrongCountofOne = 0;
+    }
+    
 
 }
 
@@ -860,15 +1099,10 @@ void GameScene::answerSwipeFunc(){
         CCLOG("SWIPED LEFT");
         answer=0;
         answerString = "";
-        if(swipeFlag != 3){
-            swipeFlag =3;
-            UserDefault::getInstance()->setIntegerForKey("swipeflag",3);
-            if(onshowedSwipeAnimFlag){
-                removeSwipeAnimation();
-            }
+        if(onshowedSwipeAnimFlag){
+            removeSwipeAnimation();
         }
-
-        
+       
         
     }
     else if (initialAnswerTouchPos[0] - currentAnswerTouchPos[0] < - screenSize.width * 0.04)
@@ -876,39 +1110,37 @@ void GameScene::answerSwipeFunc(){
         CCLOG("SWIPED RIGHT");
         answer=0;
         answerString = "";
-        if(swipeFlag != 3){
-            swipeFlag = 3;
-            UserDefault::getInstance()->setIntegerForKey("swipeflag",3);
-            if(onshowedSwipeAnimFlag){
-                removeSwipeAnimation();
-            }
+        if(onshowedSwipeAnimFlag){
+            removeSwipeAnimation();
         }
+
         
     }else {
         CCLOG("enter");
+        taptimer = 0;
+        if(onshowedTapAnimFlag){
+            removeTapAnimation();
+        }
+        if(!firstEnterFlag){
+            firstEnterFlag = true;
+        }
+        
+        if(onshowedSwipeAnimFlag){
+            removeSwipeAnimation();
+        }
+        
+        if(onShowedOneAnimFlag){
+            removeOneByOneAnimation();
+        }
+        
+        if(onshowedCancelFrAnimFlag){
+            removeCancelFrAnim();
+            
+        }
+        if(onshowedTapFrAnimFlag){
+            removeTapFrAnim();
+        }
         if(answer!=0){
-            if(tapClickedFlag==1){
-                tapClickedFlag++;
-            } else if(tapClickedFlag == 2){
-                tapClickedFlag++;
-                UserDefault::getInstance()->setIntegerForKey("tapflag",3);
-                if(onshowedTapAnimFlag){
-                    removeTapAnimation();
-                }
-                
-                
-            }
-            
-            if(swipeFlag == 1){
-                swipeFlag =2;
-            } else if(swipeFlag == 2){
-                swipeFlag =3;
-                UserDefault::getInstance()->setIntegerForKey("swipeflag",3);
-                if(onshowedSwipeAnimFlag){
-                    removeSwipeAnimation();
-                }
-            }
-            
              enterAnswer();
         } else {
             selectedAnswerBox =0;
@@ -1154,6 +1386,9 @@ void GameScene::gotoHome(Ref *pSender, Widget::TouchEventType type)
 }
 
 void GameScene::onTapFractionItem(Touch *touch){
+    if(onshowedCancelFrAnimFlag){
+        removeCancelFrAnim();
+    }
     auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
     
     Point layerLocation = problemLayer->getPosition();
@@ -1176,7 +1411,7 @@ void GameScene::onTapFractionItem(Touch *touch){
                 auto ansLabel = Label::createWithSystemFont("", "", screenSize.width*0.03);
                 
                 float xx, yy;
-                if(point.x < -screenSize.width*0.09){
+                if(point.x < -screenSize.width*0.11){
                     xx = - screenSize.width*0.02;
                 } else {
                     xx = screenSize.width*0.02;
@@ -1196,7 +1431,7 @@ void GameScene::onTapFractionItem(Touch *touch){
                 problemLayer->addChild(answerBoxSpr);
                 
                 
-                ansLabel->setColor(Color3B::BLACK);
+                ansLabel->setColor(Color3B::WHITE);
                 //                    ansLabel->setPosition(point.x - screenSize.width*0.03, point.y + screenSize.width*0.03);
                 //    moleculeLabel->setPosition(0, 0);
                 ansLabel->setTag(TAG_GAME_MOLANS1LABEL+i);
@@ -1288,13 +1523,18 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                     default:
                     {
                         
-                        if(tapClickedFlag == 0)
-                        {
-                            tapClickedFlag = 1;
-                        }
-                        
-                        if(tapClickedFlag == 3 && swipeFlag == 0){
-                            swipeFlag =1;
+//                        if(tapClickedFlag == 0)
+//                        {
+//                            tapClickedFlag = 1;
+//                        }
+//                        
+//                        if(tapClickedFlag == 3 && swipeFlag == 0){
+//                            swipeFlag =1;
+//                        }
+                        if(!tapenteranimFlag && level<4){
+                            tapenteranimFlag = true;
+                            UserDefault::getInstance()->setIntegerForKey("tapenteranimFlag", true);
+                            onTapAnimation();
                         }
                         
                         
@@ -1305,7 +1545,7 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                             answer = answer*10 + (keyTagValue%10)*is_Negative;
                             if(fractionFlag>0 && !deciamlFlag){
                                 
-                                showFractionAnswer(keyTagValue);
+                                showFractionAnswer(keyTagValue%10);
                             } else if(fractionFlag>0 && deciamlFlag){
                                 showDecimalAnswer(keyTagValue);
                             }else {
@@ -1381,6 +1621,9 @@ void GameScene::onClickDeciamlKey(){
 }
 
 void GameScene::onClickDividerKey(){
+    if(onshowedTapFrAnimFlag){
+        removeTapFrAnim();
+    }
     if(answerString != "" && !clickedDividerKeyFlag){
         std::string keydividevalue = StringUtils::format("%s", "/");
         answerString = StringUtils::format("%s%s", answerString.c_str(), keydividevalue.c_str());
@@ -1395,7 +1638,7 @@ void GameScene::onClickDividerKey(){
 
 void GameScene::showFractionAnswer(int keyValue){
     
-    answerString = StringUtils::format("%s%d", answerString.c_str(), (keyValue%10));
+    answerString = StringUtils::format("%s%d", answerString.c_str(), keyValue);
     auto answerLayer = (FractionAnswerLayer*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
     answerLayer->onClickNormalKey(keyValue);
 }
@@ -1403,6 +1646,13 @@ void GameScene::showFractionAnswer(int keyValue){
 void GameScene::showDecimalAnswer(int keyValue){
     
     answerString = StringUtils::format("%s%d", answerString.c_str(), (keyValue%10));
+    auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+    answerLabel->setString(answerString);
+}
+
+void GameScene::showDecimalAnswer1(std::string insteadAns){
+    
+    answerString = StringUtils::format("%s", insteadAns.c_str());
     auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
     answerLabel->setString(answerString);
 }
@@ -1428,10 +1678,13 @@ bool GameScene::onTouchBegan(Touch *touch, Event *event)
     
     Point location = touch->getLocation();
     if(axisFlag ==0){
-        auto answerSpr = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERIMG);
-        Rect answerSprRect = answerSpr->getBoundingBox();
+        CCLOG("locationx=%f", location.x);
+        CCLOG("locationy=%f", location.y);
+//        auto answerSpr = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERIMG);
+        Rect *answerSprRect = new Rect(screenSize.width*0.56, screenSize.height*0.16 + screenSize.width*0.08, screenSize.width*0.24 , screenSize.width*0.2);
         
-        if(answerSprRect.containsPoint(location)){
+        if(answerSprRect->containsPoint(location)){
+//        if(location.x<screenSize.width*0.75 && location.x>=screenSize.width*0.55 && location.y<(screenSize.height*0.16 + screenSize.width*0.35) && location.y>=(screenSize.height*0.16 + screenSize.width*0.08)){
             initialAnswerTouchPos[0] = location.x;
             initialAnswerTouchPos[1] = location.y;
             currentAnswerTouchPos[0] = location.x;
@@ -1465,10 +1718,10 @@ void GameScene::onTouchMoved(Touch *touch, Event *event)
 {
     Point location = touch->getLocation();
     if(axisFlag ==0){
-        auto answerSpr = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERIMG);
-        Rect answerSprRect = answerSpr->getBoundingBox();
+//        auto answerSpr = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERIMG);
+        Rect *answerSprRect = new Rect(screenSize.width*0.56, screenSize.height*0.16 + screenSize.width*0.08, screenSize.width*0.24 , screenSize.width*0.2);
         
-        if(answerSprRect.containsPoint(location) && isAnswerTouchDown){
+        if(answerSprRect->containsPoint(location) && isAnswerTouchDown){
             currentAnswerTouchPos[0] = location.x;
             currentAnswerTouchPos[1] = location.y;
         } else {
@@ -1509,6 +1762,9 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
         if(numberline1SprRect.containsPoint(location)){
             auto answerpos = location.x;
             float numberlineanswer = 0.0f;
+            if(onshowedNlineAnimFlag){
+                removeNlineAnim();
+            }
             if(axisFlag == 1){
                 
                 numberlineanswer = (answerpos - screenSize.width*0.15)/(screenSize.width*0.7);
@@ -1526,7 +1782,7 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
             
             
         }
-    } else if(fractionFlag == 4){
+    } else if(fractionFlag == 4 || level == 20){
         
         if(swipe28Flag == true){
             

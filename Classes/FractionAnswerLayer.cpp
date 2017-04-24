@@ -39,10 +39,10 @@ void FractionAnswerLayer::onClickDividerKey(){
 
 void FractionAnswerLayer::onClickNormalKey(int keyValue){
     if(clickedDividerFlag){
-        denomentor =denomentor*10 +  keyValue%10;
+        denomentor =denomentor*10 +  keyValue;
         makeDenomentor();
     } else {
-        molucle = molucle*10 + keyValue%10;
+        molucle = molucle*10 + keyValue;
         makeMolecule();
     }
 }

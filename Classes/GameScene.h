@@ -24,6 +24,16 @@ USING_NS_CC;
 #define TAG_GAME_TAPANIM      55
 #define TAG_GAME_SWIPEANIM      56
 #define TAG_GAME_SWIPESPR      57
+#define TAG_GAME_ONEANIM      58
+#define TAG_GAME_ONESPR      59
+#define TAG_GAME_CANCELFRANIM      157
+#define TAG_GAME_CANCELFRANIM1      158
+#define TAG_GAME_CANCELFRSPR      159
+#define TAG_GAME_TAPFRANIM      160
+#define TAG_GAME_TAPFRSPR      161
+
+#define TAG_GAME_NLINEANIM      162
+#define TAG_GAME_NLINESPR      163
 #define TAG_GAME_PROBLEM      1000
 #define TAG_GAME_PROBLEM_ELEMENT      1100
 #define TAG_GAME_ANSWERLAYER      100
@@ -88,6 +98,7 @@ public:
     void addTick(int order);
     
     void Fraction26(int mol1, int den1,int mol2, int den2, int order, float offset, std::string op);
+    void Fraction20(int mol2, int den2, int order);
     void makineAnsSpr();
     void initanswerLayer();
     void initTimerScore();
@@ -99,6 +110,7 @@ public:
     void showAnswer(int ans);
     void showFractionAnswer(int keyValue);
     void showDecimalAnswer(int keyValue);
+    void showDecimalAnswer1(std::string insteadAns);
     void removeProblem(int order);
     void animationProblem(int order);
     void onShowReportLayer();
@@ -120,6 +132,17 @@ public:
     void onSwipeAnimation();
     void removeSwipeAnimation();
     
+    void onOneByOneAnimation();
+    void removeOneByOneAnimation();
+    
+    void onCancelFrAnim();
+    void removeCancelFrAnim();
+    
+    void onTapFrAnim();
+    void removeTapFrAnim();
+    
+    void onNlineAnim();
+    void removeNlineAnim();
         
     void reportCallback(cocos2d::Ref* sender, int status);
     void onKeyTouchEvent(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
@@ -183,6 +206,20 @@ public:
     bool onshowedTapAnimFlag = false;
     bool onshowedSwipeAnimFlag = false;
     int swipeFlag = 0;
+    
+    bool onShowedOneAnimFlag = false;
+    
+    bool onshowedCancelFrAnimFlag = false;
+    bool onshowedTapFrAnimFlag = false;
+    bool onshowedNlineAnimFlag = false;
+    
+    bool tapenteranimFlag = false;
+    bool tapentertimeFlag = false;
+    bool firstEnterFlag = false;
+    bool level20animFlag = false;
+    bool level21animFlag = false;
+    
+    int wrongCountofOne = 0;
 
 private:
     CREATE_FUNC(GameScene);

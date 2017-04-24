@@ -28,7 +28,7 @@ bool StartSceen::init()
     {
         return false;
     }
-    
+        
     
     auto winsize = Director::getInstance()->getWinSize();
     auto size = Director::getInstance()->getVisibleSize();
