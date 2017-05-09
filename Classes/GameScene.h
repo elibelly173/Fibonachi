@@ -205,6 +205,7 @@ public:
     int tapClickedFlag = 0;
     bool onshowedTapAnimFlag = false;
     bool onshowedSwipeAnimFlag = false;
+    bool onkeyswipeFlag = false;
     int swipeFlag = 0;
     
     bool onShowedOneAnimFlag = false;

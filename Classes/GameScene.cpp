@@ -457,11 +457,11 @@ void GameScene::UpdateTimer(float dt)
 void GameScene::update(float delta)
 {
     problemTime+=delta;
-    if(tapentertimeFlag){
+    if(onkeyswipeFlag){
         taptimer+=delta;
     }
     
-    if(taptimer > 2 && tapentertimeFlag){
+    if(taptimer > 2 && tapentertimeFlag && onkeyswipeFlag){
         taptimer = 0;
         onSwipeAnimation();
     }
@@ -1535,6 +1535,10 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                             tapenteranimFlag = true;
                             UserDefault::getInstance()->setIntegerForKey("tapenteranimFlag", true);
                             onTapAnimation();
+                        }
+                        
+                        if(tapentertimeFlag){
+                            onkeyswipeFlag = true;
                         }
                         
                         
