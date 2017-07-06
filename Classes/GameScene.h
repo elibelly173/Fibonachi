@@ -193,6 +193,7 @@ public:
     
     
 //    Flags
+    bool levelCompleteFlag = false;
     int fractionFlag = 0;
     bool deciamlFlag = 0;
     bool addKeyFlag = false;

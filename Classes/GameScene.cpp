@@ -425,9 +425,23 @@ void GameScene::initTimerScore(){
 
 }
 
+
+void GameScene::update(float delta)
+{
+    problemTime+=delta;
+    if(onkeyswipeFlag){
+        taptimer+=delta;
+    }
+    
+    if(taptimer > 2 && tapentertimeFlag && onkeyswipeFlag){
+        taptimer = 0;
+        onSwipeAnimation();
+    }
+}
+
 void GameScene::UpdateTimer(float dt)
 {
-    if(firstEnterFlag){
+    if(firstEnterFlag && !levelCompleteFlag){
         timer+=1;
         auto timerLabel = (Label*)this->getChildByTag(TAG_GAME_TIMER);
         if(timer > targettime - 10 && timer < targettime){
@@ -452,19 +466,6 @@ void GameScene::UpdateTimer(float dt)
     }
     
     
-}
-
-void GameScene::update(float delta)
-{
-    problemTime+=delta;
-    if(onkeyswipeFlag){
-        taptimer+=delta;
-    }
-    
-    if(taptimer > 2 && tapentertimeFlag && onkeyswipeFlag){
-        taptimer = 0;
-        onSwipeAnimation();
-    }
 }
 
 void GameScene::onTapAnimation(){
@@ -1164,6 +1165,7 @@ void GameScene::updateScore(){
 }
 
 void GameScene::onShowReportLayer(){
+    levelCompleteFlag = true;
     
     levelSpeed = rightCount * 180/timer;
     if(levelSpeed>100) levelSpeed = 100;
@@ -1291,6 +1293,25 @@ void GameScene::onShowReportLayer(){
     
 }
 
+void GameScene::onRemoveReportLayer(int status){
+    levelCompleteFlag = false;
+    auto *reportBg = (Sprite*)this->getChildByTag(TAG_GAME_VINEYET);
+    this->removeChild(reportBg);
+    
+    auto *reportLayer = (Layer*)this->getChildByTag(TAG_GAME_REPORTLAYER);
+    
+    auto action_0 = MoveTo::create(0.1, Point(0 , -screenSize.height*0.1));
+    auto action_1 = MoveTo::create(0.4, Point(0 , screenSize.height));
+    
+    
+    auto action_2 = CallFuncN::create( CC_CALLBACK_1(GameScene::reportCallback, this, (int)status));
+    auto action_3 = Sequence::create(action_0, action_1, action_2, NULL);
+    //    auto action_3 = RepeatForever::create(action_2);
+    reportLayer->runAction(action_3);
+    
+}
+
+
 
 void GameScene::reportCallback(Ref *sender, int status){
     if(status == 1){
@@ -1309,22 +1330,6 @@ void GameScene::reportCallback(Ref *sender, int status){
 }
 
 
-void GameScene::onRemoveReportLayer(int status){
-    auto *reportBg = (Sprite*)this->getChildByTag(TAG_GAME_VINEYET);
-    this->removeChild(reportBg);
-    
-    auto *reportLayer = (Layer*)this->getChildByTag(TAG_GAME_REPORTLAYER);
-    
-    auto action_0 = MoveTo::create(0.1, Point(0 , -screenSize.height*0.1));
-    auto action_1 = MoveTo::create(0.4, Point(0 , screenSize.height));
-    
-    
-    auto action_2 = CallFuncN::create( CC_CALLBACK_1(GameScene::reportCallback, this, (int)status));
-    auto action_3 = Sequence::create(action_0, action_1, action_2, NULL);
-    //    auto action_3 = RepeatForever::create(action_2);
-    reportLayer->runAction(action_3);
-    
-}
 
 
 
@@ -1658,6 +1663,7 @@ void GameScene::showDecimalAnswer1(std::string insteadAns){
     
     answerString = StringUtils::format("%s", insteadAns.c_str());
     auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+    CCLOG("string");
     answerLabel->setString(answerString);
 }
 
@@ -1675,20 +1681,14 @@ void GameScene::showAnswer(int ans){
 
 bool GameScene::onTouchBegan(Touch *touch, Event *event)
 {
-//    initialTouchPos[0] = touch->getLocation().x;
-//    initialTouchPos[1] = touch->getLocation().y;
-//    currentTouchPos[0] = touch->getLocation().x;
-//    currentTouchPos[1] = touch->getLocation().y;
     
     Point location = touch->getLocation();
     if(axisFlag ==0){
         CCLOG("locationx=%f", location.x);
         CCLOG("locationy=%f", location.y);
-//        auto answerSpr = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERIMG);
-        Rect *answerSprRect = new Rect(screenSize.width*0.56, screenSize.height*0.16 + screenSize.width*0.08, screenSize.width*0.24 , screenSize.width*0.2);
+        Rect *answerSprRect = new Rect(screenSize.width*0.5, screenSize.height*0.16 + screenSize.width*0.04, screenSize.width*0.36 , screenSize.width*0.28);
         
         if(answerSprRect->containsPoint(location)){
-//        if(location.x<screenSize.width*0.75 && location.x>=screenSize.width*0.55 && location.y<(screenSize.height*0.16 + screenSize.width*0.35) && location.y>=(screenSize.height*0.16 + screenSize.width*0.08)){
             initialAnswerTouchPos[0] = location.x;
             initialAnswerTouchPos[1] = location.y;
             currentAnswerTouchPos[0] = location.x;
@@ -1722,8 +1722,7 @@ void GameScene::onTouchMoved(Touch *touch, Event *event)
 {
     Point location = touch->getLocation();
     if(axisFlag ==0){
-//        auto answerSpr = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERIMG);
-        Rect *answerSprRect = new Rect(screenSize.width*0.56, screenSize.height*0.16 + screenSize.width*0.08, screenSize.width*0.24 , screenSize.width*0.2);
+        Rect *answerSprRect = new Rect(screenSize.width*0.5, screenSize.height*0.16 + screenSize.width*0.04, screenSize.width*0.36 , screenSize.width*0.28);
         
         if(answerSprRect->containsPoint(location) && isAnswerTouchDown){
             currentAnswerTouchPos[0] = location.x;
@@ -1746,11 +1745,6 @@ void GameScene::onTouchMoved(Touch *touch, Event *event)
     } else {
         swipe28Flag = false;
     }
-
-    
-
-//    currentTouchPos[0] = touch->getLocation().x;
-//    currentTouchPos[1] = touch->getLocation().y;
 }
 
 void GameScene::onTouchEnded(Touch *touch, Event *event)
@@ -1792,13 +1786,13 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
             
             swipe28Flag = false;
                 
-                if (initialSwipeFractionPos[1] - currentSwipeFractionPos[1] > screenSize.width * 0.04)
+                if (initialSwipeFractionPos[1] - currentSwipeFractionPos[1] > screenSize.width * 0.06)
                 {
                     CCLOG("SWIPED top");
                     fractionSwipeFunc();
                     
                 }
-                else if (initialSwipeFractionPos[1] - currentSwipeFractionPos[1] < - screenSize.width * 0.04)
+                else if (initialSwipeFractionPos[1] - currentSwipeFractionPos[1] < - screenSize.width * 0.06)
                 {
                     CCLOG("SWIPED bottom");
                     fractionSwipeFunc();
