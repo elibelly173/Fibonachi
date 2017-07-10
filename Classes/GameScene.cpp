@@ -54,6 +54,7 @@ bool GameScene::init()
     initTimerScore();
     initTicks();
     initKey();
+    getLevelInfo();
     
     
     auto listener = EventListenerTouchOneByOne::create();
@@ -1330,7 +1331,124 @@ void GameScene::reportCallback(Ref *sender, int status){
 }
 
 
+void GameScene::nextLevel(){
+    auto *reportLayer = (Layer*)this->getChildByTag(TAG_GAME_REPORTLAYER);
+    
+    auto action_0 = MoveTo::create(0.1, Point(0 , -screenSize.height*0.1));
+    auto action_1 = MoveTo::create(0.4, Point(0 , screenSize.height));
+    
+    
+    auto action_2 = CallFuncN::create( CC_CALLBACK_1(GameScene::onIntroduceLevel, this));
+    auto action_3 = Sequence::create(action_0, action_1, action_2, NULL);
+    //    auto action_3 = RepeatForever::create(action_2);
+    reportLayer->runAction(action_3);
+    
+}
 
+void GameScene::getLevelInfo(){
+    ValueMap data;
+    std::string path = FileUtils::getInstance()->fullPathForFilename("res/plist/levels.plist");
+    data = FileUtils::getInstance()->getValueMapFromFile(path);
+    arrLevels = data.at("levels").asValueVector();
+    
+}
+
+
+void GameScene::onIntroduceLevel(Ref *sender){
+    nextLevelFlag = true;
+    // Layer
+    auto levelExplainLayer = Layer::create();
+    this->addChild(levelExplainLayer);
+    levelExplainLayer->setTag(TAG_GAME_NEXTLAYER);
+    
+    auto levelBg = Sprite::create("res/title/level_ground.png");
+    
+    levelBg->setPosition(screenSize.width*3/2 , screenSize.height/2);
+    levelBg->setScale(screenSize.width*0.7/levelBg->getContentSize().width);
+    levelExplainLayer->addChild(levelBg);
+    
+    //    CCLOG("level %d", level);
+    auto newlevel = level + 1;
+    //level title
+    auto levelTitle = Sprite::create(StringUtils::format("res/title/level/level%d.png", newlevel));
+    auto levelBgPos = levelBg->getPosition();
+    levelTitle->setPosition(levelBgPos.x - screenSize.width*0.03, levelBgPos.y + screenSize.width*0.2);
+    levelTitle->setScale(screenSize.width*0.27/levelTitle->getContentSize().width);
+    
+    levelExplainLayer->addChild(levelTitle);
+    
+    
+    //level content
+    auto levelContent = Sprite::create(StringUtils::format("res/title/contents/content%d.png", newlevel));
+    levelContent->setPosition(levelBgPos.x - screenSize.width*0.03, levelBgPos.y + screenSize.width*0.135);
+    levelContent->setScale(screenSize.width*0.5/levelContent->getContentSize().width);
+    
+    levelExplainLayer->addChild(levelContent);
+    
+    
+    // level continue
+    Button* buttonPlay = Button::create("res/title/Continue.png", "res/title/Continue.png");
+    
+    buttonPlay->setPosition(Vec2(levelBgPos.x - screenSize.width*0.025, levelBgPos.y - screenSize.width*0.16));
+    buttonPlay->setScale(screenSize.width*0.18/buttonPlay->getContentSize().width);
+    
+    levelExplainLayer->addChild(buttonPlay);
+    
+    
+    
+    
+    ValueMap sdata = (this->arrLevels[newlevel-1]).asValueMap();
+    int targetnumber =  sdata["targetnumber"].asInt();
+    int targettime =  sdata["targettime"].asInt();
+    
+    auto levelNumber = Sprite::create(StringUtils::format("res/title/number%d.png", targetnumber));
+    levelNumber->setPosition(levelBgPos.x - screenSize.width*0.21, levelBgPos.y - screenSize.width*0.02);
+    levelNumber->setScale(screenSize.width*0.13/levelNumber->getContentSize().width);
+    
+    levelExplainLayer->addChild(levelNumber);
+    
+    auto levelTime = Sprite::create(StringUtils::format("res/title/number%d.png", targettime));
+    levelTime->setPosition(levelBgPos.x + screenSize.width*0.16, levelBgPos.y - screenSize.width*0.02);
+    levelTime->setScale(screenSize.width*0.13/levelTime->getContentSize().width);
+    
+    levelExplainLayer->addChild(levelTime);
+    
+    // level close
+    
+    Button* buttonClose = Button::create("res/title/close.png", "res/title/close.png");
+    
+    buttonClose->setPosition(Vec2(levelBgPos.x + screenSize.width*0.285, levelBgPos.y + screenSize.width*0.19));
+    buttonClose->setScale(screenSize.width * 0.06f/buttonClose->getContentSize().width);
+    
+    levelExplainLayer->addChild(buttonClose);
+    
+//    auto action_0 = MoveTo::create(0.4, Point(0 , screenSize.height*0.1));
+//    auto action_1 = MoveTo::create(0.1, Point(0 , 0));
+//    auto action_2 = Sequence::create(action_0, action_1, NULL);
+    //    auto action_3 = RepeatForever::create(action_2);
+    auto action_0 = MoveTo::create(0.4, Point(- screenSize.width*1.1 , 0));
+    auto action_1 = MoveTo::create(0.1, Point(- screenSize.width*0.95 , 0));
+    auto action_2 = Sequence::create(action_0, action_1, NULL);
+    levelExplainLayer->runAction(action_2);
+    
+}
+void GameScene::onRemoveIntroduceLevel(){
+    levelCompleteFlag = false;
+    auto *reportBg = (Sprite*)this->getChildByTag(TAG_GAME_VINEYET);
+    this->removeChild(reportBg);
+    
+    auto *reportLayer = (Layer*)this->getChildByTag(TAG_GAME_NEXTLAYER);
+    
+    auto action_0 = MoveTo::create(0.1, Point(- screenSize.width*0.8 , 0));
+    auto action_1 = MoveTo::create(0.8, Point(- screenSize.width*2 , 0));
+    
+    
+    auto action_2 = CallFuncN::create( CC_CALLBACK_1(GameScene::reportCallback, this, 2));
+    auto action_3 = Sequence::create(action_0, action_1, action_2, NULL);
+    //    auto action_3 = RepeatForever::create(action_2);
+    reportLayer->runAction(action_3);
+    
+}
 
 
 
@@ -1519,7 +1637,7 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                         onRemoveReportLayer(1);
                         break;
                     case TAG_GAME_REPORTCONTINUE:
-                        onRemoveReportLayer(2);
+                        nextLevel();
                         break;
                     case TAG_GAME_REPORTEXIT:
                         onRemoveReportLayer(3);
@@ -1528,14 +1646,6 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                     default:
                     {
                         
-//                        if(tapClickedFlag == 0)
-//                        {
-//                            tapClickedFlag = 1;
-//                        }
-//                        
-//                        if(tapClickedFlag == 3 && swipeFlag == 0){
-//                            swipeFlag =1;
-//                        }
                         if(!tapenteranimFlag && level<4){
                             tapenteranimFlag = true;
                             UserDefault::getInstance()->setIntegerForKey("tapenteranimFlag", true);
@@ -1681,110 +1791,117 @@ void GameScene::showAnswer(int ans){
 
 bool GameScene::onTouchBegan(Touch *touch, Event *event)
 {
-    
-    Point location = touch->getLocation();
-    if(axisFlag ==0){
-        CCLOG("locationx=%f", location.x);
-        CCLOG("locationy=%f", location.y);
-        Rect *answerSprRect = new Rect(screenSize.width*0.5, screenSize.height*0.16 + screenSize.width*0.04, screenSize.width*0.36 , screenSize.width*0.28);
+    if(!nextLevelFlag){
+        Point location = touch->getLocation();
+        if(axisFlag ==0){
+            CCLOG("locationx=%f", location.x);
+            CCLOG("locationy=%f", location.y);
+            Rect *answerSprRect = new Rect(screenSize.width*0.5, screenSize.height*0.16 + screenSize.width*0.04, screenSize.width*0.36 , screenSize.width*0.28);
+            
+            if(answerSprRect->containsPoint(location)){
+                initialAnswerTouchPos[0] = location.x;
+                initialAnswerTouchPos[1] = location.y;
+                currentAnswerTouchPos[0] = location.x;
+                currentAnswerTouchPos[1] = location.y;
+                
+                isAnswerTouchDown = true;
+                
+            }
+            
+        }
         
-        if(answerSprRect->containsPoint(location)){
-            initialAnswerTouchPos[0] = location.x;
-            initialAnswerTouchPos[1] = location.y;
-            currentAnswerTouchPos[0] = location.x;
-            currentAnswerTouchPos[1] = location.y;
+        if(fractionSwipeFlagArray[rightCount] == true){
             
-            isAnswerTouchDown = true;
+            auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
+            Point layerLocation = problemLayer->getPosition();
+            Point convertedLocation = Point(touch->getLocation().x - layerLocation.x, touch->getLocation().y - layerLocation.y);
             
+            if(convertedLocation.x<(-screenSize.width*0.02) && convertedLocation.x>=(-screenSize.width*0.08) && convertedLocation.y<screenSize.width*0.16 && convertedLocation.y>=screenSize.width*0.02){
+                initialSwipeFractionPos[0] = convertedLocation.x;
+                initialSwipeFractionPos[1] = convertedLocation.y;
+                swipe28Flag = true;
+            }
         }
 
-    }
     
-    if(fractionSwipeFlagArray[rightCount] == true){
         
-        auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
-        Point layerLocation = problemLayer->getPosition();
-        Point convertedLocation = Point(touch->getLocation().x - layerLocation.x, touch->getLocation().y - layerLocation.y);
-        
-        if(convertedLocation.x<(-screenSize.width*0.02) && convertedLocation.x>=(-screenSize.width*0.08) && convertedLocation.y<screenSize.width*0.16 && convertedLocation.y>=screenSize.width*0.02){
-            initialSwipeFractionPos[0] = convertedLocation.x;
-            initialSwipeFractionPos[1] = convertedLocation.y;
-            swipe28Flag = true;
-        }
     }
-    
-    
     
     return true;
 }
 
 void GameScene::onTouchMoved(Touch *touch, Event *event)
 {
-    Point location = touch->getLocation();
-    if(axisFlag ==0){
-        Rect *answerSprRect = new Rect(screenSize.width*0.5, screenSize.height*0.16 + screenSize.width*0.04, screenSize.width*0.36 , screenSize.width*0.28);
-        
-        if(answerSprRect->containsPoint(location) && isAnswerTouchDown){
-            currentAnswerTouchPos[0] = location.x;
-            currentAnswerTouchPos[1] = location.y;
-        } else {
-            isAnswerTouchDown = false;
+    if(!nextLevelFlag){
+        Point location = touch->getLocation();
+        if(axisFlag ==0){
+            Rect *answerSprRect = new Rect(screenSize.width*0.5, screenSize.height*0.16 + screenSize.width*0.04, screenSize.width*0.36 , screenSize.width*0.28);
+            
+            if(answerSprRect->containsPoint(location) && isAnswerTouchDown){
+                currentAnswerTouchPos[0] = location.x;
+                currentAnswerTouchPos[1] = location.y;
+            } else {
+                isAnswerTouchDown = false;
+            }
         }
-    }
-    
-    
-    auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
-    Point layerLocation = problemLayer->getPosition();
-    Point convertedLocation = Point(touch->getLocation().x - layerLocation.x, touch->getLocation().y - layerLocation.y);
-    
-    if(convertedLocation.x<(-screenSize.width*0.02) && convertedLocation.x>=(-screenSize.width*0.08) && convertedLocation.y<screenSize.width*0.16 && convertedLocation.y>=screenSize.width*0.02 && swipe28Flag){
-        currentSwipeFractionPos[0] = convertedLocation.x;
-        currentSwipeFractionPos[1] = convertedLocation.y;
-       
         
-    } else {
-        swipe28Flag = false;
+        
+        auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
+        Point layerLocation = problemLayer->getPosition();
+        Point convertedLocation = Point(touch->getLocation().x - layerLocation.x, touch->getLocation().y - layerLocation.y);
+        
+        if(convertedLocation.x<(-screenSize.width*0.02) && convertedLocation.x>=(-screenSize.width*0.08) && convertedLocation.y<screenSize.width*0.16 && convertedLocation.y>=screenSize.width*0.02 && swipe28Flag){
+            currentSwipeFractionPos[0] = convertedLocation.x;
+            currentSwipeFractionPos[1] = convertedLocation.y;
+            
+            
+        } else {
+            swipe28Flag = false;
+        }
+
     }
 }
 
 void GameScene::onTouchEnded(Touch *touch, Event *event)
 {
-    if(isAnswerTouchDown){
-        answerSwipeFunc();
-    } else if(axisFlag == 1 || axisFlag == 2) {
-        Point location = touch->getLocation();
-        
-        auto numberline1Spr = (Sprite*)this->getChildByTag(TAG_GAME_KEYNUMBERLINE1);
-        Rect numberline1SprRect = numberline1Spr->getBoundingBox();
-        
-        if(numberline1SprRect.containsPoint(location)){
-            auto answerpos = location.x;
-            float numberlineanswer = 0.0f;
-            if(onshowedNlineAnimFlag){
-                removeNlineAnim();
-            }
-            if(axisFlag == 1){
+    if(!nextLevelFlag)
+    {
+        if(isAnswerTouchDown){
+            answerSwipeFunc();
+        } else if(axisFlag == 1 || axisFlag == 2) {
+            Point location = touch->getLocation();
+            
+            auto numberline1Spr = (Sprite*)this->getChildByTag(TAG_GAME_KEYNUMBERLINE1);
+            Rect numberline1SprRect = numberline1Spr->getBoundingBox();
+            
+            if(numberline1SprRect.containsPoint(location)){
+                auto answerpos = location.x;
+                float numberlineanswer = 0.0f;
+                if(onshowedNlineAnimFlag){
+                    removeNlineAnim();
+                }
+                if(axisFlag == 1){
+                    
+                    numberlineanswer = (answerpos - screenSize.width*0.15)/(screenSize.width*0.7);
+                    
+                } else if (axisFlag == 2){
+                    numberlineanswer = (screenSize.width*0.5 - answerpos)/(screenSize.width*0.35);
+                }
+                auto realanswer = atof(answerArray[rightCount].c_str());
+                if((realanswer+0.1) > numberlineanswer && (realanswer - 0.1)< numberlineanswer){
+                    rightAnswer();
+                } else {
+                    wrongAnswer();
+                }
                 
-                numberlineanswer = (answerpos - screenSize.width*0.15)/(screenSize.width*0.7);
                 
-            } else if (axisFlag == 2){
-                numberlineanswer = (screenSize.width*0.5 - answerpos)/(screenSize.width*0.35);
+                
             }
-            auto realanswer = atof(answerArray[rightCount].c_str());
-            if((realanswer+0.1) > numberlineanswer && (realanswer - 0.1)< numberlineanswer){
-                rightAnswer();
-            } else {
-                wrongAnswer();
-            }
+        } else if(fractionFlag == 4 || level == 20){
             
-            
-            
-        }
-    } else if(fractionFlag == 4 || level == 20){
-        
-        if(swipe28Flag == true){
-            
-            swipe28Flag = false;
+            if(swipe28Flag == true){
+                
+                swipe28Flag = false;
                 
                 if (initialSwipeFractionPos[1] - currentSwipeFractionPos[1] > screenSize.width * 0.06)
                 {
@@ -1801,13 +1918,17 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
                     CCLOG("enter");
                     onTapFractionItem(touch);
                 }
+                
+            } else {
+                onTapFractionItem(touch);
+            }
             
-        } else {
-            onTapFractionItem(touch);
         }
-        
+
+    } else {
+        nextLevelFlag = false;
+        onRemoveIntroduceLevel();
     }
-    
 }
 
 void GameScene::onTouchCancelled(Touch *touch, Event *event)

@@ -240,11 +240,11 @@ void MapviewScene::movePos(int diff){
 
 void MapviewScene::showLevelExplainacreen(int level){
     
-    this->selectedLevel = level;
+    selectedLevel = level;
     // when levelexplainlayer appears, set touch event of scrollview to false.
     cocos2d::ui::ScrollView *scrollView = (cocos2d::ui::ScrollView*)this->getChildByTag(TAG_MAP_SCROLL);
     scrollView->setTouchEnabled(false);
-    this->onShowLevelFlag = false;
+    onShowLevelFlag = false;
     //Background
     auto levelExpalinBack = Sprite::create("res/title/Vinyet.png"); //here the background.png is a "red screen" png.
     
@@ -261,9 +261,6 @@ void MapviewScene::showLevelExplainacreen(int level){
     levelExplainLayer->setTag(TAG_MAP_LEVELLAYER);
     
     auto levelBg = Sprite::create("res/title/level_ground.png");
-//    levelBg->setPosition(this->scrollframesize.width/2 + this->scrollframesize.width*0.05 , this->scrollframesize.height/2);
-    
-//    levelBg->setScale(this->scrollframesize.width*0.7/levelBg->getContentSize().width, this->scrollframesize.height*0.7/levelBg->getContentSize().height);
     
     levelBg->setPosition(this->scrollframesize.width*3/2 , this->scrollframesize.height/2);
     levelBg->setScale(this->scrollframesize.width*0.7/levelBg->getContentSize().width);
@@ -298,14 +295,7 @@ void MapviewScene::showLevelExplainacreen(int level){
     
     
     
-//    auto levelContinue = Sprite::create("res/title/Continue.png");
-//    levelContinue->setPosition(levelBgPos.x - this->scrollframesize.width*0.025, levelBgPos.y - this->scrollframesize.width*0.16);
-//    levelContinue->setScale(this->scrollframesize.width*0.18/levelContinue->getContentSize().width);
-//    
-//    levelExplainLayer->addChild(levelContinue);
-    
-    
-    // adding target time and target number
+
     ValueMap sdata = (this->arrLevels[level-1]).asValueMap();
     int targetnumber =  sdata["targetnumber"].asInt();
     int targettime =  sdata["targettime"].asInt();
@@ -333,17 +323,6 @@ void MapviewScene::showLevelExplainacreen(int level){
     levelExplainLayer->addChild(buttonClose);
     
     
-    
-    
-    
-//    for (int i = 0; i<15; i++) {
-//        for (int j = 0; j<8; j++) {
-//            auto spr = Sprite::create("tile.png");
-//            spr->setAnchorPoint(Point::ZERO);
-//            spr->setPosition(Point(i * 33, j * 49));
-//            levelExplainLayer->addChild(spr);
-//        }
-//    }
     
     auto action_0 = MoveTo::create(0.4, Point(- this->scrollframesize.width*1.1 , 0));
     auto action_1 = MoveTo::create(0.1, Point(- this->scrollframesize.width*0.95 , 0));

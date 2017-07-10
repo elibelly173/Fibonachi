@@ -26,6 +26,7 @@ USING_NS_CC;
 #define TAG_GAME_SWIPESPR      57
 #define TAG_GAME_ONEANIM      58
 #define TAG_GAME_ONESPR      59
+#define TAG_GAME_NEXTLAYER      60
 #define TAG_GAME_CANCELFRANIM      157
 #define TAG_GAME_CANCELFRANIM1      158
 #define TAG_GAME_CANCELFRSPR      159
@@ -147,6 +148,11 @@ public:
     void reportCallback(cocos2d::Ref* sender, int status);
     void onKeyTouchEvent(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
     void gotoHome(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
+    
+    void nextLevel();
+    void onIntroduceLevel(cocos2d::Ref* sender);
+    void getLevelInfo();
+    void onRemoveIntroduceLevel();
 public:
     cocos2d::Size screenSize;
     ValueVector arrLevelsProblems;
@@ -191,6 +197,8 @@ public:
     float taptimer = 0.0f;
     float swipetimer = 0.0f;
     
+    ValueVector arrLevels;
+    
     
 //    Flags
     bool levelCompleteFlag = false;
@@ -220,6 +228,8 @@ public:
     bool firstEnterFlag = false;
     bool level20animFlag = false;
     bool level21animFlag = false;
+    
+    bool nextLevelFlag = false;
     
     int wrongCountofOne = 0;
 
