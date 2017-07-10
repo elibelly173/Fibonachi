@@ -12,6 +12,8 @@
 #include "cocos2d.h"
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
+#include <stdlib.h>
+using namespace std;
 
 class VideoScene : public cocos2d::Layer
 {

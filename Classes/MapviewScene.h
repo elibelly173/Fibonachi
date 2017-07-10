@@ -13,9 +13,10 @@
 #include "cocos2d.h"
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
-
+#include <stdlib.h>
 USING_NS_CC_EXT;
 USING_NS_CC;
+using namespace std;
 
 
 #define TAG_MAP_SCROLL      1
