@@ -18,6 +18,7 @@ using namespace std;
 USING_NS_CC_EXT;
 USING_NS_CC;
 
+#define TAG_GAME_DIMLAYER      49
 #define TAG_SPRITE_ACHI      50
 #define TAG_SPRITE_FIBO      51
 #define TAG_GAME_VINEYET      52
@@ -155,6 +156,8 @@ public:
     void onIntroduceLevel(cocos2d::Ref* sender);
     void getLevelInfo();
     void onRemoveIntroduceLevel();
+    void onShowDimLayer();
+    void onRemoveDimLayer();
 public:
     cocos2d::Size screenSize;
     ValueVector arrLevelsProblems;
@@ -232,7 +235,7 @@ public:
     bool level21animFlag = false;
     
     bool nextLevelFlag = false;
-    
+    bool dimFlag = false;
     int wrongCountofOne = 0;
 
 private:

@@ -36,6 +36,8 @@ bool StartSceen::init()
     background->setPosition(winsize.width/2, winsize.height/2);
     this->addChild(background);
     
+    
+    
 //    background->setScale(0.9f);
     CCLOG("background%f %f", background->getBoundingBox().size.width, background->getBoundingBox().size.height);
     background->setScale(size.width/background->getContentSize().width, size.height/background->getContentSize().height);

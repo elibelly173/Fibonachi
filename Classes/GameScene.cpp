@@ -53,6 +53,8 @@ bool GameScene::init()
     initanswerLayer();
     initTimerScore();
     initTicks();
+    
+    
     initKey();
     getLevelInfo();
     
@@ -442,7 +444,7 @@ void GameScene::update(float delta)
 
 void GameScene::UpdateTimer(float dt)
 {
-    if(firstEnterFlag && !levelCompleteFlag){
+    if(firstEnterFlag && !levelCompleteFlag && !dimFlag){
         timer+=1;
         auto timerLabel = (Label*)this->getChildByTag(TAG_GAME_TIMER);
         if(timer > targettime - 10 && timer < targettime){
@@ -468,8 +470,22 @@ void GameScene::UpdateTimer(float dt)
     
     
 }
+void GameScene::onShowDimLayer(){
+    dimFlag = true;
+    CCLayerColor *dimLayer = CCLayerColor::create(ccc4(0,0,0,170));
+    dimLayer->setTag(TAG_GAME_DIMLAYER);
+    this->addChild(dimLayer);
+}
+
+void GameScene::onRemoveDimLayer(){
+    dimFlag = false;
+    
+    auto dimLayer = (CCLayerColor*)this->getChildByTag(TAG_GAME_DIMLAYER);
+    this->removeChild(dimLayer);
+}
 
 void GameScene::onTapAnimation(){
+    onShowDimLayer();
     onshowedTapAnimFlag = true;
     auto tapAnimTitle = Sprite::create("res/animation/tapimage.png");
     tapAnimTitle->setTag(TAG_GAME_TAPSPR);
@@ -503,6 +519,7 @@ void GameScene::onTapAnimation(){
 }
 
 void GameScene::removeTapAnimation(){
+    onRemoveDimLayer();
     onshowedTapAnimFlag = false;
     tapentertimeFlag = true;
     CCLOG("remove TapAnim");
@@ -515,6 +532,7 @@ void GameScene::removeTapAnimation(){
 }
 
 void GameScene::onOneByOneAnimation(){
+    onShowDimLayer();
     
     if(fractionFlag>0 && !deciamlFlag){
 //        auto inseadAns = answerArray[rightCount].c_str();
@@ -568,6 +586,7 @@ void GameScene::onOneByOneAnimation(){
 }
 
 void GameScene::removeOneByOneAnimation(){
+    onRemoveDimLayer();
     onShowedOneAnimFlag = false;
     CCLOG("remove TapAnim");
     
@@ -581,6 +600,7 @@ void GameScene::removeOneByOneAnimation(){
 
 
 void GameScene::onSwipeAnimation(){
+    onShowDimLayer();
     onshowedSwipeAnimFlag = true;
     tapentertimeFlag = false;
     auto swipeAnimTitle = Sprite::create("res/animation/swipedelete.png");
@@ -616,6 +636,7 @@ void GameScene::onSwipeAnimation(){
 }
 
 void GameScene::removeSwipeAnimation(){
+    onRemoveDimLayer();
     onshowedSwipeAnimFlag = false;
     auto swipeAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_SWIPESPR);
     this->removeChild(swipeAnimTitle);
@@ -627,6 +648,7 @@ void GameScene::removeSwipeAnimation(){
 
 
 void GameScene::onCancelFrAnim(){
+    onShowDimLayer();
     onshowedCancelFrAnimFlag = true;
     auto canFrAnimTitle = Sprite::create("res/animation/cancelfraction.png");
     canFrAnimTitle->setPosition(screenSize.width*0.43, screenSize.height*0.16 + screenSize.width*0.3);
@@ -655,6 +677,7 @@ void GameScene::onCancelFrAnim(){
 }
 
 void GameScene::removeCancelFrAnim(){
+    onRemoveDimLayer();
     onshowedCancelFrAnimFlag = false;
     auto canFrAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_CANCELFRSPR);
     this->removeChild(canFrAnimTitle);
@@ -667,6 +690,7 @@ void GameScene::removeCancelFrAnim(){
 
 
 void GameScene::onTapFrAnim(){
+    onShowDimLayer();
     onshowedTapFrAnimFlag = true;
     auto tapFrAnimTitle = Sprite::create("res/animation/Fraction.png");
     tapFrAnimTitle->setPosition(screenSize.width*0.65, screenSize.height*0.16 + screenSize.width*0.35);
@@ -695,6 +719,7 @@ void GameScene::onTapFrAnim(){
 }
 
 void GameScene::removeTapFrAnim(){
+    onRemoveDimLayer();
     onshowedTapFrAnimFlag = false;
     auto tapFrAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_TAPFRSPR);
     this->removeChild(tapFrAnimTitle);
@@ -704,6 +729,7 @@ void GameScene::removeTapFrAnim(){
 }
 
 void GameScene::onNlineAnim(){
+    onShowDimLayer();
     onshowedNlineAnimFlag = true;
     auto nlineAnimTitle = Sprite::create("res/animation/Numberline.png");
     nlineAnimTitle->setTag(TAG_GAME_NLINESPR);
@@ -728,6 +754,7 @@ void GameScene::onNlineAnim(){
 }
 
 void GameScene::removeNlineAnim(){
+    onRemoveDimLayer();
     onshowedNlineAnimFlag = false;
     
     
@@ -1120,28 +1147,28 @@ void GameScene::answerSwipeFunc(){
     }else {
         CCLOG("enter");
         taptimer = 0;
-        if(onshowedTapAnimFlag){
-            removeTapAnimation();
-        }
+//        if(onshowedTapAnimFlag){
+//            removeTapAnimation();
+//        }
         if(!firstEnterFlag){
             firstEnterFlag = true;
         }
-        
-        if(onshowedSwipeAnimFlag){
-            removeSwipeAnimation();
-        }
-        
-        if(onShowedOneAnimFlag){
-            removeOneByOneAnimation();
-        }
-        
-        if(onshowedCancelFrAnimFlag){
-            removeCancelFrAnim();
-            
-        }
-        if(onshowedTapFrAnimFlag){
-            removeTapFrAnim();
-        }
+//
+//        if(onshowedSwipeAnimFlag){
+//            removeSwipeAnimation();
+//        }
+//        
+//        if(onShowedOneAnimFlag){
+//            removeOneByOneAnimation();
+//        }
+//        
+//        if(onshowedCancelFrAnimFlag){
+//            removeCancelFrAnim();
+//            
+//        }
+//        if(onshowedTapFrAnimFlag){
+//            removeTapFrAnim();
+//        }
         if(answer!=0){
              enterAnswer();
         } else {
@@ -1637,7 +1664,8 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                         onRemoveReportLayer(1);
                         break;
                     case TAG_GAME_REPORTCONTINUE:
-                        nextLevel();
+//                        nextLevel();
+                        onRemoveReportLayer(2);
                         break;
                     case TAG_GAME_REPORTEXIT:
                         onRemoveReportLayer(3);
@@ -1791,7 +1819,7 @@ void GameScene::showAnswer(int ans){
 
 bool GameScene::onTouchBegan(Touch *touch, Event *event)
 {
-    if(!nextLevelFlag){
+    if(!dimFlag){
         Point location = touch->getLocation();
         if(axisFlag ==0){
             CCLOG("locationx=%f", location.x);
@@ -1832,7 +1860,7 @@ bool GameScene::onTouchBegan(Touch *touch, Event *event)
 
 void GameScene::onTouchMoved(Touch *touch, Event *event)
 {
-    if(!nextLevelFlag){
+    if(!dimFlag){
         Point location = touch->getLocation();
         if(axisFlag ==0){
             Rect *answerSprRect = new Rect(screenSize.width*0.5, screenSize.height*0.16 + screenSize.width*0.04, screenSize.width*0.36 , screenSize.width*0.28);
@@ -1864,7 +1892,7 @@ void GameScene::onTouchMoved(Touch *touch, Event *event)
 
 void GameScene::onTouchEnded(Touch *touch, Event *event)
 {
-    if(!nextLevelFlag)
+    if(!dimFlag)
     {
         if(isAnswerTouchDown){
             answerSwipeFunc();
@@ -1926,8 +1954,30 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
         }
 
     } else {
-        nextLevelFlag = false;
-        onRemoveIntroduceLevel();
+        
+        if(onshowedTapAnimFlag){
+            removeTapAnimation();
+        }
+        
+        if(onshowedSwipeAnimFlag){
+            removeSwipeAnimation();
+        }
+        
+        if(onShowedOneAnimFlag){
+            removeOneByOneAnimation();
+        }
+        
+        if(onshowedCancelFrAnimFlag){
+            removeCancelFrAnim();
+            
+        }
+        if(onshowedTapFrAnimFlag){
+            removeTapFrAnim();
+        }
+        if(onshowedNlineAnimFlag){
+            removeNlineAnim();
+        }
+        
     }
 }
 
