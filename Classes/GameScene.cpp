@@ -243,9 +243,44 @@ void GameScene::getLevelProblems(){
     CCLOG("level=%d", this->level);
     
     ValueMap data;
-    std::string path = FileUtils::getInstance()->fullPathForFilename(StringUtils::format("res/plist/level%d.plist", this->level));
-    data = FileUtils::getInstance()->getValueMapFromFile(path);
-    arrLevelsProblems = data.at("anspro").asValueVector();
+    if(level == 11){
+        for(int ii= 1; ii< 11; ii++){
+            ValueVector levelProblems;
+            std::string path = FileUtils::getInstance()->fullPathForFilename(StringUtils::format("res/plist/level%d.plist", ii));
+            data = FileUtils::getInstance()->getValueMapFromFile(path);
+            levelProblems = data.at("anspro").asValueVector();
+            auto problemSize = levelProblems.size();
+            for(int jj = 0; jj< 5; jj++){
+                int randomnumber = arc4random()%((problemSize - 1) - 0) - 0;
+                auto sdata = levelProblems[randomnumber];
+                arrLevelsProblems.push_back(sdata);
+            }
+        }
+    } else if(level == 16){
+        for(int ii= 1; ii< 16; ii++){
+            if(ii == 1 || ii == 2 || ii == 3 || ii == 7 || ii == 8 || ii == 14 || ii == 15) {
+                ValueVector levelProblems;
+                std::string path = FileUtils::getInstance()->fullPathForFilename(StringUtils::format("res/plist/level%d.plist", ii));
+                data = FileUtils::getInstance()->getValueMapFromFile(path);
+                levelProblems = data.at("anspro").asValueVector();
+                auto problemSize = levelProblems.size();
+                for(int jj = 0; jj< 5; jj++){
+                    int randomnumber = arc4random()%((problemSize - 1) - 0) - 0;
+                    auto sdata = levelProblems[randomnumber];
+                    arrLevelsProblems.push_back(sdata);
+                }
+            }
+        }
+    }
+    
+    else {
+        std::string path = FileUtils::getInstance()->fullPathForFilename(StringUtils::format("res/plist/level%d.plist", this->level));
+        data = FileUtils::getInstance()->getValueMapFromFile(path);
+        arrLevelsProblems = data.at("anspro").asValueVector();
+    }
+    
+    
+    
     
     
     ValueMap data1;
@@ -926,6 +961,7 @@ void GameScene::Fraction20(int mol1, int den1, int order){
 void GameScene::makeproblem(){
 //    int YOUR_RESULT=rand()%(max-min)+min;
     int randomnumber = arc4random()%((arrLevelsProblems.size() - 1) - 0) - 0;
+//    int randomnumber = rand() % (arrLevelsProblems.size() - 1);
     ValueMap sdata = (arrLevelsProblems[randomnumber]).asValueMap();
     
     
