@@ -1186,9 +1186,7 @@ void GameScene::answerSwipeFunc(){
 //        if(onshowedTapAnimFlag){
 //            removeTapAnimation();
 //        }
-        if(!firstEnterFlag){
-            firstEnterFlag = true;
-        }
+        
 //
 //        if(onshowedSwipeAnimFlag){
 //            removeSwipeAnimation();
@@ -1670,6 +1668,9 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
             
         case Widget::TouchEventType::ENDED:
         {
+            if(!firstEnterFlag){
+                firstEnterFlag = true;
+            }
             int keyTagValue = ((cocos2d::ui::Button*) pSender)->getTag();
             if(keyTagValue == (TAG_GAME_KEYDIVIDER + rightCount)){
                 convertDividertoMultiSign();
@@ -1939,6 +1940,10 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
             Rect numberline1SprRect = numberline1Spr->getBoundingBox();
             
             if(numberline1SprRect.containsPoint(location)){
+                if(!firstEnterFlag){
+                    firstEnterFlag = true;
+                }
+
                 auto answerpos = location.x;
                 float numberlineanswer = 0.0f;
                 if(onshowedNlineAnimFlag){
@@ -1952,7 +1957,7 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
                     numberlineanswer = (screenSize.width*0.5 - answerpos)/(screenSize.width*0.35);
                 }
                 auto realanswer = atof(answerArray[rightCount].c_str());
-                if((realanswer+0.1) > numberlineanswer && (realanswer - 0.1)< numberlineanswer){
+                if((realanswer+0.12) > numberlineanswer && (realanswer - 0.12)< numberlineanswer){
                     rightAnswer();
                 } else {
                     wrongAnswer();
