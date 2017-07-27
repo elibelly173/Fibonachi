@@ -43,6 +43,7 @@ USING_NS_CC;
 #define TAG_GAME_ANSWERLAYER      100
 #define TAG_GAME_ANSWERIMG      101
 #define TAG_GAME_ANSWERLABEL      102
+#define TAG_GAME_ANSWERBAR      103
 #define TAG_GAME_KEY      201
 #define TAG_GAME_KEYADD      211
 #define TAG_GAME_KEYFRACTION      212
@@ -204,6 +205,11 @@ public:
     
     ValueVector arrLevels;
     
+    int holdnowVal=0;
+    int holdpreVal = 0;
+    int holdCount = 0;
+    bool holdFlag = false;
+    float holdTime = 0.0f;
     
 //    Flags
     bool levelCompleteFlag = false;
