@@ -271,8 +271,27 @@ void GameScene::getLevelProblems(){
                 }
             }
         }
+    } else if(level == 30){
+        std::string path = FileUtils::getInstance()->fullPathForFilename(StringUtils::format("res/plist/level%d.plist", this->level));
+        data = FileUtils::getInstance()->getValueMapFromFile(path);
+        arrLevelsProblems = data.at("anspro").asValueVector();
+        
+        for(int ii= 1; ii< 4; ii++){
+//            if(ii == 1) {
+                ValueVector levelProblems;
+                std::string path = FileUtils::getInstance()->fullPathForFilename(StringUtils::format("res/plist/level30_%d.plist", ii));
+                data = FileUtils::getInstance()->getValueMapFromFile(path);
+                levelProblems = data.at("anspro").asValueVector();
+                auto problemSize = levelProblems.size();
+                for(int jj = 0; jj< 5; jj++){
+                    int randomnumber = arc4random()%((problemSize - 1) - 0) - 0;
+                    auto sdata = levelProblems[randomnumber];
+                    arrLevelsProblems.push_back(sdata);
+                }
+//            }
+        }
+
     }
-    
     else {
         std::string path = FileUtils::getInstance()->fullPathForFilename(StringUtils::format("res/plist/level%d.plist", this->level));
         data = FileUtils::getInstance()->getValueMapFromFile(path);
@@ -474,6 +493,21 @@ void GameScene::update(float delta)
     if(taptimer > 2 && tapentertimeFlag && onkeyswipeFlag){
         taptimer = 0;
         onSwipeAnimation();
+    }
+    
+    if(holdFlag){
+        
+        if(holdTime>0.4 ){
+            holdTime = 0.0f;
+            holdCount++;
+            holdpreVal = holdnowVal;
+            showDecimalAnswer(holdnowVal);
+            
+        } else {
+            holdTime+= delta;
+        }
+    } else {
+        holdTime = 0.0f;
     }
 }
 
@@ -819,6 +853,12 @@ void GameScene::initanswerLayer(){
         answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.17);
         answerlabel->setTag(TAG_GAME_ANSWERLABEL);
         this->addChild(answerlabel);
+        
+        auto answerBar = Label::createWithSystemFont("_", "", screenSize.width*0.05);
+        answerBar->setColor(Color3B::WHITE);
+        answerBar->setPosition(screenSize.width*0.67, screenSize.height*0.16 + screenSize.width*0.21);
+        answerBar->setTag(TAG_GAME_ANSWERBAR);
+        this->addChild(answerBar);
     } else {
 //        auto answer = StringUtils::format("%d", 77);
         
@@ -962,6 +1002,7 @@ void GameScene::makeproblem(){
 //    int YOUR_RESULT=rand()%(max-min)+min;
     int randomnumber = arc4random()%((arrLevelsProblems.size() - 1) - 0) - 0;
 //    int randomnumber = rand() % (arrLevelsProblems.size() - 1);
+//    int randomnumber = std::srand() % (arrLevelsProblems.size() - 1);
     ValueMap sdata = (arrLevelsProblems[randomnumber]).asValueMap();
     
     
@@ -1131,6 +1172,12 @@ void GameScene::fractionSwipeFunc(){
 void GameScene::enterAnswer(){
     
     if(fractionFlag>0 || deciamlFlag){
+        
+        if(holdCount>3) {
+            auto answerbar = (Label*)this->getChildByTag(TAG_GAME_ANSWERBAR);
+            answerbar->setColor(Color3B::WHITE);
+            holdCount = 0;
+        }
         
         if(std::strcmp(answerString.c_str(), answerArray[rightCount].c_str()) == 0){
             rightAnswer();
@@ -1659,14 +1706,6 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
     switch (type)
     {
         case Widget::TouchEventType::BEGAN:
-           
-            break;
-            
-        case Widget::TouchEventType::MOVED:
-            
-            break;
-            
-        case Widget::TouchEventType::ENDED:
         {
             if(!firstEnterFlag){
                 firstEnterFlag = true;
@@ -1701,7 +1740,7 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                         onRemoveReportLayer(1);
                         break;
                     case TAG_GAME_REPORTCONTINUE:
-//                        nextLevel();
+                        //                        nextLevel();
                         onRemoveReportLayer(2);
                         break;
                     case TAG_GAME_REPORTEXIT:
@@ -1731,12 +1770,15 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                                 
                                 showFractionAnswer(keyTagValue%10);
                             } else if(fractionFlag>0 && deciamlFlag){
+                                holdFlag = true;
+                                holdnowVal = keyTagValue;
                                 showDecimalAnswer(keyTagValue);
                             }else {
                                 if(deciamlFlag){
+                                    
                                     showDecimalAnswer(keyTagValue);
                                 } else {
-//                                    answer = answer*10 + (keyTagValue%10)*is_Negative;
+                                    //                                    answer = answer*10 + (keyTagValue%10)*is_Negative;
                                     showAnswer(answer);
                                 }
                                 
@@ -1749,12 +1791,31 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                         break;
                     }
                 }
-            
-            
+                
+                
             }
             
             
         }
+           
+            break;
+            
+        case Widget::TouchEventType::MOVED:
+            
+            break;
+            
+        case Widget::TouchEventType::ENDED:{
+            holdFlag = false;
+            holdTime = 0.0f;
+            if(holdpreVal == holdnowVal){
+                holdCount++;
+            } else {
+                holdCount = 1;
+                holdpreVal = holdnowVal;
+            }
+            
+        }
+   
             break;
             
         case Widget::TouchEventType::CANCELED:
@@ -1828,10 +1889,19 @@ void GameScene::showFractionAnswer(int keyValue){
 }
 
 void GameScene::showDecimalAnswer(int keyValue){
-    
-    answerString = StringUtils::format("%s%d", answerString.c_str(), (keyValue%10));
     auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
-    answerLabel->setString(answerString);
+    
+    
+    if(holdCount<4){
+        answerString = StringUtils::format("%s%d", answerString.c_str(), (keyValue%10));
+        answerLabel->setString(answerString);
+    } else {
+        answerString = StringUtils::format("%s%d%s", "0.", (keyValue%10)," ");
+        answerLabel->setString(answerString);
+        
+        auto answerbar = (Label*)this->getChildByTag(TAG_GAME_ANSWERBAR);
+        answerbar->setColor(Color3B::BLACK);
+    }
 }
 
 void GameScene::showDecimalAnswer1(std::string insteadAns){
@@ -1932,6 +2002,13 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
     if(!dimFlag)
     {
         if(isAnswerTouchDown){
+            holdCount = 0;
+            holdTime = 0.0f;
+            if(level == 30) {
+                auto answerbar = (Label*)this->getChildByTag(TAG_GAME_ANSWERBAR);
+                answerbar->setColor(Color3B::WHITE);
+                
+            }
             answerSwipeFunc();
         } else if(axisFlag == 1 || axisFlag == 2) {
             Point location = touch->getLocation();
