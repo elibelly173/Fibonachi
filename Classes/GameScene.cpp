@@ -1892,16 +1892,39 @@ void GameScene::showDecimalAnswer(int keyValue){
     auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
     
     
-    if(holdCount<4){
-        answerString = StringUtils::format("%s%d", answerString.c_str(), (keyValue%10));
-        answerLabel->setString(answerString);
-    } else {
+   if(level == 30 && holdCount > 3) {
         answerString = StringUtils::format("%s%d%s", "0.", (keyValue%10)," ");
         answerLabel->setString(answerString);
         
         auto answerbar = (Label*)this->getChildByTag(TAG_GAME_ANSWERBAR);
         answerbar->setColor(Color3B::BLACK);
+    } else {
+        answerString = StringUtils::format("%s%d", answerString.c_str(), (keyValue%10));
+        answerLabel->setString(answerString);
+        
     }
+    
+    switch (answerString.length()) {
+        case 5:
+            answerLabel->setSystemFontSize(screenSize.width*0.035);
+            break;
+        case 6:
+            answerLabel->setSystemFontSize(screenSize.width*0.03);
+            break;
+        case 7: case 8: case 9: case 10:
+            answerLabel->setSystemFontSize(screenSize.width*0.027);
+            break;
+            
+        default:
+            answerLabel->setSystemFontSize(screenSize.width*0.04);
+            break;
+    }
+    
+//    if(answerString.length() > 4 && answerString.length() <7) {
+//        answerLabel->setSystemFontSize(screenSize.width*0.03);
+//    } else {
+//        answerLabel->setSystemFontSize(screenSize.width*0.04);
+//    }
 }
 
 void GameScene::showDecimalAnswer1(std::string insteadAns){
@@ -1910,6 +1933,23 @@ void GameScene::showDecimalAnswer1(std::string insteadAns){
     auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
     CCLOG("string");
     answerLabel->setString(answerString);
+    
+    switch (answerString.length()) {
+        case 5:
+            answerLabel->setSystemFontSize(screenSize.width*0.035);
+            break;
+        case 6:
+            answerLabel->setSystemFontSize(screenSize.width*0.03);
+            break;
+        case 7: case 8: case 9: case 10:
+            answerLabel->setSystemFontSize(screenSize.width*0.027);
+            break;
+            
+        default:
+            answerLabel->setSystemFontSize(screenSize.width*0.04);
+            break;
+    }
+
 }
 
 void GameScene::showAnswer(int ans){
@@ -1920,6 +1960,16 @@ void GameScene::showAnswer(int ans){
         answerLabel->setString("-");
     } else{
         answerLabel->setString(StringUtils::format("%d", answer));
+    }
+    
+    if((ans>9999 && ans< 100000 ) || (ans<-999 && ans> -10000)){
+        answerLabel->setSystemFontSize(screenSize.width*0.035);
+    } else if((ans>99999 && ans< 1000000 ) || (ans<-9999 && ans> -100000)){
+        answerLabel->setSystemFontSize(screenSize.width*0.03);
+    } else if((ans>999999 && ans< 10000000 ) || (ans<-99999 && ans> -1000000)){
+        answerLabel->setSystemFontSize(screenSize.width*0.025);
+    } else {
+        answerLabel->setSystemFontSize(screenSize.width*0.04);
     }
     
 }
