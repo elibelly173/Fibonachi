@@ -95,9 +95,9 @@ void GameScene::initFlags(){
         fractionFlag = 1;
     } else if(level==23){
         fractionFlag =2;
-    } else if(level > 23 && level<=25){
+    } else if(level > 23 && level<=24){
         fractionFlag =3;
-    } else if(level > 25 && level<30){
+    } else if(level > 24 && level<30){
         fractionFlag =4;
     } else if(level == 30){
         fractionFlag = 1;
@@ -1010,26 +1010,9 @@ void GameScene::enterAnswer(){
     
 }
 
-
-void GameScene::wrongAnswer(){
-    wrongCount++;
-    if(axisFlag == 0){
-        wrongCountofOne++;
-    }
-    
-    fiboanim();
-    answer = 0;
-    answerString = "";
-    Device::vibrate(0.6f);
-    if(wrongCountofOne == 3)
-    {
-        onOneByOneAnimation();
-        wrongCountofOne = 0;
-    }
-}
-
 void GameScene::rightAnswer(){
-    if(problemTime <2){
+    
+    if(problemTime <2 && level != 24){
         addTick(ticksCount);
         addTick(ticksCount+1);
         ticksCount+=2;
@@ -1050,14 +1033,34 @@ void GameScene::rightAnswer(){
     for(int i =0; i<4; i++){
         fractionBoxArray[i] = false;
     }
-    
-    
-    if(ticksCount >19){
+    if(ticksCount >19 && level != 24){
+        onShowReportLayer();
+    } else if(ticksCount >4 && level == 24){
         onShowReportLayer();
     } else {
         makeproblem();
     }
 }
+
+
+void GameScene::wrongAnswer(){
+    wrongCount++;
+    if(axisFlag == 0){
+        wrongCountofOne++;
+    }
+    
+    fiboanim();
+    answer = 0;
+    answerString = "";
+    Device::vibrate(0.6f);
+    if(wrongCountofOne == 3)
+    {
+        onOneByOneAnimation();
+        wrongCountofOne = 0;
+    }
+}
+
+
 
 
 void GameScene::fractionSwipeFunc(){

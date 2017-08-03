@@ -48,33 +48,28 @@ bool FractionLayer::init(){
     
     auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol), "", screenSize.width*0.04);
     moleculeLabel->setColor(Color3B::BLACK);
-    moleculeLabel->setPosition(-screenSize.width*0.09+offsetPos*screenSize.width, screenSize.width*0.107);
+    
     //    moleculeLabel->setPosition(0, 0);
     moleculeLabel->setTag(TAG_FRACTION_MOLECULE);
-    this->addChild(moleculeLabel);
-    
-    auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den), "", screenSize.width*0.04);
-    denLabel->setColor(Color3B::BLACK);
-    denLabel->setPosition(-screenSize.width*0.09+offsetPos*screenSize.width, screenSize.width*0.068);
-    //    moleculeLabel->setPosition(0, 0);
-    denLabel->setTag(TAG_FRACTION_DENOMINATOR);
-    this->addChild(denLabel);
-    
-    auto lineSpr = Sprite::create("res/game/line.png");
-    lineSpr->setPosition(-screenSize.width*0.09+offsetPos*screenSize.width, screenSize.width*0.085);
-    lineSpr->setScale(screenSize.width*0.025 * fraSize/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
-    lineSpr->setTag(TAG_FRACTION_LINE);
-    this->addChild(lineSpr);
-    
-//    auto listener = EventListenerTouchOneByOne::create();
-//    listener->setSwallowTouches(true);
-//    
-//    listener->onTouchBegan = CC_CALLBACK_2(FractionLayer::onTouchBegan, this);
-//    listener->onTouchMoved = CC_CALLBACK_2(FractionLayer::onTouchMoved, this);
-//    listener->onTouchEnded = CC_CALLBACK_2(FractionLayer::onTouchEnded, this);
-//    listener->onTouchCancelled = CC_CALLBACK_2(FractionLayer::onTouchCancelled, this);
-//    
-//    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    if(den == 1){
+        moleculeLabel->setPosition(-screenSize.width*0.09+offsetPos*screenSize.width, screenSize.width*0.085);
+        this->addChild(moleculeLabel);
+    } else {
+        moleculeLabel->setPosition(-screenSize.width*0.09+offsetPos*screenSize.width, screenSize.width*0.107);
+        this->addChild(moleculeLabel);
+        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den), "", screenSize.width*0.04);
+        denLabel->setColor(Color3B::BLACK);
+        denLabel->setPosition(-screenSize.width*0.09+offsetPos*screenSize.width, screenSize.width*0.068);
+        //    moleculeLabel->setPosition(0, 0);
+        denLabel->setTag(TAG_FRACTION_DENOMINATOR);
+        this->addChild(denLabel);
+        
+        auto lineSpr = Sprite::create("res/game/line.png");
+        lineSpr->setPosition(-screenSize.width*0.09+offsetPos*screenSize.width, screenSize.width*0.085);
+        lineSpr->setScale(screenSize.width*0.025 * fraSize/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+        lineSpr->setTag(TAG_FRACTION_LINE);
+        this->addChild(lineSpr);
+    }
     
     
     return true;
@@ -82,7 +77,7 @@ bool FractionLayer::init(){
 
 bool FractionLayer::onTouchBegan(Touch *touch, Event *event)
 {
-//    CCLOG("xxxlocation = %f", touch->getLocation().x);
+
         return true;
 }
 
