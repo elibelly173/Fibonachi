@@ -10,6 +10,7 @@
 #include "MapviewScene.h"
 #include "FractionLayer.h"
 #include "FractionAnswerLayer.h"
+
 using namespace ui;
 
 
@@ -55,7 +56,7 @@ bool GameScene::init()
     initTicks();
     initKey();
     getLevelInfo();
-    
+    playMusic();
     
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
@@ -67,6 +68,11 @@ bool GameScene::init()
     this->schedule(schedule_selector(GameScene::UpdateTimer),1.0f);
     this->scheduleUpdate();
     return true;
+}
+
+void GameScene::playMusic(){
+    auto audio= CocosDenshion::SimpleAudioEngine::getInstance();
+    audio->playBackgroundMusic("res/music/map.mp3", false);
 }
 void GameScene::initTicks(){
     ValueMap data;
@@ -420,6 +426,7 @@ void GameScene::initTimerScore(){
 void GameScene::update(float delta)
 {
     problemTime+=delta;
+    musicTime += delta;
     if(onkeyswipeFlag){
         taptimer+=delta;
     }
@@ -441,6 +448,16 @@ void GameScene::update(float delta)
     } else {
         holdTime = 0.0f;
     }
+    
+    if(musicTime>5.3 && !audioFlag){
+        audioFlag = true;
+        auto audio= CocosDenshion::SimpleAudioEngine::getInstance();
+        audio->setBackgroundMusicVolume(0.6);
+        
+        audio->playBackgroundMusic("res/music/body.mp3", true);
+    }
+    
+    
 }
 
 void GameScene::UpdateTimer(float dt)
