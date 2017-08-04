@@ -42,16 +42,23 @@ bool MapviewScene::init()
     
 //    CCLOG("completedLevel %d", completedLevel);
     
-    this->scrollsize = Director::getInstance()->getWinSize();
-    this->scrollframesize = Size(this->scrollsize.width, this->scrollsize.height);
-    this->getLevelInfo();
-    this->initscroll();
-    this->initAddbutton();
+    scrollsize = Director::getInstance()->getWinSize();
+    scrollframesize = Size(scrollsize.width, scrollsize.height);
+    getLevelInfo();
+    initscroll();
+    initAddbutton();
     showPos();
-    
+    playMusic();
     
     
     return true;
+}
+
+void MapviewScene::playMusic(){
+    auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+   
+    audio->playBackgroundMusic("res/music/map.mp3", true);
+//    audio->playBackgroundMusic("res/music/map.mp3", true);
 }
 
 void MapviewScene::onEnterTransitionDidFinish() {

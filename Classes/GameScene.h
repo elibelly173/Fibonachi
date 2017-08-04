@@ -13,6 +13,7 @@
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
 #include <stdlib.h>
+#include "SimpleAudioEngine.h"
 using namespace std;
 
 USING_NS_CC_EXT;
@@ -82,7 +83,7 @@ public:
     
     
     virtual bool init();
-    
+    void playMusic();
     void initTicks();
     virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
     virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
@@ -163,6 +164,7 @@ public:
     cocos2d::Size screenSize;
     ValueVector arrLevelsProblems;
     
+       
     ValueVector arrTicks;
     int level;
     int timer = 0;
@@ -211,6 +213,8 @@ public:
     bool holdFlag = false;
     float holdTime = 0.0f;
     
+    float musicTime = 0.0f;
+    
 //    Flags
     bool levelCompleteFlag = false;
     int fractionFlag = 0;
@@ -243,6 +247,8 @@ public:
     bool nextLevelFlag = false;
     bool dimFlag = false;
     int wrongCountofOne = 0;
+    
+    bool audioFlag = false;
 
 private:
     CREATE_FUNC(GameScene);
