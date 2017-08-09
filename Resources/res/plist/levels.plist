@@ -13,8 +13,12 @@
 			<string>8.5</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<key>time2</key>
+			<integer>15</integer>
+			<key>time1</key>
+			<integer>10</integer>
+			<key>time3</key>
+			<integer>23</integer>
 		</dict>
 		<dict>
 			<key>level2</key>
@@ -25,8 +29,12 @@
 			<string>14</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<key>time2</key>
+			<integer>15</integer>
+			<key>time1</key>
+			<integer>10</integer>
+			<key>time3</key>
+			<integer>23</integer>
 		</dict>
 		<dict>
 			<key>level3</key>
@@ -37,8 +45,12 @@
 			<string>25</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<key>time2</key>
+			<integer>17</integer>
+			<key>time1</key>
+			<integer>11</integer>
+			<key>time3</key>
+			<integer>25</integer>
 		</dict>
 		<dict>
 			<key>level4</key>
@@ -49,8 +61,12 @@
 			<string>41</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<key>time2</key>
+			<integer>16</integer>
+			<key>time1</key>
+			<integer>12</integer>
+			<key>time3</key>
+			<integer>24</integer>
 		</dict>
 		<dict>
 			<key>level5</key>
@@ -61,8 +77,12 @@
 			<string>50</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<key>time2</key>
+			<integer>28</integer>
+			<key>time1</key>
+			<integer>17</integer>
+			<key>time3</key>
+			<integer>35</integer>
 		</dict>
 		<dict>
 			<key>level6</key>
@@ -73,8 +93,12 @@
 			<string>57</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>45</integer>
+			<key>time2</key>
+			<integer>36</integer>
+			<key>time1</key>
+			<integer>27</integer>
+			<key>time3</key>
+			<integer>43</integer>
 		</dict>
 		<dict>
 			<key>level7</key>
@@ -85,8 +109,12 @@
 			<string>71</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>25</integer>
+			<key>time2</key>
+			<integer>17</integer>
+			<key>time1</key>
+			<integer>10</integer>
+			<key>time3</key>
+			<integer>23</integer>
 		</dict>
 		<dict>
 			<key>level8</key>
@@ -97,8 +125,12 @@
 			<string>85</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>35</integer>
+			<key>time2</key>
+			<integer>19</integer>
+			<key>time1</key>
+			<integer>14</integer>
+			<key>time3</key>
+			<integer>24</integer>
 		</dict>
 		<dict>
 			<key>level9</key>
@@ -109,8 +141,12 @@
 			<string>95</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>45</integer>
+			<key>time2</key>
+			<integer>35</integer>
+			<key>time1</key>
+			<integer>24</integer>
+			<key>time3</key>
+			<integer>50</integer>
 		</dict>
 		<dict>
 			<key>level10</key>
@@ -121,8 +157,12 @@
 			<string>99</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>45</integer>
+			<key>time2</key>
+			<integer>70</integer>
+			<key>time1</key>
+			<integer>55</integer>
+			<key>time3</key>
+			<integer>90</integer>
 		</dict>
 		<dict>
 			<key>level11</key>
@@ -133,8 +173,12 @@
 			<string>112</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<key>time2</key>
+			<integer>42</integer>
+			<key>time1</key>
+			<integer>18</integer>
+			<key>time3</key>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>level12</key>
@@ -145,8 +189,12 @@
 			<string>125.5</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<key>time2</key>
+			<integer>22</integer>
+			<key>time1</key>
+			<integer>14</integer>
+			<key>time3</key>
+			<integer>28</integer>
 		</dict>
 		<dict>
 			<key>level13</key>
@@ -157,7 +205,11 @@
 			<string>140</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
+			<key>time2</key>
+			<integer>31</integer>
+			<key>time1</key>
+			<integer>16</integer>
+			<key>time3</key>
 			<integer>40</integer>
 		</dict>
 		<dict>
@@ -169,8 +221,12 @@
 			<string>146</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<key>time2</key>
+			<integer>28</integer>
+			<key>time1</key>
+			<integer>18</integer>
+			<key>time3</key>
+			<integer>38</integer>
 		</dict>
 		<dict>
 			<key>level15</key>
@@ -180,9 +236,13 @@
 			<key>y</key>
 			<string>156</string>
 			<key>targetnumber</key>
+			<integer>10</integer>
+			<key>time2</key>
+			<integer>15</integer>
+			<key>time1</key>
+			<integer>10</integer>
+			<key>time3</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>30</integer>
 		</dict>
 		<dict>
 			<key>level16</key>
@@ -193,8 +253,12 @@
 			<string>172.5</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<key>time2</key>
+			<integer>32</integer>
+			<key>time1</key>
+			<integer>19</integer>
+			<key>time3</key>
+			<integer>42</integer>
 		</dict>
 		<dict>
 			<key>level17</key>
@@ -205,8 +269,12 @@
 			<string>184</string>
 			<key>targetnumber</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>50</integer>
+			<key>time2</key>
+			<integer>42</integer>
+			<key>time1</key>
+			<integer>32</integer>
+			<key>time3</key>
+			<integer>55</integer>
 		</dict>
 		<dict>
 			<key>level18</key>
@@ -216,9 +284,13 @@
 			<key>y</key>
 			<string>190</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
-			<integer>50</integer>
+			<integer>10</integer>
+			<key>time2</key>
+			<integer>65</integer>
+			<key>time1</key>
+			<integer>40</integer>
+			<key>time3</key>
+			<integer>80</integer>
 		</dict>
 		<dict>
 			<key>level19</key>
@@ -228,9 +300,13 @@
 			<key>y</key>
 			<string>234</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
-			<integer>50</integer>
+			<integer>10</integer>
+			<key>time2</key>
+			<integer>65</integer>
+			<key>time1</key>
+			<integer>40</integer>
+			<key>time3</key>
+			<integer>80</integer>
 		</dict>
 		<dict>
 			<key>level20</key>
@@ -240,9 +316,13 @@
 			<key>y</key>
 			<string>240</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
-			<integer>50</integer>
+			<integer>5</integer>
+			<key>time2</key>
+			<integer>35</integer>
+			<key>time1</key>
+			<integer>25</integer>
+			<key>time3</key>
+			<integer>45</integer>
 		</dict>
 		<dict>
 			<key>level21</key>
@@ -252,9 +332,13 @@
 			<key>y</key>
 			<string>252</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
+			<integer>10</integer>
+			<key>time2</key>
 			<integer>40</integer>
+			<key>time1</key>
+			<integer>25</integer>
+			<key>time3</key>
+			<integer>50</integer>
 		</dict>
 		<dict>
 			<key>level22</key>
@@ -264,9 +348,13 @@
 			<key>y</key>
 			<string>297</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
+			<integer>10</integer>
+			<key>time2</key>
 			<integer>40</integer>
+			<key>time1</key>
+			<integer>25</integer>
+			<key>time3</key>
+			<integer>50</integer>
 		</dict>
 		<dict>
 			<key>level23</key>
@@ -276,9 +364,13 @@
 			<key>y</key>
 			<string>305</string>
 			<key>targetnumber</key>
+			<integer>10</integer>
+			<key>time2</key>
 			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<key>time1</key>
+			<integer>12</integer>
+			<key>time3</key>
+			<integer>30</integer>
 		</dict>
 		<dict>
 			<key>level24</key>
@@ -288,9 +380,13 @@
 			<key>y</key>
 			<string>308</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<integer>5</integer>
+			<key>time2</key>
+			<integer>18</integer>
+			<key>time1</key>
+			<integer>13</integer>
+			<key>time3</key>
+			<integer>23</integer>
 		</dict>
 		<dict>
 			<key>level25</key>
@@ -300,9 +396,13 @@
 			<key>y</key>
 			<string>324</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
-			<integer>45</integer>
+			<integer>5</integer>
+			<key>time2</key>
+			<integer>18</integer>
+			<key>time1</key>
+			<integer>13</integer>
+			<key>time3</key>
+			<integer>23</integer>
 		</dict>
 		<dict>
 			<key>level26</key>
@@ -312,9 +412,13 @@
 			<key>y</key>
 			<string>338</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
-			<integer>50</integer>
+			<integer>5</integer>
+			<key>time2</key>
+			<integer>30</integer>
+			<key>time1</key>
+			<integer>23</integer>
+			<key>time3</key>
+			<integer>40</integer>
 		</dict>
 		<dict>
 			<key>level27</key>
@@ -324,9 +428,13 @@
 			<key>y</key>
 			<string>345</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
-			<integer>55</integer>
+			<integer>5</integer>
+			<key>time2</key>
+			<integer>65</integer>
+			<key>time1</key>
+			<integer>38</integer>
+			<key>time3</key>
+			<integer>75</integer>
 		</dict>
 		<dict>
 			<key>level28</key>
@@ -336,9 +444,13 @@
 			<key>y</key>
 			<string>351</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
-			<integer>55</integer>
+			<integer>5</integer>
+			<key>time2</key>
+			<integer>70</integer>
+			<key>time1</key>
+			<integer>50</integer>
+			<key>time3</key>
+			<integer>90</integer>
 		</dict>
 		<dict>
 			<key>leve29</key>
@@ -348,9 +460,13 @@
 			<key>y</key>
 			<string>366.5</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
+			<integer>10</integer>
+			<key>time2</key>
+			<integer>80</integer>
+			<key>time1</key>
 			<integer>55</integer>
+			<key>time3</key>
+			<integer>100</integer>
 		</dict>
 		<dict>
 			<key>leve30</key>
@@ -360,9 +476,13 @@
 			<key>y</key>
 			<string>379</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<integer>10</integer>
+			<key>time2</key>
+			<integer>35</integer>
+			<key>time1</key>
+			<integer>25</integer>
+			<key>time3</key>
+			<integer>50</integer>
 		</dict>
 		<dict>
 			<key>level31</key>
@@ -372,9 +492,13 @@
 			<key>y</key>
 			<string>388</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
-			<integer>40</integer>
+			<integer>10</integer>
+			<key>time2</key>
+			<integer>22</integer>
+			<key>time1</key>
+			<integer>14</integer>
+			<key>time3</key>
+			<integer>30</integer>
 		</dict>
 		<dict>
 			<key>level32</key>
@@ -384,9 +508,13 @@
 			<key>y</key>
 			<string>420</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
-			<key>targettime</key>
-			<integer>50</integer>
+			<integer>10</integer>
+			<key>time2</key>
+			<integer>60</integer>
+			<key>time1</key>
+			<integer>40</integer>
+			<key>time3</key>
+			<integer>80</integer>
 		</dict>
 
 	</array>

@@ -45,6 +45,7 @@ bool GameScene::init()
     screenSize = Director::getInstance()->getWinSize();
     
     completedLevel =UserDefault::getInstance()->getIntegerForKey("completedLevel");
+    getLevelInfo();
     
     initFlags();
     getLevelProblems();
@@ -55,7 +56,7 @@ bool GameScene::init()
     initTimerScore();
     initTicks();
     initKey();
-    getLevelInfo();
+    
     playMusic();
     
     auto listener = EventListenerTouchOneByOne::create();
@@ -71,7 +72,7 @@ bool GameScene::init()
 }
 
 void GameScene::playMusic(){
-    auto audio= CocosDenshion::SimpleAudioEngine::getInstance();
+    audio= CocosDenshion::SimpleAudioEngine::getInstance();
     audio->playBackgroundMusic("res/music/map.mp3", false);
 }
 void GameScene::initTicks(){
@@ -277,12 +278,12 @@ void GameScene::getLevelProblems(){
         arrLevelsProblems = data.at("anspro").asValueVector();
     }
     
-    ValueMap data1;
-    std::string path1 = FileUtils::getInstance()->fullPathForFilename("res/plist/levels.plist");
-    data1 = FileUtils::getInstance()->getValueMapFromFile(path1);
-    auto arrLevels = data1.at("levels").asValueVector();
-    ValueMap sdata = (arrLevels[level-1]).asValueMap();
-    targettime =  sdata["targettime"].asInt();
+//    ValueMap data1;
+//    std::string path1 = FileUtils::getInstance()->fullPathForFilename("res/plist/levels.plist");
+//    data1 = FileUtils::getInstance()->getValueMapFromFile(path1);
+//    auto arrLevels = data1.at("levels").asValueVector();
+//    ValueMap sdata = (arrLevels[level-1]).asValueMap();
+//    targettime =  sdata["targettime"].asInt();
 }
 
 void GameScene::initKey(){
@@ -451,9 +452,8 @@ void GameScene::update(float delta)
     
     if(musicTime>5.3 && !audioFlag){
         audioFlag = true;
-        auto audio= CocosDenshion::SimpleAudioEngine::getInstance();
+        audio->stopBackgroundMusic();
         audio->setBackgroundMusicVolume(0.6);
-        
         audio->playBackgroundMusic("res/music/body.mp3", true);
     }
     
@@ -465,7 +465,7 @@ void GameScene::UpdateTimer(float dt)
     if(firstEnterFlag && !levelCompleteFlag && !dimFlag){
         timer+=1;
         auto timerLabel = (Label*)this->getChildByTag(TAG_GAME_TIMER);
-        if(timer > targettime - 10 && timer < targettime){
+        if(timer > targettime1 && timer < targettime){
             timerLabel->setColor(Color3B::YELLOW);
         } else if(timer >= targettime){
             timerLabel->setColor(Color3B::RED);
@@ -1050,7 +1050,7 @@ void GameScene::rightAnswer(){
     for(int i =0; i<4; i++){
         fractionBoxArray[i] = false;
     }
-    if(ticksCount >19 && level != 24){
+    if(ticksCount >targetnumber && level != 24){
         onShowReportLayer();
     } else if(ticksCount >4 && level == 24){
         onShowReportLayer();
@@ -1157,9 +1157,13 @@ void GameScene::onShowReportLayer(){
     
     int speedStarCount =0;
     int accuracyStarCount = 0;
-    if(levelSpeed ==100) speedStarCount = 4;
-    else if(levelSpeed>75 && levelSpeed<=99) speedStarCount = 3;
-    else if(levelSpeed >50 && levelSpeed <=75) speedStarCount = 2;
+//    if(levelSpeed ==100) speedStarCount = 4;
+//    else if(levelSpeed>75 && levelSpeed<=99) speedStarCount = 3;
+//    else if(levelSpeed >50 && levelSpeed <=75) speedStarCount = 2;
+//    else speedStarCount = 1;
+    if(timer <= targettime1) speedStarCount = 4;
+    else if(timer>targettime1 && timer<=targettime) speedStarCount = 3;
+    else if(timer >targettime && timer <=targettime2) speedStarCount = 2;
     else speedStarCount = 1;
     
     if(levelAccuracy ==100) accuracyStarCount = 4;
@@ -1193,7 +1197,7 @@ void GameScene::onShowReportLayer(){
     
     
     //Report title
-    if(levelSpeed == 100 && levelAccuracy == 100){
+    if(speedStarCount > 2 && levelAccuracy == 100){
         if(level > completedLevel){
             UserDefault::getInstance()->setIntegerForKey("completedLevel",level);
         }
@@ -1283,6 +1287,7 @@ void GameScene::onRemoveReportLayer(int status){
 
 
 void GameScene::reportCallback(Ref *sender, int status){
+    audio->stopBackgroundMusic();
     if(status == 1){
         auto gameScene = GameScene::createScene(level);
         Director::getInstance()->replaceScene(gameScene);
@@ -1318,6 +1323,11 @@ void GameScene::getLevelInfo(){
     std::string path = FileUtils::getInstance()->fullPathForFilename("res/plist/levels.plist");
     data = FileUtils::getInstance()->getValueMapFromFile(path);
     arrLevels = data.at("levels").asValueVector();
+    ValueMap sdata = (arrLevels[level-1]).asValueMap();
+    targetnumber =  sdata["targetnumber"].asInt();
+    targettime =  sdata["time2"].asInt();
+    targettime1 =  sdata["time1"].asInt();
+    targettime2 =  sdata["time3"].asInt();
     
 }
 
@@ -1366,8 +1376,11 @@ void GameScene::onIntroduceLevel(Ref *sender){
     
     
     ValueMap sdata = (this->arrLevels[newlevel-1]).asValueMap();
-    int targetnumber =  sdata["targetnumber"].asInt();
-    int targettime =  sdata["targettime"].asInt();
+    targetnumber =  sdata["targetnumber"].asInt();
+    targettime =  sdata["time2"].asInt();
+    targettime1 =  sdata["time1"].asInt();
+    targettime2 =  sdata["time3"].asInt();
+    
     
     auto levelNumber = Sprite::create(StringUtils::format("res/title/number%d.png", targetnumber));
     levelNumber->setPosition(levelBgPos.x - screenSize.width*0.21, levelBgPos.y - screenSize.width*0.02);
