@@ -48,7 +48,6 @@ bool MapviewScene::init()
     initscroll();
     initAddbutton();
     showPos();
-    playMusic();
     
     
     return true;
@@ -62,6 +61,8 @@ void MapviewScene::playMusic(){
 }
 
 void MapviewScene::onEnterTransitionDidFinish() {
+    playMusic();
+
     if(!enterFlag){
         enterFlag = true;
     } else{
@@ -305,17 +306,17 @@ void MapviewScene::showLevelExplainacreen(int level){
 
     ValueMap sdata = (this->arrLevels[level-1]).asValueMap();
     int targetnumber =  sdata["targetnumber"].asInt();
-    int targettime =  sdata["targettime"].asInt();
+    int targettime =  sdata["time2"].asInt();
     
     auto levelNumber = Sprite::create(StringUtils::format("res/title/number%d.png", targetnumber));
     levelNumber->setPosition(levelBgPos.x - this->scrollframesize.width*0.21, levelBgPos.y - this->scrollframesize.width*0.02);
-    levelNumber->setScale(this->scrollframesize.width*0.13/levelNumber->getContentSize().width);
+    levelNumber->setScale(this->scrollframesize.width*0.08/levelNumber->getContentSize().width);
     
     levelExplainLayer->addChild(levelNumber);
     
-    auto levelTime = Sprite::create(StringUtils::format("res/title/number%d.png", targettime));
+    auto levelTime = Sprite::create(StringUtils::format("res/title/timer/timer%d.png", targettime));
     levelTime->setPosition(levelBgPos.x + this->scrollframesize.width*0.16, levelBgPos.y - this->scrollframesize.width*0.02);
-    levelTime->setScale(this->scrollframesize.width*0.13/levelTime->getContentSize().width);
+    levelTime->setScale(this->scrollframesize.width*0.08/levelTime->getContentSize().width);
     
     levelExplainLayer->addChild(levelTime);
     
@@ -336,11 +337,6 @@ void MapviewScene::showLevelExplainacreen(int level){
     auto action_2 = Sequence::create(action_0, action_1, NULL);
 //    auto action_3 = RepeatForever::create(action_2);
     levelExplainLayer->runAction(action_2);
-    
-    
-    
-    
-    
 }
 
 

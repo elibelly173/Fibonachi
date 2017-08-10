@@ -163,7 +163,7 @@ public:
 public:
     cocos2d::Size screenSize;
     ValueVector arrLevelsProblems;
-    
+    CocosDenshion::SimpleAudioEngine *audio;
        
     ValueVector arrTicks;
     int level;
@@ -176,6 +176,9 @@ public:
     std::string answerString = "";
     int answer= 0;
     int targettime = 0;
+    int targetnumber = 0;
+    int targettime1 = 0;
+    int targettime2 = 0;
     
     bool isAnswerTouchDown;
     int is_Negative = 1;

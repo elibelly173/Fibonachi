@@ -49,7 +49,7 @@ LOCAL_MODULE_FILENAME := libcocosdenshion
 LOCAL_SRC_FILES := cddSimpleAudioEngine.cpp \
                    ccdandroidUtils.cpp \
                    jni/cddandroidAndroidJavaEngine.cpp
-
+APP_DEPRECATED_HEADERS := true
 LOCAL_STATIC_LIBRARIES := audioengine_static
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../include
 
