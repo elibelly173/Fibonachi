@@ -135,6 +135,11 @@ void GameScene::initFlags(){
             break;
     }
     tapenteranimFlag = UserDefault::getInstance()->getIntegerForKey("tapenteranimFlag");
+    bool swipeflag = UserDefault::getInstance()->getIntegerForKey("swipeflag");
+    if(tapenteranimFlag && !swipeflag && level < 4) {
+        tapentertimeFlag = true;
+    }
+
     level20animFlag = UserDefault::getInstance()->getIntegerForKey("level20animFlag");
     level21animFlag = UserDefault::getInstance()->getIntegerForKey("level21animFlag");
 }
@@ -428,12 +433,13 @@ void GameScene::update(float delta)
 {
     problemTime+=delta;
     musicTime += delta;
-    if(onkeyswipeFlag){
+    if(onkeyswipeFlag && !levelCompleteFlag){
         taptimer+=delta;
     }
     
     if(taptimer > 2 && tapentertimeFlag && onkeyswipeFlag){
         taptimer = 0;
+        UserDefault::getInstance()->setIntegerForKey("swipeflag", true);
         onSwipeAnimation();
     }
     
@@ -1050,7 +1056,7 @@ void GameScene::rightAnswer(){
     for(int i =0; i<4; i++){
         fractionBoxArray[i] = false;
     }
-    if(ticksCount >targetnumber && level != 24){
+    if(ticksCount >targetnumber-1 && level != 24){
         onShowReportLayer();
     } else if(ticksCount >4 && level == 24){
         onShowReportLayer();
@@ -1284,6 +1290,125 @@ void GameScene::onRemoveReportLayer(int status){
     
 }
 
+void GameScene::getLevelInfo(){
+    ValueMap data;
+    std::string path = FileUtils::getInstance()->fullPathForFilename("res/plist/levels.plist");
+    data = FileUtils::getInstance()->getValueMapFromFile(path);
+    arrLevels = data.at("levels").asValueVector();
+    ValueMap sdata = (arrLevels[level-1]).asValueMap();
+    targetnumber =  sdata["targetnumber"].asInt();
+    targettime =  sdata["time2"].asInt();
+    targettime1 =  sdata["time1"].asInt();
+    targettime2 =  sdata["time3"].asInt();
+    
+}
+
+void GameScene::nextLevel(){
+    auto *reportLayer = (Layer*)this->getChildByTag(TAG_GAME_REPORTLAYER);
+    
+    auto action_0 = MoveTo::create(0.1, Point(0 , -screenSize.height*0.1));
+    auto action_1 = MoveTo::create(0.4, Point(0 , screenSize.height));
+    
+    
+    auto action_2 = CallFuncN::create( CC_CALLBACK_1(GameScene::onIntroduceLevel, this));
+    auto action_3 = Sequence::create(action_0, action_1, action_2, NULL);
+    //    auto action_3 = RepeatForever::create(action_2);
+    reportLayer->runAction(action_3);
+    
+}
+
+void GameScene::onRemoveIntroduceLevel(){
+    levelCompleteFlag = false;
+    auto *reportBg = (Sprite*)this->getChildByTag(TAG_GAME_VINEYET);
+    this->removeChild(reportBg);
+    
+    auto *reportLayer = (Layer*)this->getChildByTag(TAG_GAME_NEXTLAYER);
+    
+    auto action_0 = MoveTo::create(0.1, Point(- screenSize.width*0.8 , 0));
+    auto action_1 = MoveTo::create(0.8, Point(- screenSize.width*2 , 0));
+    
+    
+    auto action_2 = CallFuncN::create( CC_CALLBACK_1(GameScene::reportCallback, this, 2));
+    auto action_3 = Sequence::create(action_0, action_1, action_2, NULL);
+    //    auto action_3 = RepeatForever::create(action_2);
+    reportLayer->runAction(action_3);
+    
+}
+
+void GameScene::onIntroduceLevel(Ref *sender){
+    nextLevelFlag = true;
+    // Layer
+    auto levelExplainLayer = Layer::create();
+    this->addChild(levelExplainLayer);
+    levelExplainLayer->setTag(TAG_GAME_NEXTLAYER);
+    
+    auto levelBg = Sprite::create("res/title/level_ground.png");
+    
+    levelBg->setPosition(screenSize.width*3/2 , screenSize.height/2);
+    levelBg->setScale(screenSize.width*0.7/levelBg->getContentSize().width);
+    levelExplainLayer->addChild(levelBg);
+    
+    //    CCLOG("level %d", level);
+    auto newlevel = level+1;
+    //level title
+    auto levelTitle = Sprite::create(StringUtils::format("res/title/level/level%d.png", newlevel));
+    auto levelBgPos = levelBg->getPosition();
+    levelTitle->setPosition(levelBgPos.x - screenSize.width*0.03, levelBgPos.y + screenSize.width*0.2);
+    levelTitle->setScale(screenSize.width*0.27/levelTitle->getContentSize().width);
+    
+    levelExplainLayer->addChild(levelTitle);
+    
+    
+    //level content
+    auto levelContent = Sprite::create(StringUtils::format("res/title/contents/content%d.png", newlevel));
+    levelContent->setPosition(levelBgPos.x - screenSize.width*0.03, levelBgPos.y + screenSize.width*0.135);
+    levelContent->setScale(screenSize.width*0.5/levelContent->getContentSize().width);
+    
+    levelExplainLayer->addChild(levelContent);
+    
+    
+    // level continue
+    Button* buttonPlay = Button::create("res/title/Continue.png", "res/title/Continue.png");
+    buttonPlay->setTag(TAG_GAME_NEXTLEVEL);
+    buttonPlay->setPosition(Vec2(levelBgPos.x - screenSize.width*0.025, levelBgPos.y - screenSize.width*0.16));
+    buttonPlay->setScale(screenSize.width*0.18/buttonPlay->getContentSize().width);
+    buttonPlay->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+    levelExplainLayer->addChild(buttonPlay);
+    
+    
+    ValueMap sdata = (this->arrLevels[newlevel-1]).asValueMap();
+    targetnumber =  sdata["targetnumber"].asInt();
+    targettime =  sdata["time2"].asInt();
+    targettime1 =  sdata["time1"].asInt();
+    targettime2 =  sdata["time3"].asInt();
+    
+    auto levelNumber = Sprite::create(StringUtils::format("res/title/number%d.png", targetnumber));
+    levelNumber->setPosition(levelBgPos.x - screenSize.width*0.21, levelBgPos.y - screenSize.width*0.02);
+    levelNumber->setScale(screenSize.width*0.08/levelNumber->getContentSize().width);
+    
+    levelExplainLayer->addChild(levelNumber);
+    
+    auto levelTime = Sprite::create(StringUtils::format("res/title/timer/timer%d.png", targettime));
+    levelTime->setPosition(levelBgPos.x + screenSize.width*0.16, levelBgPos.y - screenSize.width*0.02);
+    levelTime->setScale(screenSize.width*0.08/levelTime->getContentSize().width);
+    
+    levelExplainLayer->addChild(levelTime);
+    
+    
+    Button* buttonClose = Button::create("res/title/close.png", "res/title/close.png");
+    
+    buttonClose->setPosition(Vec2(levelBgPos.x + screenSize.width*0.285, levelBgPos.y + screenSize.width*0.19));
+    buttonClose->setScale(screenSize.width * 0.06f/buttonClose->getContentSize().width);
+    
+    levelExplainLayer->addChild(buttonClose);
+    
+    auto action_0 = MoveTo::create(0.4, Point(- screenSize.width*1.1 , 0));
+    auto action_1 = MoveTo::create(0.1, Point(- screenSize.width*0.95 , 0));
+    auto action_2 = Sequence::create(action_0, action_1, NULL);
+    levelExplainLayer->runAction(action_2);
+    
+}
+
 
 
 void GameScene::reportCallback(Ref *sender, int status){
@@ -1304,136 +1429,6 @@ void GameScene::reportCallback(Ref *sender, int status){
 }
 
 
-void GameScene::nextLevel(){
-    auto *reportLayer = (Layer*)this->getChildByTag(TAG_GAME_REPORTLAYER);
-    
-    auto action_0 = MoveTo::create(0.1, Point(0 , -screenSize.height*0.1));
-    auto action_1 = MoveTo::create(0.4, Point(0 , screenSize.height));
-    
-    
-    auto action_2 = CallFuncN::create( CC_CALLBACK_1(GameScene::onIntroduceLevel, this));
-    auto action_3 = Sequence::create(action_0, action_1, action_2, NULL);
-    //    auto action_3 = RepeatForever::create(action_2);
-    reportLayer->runAction(action_3);
-    
-}
-
-void GameScene::getLevelInfo(){
-    ValueMap data;
-    std::string path = FileUtils::getInstance()->fullPathForFilename("res/plist/levels.plist");
-    data = FileUtils::getInstance()->getValueMapFromFile(path);
-    arrLevels = data.at("levels").asValueVector();
-    ValueMap sdata = (arrLevels[level-1]).asValueMap();
-    targetnumber =  sdata["targetnumber"].asInt();
-    targettime =  sdata["time2"].asInt();
-    targettime1 =  sdata["time1"].asInt();
-    targettime2 =  sdata["time3"].asInt();
-    
-}
-
-
-void GameScene::onIntroduceLevel(Ref *sender){
-    nextLevelFlag = true;
-    // Layer
-    auto levelExplainLayer = Layer::create();
-    this->addChild(levelExplainLayer);
-    levelExplainLayer->setTag(TAG_GAME_NEXTLAYER);
-    
-    auto levelBg = Sprite::create("res/title/level_ground.png");
-    
-    levelBg->setPosition(screenSize.width*3/2 , screenSize.height/2);
-    levelBg->setScale(screenSize.width*0.7/levelBg->getContentSize().width);
-    levelExplainLayer->addChild(levelBg);
-    
-    //    CCLOG("level %d", level);
-    auto newlevel = level + 1;
-    //level title
-    auto levelTitle = Sprite::create(StringUtils::format("res/title/level/level%d.png", newlevel));
-    auto levelBgPos = levelBg->getPosition();
-    levelTitle->setPosition(levelBgPos.x - screenSize.width*0.03, levelBgPos.y + screenSize.width*0.2);
-    levelTitle->setScale(screenSize.width*0.27/levelTitle->getContentSize().width);
-    
-    levelExplainLayer->addChild(levelTitle);
-    
-    
-    //level content
-    auto levelContent = Sprite::create(StringUtils::format("res/title/contents/content%d.png", newlevel));
-    levelContent->setPosition(levelBgPos.x - screenSize.width*0.03, levelBgPos.y + screenSize.width*0.135);
-    levelContent->setScale(screenSize.width*0.5/levelContent->getContentSize().width);
-    
-    levelExplainLayer->addChild(levelContent);
-    
-    
-    // level continue
-    Button* buttonPlay = Button::create("res/title/Continue.png", "res/title/Continue.png");
-    
-    buttonPlay->setPosition(Vec2(levelBgPos.x - screenSize.width*0.025, levelBgPos.y - screenSize.width*0.16));
-    buttonPlay->setScale(screenSize.width*0.18/buttonPlay->getContentSize().width);
-    
-    levelExplainLayer->addChild(buttonPlay);
-    
-    
-    
-    
-    ValueMap sdata = (this->arrLevels[newlevel-1]).asValueMap();
-    targetnumber =  sdata["targetnumber"].asInt();
-    targettime =  sdata["time2"].asInt();
-    targettime1 =  sdata["time1"].asInt();
-    targettime2 =  sdata["time3"].asInt();
-    
-    
-    auto levelNumber = Sprite::create(StringUtils::format("res/title/number%d.png", targetnumber));
-    levelNumber->setPosition(levelBgPos.x - screenSize.width*0.21, levelBgPos.y - screenSize.width*0.02);
-    levelNumber->setScale(screenSize.width*0.13/levelNumber->getContentSize().width);
-    
-    levelExplainLayer->addChild(levelNumber);
-    
-    auto levelTime = Sprite::create(StringUtils::format("res/title/number%d.png", targettime));
-    levelTime->setPosition(levelBgPos.x + screenSize.width*0.16, levelBgPos.y - screenSize.width*0.02);
-    levelTime->setScale(screenSize.width*0.13/levelTime->getContentSize().width);
-    
-    levelExplainLayer->addChild(levelTime);
-    
-    // level close
-    
-    Button* buttonClose = Button::create("res/title/close.png", "res/title/close.png");
-    
-    buttonClose->setPosition(Vec2(levelBgPos.x + screenSize.width*0.285, levelBgPos.y + screenSize.width*0.19));
-    buttonClose->setScale(screenSize.width * 0.06f/buttonClose->getContentSize().width);
-    
-    levelExplainLayer->addChild(buttonClose);
-    
-//    auto action_0 = MoveTo::create(0.4, Point(0 , screenSize.height*0.1));
-//    auto action_1 = MoveTo::create(0.1, Point(0 , 0));
-//    auto action_2 = Sequence::create(action_0, action_1, NULL);
-    //    auto action_3 = RepeatForever::create(action_2);
-    auto action_0 = MoveTo::create(0.4, Point(- screenSize.width*1.1 , 0));
-    auto action_1 = MoveTo::create(0.1, Point(- screenSize.width*0.95 , 0));
-    auto action_2 = Sequence::create(action_0, action_1, NULL);
-    levelExplainLayer->runAction(action_2);
-    
-}
-void GameScene::onRemoveIntroduceLevel(){
-    levelCompleteFlag = false;
-    auto *reportBg = (Sprite*)this->getChildByTag(TAG_GAME_VINEYET);
-    this->removeChild(reportBg);
-    
-    auto *reportLayer = (Layer*)this->getChildByTag(TAG_GAME_NEXTLAYER);
-    
-    auto action_0 = MoveTo::create(0.1, Point(- screenSize.width*0.8 , 0));
-    auto action_1 = MoveTo::create(0.8, Point(- screenSize.width*2 , 0));
-    
-    
-    auto action_2 = CallFuncN::create( CC_CALLBACK_1(GameScene::reportCallback, this, 2));
-    auto action_3 = Sequence::create(action_0, action_1, action_2, NULL);
-    //    auto action_3 = RepeatForever::create(action_2);
-    reportLayer->runAction(action_3);
-    
-}
-
-
-
-
 
 void GameScene::removeProblem(int order){
     
@@ -1441,9 +1436,6 @@ void GameScene::removeProblem(int order){
     this->removeChild(problemLayer);
     
 }
-
-
-
 
 void GameScene::animationProblem(int order){
     auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+order);
@@ -1613,13 +1605,15 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                         onRemoveReportLayer(1);
                         break;
                     case TAG_GAME_REPORTCONTINUE:
-                        //                        nextLevel();
-                        onRemoveReportLayer(2);
+                        nextLevel();
+//                        onRemoveReportLayer(2);
                         break;
                     case TAG_GAME_REPORTEXIT:
                         onRemoveReportLayer(3);
                         break;
-                        
+                    case TAG_GAME_NEXTLEVEL:
+                        onRemoveIntroduceLevel();
+                        break;
                     default:
                     {
                         
