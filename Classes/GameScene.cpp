@@ -75,27 +75,8 @@ void GameScene::playMusic(){
     audio= CocosDenshion::SimpleAudioEngine::getInstance();
     audio->playBackgroundMusic("res/music/map.mp3", false);
 }
-void GameScene::initTicks(){
-    ValueMap data;
-    std::string path = FileUtils::getInstance()->fullPathForFilename("res/plist/ticks.plist");
-    data = FileUtils::getInstance()->getValueMapFromFile(path);
-    arrTicks = data.at("ticks").asValueVector();
-}
 
-void GameScene::addTick(int order){
-    if(order<20){
-        ValueMap sdata = (arrTicks[order]).asValueMap();
-        float x =  sdata["x"].asFloat();
-        float y =  sdata["y"].asFloat();
-        float w =  sdata["w"].asFloat();
-        float h =  sdata["h"].asFloat();
-        auto tick1spr = Sprite::create(StringUtils::format("res/ticks/tick%d.png", (order + 1)));
-        tick1spr->setPosition(screenSize.width*x, screenSize.height*y);
-        this->addChild(tick1spr);
-        tick1spr->setScale(screenSize.width*w/tick1spr->getContentSize().width, screenSize.height*h/tick1spr->getContentSize().height);
-    }
-    
-}
+
 
 void GameScene::initFlags(){
     if(level>19 && level<23){
@@ -144,10 +125,33 @@ void GameScene::initFlags(){
     level21animFlag = UserDefault::getInstance()->getIntegerForKey("level21animFlag");
 }
 
+void GameScene::addTick(int order){
+    if(order<20){
+        ValueMap sdata = (arrTicks[order]).asValueMap();
+        float x =  sdata["x"].asFloat();
+        float y =  sdata["y"].asFloat();
+        float w =  sdata["w"].asFloat();
+        float h =  sdata["h"].asFloat();
+        auto tick1spr = Sprite::create(StringUtils::format("res/ticks/tick%d.png", (order + 1)));
+        tick1spr->setPosition(screenSize.width*x, screenSize.height*y);
+        this->addChild(tick1spr);
+        tick1spr->setScale(screenSize.width*w/tick1spr->getContentSize().width, screenSize.height*h/tick1spr->getContentSize().height);
+    }
+    
+}
+
+
+void GameScene::initTicks(){
+    ValueMap data;
+    std::string path = FileUtils::getInstance()->fullPathForFilename("res/plist/ticks.plist");
+    data = FileUtils::getInstance()->getValueMapFromFile(path);
+    arrTicks = data.at("ticks").asValueVector();
+}
 
 
 
-void GameScene::initScreen(){
+
+void GameScene::initScreen1(){
     auto background = Sprite::create("gameboard.png"); //here the background.png is a "red screen" png.
     background->setPosition(screenSize.width/2, screenSize.height/2);
     this->addChild(background);
@@ -1172,6 +1176,17 @@ void GameScene::onShowReportLayer(){
     else if(timer >targettime && timer <=targettime2) speedStarCount = 2;
     else speedStarCount = 1;
     
+    
+//    StringUtils::format("res/title/level/level%d.png", newlevel)
+    
+//    UserDefault::getInstance()->setIntegerForKey("completedLevel",level);
+//    int insteadlevel = UserDefault::getInstance()->getIntegerForKey("completedLevel");
+    const char *levelstarString = StringUtils::format("level%dstar", level).c_str();
+    int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 0);
+    if(speedStarCount > starCount) {
+        UserDefault::getInstance()->setIntegerForKey(levelstarString,speedStarCount);
+    }
+    
     if(levelAccuracy ==100) accuracyStarCount = 4;
     else if(levelAccuracy>75 && levelAccuracy<=99) accuracyStarCount = 3;
     else if(levelAccuracy >50 && levelAccuracy <=75) accuracyStarCount = 2;
@@ -1203,7 +1218,7 @@ void GameScene::onShowReportLayer(){
     
     
     //Report title
-    if(speedStarCount > 2 && levelAccuracy == 100){
+//    if(speedStarCount > 2 && levelAccuracy == 100){
         if(level > completedLevel){
             UserDefault::getInstance()->setIntegerForKey("completedLevel",level);
         }
@@ -1220,20 +1235,20 @@ void GameScene::onShowReportLayer(){
         reportContinueButton->setScale(this->screenSize.width * 0.1f/reportContinueButton->getContentSize().width);
         reportLayer->addChild(reportContinueButton);
         
-    } else {
-        auto reportTitle = Sprite::create("res/report/failure_title.png");
-        reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.5);
-        reportTitle->setScale(screenSize.width*0.6/reportTitle->getContentSize().width);
-        
-        reportLayer->addChild(reportTitle);
-        
-        Button* reportContinueButton = Button::create("res/report/continue_failure.png", "res/report/continue_failure.png");
-        reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.205f));
-        reportContinueButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
-        reportContinueButton->setTag(TAG_GAME_REPORTFAILURE);
-        reportContinueButton->setScale(this->screenSize.width * 0.1f/reportContinueButton->getContentSize().width);
-        reportLayer->addChild(reportContinueButton);
-    }
+//    } else {
+//        auto reportTitle = Sprite::create("res/report/failure_title.png");
+//        reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.5);
+//        reportTitle->setScale(screenSize.width*0.6/reportTitle->getContentSize().width);
+//        
+//        reportLayer->addChild(reportTitle);
+//        
+//        Button* reportContinueButton = Button::create("res/report/continue_failure.png", "res/report/continue_failure.png");
+//        reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.205f));
+//        reportContinueButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+//        reportContinueButton->setTag(TAG_GAME_REPORTFAILURE);
+//        reportContinueButton->setScale(this->screenSize.width * 0.1f/reportContinueButton->getContentSize().width);
+//        reportLayer->addChild(reportContinueButton);
+//    }
     
     
 //    Top star

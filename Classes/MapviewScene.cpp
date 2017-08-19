@@ -81,7 +81,6 @@ void MapviewScene::initAddbutton(){
     
     
     for(int ii=0; ii<this->arrLevels.size(); ii++){
-        
         ValueMap sdata = (this->arrLevels[ii]).asValueMap();
         float x =  sdata["x"].asFloat();
         float y =  sdata["y"].asFloat();
@@ -89,19 +88,32 @@ void MapviewScene::initAddbutton(){
         if(ii<completedLevel){
             button1 = Button::create(StringUtils::format("res/levels_complete/%d.png", (ii + 1)),
                                      StringUtils::format("res/levels_complete/%d.png", (ii + 1)));
-            button1->setScale(this->scrollframesize.width * 0.18f/button1->getContentSize().width);
+            button1->setScale(scrollframesize.width * 0.18f/button1->getContentSize().width);
+            button1->setPosition(Vec2(scrollframesize.width * x / 100.0f, scrollframesize.width *y/ 100.0f));
+            button1->addTouchEventListener(CC_CALLBACK_2(MapviewScene::touchEvent, this, (int)ii+1));
+            button1->setTag(TAG_MAP_BUTTON+ii);
+            scrollView->addChild(button1);
+
+            
+            
+            const char *levelstarString = StringUtils::format("level%dstar", ii+1).c_str();
+            int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 0);
+            
+            auto starImage = Sprite::create(StringUtils::format("res/star_levels/%d.png", starCount)); //here the background.png is a "red screen" png.
+            starImage->setPosition(Vec2(scrollframesize.width * x / 100.0f, scrollframesize.width *(y - 4.5)/ 100.0f));
+            starImage->setScale(scrollframesize.width*0.15f/starImage->getContentSize().width);
+            scrollView->addChild(starImage);
         } else {
             
             button1 = Button::create(StringUtils::format("res/levels_incomplete/%d.png", (ii + 1)),
                                      StringUtils::format("res/levels_incomplete/%d.png", (ii + 1)));
-            button1->setScale(this->scrollframesize.width * 0.13f/button1->getContentSize().width);
+            button1->setScale(scrollframesize.width * 0.13f/button1->getContentSize().width);
+            button1->setPosition(Vec2(scrollframesize.width * x / 100.0f, scrollframesize.width *y/ 100.0f));
+            button1->addTouchEventListener(CC_CALLBACK_2(MapviewScene::touchEvent, this, (int)ii+1));
+            button1->setTag(TAG_MAP_BUTTON+ii);
+            scrollView->addChild(button1);
+
         }
-        button1->setPosition(Vec2(this->scrollframesize.width * x / 100.0f, this->scrollframesize.width *y/ 100.0f));
-        button1->addTouchEventListener(CC_CALLBACK_2(MapviewScene::touchEvent, this, (int)ii+1));
-        button1->setTag(TAG_MAP_BUTTON+ii);
-        
-        //        button1->setPressedActionEnabled(true);
-        scrollView->addChild(button1);
         
     }
     
@@ -197,7 +209,7 @@ void MapviewScene::showPos(){
         float y =  sdata["y"].asFloat();
         
         auto footSpr = Sprite::create("res/levelicon.png"); //here the background.png is a "red screen" png.
-        footSpr->setPosition(Vec2(scrollframesize.width * x / 100.0f, scrollframesize.width *y/ 100.0f));
+        footSpr->setPosition(Vec2(scrollframesize.width * x/100.0f, scrollframesize.width *y/100.0f));
         footSpr->setTag(TAG_MAP_FOOTICON);
         footSpr->setAnchorPoint(Point(0.5f,0.1f));
         scrollView->addChild(footSpr);
@@ -224,20 +236,21 @@ void MapviewScene::movePos(int diff){
             button1 = Button::create(StringUtils::format("res/levels_complete/%d.png", completedLevel -ii),
                                      StringUtils::format("res/levels_complete/%d.png", completedLevel -ii));
             button1->setScale(this->scrollframesize.width * 0.18f/button1->getContentSize().width);
-            
             button1->setPosition(Vec2(this->scrollframesize.width * xx / 100.0f, this->scrollframesize.width *yy/ 100.0f));
             button1->addTouchEventListener(CC_CALLBACK_2(MapviewScene::touchEvent, this, completedLevel- ii));
             button1->setTag(TAG_MAP_BUTTON+completedLevel-1 -ii);
-            
-            
             scrollView->addChild(button1);
+            
+            const char *levelstarString = StringUtils::format("level%dstar", completedLevel -ii).c_str();
+            int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 0);
+            
+            auto starImage = Sprite::create(StringUtils::format("res/star_levels/%d.png", starCount)); //here the background.png is a "red screen" png.
+            starImage->setPosition(Vec2(scrollframesize.width * xx / 100.0f, scrollframesize.width *(yy - 4.5)/ 100.0f));
+            starImage->setScale(scrollframesize.width*0.15f/starImage->getContentSize().width);
+            scrollView->addChild(starImage);
+            
+            
         }
-        
-        
-        
-
-        
-        
         auto footSpr = (Sprite*) scrollView->getChildByTag(TAG_MAP_FOOTICON);
         auto action_0 = MoveTo::create(0.4, Point(scrollframesize.width * x / 100.0f, scrollframesize.width *y/ 100.0f));
         footSpr->runAction(action_0);
@@ -358,8 +371,8 @@ void MapviewScene::touchEvent(Ref *pSender, Widget::TouchEventType type, int d)
             
         case Widget::TouchEventType::ENDED:
         {
-            if(this->onShowLevelFlag) {
-                this->showLevelExplainacreen(d);
+            if(onShowLevelFlag && d <= completedLevel + 1) {
+                showLevelExplainacreen(d);
             }
        
             break;
