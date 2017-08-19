@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ticks</key>
+	<array>
+		<dict>
+			<key>tick1</key>
+			<string>value</string>
+			<key>x</key>
+			<string>0.9</string>
+			<key>y</key>
+			<string>0.34</string>
+			<key>w</key>
+			<string>0.061</string>
+			<key>h</key>
+			<string>0.2</string>
+		</dict>
+		<dict>
+			<key>tick2</key>
+			<string>value</string>
+			<key>x</key>
+			<string>0.91</string>
+			<key>y</key>
+			<string>0.477</string>
+			<key>w</key>
+			<string>0.058</string>
+			<key>h</key>
+			<string>0.22</string>
+		</dict>
+		<dict>
+			<key>tick3</key>
+			<string>value</string>
+			<key>x</key>
+			<string>0.89</string>
+			<key>y</key>
+			<string>0.655</string>
+			<key>w</key>
+			<string>0.057</string>
+			<key>h</key>
+			<string>0.19</string>
+		</dict>
+		<dict>
+			<key>tick4</key>
+			<string>value</string>
+			<key>x</key>
+			<string>0.894</string>
+			<key>y</key>
+			<string>0.765</string>
+			<key>w</key>
+			<string>0.055</string>
+			<key>h</key>
+			<string>0.21</string>
+		</dict>
+		<dict>
+			<key>tick5</key>
+			<string>value</string>
+			<key>x</key>
+			<string>0.905</string>
+			<key>y</key>
+			<string>0.878</string>
+			<key>w</key>
+			<string>0.053</string>
+			<key>h</key>
+			<string>0.179</string>
+		</dict>	
+		
+	</array>
+</dict>
+</plist>

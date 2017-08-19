@@ -75,27 +75,8 @@ void GameScene::playMusic(){
     audio= CocosDenshion::SimpleAudioEngine::getInstance();
     audio->playBackgroundMusic("res/music/map.mp3", false);
 }
-void GameScene::initTicks(){
-    ValueMap data;
-    std::string path = FileUtils::getInstance()->fullPathForFilename("res/plist/ticks.plist");
-    data = FileUtils::getInstance()->getValueMapFromFile(path);
-    arrTicks = data.at("ticks").asValueVector();
-}
 
-void GameScene::addTick(int order){
-    if(order<20){
-        ValueMap sdata = (arrTicks[order]).asValueMap();
-        float x =  sdata["x"].asFloat();
-        float y =  sdata["y"].asFloat();
-        float w =  sdata["w"].asFloat();
-        float h =  sdata["h"].asFloat();
-        auto tick1spr = Sprite::create(StringUtils::format("res/ticks/tick%d.png", (order + 1)));
-        tick1spr->setPosition(screenSize.width*x, screenSize.height*y);
-        this->addChild(tick1spr);
-        tick1spr->setScale(screenSize.width*w/tick1spr->getContentSize().width, screenSize.height*h/tick1spr->getContentSize().height);
-    }
-    
-}
+
 
 void GameScene::initFlags(){
     if(level>19 && level<23){
@@ -144,10 +125,33 @@ void GameScene::initFlags(){
     level21animFlag = UserDefault::getInstance()->getIntegerForKey("level21animFlag");
 }
 
+void GameScene::addTick(int order){
+    if(order<20){
+        ValueMap sdata = (arrTicks[order]).asValueMap();
+        float x =  sdata["x"].asFloat();
+        float y =  sdata["y"].asFloat();
+        float w =  sdata["w"].asFloat();
+        float h =  sdata["h"].asFloat();
+        auto tick1spr = Sprite::create(StringUtils::format("res/ticks/tick%d.png", (order + 1)));
+        tick1spr->setPosition(screenSize.width*x, screenSize.height*y);
+        this->addChild(tick1spr);
+        tick1spr->setScale(screenSize.width*w/tick1spr->getContentSize().width, screenSize.height*h/tick1spr->getContentSize().height);
+    }
+    
+}
+
+
+void GameScene::initTicks(){
+    ValueMap data;
+    std::string path = FileUtils::getInstance()->fullPathForFilename("res/plist/ticks.plist");
+    data = FileUtils::getInstance()->getValueMapFromFile(path);
+    arrTicks = data.at("ticks").asValueVector();
+}
 
 
 
-void GameScene::initScreen(){
+
+void GameScene::initScreen1(){
     auto background = Sprite::create("gameboard.png"); //here the background.png is a "red screen" png.
     background->setPosition(screenSize.width/2, screenSize.height/2);
     this->addChild(background);
