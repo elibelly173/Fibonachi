@@ -126,16 +126,18 @@ void GameScene::initFlags(){
 }
 
 void GameScene::addTick(int order){
-    if(order<20){
-        ValueMap sdata = (arrTicks[order]).asValueMap();
-        float x =  sdata["x"].asFloat();
-        float y =  sdata["y"].asFloat();
-        float w =  sdata["w"].asFloat();
-        float h =  sdata["h"].asFloat();
-        auto tick1spr = Sprite::create(StringUtils::format("res/ticks/tick%d.png", (order + 1)));
-        tick1spr->setPosition(screenSize.width*x, screenSize.height*y);
+    if(order<targetnumber){
+//        ValueMap sdata = (arrTicks[order]).asValueMap();
+//        float x =  sdata["x"].asFloat();
+//        float y =  sdata["y"].asFloat();
+//        float w =  sdata["w"].asFloat();
+//        float h =  sdata["h"].asFloat();
+        auto tick1spr = Sprite::create(StringUtils::format("res/tree%d/tick%d.png",targetnumber, (order + 1)));
+        tick1spr->setPosition(screenSize.width, screenSize.height);
+        tick1spr->setAnchorPoint(Point(1.0f,1.0f));
+        tick1spr->setScale(screenSize.width*0.174/tick1spr->getContentSize().width, screenSize.height*0.712/tick1spr->getContentSize().height);
         this->addChild(tick1spr);
-        tick1spr->setScale(screenSize.width*w/tick1spr->getContentSize().width, screenSize.height*h/tick1spr->getContentSize().height);
+        
     }
     
 }
@@ -151,14 +153,14 @@ void GameScene::initTicks(){
 
 
 
-void GameScene::initScreen1(){
-    auto background = Sprite::create("gameboard.png"); //here the background.png is a "red screen" png.
+void GameScene::initScreen(){
+    auto background = Sprite::create("gameboard.png");
     background->setPosition(screenSize.width/2, screenSize.height/2);
     this->addChild(background);
     background->setScale(screenSize.width/background->getContentSize().width, screenSize.height/background->getContentSize().height);
     
     
-    auto cloudBg = Sprite::create("res/game/cloud.png"); //here the background.png is a "red screen" png.
+    auto cloudBg = Sprite::create("res/game/cloud.png");
     cloudBg->setPosition(screenSize.width*0.25, screenSize.height*0.71);
     this->addChild(cloudBg);
     cloudBg->setScale(screenSize.width*0.33/cloudBg->getContentSize().width, screenSize.height*0.35/cloudBg->getContentSize().height);
@@ -171,11 +173,18 @@ void GameScene::initScreen1(){
     this->addChild(homeButton);
     
     
-    auto scoreImg = Sprite::create("res/game/Score.png"); //here the background.png is a "red screen" png.
-    scoreImg->setPosition(screenSize.width/2, this->screenSize.height);
+    auto scoreImg = Sprite::create("res/game/Score.png");
+    scoreImg->setPosition(screenSize.width/2, screenSize.height);
     scoreImg->setAnchorPoint(Point(0.5f,1.0f));
     this->addChild(scoreImg);
     scoreImg->setScale(screenSize.width*0.2/scoreImg->getContentSize().width);
+    
+    
+    auto treeImg = Sprite::create(StringUtils::format("res/tree%d/tree.png", targetnumber));
+    treeImg->setPosition(screenSize.width, screenSize.height);
+    treeImg->setAnchorPoint(Point(1.0f,1.0f));
+    this->addChild(treeImg);
+    treeImg->setScale(screenSize.width*0.345/treeImg->getContentSize().width, screenSize.height*0.868/treeImg->getContentSize().height);
 }
 
 void GameScene::initFiboAchi(){
