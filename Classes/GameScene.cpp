@@ -133,9 +133,9 @@ void GameScene::addTick(int order){
 //        float w =  sdata["w"].asFloat();
 //        float h =  sdata["h"].asFloat();
         auto tick1spr = Sprite::create(StringUtils::format("res/tree%d/tick%d.png",targetnumber, (order + 1)));
-        tick1spr->setPosition(screenSize.width*0.942, screenSize.height*0.85);
+        tick1spr->setPosition(screenSize.width, screenSize.height);
         tick1spr->setAnchorPoint(Point(1.0f,1.0f));
-        tick1spr->setScale(screenSize.width*0.095/tick1spr->getContentSize().width, screenSize.height*0.56/tick1spr->getContentSize().height);
+        tick1spr->setScale(screenSize.width*0.174/tick1spr->getContentSize().width, screenSize.height*0.712/tick1spr->getContentSize().height);
         this->addChild(tick1spr);
         
     }
@@ -184,7 +184,7 @@ void GameScene::initScreen(){
     treeImg->setPosition(screenSize.width, screenSize.height);
     treeImg->setAnchorPoint(Point(1.0f,1.0f));
     this->addChild(treeImg);
-    treeImg->setScale(screenSize.width*0.345/treeImg->getContentSize().width, screenSize.height*0.87/treeImg->getContentSize().height);
+    treeImg->setScale(screenSize.width*0.345/treeImg->getContentSize().width, screenSize.height*0.868/treeImg->getContentSize().height);
 }
 
 void GameScene::initFiboAchi(){
