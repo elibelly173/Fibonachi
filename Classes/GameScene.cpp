@@ -45,6 +45,8 @@ bool GameScene::init()
     screenSize = Director::getInstance()->getWinSize();
     
     completedLevel =UserDefault::getInstance()->getIntegerForKey("completedLevel");
+    lockLevel = UserDefault::getInstance()->getIntegerForKey("lockLevel");
+
     getLevelInfo();
     
     initFlags();
@@ -1142,10 +1144,10 @@ void GameScene::answerSwipeFunc(){
         }
     }else {
         taptimer = 0;
-        if(answer!=0){
-             enterAnswer();
-        } else {
+        if(answer==0 && fractionFlag!=0){
             selectedAnswerBox =0;
+        } else {            
+            enterAnswer();
         }
     }
     isAnswerTouchDown = false;
@@ -1228,9 +1230,14 @@ void GameScene::onShowReportLayer(){
     
     //Report title
 //    if(speedStarCount > 2 && levelAccuracy == 100){
-        if(level > completedLevel){
-            UserDefault::getInstance()->setIntegerForKey("completedLevel",level);
-        }
+    if(level > completedLevel){
+        UserDefault::getInstance()->setIntegerForKey("completedLevel",level);
+    }
+    if(level > lockLevel && speedStarCount>2){
+        UserDefault::getInstance()->setIntegerForKey("lockLevel",level);
+    }
+    
+    if(level<lockLevel || speedStarCount> 2){
         auto reportTitle = Sprite::create("res/report/success_title.png");
         reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.5);
         reportTitle->setScale(screenSize.width*0.45/reportTitle->getContentSize().width);
@@ -1244,21 +1251,21 @@ void GameScene::onShowReportLayer(){
         reportContinueButton->setScale(this->screenSize.width * 0.1f/reportContinueButton->getContentSize().width);
         reportLayer->addChild(reportContinueButton);
         
-//    } else {
-//        auto reportTitle = Sprite::create("res/report/failure_title.png");
-//        reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.5);
-//        reportTitle->setScale(screenSize.width*0.6/reportTitle->getContentSize().width);
-//        
-//        reportLayer->addChild(reportTitle);
-//        
-//        Button* reportContinueButton = Button::create("res/report/continue_failure.png", "res/report/continue_failure.png");
-//        reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.205f));
-//        reportContinueButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
-//        reportContinueButton->setTag(TAG_GAME_REPORTFAILURE);
-//        reportContinueButton->setScale(this->screenSize.width * 0.1f/reportContinueButton->getContentSize().width);
-//        reportLayer->addChild(reportContinueButton);
-//    }
-    
+    } else {
+        auto reportTitle = Sprite::create("res/report/failure_title.png");
+        reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.5);
+        reportTitle->setScale(screenSize.width*0.6/reportTitle->getContentSize().width);
+        
+        reportLayer->addChild(reportTitle);
+        
+        Button* reportContinueButton = Button::create("res/report/continue_failure.png", "res/report/continue_failure.png");
+        reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.205f));
+        reportContinueButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+        reportContinueButton->setTag(TAG_GAME_REPORTFAILURE);
+        reportContinueButton->setScale(this->screenSize.width * 0.1f/reportContinueButton->getContentSize().width);
+        reportLayer->addChild(reportContinueButton);
+    }
+
     
 //    Top star
     for(int ii=0; ii<speedStarCount; ii++){
@@ -1341,7 +1348,7 @@ void GameScene::nextLevel(){
     
 }
 
-void GameScene::onRemoveIntroduceLevel(){
+void GameScene::onRemoveIntroduceLevel(bool activeFlag){
     levelCompleteFlag = false;
     auto *reportBg = (Sprite*)this->getChildByTag(TAG_GAME_VINEYET);
     this->removeChild(reportBg);
@@ -1350,9 +1357,12 @@ void GameScene::onRemoveIntroduceLevel(){
     
     auto action_0 = MoveTo::create(0.1, Point(- screenSize.width*0.8 , 0));
     auto action_1 = MoveTo::create(0.8, Point(- screenSize.width*2 , 0));
-    
-    
     auto action_2 = CallFuncN::create( CC_CALLBACK_1(GameScene::reportCallback, this, 2));
+    
+    if(!activeFlag){
+        action_2 = CallFuncN::create( CC_CALLBACK_1(GameScene::reportCallback, this, 3));
+    }
+    
     auto action_3 = Sequence::create(action_0, action_1, action_2, NULL);
     //    auto action_3 = RepeatForever::create(action_2);
     reportLayer->runAction(action_3);
@@ -1420,9 +1430,10 @@ void GameScene::onIntroduceLevel(Ref *sender){
     
     
     Button* buttonClose = Button::create("res/title/close.png", "res/title/close.png");
-    
+    buttonClose->setTag(TAG_GAME_CLOSE);
     buttonClose->setPosition(Vec2(levelBgPos.x + screenSize.width*0.285, levelBgPos.y + screenSize.width*0.19));
     buttonClose->setScale(screenSize.width * 0.06f/buttonClose->getContentSize().width);
+    buttonClose->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
     
     levelExplainLayer->addChild(buttonClose);
     
@@ -1636,7 +1647,10 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                         onRemoveReportLayer(3);
                         break;
                     case TAG_GAME_NEXTLEVEL:
-                        onRemoveIntroduceLevel();
+                        onRemoveIntroduceLevel(true);
+                        break;
+                    case TAG_GAME_CLOSE:
+                        onRemoveIntroduceLevel(false);
                         break;
                     default:
                     {
