@@ -38,7 +38,8 @@ public:
     void getLevelInfo();
     
     void showPos();
-    void movePos(int diff);
+    void movePos(int targetlevel);
+    void changeButton(int diff, int insteadlevel);
     
     void playMusic();
     
@@ -58,6 +59,7 @@ public:
     ValueVector arrLevels;
     int selectedLevel;
     int completedLevel = 0;
+    int lockLevel = 0;
     
     bool enterFlag = false;
    

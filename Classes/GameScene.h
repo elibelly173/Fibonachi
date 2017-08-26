@@ -56,6 +56,7 @@ USING_NS_CC;
 #define TAG_GAME_KEYBIG      217
 #define TAG_GAME_KEYDECIMAL      218
 #define TAG_GAME_NEXTLEVEL      219
+#define TAG_GAME_CLOSE      220
 #define TAG_GAME_KEYDIVIDER 300
 
 
@@ -159,7 +160,7 @@ public:
     void nextLevel();
     void onIntroduceLevel(cocos2d::Ref* sender);
     void getLevelInfo();
-    void onRemoveIntroduceLevel();
+    void onRemoveIntroduceLevel(bool activeFlag);
     void onShowDimLayer();
     void onRemoveDimLayer();
 public:
@@ -206,6 +207,7 @@ public:
     
     float levelSpeed, levelAccuracy;
     int completedLevel;
+    int lockLevel;
     
     float taptimer = 0.0f;
     float swipetimer = 0.0f;
