@@ -471,7 +471,7 @@ void GameScene::update(float delta)
         holdTime = 0.0f;
     }
     
-    if(musicTime>5.3 && !audioFlag){
+    if(musicTime>5.25 && !audioFlag){
         audioFlag = true;
         audio->stopBackgroundMusic();
         audio->setBackgroundMusicVolume(0.6);
@@ -522,48 +522,7 @@ void GameScene::onRemoveDimLayer(){
     this->removeChild(dimLayer);
 }
 
-void GameScene::onSwipeAnimation(){
-    onShowDimLayer();
-    onshowedSwipeAnimFlag = true;
-    tapentertimeFlag = false;
-    auto swipeAnimTitle = Sprite::create("res/animation/swipedelete.png");
-    swipeAnimTitle->setPosition(screenSize.width*0.65, screenSize.height*0.16 + screenSize.width*0.35);
-    swipeAnimTitle->setTag(TAG_GAME_SWIPESPR);
-    swipeAnimTitle->setScale(screenSize.width*0.25/swipeAnimTitle->getContentSize().width);
-    this->addChild(swipeAnimTitle);
-    
-    auto swipeAnimhand = Sprite::create("res/animation/hand.png");
-    swipeAnimhand->setTag(TAG_GAME_SWIPEANIM);
-    swipeAnimhand->setScale(screenSize.width*0.13/swipeAnimhand->getContentSize().width);
-    swipeAnimhand->setAnchorPoint(Vec2(0.5, 1));
-    this->addChild(swipeAnimhand);
-    
-    float pos = 0.0f;
-    
-    if(fractionFlag>0){
-        swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.195);
-        pos =screenSize.height*0.16 + screenSize.width*0.195;
-    } else {
-        swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.145);
-        pos =screenSize.height*0.16 + screenSize.width*0.145;
-    }
-    
-    auto action_0 = MoveTo::create(1.2, Point(screenSize.width*0.77, pos));
-    auto action_1 = MoveTo::create(1.2, Point(screenSize.width*0.66, pos));
-    auto action_2 = Sequence::create(action_0, action_1, NULL);
-    auto action_3 = RepeatForever::create(action_2);
-    swipeAnimhand->runAction(action_3);
-}
 
-void GameScene::removeSwipeAnimation(){
-    onRemoveDimLayer();
-    onshowedSwipeAnimFlag = false;
-    auto swipeAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_SWIPESPR);
-    this->removeChild(swipeAnimTitle);
-    
-    auto swipeAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_SWIPEANIM);
-    this->removeChild(swipeAnimhand);
-}
 
 void GameScene::onTapAnimation(){
     onShowDimLayer();
@@ -798,6 +757,49 @@ void GameScene::removeNlineAnim(){
     this->removeChild(nlineAnimhand);
 }
 
+void GameScene::removeSwipeAnimation(){
+    onRemoveDimLayer();
+    onshowedSwipeAnimFlag = false;
+    auto swipeAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_SWIPESPR);
+    this->removeChild(swipeAnimTitle);
+    
+    auto swipeAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_SWIPEANIM);
+    this->removeChild(swipeAnimhand);
+}
+
+
+void GameScene::onSwipeAnimation(){
+    onShowDimLayer();
+    onshowedSwipeAnimFlag = true;
+    tapentertimeFlag = false;
+    auto swipeAnimTitle = Sprite::create("res/animation/swipedelete.png");
+    swipeAnimTitle->setPosition(screenSize.width*0.65, screenSize.height*0.16 + screenSize.width*0.35);
+    swipeAnimTitle->setTag(TAG_GAME_SWIPESPR);
+    swipeAnimTitle->setScale(screenSize.width*0.25/swipeAnimTitle->getContentSize().width);
+    this->addChild(swipeAnimTitle);
+    
+    auto swipeAnimhand = Sprite::create("res/animation/hand.png");
+    swipeAnimhand->setTag(TAG_GAME_SWIPEANIM);
+    swipeAnimhand->setScale(screenSize.width*0.13/swipeAnimhand->getContentSize().width);
+    swipeAnimhand->setAnchorPoint(Vec2(0.5, 1));
+    this->addChild(swipeAnimhand);
+    
+    float pos = 0.0f;
+    
+    if(fractionFlag>0){
+        swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.195);
+        pos =screenSize.height*0.16 + screenSize.width*0.195;
+    } else {
+        swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.145);
+        pos =screenSize.height*0.16 + screenSize.width*0.145;
+    }
+    
+    auto action_0 = MoveTo::create(1.2, Point(screenSize.width*0.77, pos));
+    auto action_1 = MoveTo::create(1.2, Point(screenSize.width*0.66, pos));
+    auto action_2 = Sequence::create(action_0, action_1, NULL);
+    auto action_3 = RepeatForever::create(action_2);
+    swipeAnimhand->runAction(action_3);
+}
 
 
 void GameScene::initanswerLayer(){
