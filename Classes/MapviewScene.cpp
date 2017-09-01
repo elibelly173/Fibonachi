@@ -186,7 +186,12 @@ void MapviewScene::onEnterTransitionDidFinish() {
             int diff = insCompletedLevel - completedLevel;
             completedLevel = insCompletedLevel;
             changeButton(diff, insteadlevel);
+        } else {
+            changeButton(1, insteadlevel);
         }
+    
+        movePos(insteadlevel);
+        
     }
 }
 void MapviewScene::changeButton(int diff, int insteadlevel){
@@ -217,7 +222,7 @@ void MapviewScene::changeButton(int diff, int insteadlevel){
         scrollView->addChild(starImage);       
         
     }
-    movePos(insteadlevel);
+//    movePos(insteadlevel);
 
     
 }
