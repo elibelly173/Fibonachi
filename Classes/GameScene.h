@@ -209,6 +209,8 @@ public:
     int completedLevel;
     int lockLevel;
     
+    float waittingTaptimer = 0.0f;
+    bool startingTapFlag = false;
     float taptimer = 0.0f;
     float swipetimer = 0.0f;
     
