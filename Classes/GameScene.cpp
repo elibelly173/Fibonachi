@@ -448,14 +448,6 @@ void GameScene::update(float delta)
 {
     problemTime+=delta;
     musicTime += delta;
-    
-    if(startingTapFlag && !tapenteranimFlag && !levelCompleteFlag) {
-        waittingTaptimer += delta;
-    }
-    
-    if(waittingTaptimer > 2 && !tapenteranimFlag) {
-        onTapAnimation();
-    }
     if(onkeyswipeFlag && !levelCompleteFlag){
         taptimer+=delta;
     }
@@ -531,10 +523,8 @@ void GameScene::onRemoveDimLayer(){
 }
 
 
+
 void GameScene::onTapAnimation(){
-    tapenteranimFlag = true;
-    UserDefault::getInstance()->setIntegerForKey("tapenteranimFlag", true);
-    
     onShowDimLayer();
     onshowedTapAnimFlag = true;
     auto tapAnimTitle = Sprite::create("res/animation/tapimage.png");
@@ -574,52 +564,6 @@ void GameScene::removeTapAnimation(){
     auto tapAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_TAPANIM);
     this->removeChild(tapAnimhand);
 }
-
-
-void GameScene::onSwipeAnimation(){
-    onShowDimLayer();
-    onshowedSwipeAnimFlag = true;
-    tapentertimeFlag = false;
-    auto swipeAnimTitle = Sprite::create("res/animation/swipedelete.png");
-    swipeAnimTitle->setPosition(screenSize.width*0.65, screenSize.height*0.16 + screenSize.width*0.35);
-    swipeAnimTitle->setTag(TAG_GAME_SWIPESPR);
-    swipeAnimTitle->setScale(screenSize.width*0.25/swipeAnimTitle->getContentSize().width);
-    this->addChild(swipeAnimTitle);
-    
-    auto swipeAnimhand = Sprite::create("res/animation/hand.png");
-    swipeAnimhand->setTag(TAG_GAME_SWIPEANIM);
-    swipeAnimhand->setScale(screenSize.width*0.13/swipeAnimhand->getContentSize().width);
-    swipeAnimhand->setAnchorPoint(Vec2(0.5, 1));
-    this->addChild(swipeAnimhand);
-    
-    float pos = 0.0f;
-    
-    if(fractionFlag>0){
-        swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.195);
-        pos =screenSize.height*0.16 + screenSize.width*0.195;
-    } else {
-        swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.145);
-        pos =screenSize.height*0.16 + screenSize.width*0.145;
-    }
-    
-    auto action_0 = MoveTo::create(1.2, Point(screenSize.width*0.77, pos));
-    auto action_1 = MoveTo::create(1.2, Point(screenSize.width*0.66, pos));
-    auto action_2 = Sequence::create(action_0, action_1, NULL);
-    auto action_3 = RepeatForever::create(action_2);
-    swipeAnimhand->runAction(action_3);
-}
-
-
-void GameScene::removeSwipeAnimation(){
-    onRemoveDimLayer();
-    onshowedSwipeAnimFlag = false;
-    auto swipeAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_SWIPESPR);
-    this->removeChild(swipeAnimTitle);
-    
-    auto swipeAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_SWIPEANIM);
-    this->removeChild(swipeAnimhand);
-}
-
 
 
 
@@ -813,6 +757,49 @@ void GameScene::removeNlineAnim(){
     this->removeChild(nlineAnimhand);
 }
 
+void GameScene::removeSwipeAnimation(){
+    onRemoveDimLayer();
+    onshowedSwipeAnimFlag = false;
+    auto swipeAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_SWIPESPR);
+    this->removeChild(swipeAnimTitle);
+    
+    auto swipeAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_SWIPEANIM);
+    this->removeChild(swipeAnimhand);
+}
+
+
+void GameScene::onSwipeAnimation(){
+    onShowDimLayer();
+    onshowedSwipeAnimFlag = true;
+    tapentertimeFlag = false;
+    auto swipeAnimTitle = Sprite::create("res/animation/swipedelete.png");
+    swipeAnimTitle->setPosition(screenSize.width*0.65, screenSize.height*0.16 + screenSize.width*0.35);
+    swipeAnimTitle->setTag(TAG_GAME_SWIPESPR);
+    swipeAnimTitle->setScale(screenSize.width*0.25/swipeAnimTitle->getContentSize().width);
+    this->addChild(swipeAnimTitle);
+    
+    auto swipeAnimhand = Sprite::create("res/animation/hand.png");
+    swipeAnimhand->setTag(TAG_GAME_SWIPEANIM);
+    swipeAnimhand->setScale(screenSize.width*0.13/swipeAnimhand->getContentSize().width);
+    swipeAnimhand->setAnchorPoint(Vec2(0.5, 1));
+    this->addChild(swipeAnimhand);
+    
+    float pos = 0.0f;
+    
+    if(fractionFlag>0){
+        swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.195);
+        pos =screenSize.height*0.16 + screenSize.width*0.195;
+    } else {
+        swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.145);
+        pos =screenSize.height*0.16 + screenSize.width*0.145;
+    }
+    
+    auto action_0 = MoveTo::create(1.2, Point(screenSize.width*0.77, pos));
+    auto action_1 = MoveTo::create(1.2, Point(screenSize.width*0.66, pos));
+    auto action_2 = Sequence::create(action_0, action_1, NULL);
+    auto action_3 = RepeatForever::create(action_2);
+    swipeAnimhand->runAction(action_3);
+}
 
 
 void GameScene::initanswerLayer(){
@@ -1671,14 +1658,9 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                     {
                         
                         if(!tapenteranimFlag && level<4){
-                            if(!startingTapFlag){
-                                startingTapFlag = true;
-                            } else {
-                                waittingTaptimer = 0.0f;
-                            }
-//                            tapenteranimFlag = true;
-//                            UserDefault::getInstance()->setIntegerForKey("tapenteranimFlag", true);
-//                            onTapAnimation();
+                            tapenteranimFlag = true;
+                            UserDefault::getInstance()->setIntegerForKey("tapenteranimFlag", true);
+                            onTapAnimation();
                         }
                         
                         if(tapentertimeFlag){
