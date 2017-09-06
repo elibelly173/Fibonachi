@@ -29,7 +29,7 @@ bool VideoScene::init()
     {
         return false;
     }
-    
+    playMusic();
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     cocos2d::experimental::ui::VideoPlayer *videoPlayer = cocos2d::experimental::ui::VideoPlayer::create();
@@ -54,6 +54,11 @@ bool VideoScene::init()
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
     
     return true;
+}
+
+void VideoScene::playMusic(){
+    auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+    audio->playBackgroundMusic("res/music/video.mp3", true);
 }
 
 bool VideoScene::onTouchBegan(Touch* touch, Event* event)
