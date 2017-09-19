@@ -62,11 +62,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>16</integer>
+			<integer>30</integer>
 			<key>time1</key>
-			<integer>12</integer>
+			<integer>16</integer>
 			<key>time3</key>
-			<integer>24</integer>
+			<integer>40</integer>
 		</dict>
 		<dict>
 			<key>level5</key>
@@ -76,9 +76,9 @@
 			<key>y</key>
 			<string>50</string>
 			<key>targetnumber</key>
-			<integer>20</integer>
+			<integer>24</integer>
 			<key>time2</key>
-			<integer>28</integer>
+			<integer>30</integer>
 			<key>time1</key>
 			<integer>17</integer>
 			<key>time3</key>

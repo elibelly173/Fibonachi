@@ -1431,7 +1431,7 @@ void GameScene::onIntroduceLevel(Ref *sender){
     targettime1 =  sdata["time1"].asInt();
     targettime2 =  sdata["time3"].asInt();
     
-    auto levelNumber = Sprite::create(StringUtils::format("res/title/number%d.png", targetnumber));
+    auto levelNumber = Sprite::create(StringUtils::format("res/title/timer/timer%d.png", targetnumber));
     levelNumber->setPosition(levelBgPos.x - screenSize.width*0.21, levelBgPos.y - screenSize.width*0.02);
     levelNumber->setScale(screenSize.width*0.08/levelNumber->getContentSize().width);
     
