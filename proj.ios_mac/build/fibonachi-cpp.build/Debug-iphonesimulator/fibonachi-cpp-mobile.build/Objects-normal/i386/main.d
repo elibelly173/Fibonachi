@@ -1,2 +1,1 @@
-dependencies: \
-  /Volumes/DATA/work/cocos-project/fibonachi-cpp/proj.ios_mac/ios/main.m
+dependencies: /Volumes/DATA/mygit/cocosfibonachi/proj.ios_mac/ios/main.m

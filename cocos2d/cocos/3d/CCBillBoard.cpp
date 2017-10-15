@@ -1,5 +1,5 @@
 /****************************************************************************
- Copyright (c) 2014 Chukong Technologies Inc.
+ Copyright (c) 2014-2017 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -103,6 +103,11 @@ void BillBoard::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t 
         return;
     }
     bool visibleByCamera = isVisitableByVisitingCamera();
+    // quick return if not visible by camera and has no children.
+    if (!visibleByCamera && _children.empty())
+    {
+        return;
+    }
     
     uint32_t flags = processParentFlags(parentTransform, parentFlags);
     
@@ -110,7 +115,7 @@ void BillBoard::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t 
     flags |= FLAGS_RENDER_AS_3D;
     
     //Update Billboard transform
-    bool dirty = calculateBillbaordTransform();
+    bool dirty = calculateBillboardTransform();
     if(dirty)
     {
         flags |= FLAGS_TRANSFORM_DIRTY;
@@ -150,7 +155,7 @@ void BillBoard::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t 
     director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 }
 
-bool BillBoard::calculateBillbaordTransform()
+bool BillBoard::calculateBillboardTransform()
 {
     //Get camera world position
     auto camera = Camera::getVisitingCamera();
@@ -185,10 +190,7 @@ bool BillBoard::calculateBillbaordTransform()
             camDir.set(camWorldMat.m[8], camWorldMat.m[9], camWorldMat.m[10]);
         }
         camDir.normalize();
-        
-        Quaternion rotationQuaternion;
-        this->getNodeToWorldTransform().getRotation(&rotationQuaternion);
-        
+
         Mat4 rotationMatrix;
         rotationMatrix.setIdentity();
 
@@ -220,6 +222,11 @@ bool BillBoard::calculateBillbaordTransform()
     }
     
     return false;
+}
+
+bool BillBoard::calculateBillbaordTransform()
+{
+    return calculateBillboardTransform();
 }
 
 void BillBoard::draw(Renderer *renderer, const Mat4 &/*transform*/, uint32_t flags)
