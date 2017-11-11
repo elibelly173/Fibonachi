@@ -112,6 +112,7 @@ void MapviewScene::getLevelInfo(){
     std::string path = FileUtils::getInstance()->fullPathForFilename("res/plist/levels.plist");
     data = FileUtils::getInstance()->getValueMapFromFile(path);
     this->arrLevels = data.at("levels").asValueVector();
+    CCLOG("level %d", 55);
 
 }
 
