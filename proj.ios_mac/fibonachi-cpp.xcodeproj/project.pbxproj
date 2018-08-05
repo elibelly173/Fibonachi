@@ -13,6 +13,11 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294D0D631D0D56D500F7F5D4 /* CoreText.framework */; };
+		3E701E201FD46DB9006F223E /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E701E1F1FD46DB9006F223E /* AppIcon.xcassets */; };
+		3E701E261FD46E65006F223E /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E701E221FD46E63006F223E /* icon.png */; };
+		3E701E271FD46E65006F223E /* icon-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E701E231FD46E63006F223E /* icon-1024.png */; };
+		3E701E281FD46E65006F223E /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E701E241FD46E64006F223E /* icon-small.png */; };
+		3E701E291FD46E65006F223E /* icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E701E251FD46E64006F223E /* icon-83.5@2x.png */; };
 		3EACC98F19EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
 		3EACC99019EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
 		3EBCF3FD1F68E116007DA358 /* Icon-87.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EBCF3FC1F68E115007DA358 /* Icon-87.png */; };
@@ -124,6 +129,11 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		294D0D631D0D56D500F7F5D4 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
+		3E701E1F1FD46DB9006F223E /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
+		3E701E221FD46E63006F223E /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		3E701E231FD46E63006F223E /* icon-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-1024.png"; sourceTree = "<group>"; };
+		3E701E241FD46E64006F223E /* icon-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small.png"; sourceTree = "<group>"; };
+		3E701E251FD46E64006F223E /* icon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-83.5@2x.png"; sourceTree = "<group>"; };
 		3EACC98E19EE6D4300EB3C5E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		3EBCF3FC1F68E115007DA358 /* Icon-87.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-87.png"; sourceTree = "<group>"; };
 		3EBCF3FF1F68E124007DA358 /* Icon-180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-180.png"; sourceTree = "<group>"; };
@@ -325,6 +335,7 @@
 				D88C75D51E53CF0A006564FD /* mapback.jpg */,
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
+				3E701E1F1FD46DB9006F223E /* AppIcon.xcassets */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -375,6 +386,10 @@
 		5087E77117EB970100C73F5D /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				3E701E251FD46E64006F223E /* icon-83.5@2x.png */,
+				3E701E231FD46E63006F223E /* icon-1024.png */,
+				3E701E241FD46E64006F223E /* icon-small.png */,
+				3E701E221FD46E63006F223E /* icon.png */,
 				521A8E6219F0C34300D177D7 /* Default-667h@2x.png */,
 				521A8E6319F0C34300D177D7 /* Default-736h@3x.png */,
 				5087E77217EB970100C73F5D /* Default-568h@2x.png */,
@@ -511,10 +526,12 @@
 			files = (
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
+				3E701E261FD46E65006F223E /* icon.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				D88C75D61E53CF0A006564FD /* mapback.jpg in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
+				3E701E291FD46E65006F223E /* icon-83.5@2x.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
@@ -527,12 +544,15 @@
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				D89667731E52A98B00F0B3BA /* start.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
+				3E701E201FD46DB9006F223E /* AppIcon.xcassets in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
+				3E701E271FD46E65006F223E /* icon-1024.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				3EBCF4001F68E124007DA358 /* Icon-180.png in Resources */,
+				3E701E281FD46E65006F223E /* icon-small.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -597,11 +617,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ELI LIEBERMAN (6NL7YFWFZD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 6NL7YFWFZD;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -636,11 +657,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ELI LIEBERMAN (6NL7YFWFZD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 6NL7YFWFZD;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

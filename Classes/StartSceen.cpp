@@ -1,6 +1,7 @@
 #include "StartSceen.h"
 #include "SimpleAudioEngine.h"
 #include "VideoScene.h"
+#include "MapviewScene.h"
 
 USING_NS_CC;
 
@@ -71,7 +72,8 @@ void StartSceen::onTouchEnded(Touch* touch, Event* event)
     
     
     
-    auto myScene = VideoScene::createScene();
+//    auto myScene = VideoScene::createScene();
+    auto myScene = MapviewScene::createScene();
     Director::getInstance()->replaceScene(myScene);
 //    Director::getInstance()->replaceScene(TransitionSlideInT::create(1, myScene) );
     
