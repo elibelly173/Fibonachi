@@ -145,7 +145,7 @@ static CGSize _calculateShrinkedSizeForString(NSAttributedString **str,
             *str = __attributedStringWithFontSize(mutableString, fontSize);
             
             CGSize fitSize = [*str boundingRectWithSize:CGSizeMake(constrainSize.width, MAX_MEASURE_HEIGHT)
-                                    options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                    options:(NSStringDrawingUsesLineFragmentOrigin)
                                     context:nil].size;
 
             if (fitSize.width == 0 || fitSize.height == 0) {
@@ -339,6 +339,7 @@ typedef struct
     float        tintColorG;
     float        tintColorB;
     float        tintColorA;
+    float        lineSpacing;
 
     unsigned char*  data;
 
@@ -363,7 +364,7 @@ static CGSize _calculateStringSize(NSAttributedString *str, id font, CGSize *con
 
     CGSize dim;
     dim = [str boundingRectWithSize:CGSizeMake(textRect.width, textRect.height)
-                                 options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                 options:(NSStringDrawingUsesLineFragmentOrigin)
                             context:nil].size;
 
     dim.width = ceilf(dim.width);
@@ -414,6 +415,7 @@ static bool _initWithString(const char * text, cocos2d::Device::TextAlign align,
         NSTextAlignment nsAlign = FontUtils::_calculateTextAlignment(align);
         NSMutableParagraphStyle* paragraphStyle = FontUtils::_calculateParagraphStyle(enableWrap, overflow);
         paragraphStyle.alignment = nsAlign;
+        paragraphStyle.lineSpacing = info->lineSpacing;
 
         // measure text size with specified font and determine the rectangle to draw text in
 
@@ -579,6 +581,7 @@ Data Device::getTextureDataForText(const char * text, const FontDefinition& text
         info.tintColorG             = textDefinition._fontFillColor.g / 255.0f;
         info.tintColorB             = textDefinition._fontFillColor.b / 255.0f;
         info.tintColorA             = textDefinition._fontAlpha / 255.0f;
+        info.lineSpacing            = textDefinition._lineSpacing;
 
         if (! _initWithString(text, align, textDefinition._fontName.c_str(), textDefinition._fontSize, &info, textDefinition._enableWrap, textDefinition._overflow))
         {

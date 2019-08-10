@@ -29,6 +29,7 @@
 #define __UIEditBoxIMPLICOMMON_H__
 
 #include "platform/CCPlatformConfig.h"
+#include "2d/CCLabel.h"
 #include "ui/UIEditBox/UIEditBoxImpl-common.h"
 #include "ui/UIEditBox/UIEditBoxImpl.h"
 
@@ -50,9 +51,9 @@ public:
      * @lua NA
      */
     virtual ~EditBoxImplCommon();
-    
+
     virtual bool initWithSize(const Size& size) override;
-    
+
     virtual void setFont(const char* pFontName, int fontSize) override;
     virtual void setFontColor(const Color4B& color) override;
     virtual void setPlaceholderFont(const char* pFontName, int fontSize) override;
@@ -68,8 +69,8 @@ public:
     virtual void setTextHorizontalAlignment(TextHAlignment alignment) override;
 
     virtual int  getMaxLength() override { return _maxLength; }
-    virtual const char* getText(void) override { return _text.c_str(); }
-    virtual const char* getPlaceHolder(void) override { return _placeHolder.c_str(); }
+    virtual const char* getText() override { return _text.c_str(); }
+    virtual const char* getPlaceHolder() override { return _placeHolder.c_str(); }
 
     virtual const char* getFontName() override { return _fontName.c_str(); }
     virtual int getFontSize() override { return _fontSize; }
@@ -85,12 +86,12 @@ public:
     virtual TextHAlignment getTextHorizontalAlignment() override { return _alignment; }
 
     virtual void refreshInactiveText();
-    
+
     virtual void setContentSize(const Size& size) override;
-    
+
     virtual void setAnchorPoint(const Vec2& anchorPoint) override {}
     virtual void setPosition(const Vec2& pos) override {}
-    
+
     /**
      * @js NA
      * @lua NA
@@ -100,12 +101,12 @@ public:
      * @js NA
      * @lua NA
      */
-    virtual void onEnter(void) override;
+    virtual void onEnter() override;
     virtual void openKeyboard() override;
     virtual void closeKeyboard() override;
 
     virtual void onEndEditing(const std::string& text);
-    
+
     void editBoxEditingDidBegin();
     void editBoxEditingChanged(const std::string& text);
     void editBoxEditingDidEnd(const std::string& text, EditBoxDelegate::EditBoxEndAction action = EditBoxDelegate::EditBoxEndAction::UNKNOWN);
@@ -136,13 +137,13 @@ protected:
     void         refreshLabelAlignment();
     void         placeInactiveLabels(const Size& size);
     virtual void doAnimationWhenKeyboardMove(float duration, float distance)override {};
-  
+
     Label* _label;
     Label* _labelPlaceHolder;
     EditBox::InputMode    _editBoxInputMode;
     EditBox::InputFlag    _editBoxInputFlag;
     EditBox::KeyboardReturnType  _keyboardReturnType;
-    cocos2d::TextHAlignment _alignment;
+    TextHAlignment _alignment;
 
     std::string _text;
     std::string _placeHolder;
@@ -155,7 +156,7 @@ protected:
 
     Color4B _colText;
     Color4B _colPlaceHolder;
-    
+
     int   _maxLength;
     Size _contentSize;
     bool _editingMode;

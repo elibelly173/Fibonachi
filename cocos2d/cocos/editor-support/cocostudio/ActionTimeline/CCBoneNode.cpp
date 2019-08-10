@@ -35,12 +35,12 @@ THE SOFTWARE.
 NS_TIMELINE_BEGIN
 
 BoneNode::BoneNode()
-: _isRackShow(false)
+: _blendFunc(cocos2d::BlendFunc::ALPHA_NON_PREMULTIPLIED)
+, _isRackShow(false)
 , _rackColor(cocos2d::Color4F::WHITE)
 , _rackLength(50)
 , _rackWidth(20)
 , _rootSkeleton(nullptr)
-, _blendFunc(cocos2d::BlendFunc::ALPHA_NON_PREMULTIPLIED)
 {
 }
 
@@ -518,7 +518,7 @@ cocos2d::Vector<BoneNode*> BoneNode::getAllSubBones() const
         boneStack.push(bone);
     }
 
-    while (boneStack.size() > 0)
+    while (!boneStack.empty())
     {
         auto top = boneStack.top();
         allBones.pushBack(top);

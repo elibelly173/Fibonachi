@@ -57,8 +57,8 @@ static void setProgram(Node *n, GLProgram *p)
 
 ClippingNode::ClippingNode()
 : _stencil(nullptr)
-, _stencilStateManager(new StencilStateManager())
 , _originStencilProgram(nullptr)
+, _stencilStateManager(new StencilStateManager())
 {
 }
 
@@ -332,7 +332,7 @@ void ClippingNode::setStencil(Node *stencil)
 
 bool ClippingNode::hasContent() const
 {
-    return _children.size() > 0;
+    return !_children.empty();
 }
 
 GLfloat ClippingNode::getAlphaThreshold() const

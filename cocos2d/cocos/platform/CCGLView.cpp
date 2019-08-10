@@ -105,12 +105,12 @@ GLContextAttrs GLView::getGLContextAttrs()
 }
 
 GLView::GLView()
-: _scaleX(1.0f)
+: _screenSize(0,0)
+, _designResolutionSize(0,0)
+, _scaleX(1.0f)
 , _scaleY(1.0f)
 , _resolutionPolicy(ResolutionPolicy::UNKNOWN)
 , _vrImpl(nullptr)
-, _designResolutionSize(0,0)
-, _screenSize(0,0)
 {
 }
 
@@ -331,7 +331,7 @@ void GLView::handleTouchesBegin(int num, intptr_t ids[], float xs[], float ys[])
         }
     }
 
-    if (touchEvent._touches.size() == 0)
+    if (touchEvent._touches.empty())
     {
         CCLOG("touchesBegan: size = 0");
         return;
@@ -388,7 +388,7 @@ void GLView::handleTouchesMove(int num, intptr_t ids[], float xs[], float ys[], 
         }
     }
 
-    if (touchEvent._touches.size() == 0)
+    if (touchEvent._touches.empty())
     {
         CCLOG("touchesMoved: size = 0");
         return;
@@ -442,7 +442,7 @@ void GLView::handleTouchesOfEndOrCancel(EventTouch::EventCode eventCode, int num
 
     }
 
-    if (touchEvent._touches.size() == 0)
+    if (touchEvent._touches.empty())
     {
         CCLOG("touchesEnded or touchesCancel: size = 0");
         return;
