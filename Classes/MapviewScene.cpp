@@ -326,7 +326,7 @@ void MapviewScene::showLevelExplainacreen(int level){
     int targetnumber =  sdata["targetnumber"].asInt();
     int targettime =  sdata["time2"].asInt();
     
-    auto levelNumber = Sprite::create(StringUtils::format("res/title/number%d.png", targetnumber));
+    auto levelNumber = Sprite::create(StringUtils::format("res/title/timer/timer%d.png", targetnumber));
     levelNumber->setPosition(levelBgPos.x - this->scrollframesize.width*0.21, levelBgPos.y - this->scrollframesize.width*0.02);
     levelNumber->setScale(this->scrollframesize.width*0.08/levelNumber->getContentSize().width);
     

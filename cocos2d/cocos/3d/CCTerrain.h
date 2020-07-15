@@ -1,5 +1,6 @@
 /****************************************************************************
-Copyright (c) 2015 Chukong Technologies Inc.
+Copyright (c) 2015-2016 Chukong Technologies Inc.
+Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -115,7 +116,11 @@ public:
     struct Triangle
     {
         Triangle(const Vec3& p1, const Vec3& p2, const Vec3& p3);
-        bool getInsterctPoint(const Ray &ray, Vec3& interScetPoint) const;
+        bool getIntersectPoint(const Ray& ray, Vec3& intersectPoint) const;
+
+        /** @deprecated Use getIntersectPoint instead. */
+        CC_DEPRECATED_ATTRIBUTE bool getInsterctPoint(const Ray& ray, Vec3& interScetPoint) const;
+
         void transform(const Mat4& matrix);
         Vec3 _p1, _p2, _p3;
     };
@@ -232,7 +237,10 @@ private:
         /**calculate the average slop of chunk*/
         void calculateSlope();
 
-        bool getInsterctPointWithRay(const Ray& ray, Vec3 &interscetPoint);
+        bool getIntersectPointWithRay(const Ray& ray, Vec3& intersectPoint);
+
+        /** @deprecated Use getIntersectPointWithRay instead. */
+        CC_DEPRECATED_ATTRIBUTE bool getInsterctPointWithRay(const Ray& ray, Vec3& intersectPoint);
 
         /**current LOD of the chunk*/
         int _currentLod;
@@ -361,7 +369,7 @@ public:
     /** set the alpha map*/
     void setAlphaMap(cocos2d::Texture2D * newAlphaMapTexture);
     /**set the Detail Map */
-    void setDetailMap(unsigned int index, DetailMap detailMap);
+    void setDetailMap(unsigned int index, const DetailMap& detailMap);
 
     // Overrides, internal use only
     virtual void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
@@ -424,7 +432,7 @@ public:
     /**
      * get the terrain's size
      */
-    Size getTerrainSize() const { return Size(_imageWidth, _imageHeight); }
+    Size getTerrainSize() const { return Size(static_cast<float>(_imageWidth), static_cast<float>(_imageHeight)); }
     
     /**
      * get the terrain's height data
@@ -501,7 +509,7 @@ protected:
     Mat4 _terrainModelMatrix;
     GLuint _normalLocation;
     GLuint _positionLocation;
-    GLuint _texcordLocation;
+    GLuint _texcoordLocation;
     float _maxHeight;
     float _minHeight;
     CrackFixedType _crackFixedType;
@@ -516,7 +524,7 @@ protected:
     GLint _lightDirLocation;
     RenderState::StateBlock* _stateBlock;
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+#if CC_ENABLE_CACHE_TEXTURE_DATA
     EventListenerCustom* _backToForegroundListener;
 #endif
 };

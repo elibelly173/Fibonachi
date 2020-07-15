@@ -1,5 +1,6 @@
 /****************************************************************************
  Copyright (c) 2013 cocos2d-x.org
+ Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
  
@@ -324,7 +325,7 @@ std::string FlatBuffersSerialize::serializeFlatBuffersWithXMLFile(const std::str
 
 // NodeTree
 Offset<NodeTree> FlatBuffersSerialize::createNodeTree(const tinyxml2::XMLElement *objectData,
-                                                      std::string classType)
+                                                      const std::string& classType)
 {
     std::string classname = classType.substr(0, classType.find("ObjectData"));
 //    CCLOG("classname = %s", classname.c_str());
@@ -433,7 +434,7 @@ Offset<NodeTree> FlatBuffersSerialize::createNodeTree(const tinyxml2::XMLElement
     
 }
 
-int FlatBuffersSerialize::getResourceType(std::string key)
+int FlatBuffersSerialize::getResourceType(const std::string& key)
 {
     if(key == "Normal" || key == "Default")
     {
@@ -576,7 +577,7 @@ Offset<NodeAction> FlatBuffersSerialize::createNodeAction(const tinyxml2::XMLEle
         }
         else if (name == "ActivedAnimationName")
         {
-            currentAnimationName = value.c_str();
+            currentAnimationName = value;
         }
         
         attribute = attribute->Next();
@@ -1409,7 +1410,7 @@ FlatBufferBuilder* FlatBuffersSerialize::createFlatBuffersWithXMLFileForSimulato
 }
 
 Offset<NodeTree> FlatBuffersSerialize::createNodeTreeForSimulator(const tinyxml2::XMLElement *objectData,
-                                                                  std::string classType)
+                                                                  const std::string& classType)
 {
     std::string classname = classType.substr(0, classType.find("ObjectData"));
 //    CCLOG("classname = %s", classname.c_str());

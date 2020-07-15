@@ -1,6 +1,7 @@
 /****************************************************************************
  Copyright (c) 2010-2012 cocos2d-x.org
  Copyright (c) 2013-2016 Chukong Technologies Inc.
+ Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
  
@@ -91,7 +92,7 @@ public:
      * @lua NA
      * @js NA
      */
-    int getHandler(void) {
+    int getHandler() {
         return _handler;
     }
     
@@ -102,7 +103,7 @@ public:
      * @lua NA
      * @js NA
      */
-    int getEntryId(void) {
+    int getEntryId() {
         return _entryId;
     }
     
@@ -153,7 +154,7 @@ public:
      * @js NA
      * @lua NA
      */
-    TimerScriptHandler* getTimer(void) {
+    TimerScriptHandler* getTimer() {
         return _timer;
     }
     
@@ -164,7 +165,7 @@ public:
      * @js NA
      * @lua NA
      */
-    bool isPaused(void) {
+    bool isPaused() {
         return _paused;
     }
     /**
@@ -172,7 +173,7 @@ public:
      * @js NA
      * @lua NA
      */
-    void markedForDeletion(void) {
+    void markedForDeletion() {
         _markedForDeletion = true;
     }
     /**
@@ -182,7 +183,7 @@ public:
      * @js NA
      * @lua NA
      */
-    bool isMarkedForDeletion(void) {
+    bool isMarkedForDeletion() {
         return _markedForDeletion;
     }
     
@@ -214,15 +215,15 @@ public:
 
     virtual ~TouchScriptHandlerEntry();
 
-    bool isMultiTouches(void) {
+    bool isMultiTouches() {
         return _isMultiTouches;
     }
 
-    int getPriority(void) {
+    int getPriority() {
         return _priority;
     }
 
-    bool getSwallowsTouches(void) {
+    bool getSwallowsTouches() {
         return _swallowsTouches;
     }
     
@@ -799,13 +800,17 @@ public:
      */
     virtual void unrootObject(Ref* /*obj*/) {}
 
+    /** Remove proxy for a native object
+     */
+    virtual void removeObjectProxy(Ref* obj) {}
+
     /** Triggers the garbage collector */
     virtual void garbageCollect() {}
 };
 
 class Node;
 /**
- * ScriptEngineManager is a singleton which manager an object instance of ScriptEngineProtocl, such as LuaEngine.
+ * ScriptEngineManager is a singleton which manager an object instance of ScriptEngineProtocol, such as LuaEngine.
  *
  * @since v0.99.5-x-0.8.5
  * @js NA
@@ -819,7 +824,7 @@ public:
      * @lua NA
      * @js NA
      */
-    ~ScriptEngineManager(void);
+    ~ScriptEngineManager();
     /** 
      * Get the ScriptEngineProtocol object.
      *
@@ -828,7 +833,7 @@ public:
      * @lua NA
      * @js NA
      */
-    ScriptEngineProtocol* getScriptEngine(void) {
+    ScriptEngineProtocol* getScriptEngine() {
         return _scriptEngine;
     }
     /**
@@ -848,7 +853,7 @@ public:
      * @lua NA
      * @js NA
      */
-    void removeScriptEngine(void);
+    void removeScriptEngine();
     /**
      * Get the instance of ScriptEngineManager object.
      *
@@ -912,7 +917,7 @@ public:
     CC_DEPRECATED_ATTRIBUTE static void purgeSharedManager() { ScriptEngineManager::destroyInstance(); };
     
 private:
-    ScriptEngineManager(void)
+    ScriptEngineManager()
     : _scriptEngine(nullptr)
     {
     }

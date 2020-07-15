@@ -65,11 +65,13 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
+
 			<integer>80</integer>
 			<key>time1</key>
 			<integer>10</integer>
 			<key>time3</key>
 			<integer>300</integer>
+
 		</dict>
 		<dict>
 			<key>level5</key>
@@ -79,9 +81,11 @@
 			<key>y</key>
 			<string>50</string>
 			<key>targetnumber</key>
-			<integer>80</integer>
+
+			<integer>20</integer>
 			<key>time2</key>
 			<integer>60</integer>
+
 			<key>time1</key>
 			<integer>10</integer>
 			<key>time3</key>
@@ -95,7 +99,7 @@
 			<key>y</key>
 			<string>57</string>
 			<key>targetnumber</key>
-			<integer>80</integer>
+			<integer>20</integer>
 			<key>time2</key>
 			<integer>60</integer>
 			<key>time1</key>

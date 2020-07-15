@@ -1,5 +1,6 @@
 /****************************************************************************
-Copyright (c) 2015 Chukong Technologies Inc.
+Copyright (c) 2015-2016 Chukong Technologies Inc.
+Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -149,7 +150,7 @@ void Terrain::onDraw(const Mat4 &transform, uint32_t /*flags*/)
 
     _stateBlock->bind();
 
-    GL::enableVertexAttribs(1<<_positionLocation | 1 << _texcordLocation | 1<<_normalLocation);
+    GL::enableVertexAttribs(1<<_positionLocation | 1 << _texcoordLocation | 1<<_normalLocation);
     glProgram->setUniformsForBuiltins(transform);
     _glProgramState->applyUniforms();
     glUniform3f(_lightDirLocation,_lightDir.x,_lightDir.y,_lightDir.z);
@@ -274,17 +275,20 @@ bool Terrain::initHeightMap(const std::string& heightMap)
 
 Terrain::Terrain()
 : _alphaMap(nullptr)
-, _stateBlock(nullptr)
 , _lightMap(nullptr)
 , _lightDir(-1.f, -1.f, 0.f)
+, _stateBlock(nullptr)
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+, _backToForegroundListener(nullptr)
+#endif
 {
     _stateBlock = RenderState::StateBlock::create();
     CC_SAFE_RETAIN(_stateBlock);
 
     _customCommand.setTransparent(false);
     _customCommand.set3D(true);
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-    auto _backToForegroundListener = EventListenerCustom::create(EVENT_RENDERER_RECREATED,
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+    _backToForegroundListener = EventListenerCustom::create(EVENT_RENDERER_RECREATED,
         [this](EventCustom*)
     {
         reload();
@@ -322,15 +326,15 @@ float Terrain::getHeight(float x, float z, Vec3 * normal) const
 
     //top-left
     Vec2 tl(-1*_terrainData._mapScale*_imageWidth/2,-1*_terrainData._mapScale*_imageHeight/2);
-    auto result  = getNodeToWorldTransform()*Vec4(tl.x,0.0f,tl.y,1.0f);
-    tl.set(result.x, result.z);
+    auto mulResult = getNodeToWorldTransform() * Vec4(tl.x, 0.0f, tl.y, 1.0f);
+    tl.set(mulResult.x, mulResult.z);
 
     Vec2 to_tl = pos - tl;
 
     //real size
     Vec2 size(_imageWidth*_terrainData._mapScale,_imageHeight*_terrainData._mapScale);
-    result = getNodeToWorldTransform()*Vec4(size.x,0.0f,size.y,0.0f);
-    size.set(result.x, result.z);
+    mulResult = getNodeToWorldTransform() * Vec4(size.x, 0.0f, size.y, 0.0f);
+    size.set(mulResult.x, mulResult.z);
 
     float width_ratio = to_tl.x/size.x;
     float height_ratio = to_tl.y/size.y;
@@ -436,7 +440,7 @@ void Terrain::calculateNormal()
             _indices.push_back (nLocIndex + _imageWidth+1);
         }
     }
-    for (unsigned int i = 0, size = _indices.size(); i < size; i += 3) {
+    for (size_t i = 0, size = _indices.size(); i < size; i += 3) {
         unsigned int Index0 = _indices[i];
         unsigned int Index1 = _indices[i + 1];
         unsigned int Index2 = _indices[i + 2];
@@ -450,8 +454,8 @@ void Terrain::calculateNormal()
         _vertices[Index2]._normal += Normal;
     }
 
-    for (unsigned int i = 0, size = _vertices.size(); i < size; ++i) {
-        _vertices[i]._normal.normalize();
+    for (auto &vertex : _vertices) {
+        vertex._normal.normalize();
     }
     //global indices no need at all
     _indices.clear();
@@ -509,7 +513,7 @@ Terrain::~Terrain()
         glDeleteBuffers(1,&(_chunkLodIndicesSkirtSet[i]._chunkIndices._indices));
     }
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+#if CC_ENABLE_CACHE_TEXTURE_DATA
     Director::getInstance()->getEventDispatcher()->removeEventListener(_backToForegroundListener);
 #endif
 }
@@ -572,7 +576,7 @@ bool Terrain::getIntersectionPoint(const Ray & ray_, Vec3 & intersectionPoint) c
                 {
                     if (closeList.find(chunk) == closeList.end())
                     {
-                        if (chunk->getInsterctPointWithRay(ray, tmpIntersectionPoint))
+                        if (chunk->getIntersectPointWithRay(ray, tmpIntersectionPoint))
                         {
                             float dist = (ray._origin - tmpIntersectionPoint).length();
                             if (intersectionDist > dist)
@@ -696,7 +700,7 @@ void Terrain::setAlphaMap(cocos2d::Texture2D * newAlphaMapTexture)
     _alphaMap = newAlphaMapTexture;
 }
 
-void Terrain::setDetailMap(unsigned int index, DetailMap detailMap)
+void Terrain::setDetailMap(unsigned int index, const DetailMap& detailMap)
 {
     if(index>4)
     {
@@ -815,7 +819,7 @@ void Terrain::cacheUniformAttribLocation()
 {
 
     _positionLocation = glGetAttribLocation(this->getGLProgram()->getProgram(),"a_position");
-    _texcordLocation = glGetAttribLocation(this->getGLProgram()->getProgram(),"a_texCoord");
+    _texcoordLocation = glGetAttribLocation(this->getGLProgram()->getProgram(),"a_texCoord");
     _normalLocation = glGetAttribLocation(this->getGLProgram()->getProgram(),"a_normal");
     _alphaMapLocation = -1;
     for(int i =0;i<4;++i)
@@ -1324,22 +1328,22 @@ void Terrain::Chunk::calculateSlope()
     _slope = (highest.y - lowest.y)/dist;
 }
 
-bool Terrain::Chunk::getInsterctPointWithRay(const Ray& ray, Vec3 &interscetPoint)
+bool Terrain::Chunk::getIntersectPointWithRay(const Ray& ray, Vec3& intersectPoint)
 {
     if (!ray.intersects(_aabb))
         return false;
 
     float minDist = FLT_MAX;
     bool isFind = false;
-    for (auto triangle : _trianglesList)
+    for (const auto& triangle : _trianglesList)
     {
         Vec3 p;
-        if (triangle.getInsterctPoint(ray, p))
+        if (triangle.getIntersectPoint(ray, p))
         {
             float dist = ray._origin.distance(p);
             if (dist<minDist)
             {
-            interscetPoint = p;
+            intersectPoint = p;
             minDist = dist;
             }
             isFind =true;
@@ -1347,6 +1351,11 @@ bool Terrain::Chunk::getInsterctPointWithRay(const Ray& ray, Vec3 &interscetPoin
     }
 
     return isFind;
+}
+
+bool Terrain::Chunk::getInsterctPointWithRay(const Ray& ray, Vec3& intersectPoint)
+{
+    return getIntersectPointWithRay(ray, intersectPoint);
 }
 
 void Terrain::Chunk::updateVerticesForLOD()
@@ -1574,10 +1583,10 @@ void Terrain::QuadTree::preCalculateAABB(const Mat4 & worldTransform)
 
 Terrain::QuadTree::~QuadTree()
 {
-    if(_tl) delete _tl;
-    if(_tr) delete _tr;
-    if(_bl) delete _bl;
-    if(_br) delete _br;
+    delete _tl;
+    delete _tr;
+    delete _bl;
+    delete _br;
 }
 
 Terrain::TerrainData::TerrainData(const std::string& heightMapsrc , const std::string& textureSrc, const Size & chunksize, float height, float scale)
@@ -1652,7 +1661,7 @@ void Terrain::Triangle::transform(const cocos2d::Mat4& matrix)
 }
 
 //Please refer to 3D Math Primer for Graphics and Game Development
-bool Terrain::Triangle::getInsterctPoint(const Ray &ray, Vec3& interScetPoint)const
+bool Terrain::Triangle::getIntersectPoint(const Ray& ray, Vec3& intersectPoint) const
 {
     // E1
     Vec3 E1 = _p2 - _p1;
@@ -1704,11 +1713,14 @@ bool Terrain::Triangle::getInsterctPoint(const Ray &ray, Vec3& interScetPoint)co
 
     float fInvDet = 1.0f / det;
     t *= fInvDet;
-    u *= fInvDet;
-    v *= fInvDet;
 
-    interScetPoint = ray._origin + ray._direction * t;
+    intersectPoint = ray._origin + ray._direction * t;
     return true;
+}
+
+bool Terrain::Triangle::getInsterctPoint(const Ray& ray, Vec3& intersectPoint) const
+{
+    return getIntersectPoint(ray, intersectPoint);
 }
 
 NS_CC_END
