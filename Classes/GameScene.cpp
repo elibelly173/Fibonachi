@@ -519,6 +519,12 @@ void GameScene::UpdateTimer(float dt)
     
     
 }
+void GameScene::onShowDimLayer(){
+    dimFlag = true;
+    CCLayerColor *dimLayer = CCLayerColor::create(ccc4(0,0,0,170));
+    dimLayer->setTag(TAG_GAME_DIMLAYER);
+    this->addChild(dimLayer);
+}
 
 void GameScene::onRemoveDimLayer(){
     dimFlag = false;
@@ -571,23 +577,6 @@ void GameScene::removeTapAnimation(){
     this->removeChild(tapAnimhand);
 }
 
-void GameScene::removeSwipeAnimation(){
-    onRemoveDimLayer();
-    onshowedSwipeAnimFlag = false;
-    auto swipeAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_SWIPESPR);
-    this->removeChild(swipeAnimTitle);    
-    auto swipeAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_SWIPEANIM);
-    this->removeChild(swipeAnimhand);
-}
-
-
-void GameScene::onShowDimLayer(){
-    dimFlag = true;
-    CCLayerColor *dimLayer = CCLayerColor::create(ccc4(0,0,0,170));
-    dimLayer->setTag(TAG_GAME_DIMLAYER);
-    this->addChild(dimLayer);
-}
-
 
 void GameScene::onSwipeAnimation(){
     onShowDimLayer();
@@ -597,20 +586,24 @@ void GameScene::onSwipeAnimation(){
     swipeAnimTitle->setPosition(screenSize.width*0.65, screenSize.height*0.16 + screenSize.width*0.35);
     swipeAnimTitle->setTag(TAG_GAME_SWIPESPR);
     swipeAnimTitle->setScale(screenSize.width*0.25/swipeAnimTitle->getContentSize().width);
-    this->addChild(swipeAnimTitle);    
+    this->addChild(swipeAnimTitle);
+    
     auto swipeAnimhand = Sprite::create("res/animation/hand.png");
     swipeAnimhand->setTag(TAG_GAME_SWIPEANIM);
     swipeAnimhand->setScale(screenSize.width*0.13/swipeAnimhand->getContentSize().width);
     swipeAnimhand->setAnchorPoint(Vec2(0.5, 1));
-    this->addChild(swipeAnimhand);    
-    float pos = 0.0f;    
+    this->addChild(swipeAnimhand);
+    
+    float pos = 0.0f;
+    
     if(fractionFlag>0){
         swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.195);
         pos =screenSize.height*0.16 + screenSize.width*0.195;
     } else {
         swipeAnimhand->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.145);
         pos =screenSize.height*0.16 + screenSize.width*0.145;
-    }    
+    }
+    
     auto action_0 = MoveTo::create(1.2, Point(screenSize.width*0.77, pos));
     auto action_1 = MoveTo::create(1.2, Point(screenSize.width*0.66, pos));
     auto action_2 = Sequence::create(action_0, action_1, NULL);
@@ -623,7 +616,8 @@ void GameScene::removeSwipeAnimation(){
     onRemoveDimLayer();
     onshowedSwipeAnimFlag = false;
     auto swipeAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_SWIPESPR);
-    this->removeChild(swipeAnimTitle);    
+    this->removeChild(swipeAnimTitle);
+    
     auto swipeAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_SWIPEANIM);
     this->removeChild(swipeAnimhand);
 }
@@ -671,18 +665,6 @@ void GameScene::removeCancelFrAnim(){
 
 
 
-
-
-void GameScene::removeTapFrAnim(){
-    onRemoveDimLayer();
-    onshowedTapFrAnimFlag = false;
-    auto tapFrAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_TAPFRSPR);
-    this->removeChild(tapFrAnimTitle);
-    
-    auto tapFrAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_TAPFRANIM);
-    this->removeChild(tapFrAnimhand);
-}
-
 void GameScene::onTapFrAnim(){
     onShowDimLayer();
     onshowedTapFrAnimFlag = true;
@@ -709,6 +691,16 @@ void GameScene::onTapFrAnim(){
     auto action_3 = RepeatForever::create(action_2);
     tapFrAnimhand->runAction(action_3);
     
+}
+
+void GameScene::removeTapFrAnim(){
+    onRemoveDimLayer();
+    onshowedTapFrAnimFlag = false;
+    auto tapFrAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_TAPFRSPR);
+    this->removeChild(tapFrAnimTitle);
+    
+    auto tapFrAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_TAPFRANIM);
+    this->removeChild(tapFrAnimhand);
 }
 
 
@@ -812,7 +804,116 @@ void GameScene::onNlineAnim(){
     nlineAnimhand->runAction(action_3);
 }
 
+void GameScene::removeNlineAnim(){
+    onRemoveDimLayer();
+    onshowedNlineAnimFlag = false;
+    
+    auto nlineAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_NLINESPR);
+    this->removeChild(nlineAnimTitle);
+    
+    auto nlineAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_NLINEANIM);
+    this->removeChild(nlineAnimhand);
+}
 
+
+
+void GameScene::initanswerLayer(){
+    if(fractionFlag>0 && !deciamlFlag){
+        auto answerLayer = new FractionAnswerLayer(0);//FractionLayer::create();
+        answerLayer->setPosition(screenSize.width*0.75, screenSize.height*0.16 + screenSize.width*0.08);
+        answerLayer->setTag(TAG_GAME_ANSWERLABEL);
+        this->addChild(answerLayer);
+    } else if(fractionFlag>0 && deciamlFlag){
+        auto answerlabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
+        answerlabel->setColor(Color3B::BLACK);
+        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.17);
+        answerlabel->setTag(TAG_GAME_ANSWERLABEL);
+        this->addChild(answerlabel);
+        
+        auto answerBar = Label::createWithSystemFont("_", "", screenSize.width*0.05);
+        answerBar->setColor(Color3B::WHITE);
+        answerBar->setPosition(screenSize.width*0.67, screenSize.height*0.16 + screenSize.width*0.21);
+        answerBar->setTag(TAG_GAME_ANSWERBAR);
+        this->addChild(answerBar);
+    } else {
+        auto answerlabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
+        answerlabel->setColor(Color3B::BLACK);
+        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.13);
+        answerlabel->setTag(TAG_GAME_ANSWERLABEL);
+        this->addChild(answerlabel);
+    }
+}
+
+
+
+void GameScene::Fraction26(int mol1, int den1, int mol2, int den2, int order, float offsetPos, std::string op){
+    
+    auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+order);
+    
+    if(den1 != 1){
+        auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", screenSize.width*0.04);
+        moleculeLabel->setColor(Color3B::BLACK);
+        moleculeLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.107);
+        moleculeLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4);
+        problemLayer->addChild(moleculeLabel);
+        
+        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "", screenSize.width*0.04);
+        denLabel->setColor(Color3B::BLACK);
+        denLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.068);
+        denLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +1);
+        problemLayer->addChild(denLabel);
+        
+        auto lineSpr = Sprite::create("res/game/line.png");
+        lineSpr->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.085);
+        lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+        
+        problemLayer->addChild(lineSpr);
+    } else {
+        auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", screenSize.width*0.04);
+        moleculeLabel->setColor(Color3B::BLACK);
+        moleculeLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.085);
+        moleculeLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4);
+        problemLayer->addChild(moleculeLabel);
+        
+        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "", 0);
+        denLabel->setColor(Color3B::BLACK);
+        denLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.068);
+        denLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +1);
+        problemLayer->addChild(denLabel);
+    }
+    
+    auto moleculeLabel2 = Label::createWithSystemFont(StringUtils::format("%d", mol2), "", screenSize.width*0.04);
+    moleculeLabel2->setColor(Color3B::BLACK);
+    moleculeLabel2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.107);
+    moleculeLabel2->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +2);
+    problemLayer->addChild(moleculeLabel2);
+    
+    auto denLabel2 = Label::createWithSystemFont(StringUtils::format("%d", den2), "", screenSize.width*0.04);
+    denLabel2->setColor(Color3B::BLACK);
+    denLabel2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.068);
+    denLabel2->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 + 3);
+    problemLayer->addChild(denLabel2);
+    
+    auto lineSpr2 = Sprite::create("res/game/line.png");
+    lineSpr2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.085);
+    lineSpr2->setScale(screenSize.width*0.045/lineSpr2->getContentSize().width, screenSize.width*0.003/lineSpr2->getContentSize().height);
+    problemLayer->addChild(lineSpr2);
+    
+    if(std::strcmp(op.c_str(), "x") == 0){
+        auto oplabel = Label::createWithSystemFont("x", "", screenSize.width*0.04);
+        oplabel->setPosition(-screenSize.width*0.09, screenSize.width*0.085);
+        oplabel->setColor(Color3B::BLACK);
+        problemLayer->addChild(oplabel);
+    } else {
+        Button* dividerSprbutton = Button::create("res/game/dividersprite.png", "res/game/dividersprite.png");
+        dividerSprbutton->setPosition(Vec2(-screenSize.width*0.09, screenSize.width*0.085));
+        dividerSprbutton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+        dividerSprbutton->setTag(TAG_GAME_KEYDIVIDER + order);
+        dividerSprbutton->setScale(screenSize.width*0.02/dividerSprbutton->getContentSize().width);
+        problemLayer->addChild(dividerSprbutton);
+        fractionSwipeFlagArray[order] = true;
+    }
+}
 
 
 void GameScene::Fraction20(int mol1, int den1, int order){
@@ -962,117 +1063,6 @@ void GameScene::enterAnswer(){
         }
     }
     
-}
-
-
-void GameScene::initanswerLayer(){
-    if(fractionFlag>0 && !deciamlFlag){
-        auto answerLayer = new FractionAnswerLayer(0);//FractionLayer::create();
-        answerLayer->setPosition(screenSize.width*0.75, screenSize.height*0.16 + screenSize.width*0.08);
-        answerLayer->setTag(TAG_GAME_ANSWERLABEL);
-        this->addChild(answerLayer);
-    } else if(fractionFlag>0 && deciamlFlag){
-        auto answerlabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
-        answerlabel->setColor(Color3B::BLACK);
-        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.17);
-        answerlabel->setTag(TAG_GAME_ANSWERLABEL);
-        this->addChild(answerlabel);
-        
-        auto answerBar = Label::createWithSystemFont("_", "", screenSize.width*0.05);
-        answerBar->setColor(Color3B::WHITE);
-        answerBar->setPosition(screenSize.width*0.67, screenSize.height*0.16 + screenSize.width*0.21);
-        answerBar->setTag(TAG_GAME_ANSWERBAR);
-        this->addChild(answerBar);
-    } else {
-        auto answerlabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
-        answerlabel->setColor(Color3B::BLACK);
-        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.13);
-        answerlabel->setTag(TAG_GAME_ANSWERLABEL);
-        this->addChild(answerlabel);
-    }
-}
-
-
-void GameScene::removeNlineAnim(){
-    onRemoveDimLayer();
-    onshowedNlineAnimFlag = false;
-    
-    auto nlineAnimTitle = (Sprite*)this->getChildByTag(TAG_GAME_NLINESPR);
-    this->removeChild(nlineAnimTitle);
-    
-    auto nlineAnimhand =(Sprite*)this->getChildByTag(TAG_GAME_NLINEANIM);
-    this->removeChild(nlineAnimhand);
-}
-
-
-
-void GameScene::Fraction26(int mol1, int den1, int mol2, int den2, int order, float offsetPos, std::string op){
-    
-    auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+order);
-    
-    if(den1 != 1){
-        auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", screenSize.width*0.04);
-        moleculeLabel->setColor(Color3B::BLACK);
-        moleculeLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.107);
-        moleculeLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4);
-        problemLayer->addChild(moleculeLabel);
-        
-        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "", screenSize.width*0.04);
-        denLabel->setColor(Color3B::BLACK);
-        denLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.068);
-        denLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +1);
-        problemLayer->addChild(denLabel);
-        
-        auto lineSpr = Sprite::create("res/game/line.png");
-        lineSpr->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.085);
-        lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
-        
-        problemLayer->addChild(lineSpr);
-    } else {
-        auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", screenSize.width*0.04);
-        moleculeLabel->setColor(Color3B::BLACK);
-        moleculeLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.085);
-        moleculeLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4);
-        problemLayer->addChild(moleculeLabel);
-        
-        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "", 0);
-        denLabel->setColor(Color3B::BLACK);
-        denLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.068);
-        denLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +1);
-        problemLayer->addChild(denLabel);
-    }
-    
-    auto moleculeLabel2 = Label::createWithSystemFont(StringUtils::format("%d", mol2), "", screenSize.width*0.04);
-    moleculeLabel2->setColor(Color3B::BLACK);
-    moleculeLabel2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.107);
-    moleculeLabel2->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +2);
-    problemLayer->addChild(moleculeLabel2);
-    
-    auto denLabel2 = Label::createWithSystemFont(StringUtils::format("%d", den2), "", screenSize.width*0.04);
-    denLabel2->setColor(Color3B::BLACK);
-    denLabel2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.068);
-    denLabel2->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 + 3);
-    problemLayer->addChild(denLabel2);
-    
-    auto lineSpr2 = Sprite::create("res/game/line.png");
-    lineSpr2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.085);
-    lineSpr2->setScale(screenSize.width*0.045/lineSpr2->getContentSize().width, screenSize.width*0.003/lineSpr2->getContentSize().height);
-    problemLayer->addChild(lineSpr2);
-    
-    if(std::strcmp(op.c_str(), "x") == 0){
-        auto oplabel = Label::createWithSystemFont("x", "", screenSize.width*0.04);
-        oplabel->setPosition(-screenSize.width*0.09, screenSize.width*0.085);
-        oplabel->setColor(Color3B::BLACK);
-        problemLayer->addChild(oplabel);
-    } else {
-        Button* dividerSprbutton = Button::create("res/game/dividersprite.png", "res/game/dividersprite.png");
-        dividerSprbutton->setPosition(Vec2(-screenSize.width*0.09, screenSize.width*0.085));
-        dividerSprbutton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
-        dividerSprbutton->setTag(TAG_GAME_KEYDIVIDER + order);
-        dividerSprbutton->setScale(screenSize.width*0.02/dividerSprbutton->getContentSize().width);
-        problemLayer->addChild(dividerSprbutton);
-        fractionSwipeFlagArray[order] = true;
-    }
 }
 
 void GameScene::rightAnswer(){
