@@ -82,11 +82,7 @@
 			<string>50</string>
 			<key>targetnumber</key>
 
-<<<<<<< HEAD
 			<integer>20</integer>
-=======
-			<integer>80</integer>
->>>>>>> eli-branch
 			<key>time2</key>
 			<integer>60</integer>
 
