@@ -1,6 +1,5 @@
 ﻿/****************************************************************************
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -67,13 +66,13 @@ public:
     cocos2d::Node* getNodeByTag(int nTag);
     inline AttachComponentType getAttachComponentType(){return _attachComponent;}
 CC_CONSTRUCTOR_ACCESS:
-    SceneReader();
-    virtual ~SceneReader();
+    SceneReader(void);
+    virtual ~SceneReader(void);
     
 private:
     std::string getComponentClassName(const std::string& name);
 
-    cocos2d::Component* createComponent(const std::string& classname);
+    cocos2d::Component* createComponent(const std::string classname);
 
     
     cocos2d::Node* createObject(const rapidjson::Value& dict, cocos2d::Node* parent, AttachComponentType attachComponent);

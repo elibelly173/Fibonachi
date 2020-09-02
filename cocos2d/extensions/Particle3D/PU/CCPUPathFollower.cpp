@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -29,12 +28,12 @@
 
 NS_CC_BEGIN
 
-PUPathFollower::PUPathFollower()
+PUPathFollower::PUPathFollower( void )
 {
 
 }
 
-PUPathFollower::~PUPathFollower()
+PUPathFollower::~PUPathFollower( void )
 {
 
 }
@@ -45,7 +44,7 @@ void PUPathFollower::addPoint(const Vec3& point)
     _spline.addPoint(point);
 }
 //-----------------------------------------------------------------------
-void PUPathFollower::clearPoints ()
+void PUPathFollower::clearPoints (void)
 {
     _spline.clear();
 }

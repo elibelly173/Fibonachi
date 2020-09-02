@@ -1,8 +1,7 @@
 /****************************************************************************
 Copyright (c) 2009      On-Core
 Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+Copyright (c) 2013-2016 Chukong Technologies Inc. 
  
 http://www.cocos2d-x.org
 
@@ -106,16 +105,15 @@ bool GridBase::initWithSize(const cocos2d::Size &gridSize, const cocos2d::Rect &
     }
     
     Texture2D *texture = new (std::nothrow) Texture2D();
+    texture->initWithData(data, dataLen,  format, POTWide, POTHigh, s);
+    
+    free(data);
     
     if (! texture)
     {
-        free(data);
         CCLOG("cocos2d: Grid: error creating texture");
         return false;
     }
-    
-    texture->initWithData(data, dataLen,  format, POTWide, POTHigh, s);
-    free(data);
     
     initWithSize(gridSize, texture, false, rect);
     
@@ -167,7 +165,7 @@ bool GridBase::initWithSize(const Size& gridSize, Texture2D *texture, bool flipp
     return ret;
 }
 
-GridBase::~GridBase()
+GridBase::~GridBase(void)
 {
     CCLOGINFO("deallocing GridBase: %p", this);
 
@@ -218,7 +216,7 @@ void GridBase::setGridRect(const cocos2d::Rect &rect)
     _gridRect = rect;
 }
 
-void GridBase::beforeDraw()
+void GridBase::beforeDraw(void)
 {
     // save projection
     Director *director = Director::getInstance();
@@ -266,17 +264,17 @@ void GridBase::afterDraw(cocos2d::Node * /*target*/)
     afterBlit();
 }
 
-void GridBase::blit()
+void GridBase::blit(void)
 {
     CCASSERT(0, "Subclass should implement it.");
 }
 
-void GridBase::reuse()
+void GridBase::reuse(void)
 {
     CCASSERT(0, "Subclass should implement it!");
 }
 
-void GridBase::calculateVertexPoints()
+void GridBase::calculateVertexPoints(void)
 {
     CCASSERT(0, "Subclass should implement it.");
 }
@@ -374,7 +372,7 @@ Grid3D::Grid3D()
 
 }
 
-Grid3D::~Grid3D()
+Grid3D::~Grid3D(void)
 {
     CC_SAFE_FREE(_texCoordinates);
     CC_SAFE_FREE(_vertices);
@@ -415,7 +413,7 @@ void Grid3D::afterBlit()
     }
 }
 
-void Grid3D::blit()
+void Grid3D::blit(void)
 {
     int n = _gridSize.width * _gridSize.height;
 
@@ -436,7 +434,7 @@ void Grid3D::blit()
     glDrawElements(GL_TRIANGLES, (GLsizei) n*6, GL_UNSIGNED_SHORT, _indices);
 }
 
-void Grid3D::calculateVertexPoints()
+void Grid3D::calculateVertexPoints(void)
 {
     float width = (float)_texture->getPixelsWide();
     float height = (float)_texture->getPixelsHigh();
@@ -546,7 +544,7 @@ void Grid3D::setVertex(const Vec2& pos, const Vec3& vertex)
     vertArray[index+2] = vertex.z;
 }
 
-void Grid3D::reuse()
+void Grid3D::reuse(void)
 {
     if (_reuseGrid > 0)
     {
@@ -566,7 +564,7 @@ TiledGrid3D::TiledGrid3D()
 
 }
 
-TiledGrid3D::~TiledGrid3D()
+TiledGrid3D::~TiledGrid3D(void)
 {
     CC_SAFE_FREE(_texCoordinates);
     CC_SAFE_FREE(_vertices);
@@ -654,7 +652,7 @@ TiledGrid3D* TiledGrid3D::create(const Size& gridSize, Texture2D *texture, bool 
     return ret;
 }
 
-void TiledGrid3D::blit()
+void TiledGrid3D::blit(void)
 {
     int n = _gridSize.width * _gridSize.height;
 
@@ -678,7 +676,7 @@ void TiledGrid3D::blit()
     CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1,n*6);
 }
 
-void TiledGrid3D::calculateVertexPoints()
+void TiledGrid3D::calculateVertexPoints(void)
 {
     float width = (float)_texture->getPixelsWide();
     float height = (float)_texture->getPixelsHigh();
@@ -789,7 +787,7 @@ Quad3 TiledGrid3D::getTile(const Vec2& pos) const
     return ret;
 }
 
-void TiledGrid3D::reuse()
+void TiledGrid3D::reuse(void)
 {
     if (_reuseGrid > 0)
     {

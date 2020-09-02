@@ -1,6 +1,5 @@
 /****************************************************************************
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -203,7 +202,7 @@ public:
      * Gets current displayed page index.
      * @return current page index.
      */
-    ssize_t getCurrentPageIndex();
+    ssize_t getCurrentPageIndex() const { return _currentPageIndex; }
 
     /**
      * Jump to a page with a given index without scrolling.
@@ -318,7 +317,7 @@ public:
     /**
      * @brief Set color of page indicator's selected index.
      *
-     * @param color New color for selected (current) index.
+     * @param color Space between nodes in pixel.
      */
     void setIndicatorSelectedIndexColor(const Color3B& color);
 
@@ -332,7 +331,7 @@ public:
     /**
      * @brief Set color of page indicator's index nodes.
      *
-     * @param color New indicator node color.
+     * @param color Space between nodes in pixel.
      */
     void setIndicatorIndexNodesColor(const Color3B& color);
     
@@ -342,34 +341,6 @@ public:
      * @return color
      */
     const Color3B& getIndicatorIndexNodesColor() const;
-    
-    /**
-     * @brief Set opacity of page indicator's selected index.
-     *
-     * @param color New opacity for selected (current) index.
-     */
-    void setIndicatorSelectedIndexOpacity(GLubyte opacity);
-    
-    /**
-     * @brief Get the opacity of page indicator's selected index.
-     *
-     * @return opacity
-     */
-    GLubyte getIndicatorSelectedIndexOpacity() const;
-    
-    /**
-     * @brief Set opacity of page indicator's index nodes.
-     *
-     * @param opacity New indicator node opacity.
-     */
-    void setIndicatorIndexNodesOpacity(GLubyte opacity);
-    
-    /**
-     * @brief Get the opacity of page indicator's index nodes.
-     *
-     * @return opacity
-     */
-    GLubyte getIndicatorIndexNodesOpacity() const;
     
     /**
      * @brief Set scale of page indicator's index nodes.

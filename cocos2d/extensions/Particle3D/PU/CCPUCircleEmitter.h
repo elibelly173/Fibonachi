@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -66,20 +65,20 @@ public:
 
     /* 
     */ 
-    const Quaternion& getOrientation() const;
-    const Vec3& getNormal() const;
+    const Quaternion& getOrientation(void) const;
+    const Vec3& getNormal(void) const;
     void setNormal(const Vec3 &normal); 
 
     /** See ParticleEmiter
     */
-    virtual void notifyStart() override;
+    virtual void notifyStart(void) override;
 
     virtual PUCircleEmitter* clone() override;
     virtual void copyAttributesTo (PUEmitter* emitter) override;
 
 CC_CONSTRUCTOR_ACCESS:
-    PUCircleEmitter();
-    virtual ~PUCircleEmitter() {};
+    PUCircleEmitter(void);
+    virtual ~PUCircleEmitter(void) {};
 
 protected:
 

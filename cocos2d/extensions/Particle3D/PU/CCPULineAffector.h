@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -53,29 +52,29 @@ public:
     virtual void firstParticleUpdate(PUParticle3D *particle, float deltaTime) override;
     /** 
     */
-    float getMaxDeviation() const;
+    float getMaxDeviation(void) const;
     void setMaxDeviation(float maxDeviation);
 
     /** 
     */
-    const Vec3& getEnd() const;
+    const Vec3& getEnd(void) const;
     void setEnd(const Vec3& end);
 
     /** 
     */
-    float getTimeStep() const;
+    float getTimeStep(void) const;
     void setTimeStep(float timeStep);
 
     /** 
     */
-    float getDrift() const;
+    float getDrift(void) const;
     void setDrift(float drift);
 
     virtual void copyAttributesTo (PUAffector* affector) override;
 
 CC_CONSTRUCTOR_ACCESS:          
-    PULineAffector();
-    virtual ~PULineAffector();
+    PULineAffector(void);
+    virtual ~PULineAffector(void);
 
 protected:
 

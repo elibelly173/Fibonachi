@@ -1,6 +1,5 @@
 /****************************************************************************
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -94,7 +93,7 @@ Armature::Armature()
 }
 
 
-Armature::~Armature()
+Armature::~Armature(void)
 {
     _boneDic.clear();
     _topBoneList.clear();
@@ -153,7 +152,7 @@ bool Armature::init(const std::string& name)
                     CC_BREAK_IF(!movData);
 
                     MovementBoneData *movBoneData = movData->getMovementBoneData(bone->getName());
-                    CC_BREAK_IF(!movBoneData || movBoneData->frameList.empty());
+                    CC_BREAK_IF(!movBoneData || movBoneData->frameList.size() <= 0);
 
                     FrameData *frameData = movBoneData->getFrameData(0);
                     CC_BREAK_IF(!frameData);
@@ -717,7 +716,7 @@ void Armature::setBody(cpBody *body)
                 {
                     detector->setBody(body);
                 }
-            }
+            });
         }
     }
 }

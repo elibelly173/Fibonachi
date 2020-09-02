@@ -1,6 +1,5 @@
 /****************************************************************************
  Copyright (c) 2013 cocos2d-x.org
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
  
@@ -270,7 +269,7 @@ void CSLoader::init()
 
 Node* CSLoader::createNode(const std::string& filename)
 {
-    const std::string& path = filename;
+    std::string path = filename;
     size_t pos = path.find_last_of('.');
     std::string suffix = path.substr(pos + 1, path.length());
     
@@ -290,7 +289,7 @@ Node* CSLoader::createNode(const std::string& filename)
 
 Node* CSLoader::createNode(const std::string &filename, const ccNodeLoadCallback &callback)
 {
-    const std::string& path = filename;
+    std::string path = filename;
     size_t pos = path.find_last_of('.');
     std::string suffix = path.substr(pos + 1, path.length());
     
@@ -330,9 +329,11 @@ Node* CSLoader::createNodeWithVisibleSize(const std::string &filename, const ccN
 
 std::string CSLoader::getExtentionName(const std::string& name)
 {
-    const std::string& path = name;
+    std::string result = "";
+
+    std::string path = name;
     size_t pos = path.find_last_of('.');
-    std::string result = path.substr(pos + 1, path.length());
+    result = path.substr(pos + 1, path.length());
 
     return result;
 }
@@ -1019,7 +1020,7 @@ Node* CSLoader::nodeWithFlatBuffers(const flatbuffers::NodeTree *nodetree, const
             std::string filePath = projectNodeOptions->fileName()->c_str();
             
             cocostudio::timeline::ActionTimeline* action = nullptr;
-            if (!filePath.empty() && FileUtils::getInstance()->isFileExist(filePath))
+            if (filePath != "" && FileUtils::getInstance()->isFileExist(filePath))
             {
                 Data buf = FileUtils::getInstance()->getDataFromFile(filePath);
                 node = createNode(buf, callback);
@@ -1052,7 +1053,7 @@ Node* CSLoader::nodeWithFlatBuffers(const flatbuffers::NodeTree *nodetree, const
         else
         {
             std::string customClassName = nodetree->customClassName()->c_str();
-            if (!customClassName.empty())
+            if (customClassName != "")
             {
                 classname = customClassName;
             }
@@ -1366,7 +1367,7 @@ Node* CSLoader::nodeWithFlatBuffersForSimulator(const flatbuffers::NodeTree *nod
         std::string filePath = projectNodeOptions->fileName()->c_str();
         
         cocostudio::timeline::ActionTimeline* action = nullptr;
-        if (!filePath.empty() && FileUtils::getInstance()->isFileExist(filePath))
+        if (filePath != "" && FileUtils::getInstance()->isFileExist(filePath))
         {
             node = createNodeWithFlatBuffersForSimulator(filePath);
             action = cocostudio::timeline::ActionTimelineCache::getInstance()->createActionWithFlatBuffersForSimulator(filePath);

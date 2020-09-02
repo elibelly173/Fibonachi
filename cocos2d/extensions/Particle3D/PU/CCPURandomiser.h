@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -48,34 +47,34 @@ public:
     virtual void postUpdateAffector(float deltaTime) override;
     /** 
     */
-    float getMaxDeviationX() const;
+    float getMaxDeviationX(void) const;
     void setMaxDeviationX(const float maxDeviationX);
 
     /** 
     */
-    float getMaxDeviationY() const;
+    float getMaxDeviationY(void) const;
     void setMaxDeviationY(const float maxDeviationZ);
 
     /** 
     */
-    float getMaxDeviationZ() const;
+    float getMaxDeviationZ(void) const;
     void setMaxDeviationZ(const float maxDeviationZ);
 
     /** 
     */
-    float getTimeStep() const;
+    float getTimeStep(void) const;
     void setTimeStep(const float timeStep);
 
     /** 
     */
-    bool isRandomDirection() const;
+    bool isRandomDirection(void) const;
     void setRandomDirection(bool randomDirection);
 
     virtual void copyAttributesTo (PUAffector* affector) override;
 
 CC_CONSTRUCTOR_ACCESS:	
-    PURandomiser();
-    virtual ~PURandomiser();
+    PURandomiser(void);
+    virtual ~PURandomiser(void);
 
 protected:
     float _maxDeviationX;

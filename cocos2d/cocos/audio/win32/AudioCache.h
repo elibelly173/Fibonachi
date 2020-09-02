@@ -1,6 +1,5 @@
 /****************************************************************************
  Copyright (c) 2014-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
  http://www.cocos2d-x.org
 
@@ -29,18 +28,13 @@
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 
-#include <functional>
-#include <memory>
-#include <mutex>
 #include <string>
+#include <mutex>
 #include <vector>
-#ifdef OPENAL_PLAIN_INCLUDES
-#include <al.h>
-#else
+#include <memory>
 #include <AL/al.h>
-#endif
 #include "platform/CCPlatformMacros.h"
-#include "audio/win32/AudioMacros.h"
+#include "audio/apple/AudioMacros.h"
 
 NS_CC_BEGIN
 namespace experimental{

@@ -3,7 +3,6 @@
  Copyright (c) 2012 James Chen
  Copyright (c) 2013-2015 zilongshanren
  Copyright (c) 2015 Mazyad Alabduljaleel
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
  
@@ -94,8 +93,6 @@
     textInput.ccui_text = _textInput.ccui_text ?: @"";
     textInput.ccui_placeholder = _textInput.ccui_placeholder ?: @"";
     textInput.ccui_font = _textInput.ccui_font ?: [UIFont systemFontOfSize:self.frameRect.size.height*2/3];
-    textInput.ccui_placeholderFont = _textInput.ccui_placeholderFont ?: textInput.ccui_font;
-    textInput.ccui_placeholderTextColor = _textInput.ccui_placeholderTextColor ?: [UIColor lightGrayColor];
     
     [_textInput resignFirstResponder];
     [_textInput removeFromSuperview];
@@ -140,12 +137,12 @@
 
 - (void)setPlaceholderFont:(UIFont *)font
 {
-    self.textInput.ccui_placeholderFont = font;
+    self.textInput.ccui_placeholderLabel.font = font;
 }
 
 - (void)setPlaceholderTextColor:(UIColor *)color
 {
-    self.textInput.ccui_placeholderTextColor = color;
+    self.textInput.ccui_placeholderLabel.textColor = color;
 }
 
 - (void)setInputMode:(cocos2d::ui::EditBox::InputMode)inputMode
@@ -294,8 +291,7 @@
         if (self.keyboardReturnType == cocos2d::ui::EditBox::KeyboardReturnType::NEXT) {
             action = cocos2d::ui::EditBoxDelegate::EditBoxEndAction::TAB_TO_NEXT;
         } else if (self.keyboardReturnType == cocos2d::ui::EditBox::KeyboardReturnType::GO ||
-                   self.keyboardReturnType == cocos2d::ui::EditBox::KeyboardReturnType::SEND ||
-                   self.keyboardReturnType == cocos2d::ui::EditBox::KeyboardReturnType::SEARCH) {
+                 self.keyboardReturnType == cocos2d::ui::EditBox::KeyboardReturnType::SEND) {
             action = cocos2d::ui::EditBoxDelegate::EditBoxEndAction::RETURN;
         }
     }
@@ -444,7 +440,6 @@
 {
     CCLOG("textFieldShouldBeginEditing...");
     _editState = YES;
-    _returnPressed = NO;
     
     auto view = cocos2d::Director::getInstance()->getOpenGLView();
     CCEAGLView *eaglview = (CCEAGLView *)view->getEAGLView();

@@ -1,0 +1,20 @@
+dependencies: \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/BulletMultiThreaded/btGpu3DGridBroadphase.cpp \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletMultiThreaded/btGpuDefines.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletMultiThreaded/btGpuUtilsSharedDefs.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletMultiThreaded/btGpuUtilsSharedCode.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btAlignedAllocator.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btScalar.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btQuickprof.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletCollision//BroadphaseCollision/btOverlappingPairCache.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletCollision//BroadphaseCollision/btBroadphaseInterface.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletCollision//BroadphaseCollision/btBroadphaseProxy.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btVector3.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btMinMax.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletCollision//BroadphaseCollision/btOverlappingPairCallback.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btAlignedObjectArray.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/BulletMultiThreaded/btGpu3DGridBroadphaseSharedDefs.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/BulletMultiThreaded/btGpu3DGridBroadphaseSharedTypes.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/BulletMultiThreaded/btGpu3DGridBroadphase.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletCollision//BroadphaseCollision/btSimpleBroadphase.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/BulletMultiThreaded/btGpu3DGridBroadphaseSharedCode.h

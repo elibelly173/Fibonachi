@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (c) 2010-2012 cocos2d-x.org
  Copyright (c) 2012 James Chen
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
  http://www.cocos2d-x.org
 
@@ -65,29 +64,14 @@ public:
     virtual void setInputMode(EditBox::InputMode inputMode);
     virtual void setInputFlag(EditBox::InputFlag inputFlag);
     virtual void setMaxLength(int maxLength);
-    virtual void setTextHorizontalAlignment(TextHAlignment alignment) { _alignment = alignment; };
+    virtual void setTextHorizontalAlignment(cocos2d::TextHAlignment alignment) { };
     virtual int  getMaxLength();
     virtual void setReturnType(EditBox::KeyboardReturnType returnType);
     virtual bool isEditing();
 
     virtual void setText(const char* pText);
-    virtual const char* getText();
+    virtual const char* getText(void);
     virtual void setPlaceHolder(const char* pText);
-    virtual const char* getPlaceHolder();
-
-    virtual const char* getFontName() override { return _fontName.c_str(); }
-    virtual int getFontSize() override { return _fontSize; }
-    virtual const Color4B& getFontColor() override { return _colText; }
-
-    virtual const char* getPlaceholderFontName() override { return _placeholderFontName.c_str(); }
-    virtual int getPlaceholderFontSize() override { return _placeholderFontSize; }
-    virtual const Color4B& getPlaceholderFontColor() override { return _colPlaceHolder; }
-
-    virtual EditBox::InputMode getInputMode() override { return _editBoxInputMode; }
-    virtual EditBox::InputFlag getInputFlag() override { return _editBoxInputFlag; }
-    virtual EditBox::KeyboardReturnType getReturnType() override { return _keyboardReturnType; }
-    virtual TextHAlignment getTextHorizontalAlignment() override { return _alignment; }
-
     virtual void setPosition(const Vec2& pos);
     virtual void setVisible(bool visible);
     virtual void setContentSize(const Size& size);
@@ -96,12 +80,12 @@ public:
      * @js NA
      * @lua NA
      */
-    virtual void visit();
+    virtual void visit(void);
     /**
      * @js NA
      * @lua NA
      */
-    virtual void onEnter();
+    virtual void onEnter(void);
     virtual void doAnimationWhenKeyboardMove(float duration, float distance);
     virtual void openKeyboard();
     virtual void closeKeyboard();
@@ -112,16 +96,9 @@ private:
     EditBox::InputMode    _editBoxInputMode;
     EditBox::InputFlag    _editBoxInputFlag;
     EditBox::KeyboardReturnType  _keyboardReturnType;
-    TextHAlignment _alignment;
 
     std::string _text;
     std::string _placeHolder;
-
-    std::string _fontName;
-    std::string _placeholderFontName;
-
-    int _fontSize;
-    int _placeholderFontSize;
 
     Color4B _colText;
     Color4B _colPlaceHolder;

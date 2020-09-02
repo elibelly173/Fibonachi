@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -57,21 +56,21 @@ public:
 
     /** 
         */
-    float getPositionXThreshold() const {return _positionXThreshold;};
-    float getPositionYThreshold() const {return _positionYThreshold;};
-    float getPositionZThreshold() const {return _positionZThreshold;};
+    float getPositionXThreshold(void) const {return _positionXThreshold;};
+    float getPositionYThreshold(void) const {return _positionYThreshold;};
+    float getPositionZThreshold(void) const {return _positionZThreshold;};
 
     /** 
         */
-    bool isPositionXThresholdSet() const {return _positionXThresholdSet;};
-    bool isPositionYThresholdSet() const {return _positionYThresholdSet;};
-    bool isPositionZThresholdSet() const {return _positionZThresholdSet;};
+    bool isPositionXThresholdSet(void) const {return _positionXThresholdSet;};
+    bool isPositionYThresholdSet(void) const {return _positionYThresholdSet;};
+    bool isPositionZThresholdSet(void) const {return _positionZThresholdSet;};
 
     /** 
         */
-    void resetPositionXThreshold() {_positionXThresholdSet = false;};
-    void resetPositionYThreshold() {_positionYThresholdSet = false;};
-    void resetPositionZThreshold() {_positionZThresholdSet = false;};
+    void resetPositionXThreshold(void) {_positionXThresholdSet = false;};
+    void resetPositionYThreshold(void) {_positionYThresholdSet = false;};
+    void resetPositionZThreshold(void) {_positionZThresholdSet = false;};
 
     /** 
         */
@@ -88,8 +87,8 @@ public:
     virtual void copyAttributesTo (PUObserver* observer) override;
 
 CC_CONSTRUCTOR_ACCESS:
-    PUOnPositionObserver();
-    virtual ~PUOnPositionObserver() {};
+    PUOnPositionObserver(void);
+    virtual ~PUOnPositionObserver(void) {};
 
 protected:
 

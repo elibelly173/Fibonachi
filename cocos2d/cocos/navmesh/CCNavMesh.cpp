@@ -1,6 +1,5 @@
 /****************************************************************************
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -516,7 +515,7 @@ void cocos2d::NavMesh::findPath(const Vec3 &start, const Vec3 &end, std::vector<
         //dtVcopy(&m_smoothPath[m_nsmoothPath * 3], iterPos);
         //m_nsmoothPath++;
 
-        pathPoints.emplace_back(iterPos[0], iterPos[1], iterPos[2]);
+        pathPoints.push_back(Vec3(iterPos[0], iterPos[1], iterPos[2]));
         nsmoothPath++;
 
         // Move towards target a small advancement at a time until target reached or
@@ -571,7 +570,7 @@ void cocos2d::NavMesh::findPath(const Vec3 &start, const Vec3 &end, std::vector<
                 {
                     //dtVcopy(&m_smoothPath[m_nsmoothPath * 3], iterPos);
                     //m_nsmoothPath++;
-                    pathPoints.emplace_back(iterPos[0], iterPos[1], iterPos[2]);
+                    pathPoints.push_back(Vec3(iterPos[0], iterPos[1], iterPos[2]));
                     nsmoothPath++;
                 }
                 break;
@@ -602,14 +601,14 @@ void cocos2d::NavMesh::findPath(const Vec3 &start, const Vec3 &end, std::vector<
                     {
                         //dtVcopy(&m_smoothPath[m_nsmoothPath * 3], startPos);
                         //m_nsmoothPath++;
-                        pathPoints.emplace_back(startPos[0], startPos[1], startPos[2]);
+                        pathPoints.push_back(Vec3(startPos[0], startPos[1], startPos[2]));
                         nsmoothPath++;
                         // Hack to make the dotted path not visible during off-mesh connection.
                         if (nsmoothPath & 1)
                         {
                             //dtVcopy(&m_smoothPath[m_nsmoothPath * 3], startPos);
                             //m_nsmoothPath++;
-                            pathPoints.emplace_back(startPos[0], startPos[1], startPos[2]);
+                            pathPoints.push_back(Vec3(startPos[0], startPos[1], startPos[2]));
                             nsmoothPath++;
                         }
                     }
@@ -627,7 +626,7 @@ void cocos2d::NavMesh::findPath(const Vec3 &start, const Vec3 &end, std::vector<
                 //dtVcopy(&m_smoothPath[m_nsmoothPath * 3], iterPos);
                 //m_nsmoothPath++;
 
-                pathPoints.emplace_back(iterPos[0], iterPos[1], iterPos[2]);
+                pathPoints.push_back(Vec3(iterPos[0], iterPos[1], iterPos[2]));
                 nsmoothPath++;
             }
         }

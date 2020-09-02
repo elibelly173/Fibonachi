@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -34,7 +33,7 @@ NS_CC_BEGIN
 //const unsigned short Particle3DVertexEmitter::DEFAULT_ITERATIONS = 1;
 //
 ////-----------------------------------------------------------------------
-//Particle3DVertexEmitter::Particle3DVertexEmitter() : ParticleEmitter(),
+//Particle3DVertexEmitter::Particle3DVertexEmitter(void) : ParticleEmitter(),
 //	mPositionElement(0),
 //	mVertexData(0),
 //	mVertexBuffer(0),
@@ -54,7 +53,7 @@ NS_CC_BEGIN
 //	mBuffer.setNull();
 //}
 ////-----------------------------------------------------------------------
-//unsigned short Particle3DVertexEmitter::getIterations() const
+//unsigned short Particle3DVertexEmitter::getIterations(void) const
 //{
 //	return mIterations;
 //}
@@ -64,7 +63,7 @@ NS_CC_BEGIN
 //	mIterations = iterations;
 //}
 ////-----------------------------------------------------------------------
-//unsigned short Particle3DVertexEmitter::getSegments() const
+//unsigned short Particle3DVertexEmitter::getSegments(void) const
 //{
 //	return mSegments;
 //}
@@ -74,7 +73,7 @@ NS_CC_BEGIN
 //	mSegments = segments;
 //}
 ////-----------------------------------------------------------------------
-//unsigned short Particle3DVertexEmitter::getStep() const
+//unsigned short Particle3DVertexEmitter::getStep(void) const
 //{
 //	return mStep;
 //}
@@ -84,7 +83,7 @@ NS_CC_BEGIN
 //	mStep = step;
 //}
 ////-----------------------------------------------------------------------
-//const std::string& Particle3DVertexEmitter::getMeshName() const
+//const std::string& Particle3DVertexEmitter::getMeshName(void) const
 //{
 //	return mMeshName;
 //}
@@ -95,7 +94,7 @@ NS_CC_BEGIN
 //	mMeshName = meshName;
 //}
 ////-----------------------------------------------------------------------
-//void Particle3DVertexEmitter::_notifyStart ()
+//void Particle3DVertexEmitter::_notifyStart (void)
 //{
 //	ParticleEmitter::_notifyStart();
 //	_setDefaults();
@@ -155,7 +154,7 @@ NS_CC_BEGIN
 //	getDerivedPosition();
 //}
 ////-----------------------------------------------------------------------
-//void Particle3DVertexEmitter::_setDefaults()
+//void Particle3DVertexEmitter::_setDefaults(void)
 //{
 //	// Set the default values except the name of the mesh, which may only be changed by the 
 //	// setMeshName() function
@@ -181,7 +180,7 @@ NS_CC_BEGIN
 //	}
 //}
 ////-----------------------------------------------------------------------
-//void Particle3DVertexEmitter::_loadMesh ()
+//void Particle3DVertexEmitter::_loadMesh (void)
 //{
 //	Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().load(mMeshName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 //	mMesh = mesh.getPointer();
@@ -197,7 +196,7 @@ NS_CC_BEGIN
 //	}
 //}
 ////-----------------------------------------------------------------------
-//void Particle3DVertexEmitter::_generatePoints ()
+//void Particle3DVertexEmitter::_generatePoints (void)
 //{
 //	if (mAllVerticesProcessed)
 //	{
@@ -244,7 +243,7 @@ NS_CC_BEGIN
 //	}
 //}
 ////-----------------------------------------------------------------------
-//void Particle3DVertexEmitter::_generatePointsFromMesh ()
+//void Particle3DVertexEmitter::_generatePointsFromMesh (void)
 //{
 //	if (mMaxVertexCount == 0 && mMesh)
 //	{
@@ -264,7 +263,7 @@ NS_CC_BEGIN
 //	}
 //}
 ////-----------------------------------------------------------------------
-//void Particle3DVertexEmitter::_generatePointsFromSubMesh ()
+//void Particle3DVertexEmitter::_generatePointsFromSubMesh (void)
 //{
 //	if (mMaxVertexCount == 0 && mSubMesh)
 //	{
@@ -279,7 +278,7 @@ NS_CC_BEGIN
 //	_generatePointsFromVertexBuffer();
 //}	
 ////-----------------------------------------------------------------------
-//void Particle3DVertexEmitter::_fillVertexBuffer()
+//void Particle3DVertexEmitter::_fillVertexBuffer(void)
 //{
 //	mVertexCount = 0;
 //	mMaxVertexCount = mVertexData->vertexCount - mStep;
@@ -289,7 +288,7 @@ NS_CC_BEGIN
 //	mVertexBuffer = static_cast<unsigned char*>(mBuffer->lock(Ogre::HardwareBuffer::HBL_READ_ONLY));
 //}
 ////-----------------------------------------------------------------------
-//void Particle3DVertexEmitter::_generatePointsFromVertexBuffer()
+//void Particle3DVertexEmitter::_generatePointsFromVertexBuffer(void)
 //{
 //	if (mMaxVertexCount > 1)
 //	{
@@ -323,7 +322,7 @@ NS_CC_BEGIN
 //	@remarks
 //		Use objectspace for the vectors and only transform as soon as a particle is emitted.
 //	*/
-//	std::list<Vec3>::iterator iterator = mSpawnPositionList.end();
+//	list<Vec3>::iterator iterator = mSpawnPositionList.end();
 //	Vec3 start = startVector;
 //	if (lengthIncrement > 0.0f)
 //	{

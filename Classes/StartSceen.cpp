@@ -1,6 +1,5 @@
 #include "StartSceen.h"
 #include "SimpleAudioEngine.h"
-#include "VideoScene.h"
 #include "MapviewScene.h"
 
 USING_NS_CC;
@@ -40,7 +39,7 @@ bool StartSceen::init()
     
     
 //    background->setScale(0.9f);
-    CCLOG("background%f %f", background->getBoundingBox().size.width, background->getBoundingBox().size.height);
+    CCLOG("background %f %f", background->getBoundingBox().size.width, background->getBoundingBox().size.height);
     background->setScale(size.width/background->getContentSize().width, size.height/background->getContentSize().height);
     auto touchListener = EventListenerTouchOneByOne::create();
     
@@ -63,6 +62,9 @@ bool StartSceen::init()
 bool StartSceen::onTouchBegan(Touch* touch, Event* event)
 {
     cocos2d::log("touch began");
+    auto scene = MapviewScene::createScene();
+    Director::getInstance()->replaceScene(scene);
+    
     return true;
 }
 
@@ -70,11 +72,13 @@ void StartSceen::onTouchEnded(Touch* touch, Event* event)
 {
     cocos2d::log("touch ended");
     
+/*
+    auto scene = MapviewScene::createScene();
+    Director::getInstance()->replaceScene(scene);
+*/
     
-    
-//    auto myScene = VideoScene::createScene();
-    auto myScene = MapviewScene::createScene();
-    Director::getInstance()->replaceScene(myScene);
+    // auto myScene = VideoScene::createScene();
+    // Director::getInstance()->replaceScene(myScene);
 //    Director::getInstance()->replaceScene(TransitionSlideInT::create(1, myScene) );
     
     
@@ -99,7 +103,7 @@ void StartSceen::menuCloseCallback(Ref* pSender)
     #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
-    
+    cocos2d::log("touch cancelled------------------");
     /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
     
     //EventCustom customEndEvent("game_scene_close_event");

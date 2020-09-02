@@ -1,7 +1,6 @@
 /****************************************************************************
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -52,7 +51,7 @@ public:
     @brief    Callback by Director to limit FPS.
     @param interval The time, expressed in seconds, between current frame and next.
     */
-    virtual void setAnimationInterval(float interval) override;
+    void setAnimationInterval(float interval) override;
 
     /**
     @brief    Run the message loop.

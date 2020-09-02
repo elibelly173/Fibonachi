@@ -1,6 +1,5 @@
 /****************************************************************************
 Copyright (c) 2013 cocos2d-x.org
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -135,7 +134,7 @@ void ActionTimelineCache::removeAction(const std::string& fileName)
 
 ActionTimeline* ActionTimelineCache::createAction(const std::string& filename)
 {
-    const std::string& path = filename;
+    std::string path = filename;
     size_t pos = path.find_last_of('.');
     std::string suffix = path.substr(pos + 1, path.length());
     
@@ -423,7 +422,7 @@ ActionTimeline* ActionTimelineCache::createActionWithFlatBuffersFile(const std::
     return action->clone();
 }
 
-ActionTimeline* ActionTimelineCache::createActionWithDataBuffer(const Data& data, const std::string &fileName)
+ActionTimeline* ActionTimelineCache::createActionWithDataBuffer(Data data, const std::string &fileName)
 {
     ActionTimeline* action = _animationActions.at(fileName);
     if (action == NULL)
@@ -440,7 +439,7 @@ ActionTimeline* ActionTimelineCache::loadAnimationActionWithFlatBuffersFile(cons
     if (action)
         return action;
     
-    const std::string& path = fileName;
+    std::string path = fileName;
     
     std::string fullPath = FileUtils::getInstance()->fullPathForFilename(fileName);
     
@@ -460,7 +459,7 @@ ActionTimeline* ActionTimelineCache::loadAnimationWithDataBuffer(const cocos2d::
     if (action)
         return action;
 
-    const std::string& path = fileName;
+    std::string path = fileName;
 
     std::string fullPath = FileUtils::getInstance()->fullPathForFilename(fileName);
 
@@ -522,11 +521,11 @@ Timeline* ActionTimelineCache::loadTimelineWithFlatBuffers(const flatbuffers::Ti
     
     // property
     std::string property = flatbuffers->property()->c_str();
-    if(property.empty())
+    if(property == "")
         return nullptr;
     
     
-    if(!property.empty())
+    if(property != "")
     {
         timeline = Timeline::create();
         
@@ -800,7 +799,7 @@ Frame* ActionTimelineCache::loadEventFrameWithFlatBuffers(const flatbuffers::Eve
     
     std::string event = flatbuffers->value()->c_str();
     
-    if (!event.empty())
+    if (event != "")
         frame->setEvent(event);    
     
     int frameIndex = flatbuffers->frameIndex();
@@ -965,10 +964,12 @@ ActionTimeline* ActionTimelineCache::createActionWithFlatBuffersForSimulator(con
     fbs->_isSimulator = true;
     auto builder = fbs->createFlatBuffersWithXMLFileForSimulator(fileName);
     
+    ActionTimeline* action = ActionTimeline::create();
+    
     auto csparsebinary = GetCSParseBinary(builder->GetBufferPointer());
     auto nodeAction = csparsebinary->action();
     
-    auto action = ActionTimeline::create();
+    action = ActionTimeline::create();
     
     int duration = nodeAction->duration();
     action->setDuration(duration);

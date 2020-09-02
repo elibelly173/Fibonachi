@@ -1,6 +1,5 @@
 /****************************************************************************
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -56,7 +55,7 @@ void ArmatureDataManager::destroyInstance()
     CC_SAFE_RELEASE_NULL(s_sharedArmatureDataManager);
 }
 
-ArmatureDataManager::ArmatureDataManager()
+ArmatureDataManager::ArmatureDataManager(void)
 {
     _armarureDatas.clear();
     _animationDatas.clear();
@@ -65,7 +64,7 @@ ArmatureDataManager::ArmatureDataManager()
 }
 
 
-ArmatureDataManager::~ArmatureDataManager()
+ArmatureDataManager::~ArmatureDataManager(void)
 {
     _animationDatas.clear();
     _armarureDatas.clear();
@@ -95,22 +94,22 @@ void ArmatureDataManager::removeArmatureFileInfo(const std::string& configFilePa
 {
     if (RelativeData *data = getRelativeData(configFilePath))
     {
-        for (const std::string& str : data->armatures)
+        for (std::string str : data->armatures)
         {
             removeArmatureData(str);
         }
 
-        for (const std::string& str : data->animations)
+        for (std::string str : data->animations)
         {
             removeAnimationData(str);
         }
 
-        for (const std::string& str : data->textures)
+        for (std::string str : data->textures)
         {
             removeTextureData(str);
         }
 
-        for (const std::string& str : data->plistFiles)
+        for (std::string str : data->plistFiles)
         {
             SpriteFrameCacheHelper::getInstance()->removeSpriteFrameFromFile(str);
         }
@@ -133,7 +132,9 @@ void ArmatureDataManager::addArmatureData(const std::string& id, ArmatureData *a
 
 ArmatureData *ArmatureDataManager::getArmatureData(const std::string& id)
 {
-    return dynamic_cast<ArmatureData*>(_armarureDatas.at(id));
+    ArmatureData *armatureData = nullptr;
+    armatureData = (ArmatureData *)_armarureDatas.at(id);
+    return armatureData;
 }
 
 void ArmatureDataManager::removeArmatureData(const std::string& id)
@@ -153,7 +154,9 @@ void ArmatureDataManager::addAnimationData(const std::string& id, AnimationData 
 
 AnimationData *ArmatureDataManager::getAnimationData(const std::string& id)
 {
-    return dynamic_cast<AnimationData*>(_animationDatas.at(id));
+    AnimationData *animationData = nullptr;
+    animationData = (AnimationData *)_animationDatas.at(id);
+    return animationData;
 }
 
 void ArmatureDataManager::removeAnimationData(const std::string& id)
@@ -174,7 +177,9 @@ void ArmatureDataManager::addTextureData(const std::string& id, TextureData *tex
 
 TextureData *ArmatureDataManager::getTextureData(const std::string& id)
 {
-    return dynamic_cast<TextureData*>(_textureDatas.at(id));
+    TextureData *textureData = nullptr;
+    textureData = (TextureData *)_textureDatas.at(id);
+    return textureData;
 }
 
 

@@ -1,6 +1,5 @@
 /****************************************************************************
-Copyright (c) 2015-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+Copyright (c) 2015 Chukong Technologies Inc.
  
 http://www.cocos2d-x.org
 
@@ -69,7 +68,7 @@ public:
     *@param: groupName, key
     *@param: boneSkinNameMap, map <name of bone, name of skin to display which added to bone>
     */
-    void addSkinGroup(const std::string& groupName, const std::map<std::string, std::string>& boneSkinNameMap);
+    void addSkinGroup(std::string groupName, std::map<std::string, std::string> boneSkinNameMap);
 
     cocos2d::Rect getBoundingBox() const override;
 

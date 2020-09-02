@@ -2,7 +2,6 @@
 Copyright (c) 2011      Erawppa
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -64,10 +63,10 @@ public:
     static void destroyInstance();
 
     /** @deprecated use getInstance() instead */
-    CC_DEPRECATED_ATTRIBUTE static __NotificationCenter *sharedNotificationCenter();
+    CC_DEPRECATED_ATTRIBUTE static __NotificationCenter *sharedNotificationCenter(void);
 
     /** @deprecated use destroyInstance() instead */
-    CC_DEPRECATED_ATTRIBUTE static void purgeNotificationCenter();
+    CC_DEPRECATED_ATTRIBUTE static void purgeNotificationCenter(void);
 
 
     /** @brief Adds an observer for the specified target.

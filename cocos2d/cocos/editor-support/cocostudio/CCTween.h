@@ -1,6 +1,5 @@
 ﻿/****************************************************************************
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -50,8 +49,8 @@ public:
      */
     static Tween *create(Bone *bone);
 public:
-    Tween();
-    virtual ~Tween();
+    Tween(void);
+    virtual ~Tween(void);
 
     /**
      * Init with a Bone

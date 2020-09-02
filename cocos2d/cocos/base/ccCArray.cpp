@@ -1,8 +1,7 @@
 /****************************************************************************
 Copyright (c) 2007      Scott Lembcke
 Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+CopyRight (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -72,9 +71,9 @@ void ccArrayEnsureExtraCapacity(ccArray *arr, ssize_t extra)
 {
 	while (arr->max < arr->num + extra)
     {
-        CCLOGINFO("cocos2d: ccCArray: resizing ccArray capacity from [%zd] to [%zd].",
-              arr->max,
-              arr->max*2);
+        CCLOGINFO("cocos2d: ccCArray: resizing ccArray capacity from [%d] to [%d].",
+              static_cast<int>(arr->max),
+              static_cast<int>(arr->max*2));
 
 		ccArrayDoubleCapacity(arr);
     }

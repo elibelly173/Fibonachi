@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -169,7 +168,7 @@ struct CC_DLL PUParticle3D : public Particle3D
 
     unsigned int eventFlags;
 
-    bool isFreezed() const
+    bool isFreezed(void) const
     {
         return freezed;
     }
@@ -216,7 +215,7 @@ class CC_DLL PUParticleSystem3D : public ParticleSystem3D
 {
 public:
 
-    typedef std::unordered_map<std::string, ParticlePool> ParticlePoolMap;
+    typedef std::map<std::string, ParticlePool> ParticlePoolMap;
 
     static const float DEFAULT_WIDTH;
     static const float DEFAULT_HEIGHT;
@@ -349,7 +348,7 @@ public:
     const ParticlePoolMap& getEmittedSystemParticlePool() const { return _emittedSystemParticlePool; };
 
     bool makeParticleLocal(PUParticle3D* particle);
-    void calulateRotationOffset();
+    void calulateRotationOffset(void);
 
     virtual PUParticleSystem3D* clone();
     virtual void copyAttributesTo(PUParticleSystem3D* system);

@@ -1,6 +1,5 @@
 /****************************************************************************
  Copyright (c) 2013-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
  http://www.cocos2d-x.org
 
@@ -63,7 +62,7 @@ VertexBuffer::VertexBuffer()
 , _vertexNumber(0)
 {
     
-#if CC_ENABLE_CACHE_TEXTURE_DATA
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
     auto callBack = [this](EventCustom* event)
     {
         this->recreateVBO();
@@ -81,7 +80,7 @@ VertexBuffer::~VertexBuffer()
         glDeleteBuffers(1, &_vbo);
         _vbo = 0;
     }
-#if CC_ENABLE_CACHE_TEXTURE_DATA
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
     Director::getInstance()->getEventDispatcher()->removeEventListener(_recreateVBOEventListener);
 #endif
 }
@@ -191,7 +190,7 @@ IndexBuffer::IndexBuffer()
 , _indexNumber(0)
 , _recreateVBOEventListener(nullptr)
 {
-#if CC_ENABLE_CACHE_TEXTURE_DATA
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
     auto callBack = [this](EventCustom* event)
     {
         this->recreateVBO();
@@ -208,7 +207,7 @@ IndexBuffer::~IndexBuffer()
         glDeleteBuffers(1, &_vbo);
         _vbo = 0;
     }
-#if CC_ENABLE_CACHE_TEXTURE_DATA
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
     Director::getInstance()->getEventDispatcher()->removeEventListener(_recreateVBOEventListener);
 #endif
 }
@@ -291,15 +290,15 @@ void IndexBuffer::recreateVBO() const
 {
     CCLOG("come to foreground of IndexBuffer");
     glGenBuffers(1, &_vbo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, _vbo);
     const void* buffer = nullptr;
     if(isShadowCopyEnabled())
     {
         buffer = &_shadowCopy[0];
     }
     CCLOG("recreate IndexBuffer with size %d %d ", getSizePerIndex(), _indexNumber);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, getSize(), buffer, _usage);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glBufferData(GL_ARRAY_BUFFER, getSize(), buffer, _usage);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
     if(!glIsBuffer(_vbo))
     {
         CCLOGERROR("recreate IndexBuffer Error");

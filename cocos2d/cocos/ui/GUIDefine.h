@@ -1,6 +1,5 @@
 /****************************************************************************
  Copyright (c) 2014 cocos2d-x.org
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
  
@@ -37,10 +36,10 @@
 #define DECLARE_CLASS_GUI_INFO \
     public: \
     static cocos2d::ObjectFactory::TInfo __Type; \
-    static cocos2d::Ref* createInstance(); \
+    static cocos2d::Ref* createInstance(void); \
 
 #define IMPLEMENT_CLASS_GUI_INFO(className) \
-    cocos2d::Ref* className::createInstance() \
+    cocos2d::Ref* className::createInstance(void) \
     { \
         return className::create(); \
     } \
@@ -57,10 +56,10 @@
 #define DECLARE_CLASS_WIDGET_READER_INFO \
     public: \
     static cocos2d::ObjectFactory::TInfo __Type; \
-    static cocos2d::Ref* createInstance(); \
+    static cocos2d::Ref* createInstance(void); \
 
 #define IMPLEMENT_CLASS_WIDGET_READER_INFO(className) \
-    cocos2d::Ref* className::createInstance() \
+    cocos2d::Ref* className::createInstance(void) \
     { \
         return className::getInstance(); \
     } \

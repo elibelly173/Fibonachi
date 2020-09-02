@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -36,7 +35,7 @@ const float PULineEmitter::DEFAULT_MAX_INCREMENT = 0.0f;
 const float PULineEmitter::DEFAULT_MAX_DEVIATION = 0.0f;
 
 //-----------------------------------------------------------------------
-PULineEmitter::PULineEmitter() :
+PULineEmitter::PULineEmitter(void) : 
     PUEmitter(),
     _end(DEFAULT_END),
     _maxDeviation(DEFAULT_MAX_DEVIATION),
@@ -53,7 +52,7 @@ PULineEmitter::PULineEmitter() :
 {
 }
 //-----------------------------------------------------------------------
-void PULineEmitter::notifyStart ()
+void PULineEmitter::notifyStart (void)
 {
     // Reset the incremental attributes to allow a restart.
     PUEmitter::notifyStart();
@@ -99,7 +98,7 @@ unsigned short PULineEmitter::calculateRequestedParticles(float timeElapsed)
     return requested;
 }
 //-----------------------------------------------------------------------
-const Vec3& PULineEmitter::getEnd() const
+const Vec3& PULineEmitter::getEnd(void) const
 {
     return _end;
 }
@@ -111,7 +110,7 @@ void PULineEmitter::setEnd(const Vec3& end)
     _length = _end.length();
 }
 //-----------------------------------------------------------------------
-float PULineEmitter::getMaxIncrement() const
+float PULineEmitter::getMaxIncrement(void) const
 {
     return _maxIncrement;
 }
@@ -122,7 +121,7 @@ void PULineEmitter::setMaxIncrement(float maxIncrement)
     _scaledMaxIncrement = _maxIncrement * _emitterScale.length();
 }
 //-----------------------------------------------------------------------
-float PULineEmitter::getMinIncrement() const
+float PULineEmitter::getMinIncrement(void) const
 {
     return _minIncrement;
 }
@@ -133,7 +132,7 @@ void PULineEmitter::setMinIncrement(float minIncrement)
     _scaledMinIncrement = _minIncrement * _emitterScale.length();
 }
 //-----------------------------------------------------------------------
-float PULineEmitter::getMaxDeviation() const
+float PULineEmitter::getMaxDeviation(void) const
 {
     return _maxDeviation;
 }

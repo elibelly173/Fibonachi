@@ -2,7 +2,6 @@
 Copyright (c) 2010      Ricardo Quesada
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -229,15 +228,6 @@ public:
      * @return The Configuration info.
      */
     std::string getInfo() const;
-    
-    /**
-     Returns the configuration as value map
-     @return the configuration map
-     @since 3.18
-     @js NA
-     @lua NA
-    */
-    const ValueMap& getInfoAsMap()const { return _valueDict; }
 
 	/** Gathers OpenGL / GPU information.
      */
@@ -252,7 +242,7 @@ public:
     static const char* CONFIG_FILE_LOADED;
 
 private:
-    Configuration();
+    Configuration(void);
     static Configuration    *s_sharedConfiguration;
 	static std::string		s_configfile;
     

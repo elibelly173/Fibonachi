@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -54,13 +53,13 @@ public:
     PUSphere(const Vec3& center, float radius);
 
     /** Returns the radius of the sphere. */
-    float getRadius() const { return _radius; }
+    float getRadius(void) const { return _radius; }
 
     /** Sets the radius of the sphere. */
     void setRadius(float radius) { _radius = radius; }
 
     /** Returns the center point of the sphere. */
-    const Vec3& getCenter() const { return _center; }
+    const Vec3& getCenter(void) const { return _center; }
 
     /** Sets the center point of the sphere. */
     void setCenter(const Vec3& center) { _center = center; }

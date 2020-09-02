@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -73,11 +72,11 @@ class CC_DLL PUDynamicAttribute : public Ref
 
         /** Constructor
         */
-        PUDynamicAttribute ();
+        PUDynamicAttribute (void);
 
         /** Destructor
         */
-        virtual ~PUDynamicAttribute ();
+        virtual ~PUDynamicAttribute (void);
 
         /** Virtual function that needs to be implemented by its childs.
         */
@@ -85,7 +84,7 @@ class CC_DLL PUDynamicAttribute : public Ref
 
         /** Todo
         */
-        DynamicAttributeType getType () const;
+        DynamicAttributeType getType (void) const;
 
         /** Todo
         */
@@ -93,7 +92,7 @@ class CC_DLL PUDynamicAttribute : public Ref
 
         /** Returns true if one of the attributes was changed by an external source.
         */
-        bool isValueChangedExternally() const;
+        bool isValueChangedExternally(void) const;
 
         virtual void copyAttributesTo(PUDynamicAttribute* dynamicAttribute) = 0;
         virtual PUDynamicAttribute* clone() = 0;
@@ -114,7 +113,7 @@ class CC_DLL PUDynamicAttributeFixed : public PUDynamicAttribute
     public:
         /** Constructor
         */
-        PUDynamicAttributeFixed ();
+        PUDynamicAttributeFixed (void);
 
         /** Copy constructor
         */
@@ -122,7 +121,7 @@ class CC_DLL PUDynamicAttributeFixed : public PUDynamicAttribute
 
         /** Destructor
         */
-        ~PUDynamicAttributeFixed ();
+        ~PUDynamicAttributeFixed (void);
 
         /** Todo
         */
@@ -146,7 +145,7 @@ class CC_DLL PUDynamicAttributeRandom : public PUDynamicAttribute
     public:
         /** Constructor
         */
-        PUDynamicAttributeRandom ();
+        PUDynamicAttributeRandom (void);
 
         /** Copy constructor
         */
@@ -154,7 +153,7 @@ class CC_DLL PUDynamicAttributeRandom : public PUDynamicAttribute
 
         /** Destructor
         */
-        ~PUDynamicAttributeRandom ();
+        ~PUDynamicAttributeRandom (void);
 
         /** Todo
         */
@@ -163,9 +162,9 @@ class CC_DLL PUDynamicAttributeRandom : public PUDynamicAttribute
         /** Todo
         */
         void setMin (float min);
-        float getMin () const;
+        float getMin (void) const;
         void setMax (float max);
-        float getMax () const;
+        float getMax (void) const;
         void setMinMax (float min, float max);
 
         virtual PUDynamicAttributeRandom* clone() override;
@@ -188,7 +187,7 @@ class CC_DLL PUDynamicAttributeCurved : public PUDynamicAttribute
 
         /** Constructor
         */
-        PUDynamicAttributeCurved ();
+        PUDynamicAttributeCurved (void);
         PUDynamicAttributeCurved (PUInterpolationType interpolationType);
 
         /** Copy constructor
@@ -197,12 +196,12 @@ class CC_DLL PUDynamicAttributeCurved : public PUDynamicAttribute
 
         /** Destructor
         */
-        ~PUDynamicAttributeCurved ();
+        ~PUDynamicAttributeCurved (void);
 
         /** Get and set the curve type
         */
         void setInterpolationType (PUInterpolationType interpolationType);
-        PUInterpolationType getInterpolationType () const;
+        PUInterpolationType getInterpolationType (void) const;
 
         /** Todo
         */
@@ -214,19 +213,19 @@ class CC_DLL PUDynamicAttributeCurved : public PUDynamicAttribute
 
         /** Todo
         */
-        const ControlPointList& getControlPoints () const;
+        const ControlPointList& getControlPoints (void) const;
 
         /** Todo
         */
-        void processControlPoints ();
+        void processControlPoints (void);
 
         /** Todo
         */
-        size_t getNumControlPoints() const;
+        size_t getNumControlPoints(void) const;
 
         /** Todo
         */
-        void removeAllControlPoints();
+        void removeAllControlPoints(void);
 
         virtual PUDynamicAttributeCurved* clone() override;
         virtual void copyAttributesTo(PUDynamicAttribute* dynamicAttribute) override;
@@ -255,8 +254,8 @@ class CC_DLL PUDynamicAttributeCurved : public PUDynamicAttribute
 
         /** Helper functions 
         */
-        inline ControlPointList::iterator getFirstValidIterator();
-        inline ControlPointList::iterator getLastValidIterator();
+        inline ControlPointList::iterator getFirstValidIterator(void);
+        inline ControlPointList::iterator getLastValidIterator(void);
 };
 
 /* This class generates values based on an oscillating function (i.e. Sine).
@@ -272,7 +271,7 @@ class CC_DLL PUDynamicAttributeOscillate : public PUDynamicAttribute
 
         /** Constructor
         */
-        PUDynamicAttributeOscillate ();
+        PUDynamicAttributeOscillate (void);
 
         /** Copy constructor
         */
@@ -280,7 +279,7 @@ class CC_DLL PUDynamicAttributeOscillate : public PUDynamicAttribute
 
         /** Destructor
         */
-        ~PUDynamicAttributeOscillate ();
+        ~PUDynamicAttributeOscillate (void);
 
         /** Todo
         */
@@ -288,27 +287,27 @@ class CC_DLL PUDynamicAttributeOscillate : public PUDynamicAttribute
 
         /** Get and set the OscillationType
         */
-        OscillationType getOscillationType () const;
+        OscillationType getOscillationType (void) const;
         void setOscillationType (OscillationType oscillationType);
 
         /** Get and set the Frequency
         */
-        float getFrequency () const;
+        float getFrequency (void) const;
         void setFrequency (float frequency);
 
         /** Get and set the Phase
         */
-        float getPhase () const;
+        float getPhase (void) const;
         void setPhase (float phase);
 
         /** Get and set the Base
         */
-        float getBase () const;
+        float getBase (void) const;
         void setBase (float base);
 
         /** Get and set the Amplitude
         */
-        float getAmplitude () const;
+        float getAmplitude (void) const;
         void setAmplitude (float amplitude);
 
         virtual PUDynamicAttributeOscillate* clone() override;

@@ -1,6 +1,5 @@
 /****************************************************************************
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -29,11 +28,11 @@ using namespace cocos2d;
 
 namespace cocostudio {
     
-BaseTriggerCondition::BaseTriggerCondition()
+BaseTriggerCondition::BaseTriggerCondition(void)
 {
 }
 
-BaseTriggerCondition::~BaseTriggerCondition()
+BaseTriggerCondition::~BaseTriggerCondition(void)
 {
 }
 
@@ -60,11 +59,11 @@ void BaseTriggerCondition::removeAll()
 {
 }
 
-BaseTriggerAction::BaseTriggerAction()
+BaseTriggerAction::BaseTriggerAction(void)
 {
 }
 
-BaseTriggerAction::~BaseTriggerAction()
+BaseTriggerAction::~BaseTriggerAction(void)
 {
 }
 
@@ -90,13 +89,13 @@ void BaseTriggerAction::removeAll()
 {
 }
 
-TriggerObj::TriggerObj()
+TriggerObj::TriggerObj(void)
 :_id(UINT_MAX)
 ,_enabled(true)
 {
 }
 
-TriggerObj::~TriggerObj()
+TriggerObj::~TriggerObj(void)
 {
 }
 
@@ -252,14 +251,14 @@ void TriggerObj::serialize(cocostudio::CocoLoader *pCocoLoader, cocostudio::stEx
     {
         std::string key = pTriggerObjArray[i0].GetName(pCocoLoader);
         const char* str0 = pTriggerObjArray[i0].GetValue(pCocoLoader);
-        if (key == "id")
+        if (key.compare("id") == 0)
         {
             if (str0 != nullptr)
             {
                 _id = atoi(str0); 
             }
         }
-        else if (key == "conditions")
+        else if (key.compare("conditions") == 0)
         {
             count = pTriggerObjArray[i0].GetChildNum();
             stExpCocoNode *pConditionsArray = pTriggerObjArray[i0].GetChildArray(pCocoLoader);
@@ -279,7 +278,7 @@ void TriggerObj::serialize(cocostudio::CocoLoader *pCocoLoader, cocostudio::stEx
                 _cons.pushBack(con);
             }
         }
-        else if (key == "actions")
+        else if (key.compare("actions") == 0)
         {
             count = pTriggerObjArray[i0].GetChildNum();
             stExpCocoNode *pActionsArray = pTriggerObjArray[i0].GetChildArray(pCocoLoader);
@@ -299,7 +298,7 @@ void TriggerObj::serialize(cocostudio::CocoLoader *pCocoLoader, cocostudio::stEx
                 _acts.pushBack(act);
             }
         }
-        else if (key == "events")
+        else if (key.compare("events") == 0)
         {
             count = pTriggerObjArray[i0].GetChildNum();
             stExpCocoNode *pEventsArray = pTriggerObjArray[i0].GetChildArray(pCocoLoader);

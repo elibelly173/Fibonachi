@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -47,7 +46,7 @@ public:
     virtual void updatePUAffector(PUParticle3D *particle, float deltaTime) override;
     /** 
     */
-    const Vec3& getRotationVector() const;
+    const Vec3& getRotationVector(void) const;
 
     /** 
     */
@@ -55,7 +54,7 @@ public:
 
     /** 
     */
-    PUDynamicAttribute* getRotationSpeed() const;
+    PUDynamicAttribute* getRotationSpeed(void) const;
 
     /** 
     */
@@ -64,14 +63,14 @@ public:
     virtual void copyAttributesTo (PUAffector* affector) override;
 
 CC_CONSTRUCTOR_ACCESS:	      
-    PUVortexAffector();
-    virtual ~PUVortexAffector();
+    PUVortexAffector(void);
+    virtual ~PUVortexAffector(void);
 
 protected:
 
     /** 
     */
-    float calculateRotationSpeed();
+    float calculateRotationSpeed(void);
 
 protected:
     Vec3 _rotationVector;

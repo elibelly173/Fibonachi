@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -57,7 +56,7 @@ public:
     @remarks
         If value is true, the collision is inside of the box.
     */
-    bool isInnerCollision() const;
+    bool isInnerCollision(void) const;
 
     /** Set indication whether the collision is inside or outside of the box
     @remarks
@@ -72,8 +71,8 @@ public:
     virtual void copyAttributesTo (PUAffector* affector) override;
 
 CC_CONSTRUCTOR_ACCESS:	
-    PUSphereCollider();
-    virtual ~PUSphereCollider();
+    PUSphereCollider(void);
+    virtual ~PUSphereCollider(void);
 
 protected:
     float _radius;

@@ -38,6 +38,11 @@ bool MapviewScene::init()
     {
         return false;
     }
+    
+//    UserDefault::getInstance()->setIntegerForKey("completedLevel",0);
+//    UserDefault::getInstance()->setIntegerForKey("lockLevel",0);
+
+    
     completedLevel =UserDefault::getInstance()->getIntegerForKey("completedLevel");
     lockLevel = UserDefault::getInstance()->getIntegerForKey("lockLevel");
     
@@ -85,7 +90,7 @@ void MapviewScene::initAddbutton(){
             
             
             const char *levelstarString = StringUtils::format("level%dstar", ii+1).c_str();
-            int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 0);
+            int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 3);
             
             auto starImage = Sprite::create(StringUtils::format("res/star_levels/%d.png", starCount)); //here the background.png is a "red screen" png.
             starImage->setPosition(Vec2(scrollframesize.width * x / 100.0f, scrollframesize.width *(y - 4.5)/ 100.0f));
@@ -113,7 +118,6 @@ void MapviewScene::getLevelInfo(){
     data = FileUtils::getInstance()->getValueMapFromFile(path);
     this->arrLevels = data.at("levels").asValueVector();
     CCLOG("level %d", 55);
-
 }
 
 void MapviewScene::initscroll(){
@@ -142,17 +146,17 @@ void MapviewScene::initscroll(){
     //    float contentH = scrollView->getContentSize().height;
     //    float h = scrollView->getInnerContainerSize().height - contentH;
     //    float y = MIN(228+268*int((gCurrentStage-1)/3)-contentH/2, h);
-    float y = 0.0f;
+    float z = 100.0f;
     if(lockLevel>0){
         ValueMap sdata = (arrLevels[lockLevel-1]).asValueMap();
-        y =  sdata["y"].asFloat();
-    } else {
-        y = 0.0f;
-    }
+        z =  sdata["z"].asFloat();
+    } 
     
     
-    float scrollPos = (scrollframesize.width*4.4 - y)*100/(scrollframesize.width*4.4);
-    scrollView->jumpToPercentVertical(scrollPos);
+    //float scrollPos = 100 - y/420;//(scrollframesize.width*4.4 - y)*100/(scrollframesize.width*4.4);
+    
+    scrollView->jumpToPercentVertical(z);
+    //scrollView->scrollToPercentVertical(70, 10, true);
     scrollView->setTag(TAG_MAP_SCROLL);
     this->addChild(scrollView);
 }
@@ -176,7 +180,7 @@ void MapviewScene::showPos(){
 
 void MapviewScene::onEnterTransitionDidFinish() {
     playMusic();
-    
+/*
     if(!enterFlag){
         enterFlag = true;
     } else{
@@ -194,6 +198,7 @@ void MapviewScene::onEnterTransitionDidFinish() {
         movePos(insteadlevel);
         
     }
+*/
 }
 void MapviewScene::changeButton(int diff, int insteadlevel){
     cocos2d::ui::ScrollView *scrollView = (cocos2d::ui::ScrollView*)this->getChildByTag(TAG_MAP_SCROLL);
@@ -326,7 +331,7 @@ void MapviewScene::showLevelExplainacreen(int level){
     int targetnumber =  sdata["targetnumber"].asInt();
     int targettime =  sdata["time2"].asInt();
     
-    auto levelNumber = Sprite::create(StringUtils::format("res/title/timer/timer%d.png", targetnumber));
+    auto levelNumber = Sprite::create(StringUtils::format("res/title/number%d.png", targetnumber));
     levelNumber->setPosition(levelBgPos.x - this->scrollframesize.width*0.21, levelBgPos.y - this->scrollframesize.width*0.02);
     levelNumber->setScale(this->scrollframesize.width*0.08/levelNumber->getContentSize().width);
     
@@ -450,5 +455,3 @@ void MapviewScene::scheduleCallback(float delta)
     auto *levelLayer = (Layer*)this->getChildByTag(TAG_MAP_LEVELLAYER);
     this->removeChild(levelLayer);
 }
-
-

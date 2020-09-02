@@ -1,6 +1,5 @@
 /****************************************************************************
- Copyright (c) 2013-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2013 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -57,11 +56,11 @@ typedef struct PhysicsRayCastInfo
 {
     PhysicsShape* shape;
     Vec2 start;
-    Vec2 end;              ///< in lua, it's name is "ended"
+    Vec2 end;              //< in lua, it's name is "ended"
     Vec2 contact;
     Vec2 normal;
 
-    // FIXME: correct thing to do is use `cpFloat` instead of float.
+    // FIXME: correct thing to do is use `cpFlaot` instead of float.
     // but in order to do so, we should include "chipmunk_types.h"
     // in Chipmunk v7.0, chipmunk_types includes all the mac types that
     // conflicts with cocos2d Size, Point,... etc types. And all the CocosStudio
@@ -167,7 +166,7 @@ public:
     * @param   end   A Vec2 object contains the end position of the ray.
     * @param   data   User defined data, it is passed to func. 
     */
-    void rayCast(const PhysicsRayCastCallbackFunc& func, const Vec2& start, const Vec2& end, void* data);
+    void rayCast(PhysicsRayCastCallbackFunc func, const Vec2& start, const Vec2& end, void* data);
     
     /**
     * Searches for physics shapes that contains in the rect. 
@@ -177,7 +176,7 @@ public:
     * @param   rect   A Rect object contains a rectangle's x, y, width and height.
     * @param   data   User defined data, it is passed to func. 
     */
-    void queryRect(const PhysicsQueryRectCallbackFunc& func, const Rect& rect, void* data);
+    void queryRect(PhysicsQueryRectCallbackFunc func, const Rect& rect, void* data);
     
     /**
     * Searches for physics shapes that contains the point. 
@@ -187,7 +186,7 @@ public:
     * @param   point   A Vec2 object contains the position of the point.
     * @param   data   User defined data, it is passed to func. 
     */
-    void queryPoint(const PhysicsQueryPointCallbackFunc& func, const Vec2& point, void* data);
+    void queryPoint(PhysicsQueryPointCallbackFunc func, const Vec2& point, void* data);
     
     /**
     * Get physics shapes that contains the point. 
@@ -311,27 +310,12 @@ public:
     void setDebugDrawMask(int mask);
 
     /**
-     * set the callback which invoked before update of each object in physics world.
-     */
-    void setPreUpdateCallback(const std::function<void()> &callback);
-
-    /**
-     * set the callback which invoked after update of each object in physics world.
-     */
-    void setPostUpdateCallback(const std::function<void()> &callback);
-
-    /**
     * Get the debug draw mask.
     *
     * @return An integer number.
     */
     int getDebugDrawMask() { return _debugDrawMask; }
-
-    /**
-    * Set the debug draw global Z order.
-    */
-    void setDebugDrawGlobalZOrder(float globalZOrder) { _debugDrawGlobalZOrder = globalZOrder; }
-
+    
     /**
      * To control the step of physics.
      *
@@ -367,7 +351,7 @@ protected:
     virtual void addShape(PhysicsShape* shape);
     virtual void removeShape(PhysicsShape* shape);
     virtual void update(float delta, bool userCall = false);
-
+    
     virtual void debugDraw();
     
     virtual bool collisionBeginCallback(PhysicsContact& contact);
@@ -382,7 +366,7 @@ protected:
     virtual void removeBodyOrDelay(PhysicsBody* body);
     virtual void updateBodies();
     virtual void updateJoints();
-
+    
 protected:
     Vec2 _gravity;
     float _speed;
@@ -401,8 +385,7 @@ protected:
     bool _autoStep;
     DrawNode* _debugDraw;
     int _debugDrawMask;
-    float _debugDrawGlobalZOrder;
-
+    
     EventDispatcher* _eventDispatcher;
 
     Vector<PhysicsBody*> _delayAddBodies;
@@ -410,9 +393,6 @@ protected:
     std::vector<PhysicsJoint*> _delayAddJoints;
     std::vector<PhysicsJoint*> _delayRemoveJoints;
     
-    std::function<void()> _preUpdateCallback;
-    std::function<void()> _postUpdateCallback;
-
 protected:
     PhysicsWorld();
     virtual ~PhysicsWorld();

@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -45,7 +44,7 @@ public:
     static PULineEmitter* create();
     /** 
     */
-    virtual void notifyStart () override;
+    virtual void notifyStart (void) override;
 
     /** Override the default implementation, to allow that no particles are emitted if there
         is an incremental emission of particles (along a path), and the end of the line has
@@ -55,22 +54,22 @@ public:
 
     /** 
     */
-    float getMaxDeviation() const;
+    float getMaxDeviation(void) const;
     void setMaxDeviation(float maxDeviation);
 
     /** 
     */
-    float getMaxIncrement() const;
+    float getMaxIncrement(void) const;
     void setMaxIncrement(float maxIncrement);
             
     /** 
     */
-    float getMinIncrement() const;
+    float getMinIncrement(void) const;
     void setMinIncrement(float minIncrement);
             
     /** Get the end vector. This is the vector that defines the end of the line (in local space).
     */
-    const Vec3& getEnd() const;
+    const Vec3& getEnd(void) const;
 
     /** Set the end vector.
     */
@@ -92,8 +91,8 @@ public:
     virtual void copyAttributesTo (PUEmitter* emitter) override;
 
 CC_CONSTRUCTOR_ACCESS:
-    PULineEmitter();
-    virtual ~PULineEmitter() {};
+    PULineEmitter(void);
+    virtual ~PULineEmitter(void) {};
 
 protected:
 

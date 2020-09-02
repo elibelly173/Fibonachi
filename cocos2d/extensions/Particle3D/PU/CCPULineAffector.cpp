@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -36,7 +35,7 @@ const Vec3 PULineAffector::DEFAULT_END(0, 0, 0);
 const float PULineAffector::DEFAULT_DRIFT = 0.0f;
 
 //-----------------------------------------------------------------------
-PULineAffector::PULineAffector() :
+PULineAffector::PULineAffector(void) : 
     PUAffector(),
     _maxDeviation(DEFAULT_MAX_DEVIATION),
     _scaledMaxDeviation(1.0f),
@@ -50,11 +49,12 @@ PULineAffector::PULineAffector() :
 {
 }
 
-PULineAffector::~PULineAffector()
+PULineAffector::~PULineAffector( void )
 {
+
 }
 //-----------------------------------------------------------------------
-float PULineAffector::getMaxDeviation() const
+float PULineAffector::getMaxDeviation(void) const
 {
     return _maxDeviation;
 }
@@ -65,7 +65,7 @@ void PULineAffector::setMaxDeviation(float maxDeviation)
     _scaledMaxDeviation = _maxDeviation * _affectorScale.length();
 }
 //-----------------------------------------------------------------------
-const Vec3& PULineAffector::getEnd() const
+const Vec3& PULineAffector::getEnd(void) const
 {
     return _end;
 }
@@ -75,7 +75,7 @@ void PULineAffector::setEnd(const Vec3& end)
     _end = end;
 }
 //-----------------------------------------------------------------------
-float PULineAffector::getTimeStep() const
+float PULineAffector::getTimeStep(void) const
 {
     return _timeStep;
 }
@@ -85,7 +85,7 @@ void PULineAffector::setTimeStep(float timeStep)
     _timeStep = timeStep;
 }
 //-----------------------------------------------------------------------
-float PULineAffector::getDrift() const
+float PULineAffector::getDrift(void) const
 {
     return _drift;
 }

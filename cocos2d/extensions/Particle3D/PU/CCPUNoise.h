@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -36,8 +35,8 @@ class PUNoise3D
 {
 public:
     /* Constructor / Destructor */
-    PUNoise3D();
-    virtual ~PUNoise3D();
+    PUNoise3D(void);
+    virtual ~PUNoise3D(void);
 
     /* Inititialises the noise function */
     void initialise(unsigned short octaves, double frequency = 1.0, double amplitude = 1.0, double persistence = 1.0);

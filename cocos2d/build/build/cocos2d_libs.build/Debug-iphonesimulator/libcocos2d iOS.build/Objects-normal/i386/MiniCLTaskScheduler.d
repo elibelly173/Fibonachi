@@ -1,0 +1,20 @@
+dependencies: \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/MiniCL/MiniCLTaskScheduler.cpp \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/MiniCL/MiniCLTaskScheduler.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletMultiThreaded/PlatformDefinitions.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btScalar.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btMinMax.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/vectormath/vmInclude.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/vectormath/sse/vectormath_aos.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/vectormath/sse/vecidx_aos.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/vectormath/sse/floatInVec.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/vectormath/sse/boolInVec.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/vectormath/sse/vec_aos.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/vectormath/sse/quat_aos.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/vectormath/sse/mat_aos.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletMultiThreaded/PpuAddressSpace.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btAlignedObjectArray.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/LinearMath/btAlignedAllocator.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/external/bullet/MiniCL/MiniCLTask/MiniCLTask.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/BulletMultiThreaded/btThreadSupportInterface.h \
+  /Volumes/DATA/work/cocos-project/fibonachi-cpp/cocos2d/build/../external/bullet/MiniCL/cl_platform.h

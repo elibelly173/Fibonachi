@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -63,11 +62,11 @@ PUForceFieldAffector::PUForceFieldAffector() :
     _movementFrequencyCount(0.0f),
     _suppressGeneration(false)
 {
-}
+};
 //-----------------------------------------------------------------------
 PUForceFieldAffector::~PUForceFieldAffector()
 {
-}
+};
 //-----------------------------------------------------------------------
 PUForceField::ForceFieldType PUForceFieldAffector::getForceFieldType() const
 {
@@ -83,7 +82,7 @@ void PUForceFieldAffector::setForceFieldType(const PUForceField::ForceFieldType 
     _forceField.setForceFieldType(forceFieldType);
 }
 //-----------------------------------------------------------------------
-float PUForceFieldAffector::getDelta() const
+float PUForceFieldAffector::getDelta(void) const
 {
     return _delta;
 }
@@ -93,7 +92,7 @@ void PUForceFieldAffector::setDelta(float delta)
     _delta = delta;
 }
 //-----------------------------------------------------------------------
-float PUForceFieldAffector::getScaleForce() const
+float PUForceFieldAffector::getScaleForce(void) const
 {
     return _scaleForce;
 }
@@ -103,7 +102,7 @@ void PUForceFieldAffector::setScaleForce(float scaleForce)
     _scaleForce = scaleForce;
 }
 //-----------------------------------------------------------------------
-unsigned short PUForceFieldAffector::getOctaves() const
+unsigned short PUForceFieldAffector::getOctaves(void) const
 {
     return _octaves;
 }
@@ -117,7 +116,7 @@ void PUForceFieldAffector::setOctaves(unsigned short octaves)
     _forceField.setOctaves(octaves);
 }
 //-----------------------------------------------------------------------
-double PUForceFieldAffector::getFrequency() const
+double PUForceFieldAffector::getFrequency(void) const
 {
     return _frequency;
 }
@@ -131,7 +130,7 @@ void PUForceFieldAffector::setFrequency(double frequency)
     _forceField.setFrequency(frequency);
 }
 //-----------------------------------------------------------------------
-double PUForceFieldAffector::getAmplitude() const
+double PUForceFieldAffector::getAmplitude(void) const
 {
     return _amplitude;
 }
@@ -145,7 +144,7 @@ void PUForceFieldAffector::setAmplitude(double amplitude)
     _forceField.setAmplitude(amplitude);
 }
 //-----------------------------------------------------------------------
-double PUForceFieldAffector::getPersistence() const
+double PUForceFieldAffector::getPersistence(void) const
 {
     return _persistence;
 }
@@ -159,7 +158,7 @@ void PUForceFieldAffector::setPersistence(double persistence)
     _forceField.setPersistence(persistence);
 }
 //-----------------------------------------------------------------------
-unsigned int PUForceFieldAffector::getForceFieldSize() const
+unsigned int PUForceFieldAffector::getForceFieldSize(void) const
 {
     return _forceFieldSize;
 }
@@ -173,7 +172,7 @@ void PUForceFieldAffector::setForceFieldSize(unsigned int forceFieldSize)
     _forceField.setForceFieldSize(forceFieldSize);
 }
 //-----------------------------------------------------------------------
-Vec3 PUForceFieldAffector::getWorldSize() const
+Vec3 PUForceFieldAffector::getWorldSize(void) const
 {
     return _worldSize;
 }
@@ -187,7 +186,7 @@ void PUForceFieldAffector::setWorldSize(const Vec3& worldSize)
     _forceField.setWorldSize(worldSize);
 }
 //-----------------------------------------------------------------------
-bool PUForceFieldAffector::getIgnoreNegativeX() const
+bool PUForceFieldAffector::getIgnoreNegativeX(void) const
 {
     return _ignoreNegativeX;
 }
@@ -197,7 +196,7 @@ void PUForceFieldAffector::setIgnoreNegativeX(bool ignoreNegativeX)
     _ignoreNegativeX = ignoreNegativeX;
 }
 //-----------------------------------------------------------------------
-bool PUForceFieldAffector::getIgnoreNegativeY() const
+bool PUForceFieldAffector::getIgnoreNegativeY(void) const
 {
     return _ignoreNegativeY;
 }
@@ -207,7 +206,7 @@ void PUForceFieldAffector::setIgnoreNegativeY(bool ignoreNegativeY)
     _ignoreNegativeY = ignoreNegativeY;
 }
 //-----------------------------------------------------------------------
-bool PUForceFieldAffector::getIgnoreNegativeZ() const
+bool PUForceFieldAffector::getIgnoreNegativeZ(void) const
 {
     return _ignoreNegativeZ;
 }
@@ -217,7 +216,7 @@ void PUForceFieldAffector::setIgnoreNegativeZ(bool ignoreNegativeZ)
     _ignoreNegativeZ = ignoreNegativeZ;
 }
 //-----------------------------------------------------------------------
-float PUForceFieldAffector::getMovementFrequency() const
+float PUForceFieldAffector::getMovementFrequency(void) const
 {
     return _movementFrequency;
 }
@@ -228,7 +227,7 @@ void PUForceFieldAffector::setMovementFrequency(float movementFrequency)
     _movementSet = (movementFrequency > 0.0f);
 }
 //-----------------------------------------------------------------------
-const Vec3& PUForceFieldAffector::getMovement() const
+const Vec3& PUForceFieldAffector::getMovement(void) const
 {
     return _movement;
 }

@@ -1,6 +1,5 @@
 /****************************************************************************
-Copyright (c) 2015-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+Copyright (c) 2015 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -317,7 +316,7 @@ const cocos2d::Map<std::string, BoneNode*>& SkeletonNode::getAllSubBonesMap() co
     return _subBonesMap;
 }
 
-void SkeletonNode::addSkinGroup(const std::string& groupName, const std::map<std::string, std::string>& boneSkinNameMap)
+void SkeletonNode::addSkinGroup(std::string groupName, std::map<std::string, std::string> boneSkinNameMap)
 {
     _skinGroupMap.emplace(groupName, boneSkinNameMap);
 }
@@ -348,7 +347,7 @@ void SkeletonNode::updateOrderedAllbones()
             boneStack.push(bone);
     }
 
-    while (!boneStack.empty())
+    while (boneStack.size() > 0)
     {
         auto top = boneStack.top();
         _subOrderedAllBones.pushBack(top);

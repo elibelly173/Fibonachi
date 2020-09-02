@@ -3,7 +3,6 @@ Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2011      Zynga Inc.
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -334,7 +333,7 @@ bool MenuItemAtlasFont::initWithString(const std::string& value, const std::stri
 
 bool MenuItemAtlasFont::initWithString(const std::string& value, const std::string& charMapFile, int itemWidth, int itemHeight, char startCharMap, const ccMenuCallback& callback)
 {
-    CCASSERT( !value.empty(), "value length must be greater than 0");
+    CCASSERT( value.size() != 0, "value length must be greater than 0");
     LabelAtlas *label = LabelAtlas::create();
     label->initWithString(value, charMapFile, itemWidth, itemHeight, startCharMap);
     if (MenuItemLabel::initWithLabel(label, callback))
@@ -475,10 +474,7 @@ void MenuItemSprite::setNormalImage(Node* image)
         }
 
         _normalImage = image;
-        if (_normalImage != nullptr)
-        {
-            this->setContentSize(_normalImage->getContentSize());
-        }
+        this->setContentSize(_normalImage->getContentSize());
         this->updateImagesVisibility();
     }
 }
@@ -667,7 +663,7 @@ MenuItemImage* MenuItemImage::create()
     return nullptr;
 }
 
-bool MenuItemImage::init()
+bool MenuItemImage::init(void)
 {
     return initWithNormalImage("", "", "", (const ccMenuCallback&)nullptr);
 }
@@ -736,17 +732,17 @@ bool MenuItemImage::initWithNormalImage(const std::string& normalImage, const st
     Node *selectedSprite = nullptr;
     Node *disabledSprite = nullptr;
 
-    if (!normalImage.empty())
+    if (normalImage.size() >0)
     {
         normalSprite = Sprite::create(normalImage);
     }
 
-    if (!selectedImage.empty())
+    if (selectedImage.size() >0)
     {
         selectedSprite = Sprite::create(selectedImage);
     }
 
-    if(!disabledImage.empty())
+    if(disabledImage.size() >0)
     {
         disabledSprite = Sprite::create(disabledImage);
     }
@@ -952,7 +948,7 @@ void MenuItemToggle::cleanup()
 
 void MenuItemToggle::setSelectedIndex(unsigned int index)
 {
-    if( index != _selectedIndex && !_subItems.empty() )
+    if( index != _selectedIndex && _subItems.size() > 0 )
     {
         _selectedIndex = index;
         if (_selectedItem)

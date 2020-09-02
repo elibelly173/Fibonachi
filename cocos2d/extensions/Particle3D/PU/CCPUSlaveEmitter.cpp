@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -30,7 +29,7 @@
 
 NS_CC_BEGIN
 //-----------------------------------------------------------------------
-PUSlaveEmitter::PUSlaveEmitter() : 
+PUSlaveEmitter::PUSlaveEmitter(void) : 
     PUEmitter(),
     PUListener(),
     _masterParticle(0),
@@ -40,7 +39,7 @@ PUSlaveEmitter::PUSlaveEmitter() :
 {
 }
 //-----------------------------------------------------------------------
-const std::string& PUSlaveEmitter::getMasterTechniqueName() const
+const std::string& PUSlaveEmitter::getMasterTechniqueName(void) const
 {
     return _masterTechniqueName;
 }
@@ -50,7 +49,7 @@ void PUSlaveEmitter::setMasterTechniqueName(const std::string& masterTechniqueNa
     _masterTechniqueName = masterTechniqueName;
 }
 //-----------------------------------------------------------------------
-const std::string& PUSlaveEmitter::getMasterEmitterName() const
+const std::string& PUSlaveEmitter::getMasterEmitterName(void) const
 {
     return _masterEmitterName;
 }
@@ -143,7 +142,7 @@ void PUSlaveEmitter::unPrepare()
     PUEmitter::unPrepare();
 }
 //-----------------------------------------------------------------------
-void PUSlaveEmitter::notifyStart ()
+void PUSlaveEmitter::notifyStart (void)
 {
     PUEmitter::notifyStart();
     setEnabled(false);

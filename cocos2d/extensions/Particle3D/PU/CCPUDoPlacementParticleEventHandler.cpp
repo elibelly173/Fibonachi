@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -34,7 +33,7 @@ NS_CC_BEGIN
 const unsigned int PUDoPlacementParticleEventHandler::DEFAULT_NUMBER_OF_PARTICLES = 1;
 
 //-----------------------------------------------------------------------
-PUDoPlacementParticleEventHandler::PUDoPlacementParticleEventHandler() : 
+PUDoPlacementParticleEventHandler::PUDoPlacementParticleEventHandler(void) : 
     PUEventHandler(),
     PUListener(),
     _numberOfParticles(DEFAULT_NUMBER_OF_PARTICLES),
@@ -56,7 +55,7 @@ PUDoPlacementParticleEventHandler::PUDoPlacementParticleEventHandler() :
 {
 }
 //-----------------------------------------------------------------------
-PUDoPlacementParticleEventHandler::~PUDoPlacementParticleEventHandler()
+PUDoPlacementParticleEventHandler::~PUDoPlacementParticleEventHandler(void)
 {
     // We cannot remove this listener from mTechnique, because it is undetermined whether the ParticleTechnique 
     // still exist.
@@ -232,12 +231,12 @@ void PUDoPlacementParticleEventHandler::setForceEmitterName(const std::string& f
     _forceEmitterName = forceEmitterName;
 }
 //-----------------------------------------------------------------------
-PUEmitter* PUDoPlacementParticleEventHandler::getForceEmitter() const
+PUEmitter* PUDoPlacementParticleEventHandler::getForceEmitter(void) const
 {
     return _emitter;
 }
 //-----------------------------------------------------------------------
-void PUDoPlacementParticleEventHandler::removeAsListener()
+void PUDoPlacementParticleEventHandler::removeAsListener(void)
 {
     // Reset some values and remove this as a listener from the old technique.
     if (_system)

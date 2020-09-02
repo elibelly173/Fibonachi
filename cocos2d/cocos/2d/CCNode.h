@@ -4,7 +4,6 @@
  Copyright (c) 2010-2012 cocos2d-x.org
  Copyright (c) 2011      Zynga Inc.
  Copyright (c) 2013-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
  http://www.cocos2d-x.org
 
@@ -129,12 +128,6 @@ public:
     static Node * create();
 
     /**
-     * Gets count of nodes those are attached to scene graph.
-     */
-    static int getAttachedNodeCount();
-public:
-    
-    /**
      * Gets the description string. It makes debugging easier.
      * @return A string
      * @js NA
@@ -164,15 +157,15 @@ public:
      *
      * @param localZOrder The local Z order value.
      */
-    virtual void setLocalZOrder(std::int32_t localZOrder);
+    virtual void setLocalZOrder(int localZOrder);
 
-    CC_DEPRECATED_ATTRIBUTE virtual void setZOrder(std::int32_t localZOrder) { setLocalZOrder(localZOrder); }
+    CC_DEPRECATED_ATTRIBUTE virtual void setZOrder(int localZOrder) { setLocalZOrder(localZOrder); }
     
     /* 
      Helper function used by `setLocalZOrder`. Don't use it unless you know what you are doing.
      @js NA
      */
-    virtual void _setLocalZOrder(std::int32_t z);
+    virtual void _setLocalZOrder(int z);
 
     /** !!! ONLY FOR INTERNAL USE
     * Sets the arrival order when this node has a same ZOrder with other children.
@@ -194,9 +187,9 @@ public:
      * @return The local (relative to its siblings) Z order.
      */
 
-    virtual std::int32_t getLocalZOrder() const { return _localZOrder; }
+    virtual int getLocalZOrder() const { return _localZOrder; }
 
-    CC_DEPRECATED_ATTRIBUTE virtual std::int32_t getZOrder() const { return getLocalZOrder(); }
+    CC_DEPRECATED_ATTRIBUTE virtual int getZOrder() const { return getLocalZOrder(); }
 
     /**
      Defines the order in which the nodes are renderer.
@@ -410,7 +403,7 @@ public:
      *
      * @return The x coordinate of the node.
      */
-    virtual float getPositionX() const;
+    virtual float getPositionX(void) const;
     /** Sets the y coordinate of the node in its parent's coordinate system.
      *
      * @param y The y coordinate of the node.
@@ -420,7 +413,7 @@ public:
      *
      * @return The y coordinate of the node.
      */
-    virtual float getPositionY() const;
+    virtual float getPositionY(void) const;
 
     /**
      * Sets the position (X, Y, and Z) in its parent's coordinate system.
@@ -521,7 +514,7 @@ public:
      * It's like a pin in the node where it is "attached" to its parent.
      * The anchorPoint is normalized, like a percentage. (0,0) means the bottom-left corner and (1,1) means the top-right corner.
      * But you can use values higher than (1,1) and lower than (0,0) too.
-     * The default anchorPoint is (0,0), so it starts in the lower left corner of the node.
+     * The default anchorPoint is (0.5,0.5), so it starts in the center of the node.
      * @note If node has a physics body, the anchor must be in the middle, you can't change this to other value.
      *
      * @param anchorPoint   The anchor point of node.
@@ -812,7 +805,7 @@ public:
      * @param name The name to search for, supports c++11 regular expression.
      * Search syntax options:
      * `//`: Can only be placed at the begin of the search string. This indicates that it will search recursively.
-     * `/..`: The search should move up to the node's parent. Can only be placed at the end of string.
+     * `..`: The search should move up to the node's parent. Can only be placed at the end of string.
      * `/` : When placed anywhere but the start of the search string, this indicates that the search should move to the node's children.
      *
      * @code
@@ -834,7 +827,7 @@ public:
      *
      * @since v3.2
      */
-    virtual void enumerateChildren(const std::string &name, const std::function<bool(Node* node)>& callback) const;
+    virtual void enumerateChildren(const std::string &name, std::function<bool(Node* node)> callback) const;
     /**
      * Returns the array of the node's children.
      *
@@ -933,7 +926,7 @@ public:
 
     /**
      * Sorts the children array once before drawing, instead of every time when a child is added or reordered.
-     * This approach can improve the performance massively.
+     * This approach can improves the performance massively.
      * @note Don't call this manually unless a child added needs to be removed in the same frame.
      */
     virtual void sortAllChildren();
@@ -948,11 +941,11 @@ public:
         static_assert(std::is_base_of<Node, _T>::value, "Node::sortNodes: Only accept derived of Node!");
 #if CC_64BITS
         std::sort(std::begin(nodes), std::end(nodes), [](_T* n1, _T* n2) {
-            return (n1->_localZOrder$Arrival < n2->_localZOrder$Arrival);
+            return (n1->_localZOrderAndArrival < n2->_localZOrderAndArrival);
         });
 #else
-        std::sort(std::begin(nodes), std::end(nodes), [](_T* n1, _T* n2) {
-            return (n1->_localZOrder == n2->_localZOrder && n1->_orderOfArrival < n2->_orderOfArrival) || n1->_localZOrder < n2->_localZOrder;
+        std::stable_sort(std::begin(nodes), std::end(nodes), [](_T* n1, _T* n2) {
+            return n1->_localZOrder < n2->_localZOrder;
         });
 #endif
     }
@@ -1065,7 +1058,7 @@ public:
      * Since v2.0, each rendering node must set its shader program.
      * It should be set in initialize phase.
      @code
-     node->setGLProgram(GLProgramCache::getInstance()->getProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR));
+     node->setGLrProgram(GLProgramCache::getInstance()->getProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR));
      @endcode
      *
      * @param glprogram The shader program.
@@ -1343,7 +1336,7 @@ public:
      * @js NA
      * @lua NA
      */
-    bool isScheduled(SEL_SCHEDULE selector) const;
+    bool isScheduled(SEL_SCHEDULE selector);
 
     /**
      * Checks whether a lambda function is scheduled.
@@ -1353,7 +1346,7 @@ public:
      * @js NA
      * @lua NA
      */
-    bool isScheduled(const std::string &key) const;
+    bool isScheduled(const std::string &key);
 
     /**
      * Schedules the "update" method.
@@ -1363,7 +1356,7 @@ public:
      * Only one "update" method could be scheduled per node.
      * @lua NA
      */
-    void scheduleUpdate();
+    void scheduleUpdate(void);
 
     /**
      * Schedules the "update" method with a custom priority.
@@ -1381,7 +1374,7 @@ public:
      * Unschedules the "update" method.
      * @see scheduleUpdate();
      */
-    void unscheduleUpdate();
+    void unscheduleUpdate(void);
 
     /**
      * Schedules a custom selector.
@@ -1502,12 +1495,12 @@ public:
      * Resumes all scheduled selectors, actions and event listeners.
      * This method is called internally by onEnter.
      */
-    virtual void resume();
+    virtual void resume(void);
     /**
      * Pauses all scheduled selectors, actions and event listeners.
      * This method is called internally by onExit.
      */
-    virtual void pause();
+    virtual void pause(void);
 
     /**
      * Resumes all scheduled selectors, actions and event listeners.
@@ -1866,7 +1859,7 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
     /// lazy allocs
-    void childrenAlloc();
+    void childrenAlloc(void);
     
     /// helper that reorder a child
     void insertChild(Node* child, int z);
@@ -1886,8 +1879,8 @@ protected:
     virtual void disableCascadeColor();
     virtual void updateColor() {}
     
-    bool doEnumerate(std::string name, const std::function<bool (Node *)>& callback) const;
-    bool doEnumerateRecursive(const Node* node, const std::string &name, const std::function<bool (Node *)>& callback) const;
+    bool doEnumerate(std::string name, std::function<bool (Node *)> callback) const;
+    bool doEnumerateRecursive(const Node* node, const std::string &name, std::function<bool (Node *)> callback) const;
     
     //check whether this camera mask is visible by the current visiting camera
     bool isVisitableByVisitingCamera() const;
@@ -1941,27 +1934,12 @@ protected:
     mutable bool _additionalTransformDirty; ///< transform dirty ?
     bool _transformUpdated;         ///< Whether or not the Transform object was updated since the last frame
 
-#if CC_LITTLE_ENDIAN
-    union {
-        struct {
-            std::uint32_t _orderOfArrival;
-            std::int32_t _localZOrder;
-        };
-        std::int64_t _localZOrder$Arrival;
-    };
-#else
-    union {
-        struct {
-            std::int32_t _localZOrder;
-            std::uint32_t _orderOfArrival;
-        };
-        std::int64_t _localZOrder$Arrival;
-    };
-#endif
+    std::int64_t _localZOrderAndArrival; /// cache, for 64bits compress optimize.
+    int _localZOrder; /// < Local order (relative to its siblings) used to sort the node
 
     float _globalZOrder;            ///< Global order used to sort the node
 
-    static std::uint32_t s_globalOrderOfArrival;
+    static unsigned int s_globalOrderOfArrival;
 
     Vector<Node*> _children;        ///< array of children nodes
     Node *_parent;                  ///< weak reference to parent node
@@ -2034,8 +2012,6 @@ public:
     friend class PhysicsBody;
 #endif
 
-    static int __attachedNodeCount;
-    
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(Node);
 };
@@ -2081,7 +2057,7 @@ public:
     virtual bool isCascadeOpacityEnabled() const  override { return Node::isCascadeOpacityEnabled(); }
     virtual void setCascadeOpacityEnabled(bool cascadeOpacityEnabled) override { return Node::setCascadeOpacityEnabled(cascadeOpacityEnabled); }
 
-    virtual const Color3B& getColor() const override { return Node::getColor(); }
+    virtual const Color3B& getColor(void) const override { return Node::getColor(); }
     virtual const Color3B& getDisplayedColor() const override { return Node::getDisplayedColor(); }
     virtual void setColor(const Color3B& color) override { return Node::setColor(color); }
     virtual void updateDisplayedColor(const Color3B& parentColor) override { return Node::updateDisplayedColor(parentColor); }

@@ -1,6 +1,5 @@
 /****************************************************************************
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
 
@@ -111,8 +110,8 @@ public:
     virtual void getPosition(float* x, float* y) const override;
     virtual void setPositionX(float x) override;
     virtual void setPositionY(float y) override;
-    virtual float getPositionX() const override;
-    virtual float getPositionY() const override;
+    virtual float getPositionX(void) const override;
+    virtual float getPositionY(void) const override;
     virtual Vec3 getPosition3D() const override;
     /**
     * @js NA

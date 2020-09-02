@@ -1,6 +1,5 @@
 ﻿/****************************************************************************
  Copyright (c) 2014 cocos2d-x.org
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
  
@@ -52,7 +51,7 @@ namespace cocostudio
         void setPropsWithFlatBuffers(cocos2d::Node* node, const flatbuffers::Table* layoutOptions);
         cocos2d::Node* createNodeWithFlatBuffers(const flatbuffers::Table* layoutOptions);
         
-        int getResourceType(const std::string& key);
+        int getResourceType(std::string key);
     };
     
 }

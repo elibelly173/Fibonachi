@@ -1,7 +1,6 @@
 /****************************************************************************
 Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2013-2017 Chukong Technologies
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+Copyright (c) 2013-2014 Chukong Technologies
 
  http://www.cocos2d-x.org
 
@@ -83,12 +82,13 @@ bool __String::initWithFormatAndValist(const char* format, va_list ap)
 
 bool __String::initWithFormat(const char* format, ...)
 {
+    bool bRet = false;
     _string.clear();
 
     va_list ap;
     va_start(ap, format);
 
-    bool bRet = initWithFormatAndValist(format, ap);
+    bRet = initWithFormatAndValist(format, ap);
 
     va_end(ap);
 
@@ -210,7 +210,7 @@ bool __String::isEqual(const Ref* pObject)
     const __String* pStr = dynamic_cast<const __String*>(pObject);
     if (pStr != nullptr)
     {
-        if (pStr->_string == _string)
+        if (0 == _string.compare(pStr->_string))
         {
             bRet = true;
         }
@@ -260,7 +260,7 @@ __String* __String::createWithFormat(const char* format, ...)
 __String* __String::createWithContentsOfFile(const std::string &filename)
 {
     std::string str = FileUtils::getInstance()->getStringFromFile(filename);
-    return __String::create(str);
+    return __String::create(std::move(str));
 }
 
 void __String::acceptVisitor(DataVisitor &visitor)

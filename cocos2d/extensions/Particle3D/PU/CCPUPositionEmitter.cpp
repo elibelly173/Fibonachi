@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -32,7 +31,7 @@ NS_CC_BEGIN
 const bool PUPositionEmitter::DEFAULT_RANDOMIZE = true;
 
 //-----------------------------------------------------------------------
-PUPositionEmitter::PUPositionEmitter() : 
+PUPositionEmitter::PUPositionEmitter(void) : 
     PUEmitter(),
     _randomized(DEFAULT_RANDOMIZE),
     _index(0)
@@ -49,7 +48,7 @@ void PUPositionEmitter::setRandomized(bool randomized)
     _randomized = randomized;
 }
 //-----------------------------------------------------------------------
-const std::vector<Vec3>& PUPositionEmitter::getPositions() const
+const std::vector<Vec3>& PUPositionEmitter::getPositions(void) const
 {
     return _positionList;
 }
@@ -59,13 +58,13 @@ void PUPositionEmitter::addPosition(const Vec3& position)
     _positionList.push_back(position);
 }
 //-----------------------------------------------------------------------
-void PUPositionEmitter::notifyStart()
+void PUPositionEmitter::notifyStart(void)
 {
     PUEmitter::notifyStart();
     _index = 0;
 }
 //-----------------------------------------------------------------------
-void PUPositionEmitter::removeAllPositions()
+void PUPositionEmitter::removeAllPositions(void)
 {
     _index = 0;
     _positionList.clear();

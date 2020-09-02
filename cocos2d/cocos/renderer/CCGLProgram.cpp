@@ -3,8 +3,7 @@ Copyright 2011 Jeff Lamarche
 Copyright 2012 Goffredo Marocchi
 Copyright 2012 Ricardo Quesada
 Copyright 2012 cocos2d-x.org
-Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+Copyright 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -111,7 +110,6 @@ const char* GLProgram::SHADER_3D_PARTICLE_TEXTURE = "Shader3DParticleTexture";
 const char* GLProgram::SHADER_3D_SKYBOX = "Shader3DSkybox";
 const char* GLProgram::SHADER_3D_TERRAIN = "Shader3DTerrain";
 const char* GLProgram::SHADER_CAMERA_CLEAR = "ShaderCameraClear";
-const char* GLProgram::SHADER_LAYER_RADIAL_GRADIENT = "ShaderLayerRadialGradient";
 
 
 // uniform names
@@ -236,8 +234,11 @@ GLProgram::~GLProgram()
         GL::deleteProgram(_program);
     }
 
-
-    clearHashUniforms();
+    for (auto e : _hashForUniforms)
+    {
+        free(e.second.first);
+    }
+    _hashForUniforms.clear();
 }
 
 bool GLProgram::initWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray)
@@ -292,7 +293,7 @@ bool GLProgram::initWithByteArrays(const GLchar* vShaderByteArray, const GLchar*
         glAttachShader(_program, _fragShader);
     }
 
-    clearHashUniforms();
+    _hashForUniforms.clear();
 
     CHECK_GL_ERROR_DEBUG();
 
@@ -486,12 +487,6 @@ bool GLProgram::compileShader(GLuint * shader, GLenum type, const GLchar* source
     if (compileTimeHeaders.empty()) {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
         headersDef = (type == GL_VERTEX_SHADER ? "precision mediump float;\n precision mediump int;\n" : "precision mediump float;\n precision mediump int;\n");
-// Bugfix to make shader variables types constant to be understood by the current Android Virtual Devices or Emulators. This will also eliminate the 0x501 and 0x502 OpenGL Errors during emulation.
-// Changed shader data types mediump to highp to remove possible sprite joggling on some Android phones.
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-        headersDef = (type == GL_VERTEX_SHADER ?
-            "#version 100\n precision highp float;\n precision highp int;\n" :
-            "#version 100\n precision mediump float;\n precision mediump int;\n");
 #elif (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32 && CC_TARGET_PLATFORM != CC_PLATFORM_LINUX && CC_TARGET_PLATFORM != CC_PLATFORM_MAC)
         headersDef = (type == GL_VERTEX_SHADER ? "precision highp float;\n precision highp int;\n" : "precision mediump float;\n precision mediump int;\n");
 #endif
@@ -596,9 +591,6 @@ void GLProgram::updateUniforms()
         setUniformLocationWith1i(_builtInUniforms[UNIFORM_SAMPLER2], 2);
     if(_builtInUniforms[UNIFORM_SAMPLER3] != -1)
         setUniformLocationWith1i(_builtInUniforms[UNIFORM_SAMPLER3], 3);
-
-    // clear any glErrors created by any not found uniforms
-    glGetError();
 }
 
 bool GLProgram::link()
@@ -932,12 +924,13 @@ void GLProgram::setUniformsForBuiltins(const Mat4 &matrixMV)
 
     if (_flags.usesP)
         setUniformLocationWithMatrix4fv(_builtInUniforms[UNIFORM_P_MATRIX], matrixP.m, 1);
-
+    
     if (_flags.usesMultiViewP)
     {
         Mat4 mats[4];
-        const auto stackSize = std::min<size_t>(_director->getProjectionMatrixStackSize(), 4);
-        for (size_t i = 0; i < stackSize; ++i) {
+        unsigned int stackSize = _director->getProjectionMatrixStackSize() <= 4?
+                                 _director->getProjectionMatrixStackSize(): 4;
+        for (unsigned int i = 0; i < stackSize; ++i) {
             mats[i] = _director->getProjectionMatrix(i);
         }
         setUniformLocationWithMatrix4fv(_builtInUniforms[UNIFORM_MULTIVIEW_P_MATRIX], mats[0].m, 4);
@@ -951,12 +944,13 @@ void GLProgram::setUniformsForBuiltins(const Mat4 &matrixMV)
         Mat4 matrixMVP = matrixP * matrixMV;
         setUniformLocationWithMatrix4fv(_builtInUniforms[UNIFORM_MVP_MATRIX], matrixMVP.m, 1);
     }
-
+    
     if (_flags.usesMultiViewMVP)
     {
         Mat4 mats[4];
-        const auto stackSize = std::min<size_t>(_director->getProjectionMatrixStackSize(), 4);
-        for (size_t i = 0; i < stackSize; ++i) {
+        unsigned int stackSize = _director->getProjectionMatrixStackSize() <= 4?
+                                 _director->getProjectionMatrixStackSize(): 4;
+        for (unsigned int i = 0; i < stackSize; ++i) {
             mats[i] = _director->getProjectionMatrix(i) * matrixMV;
         }
         setUniformLocationWithMatrix4fv(_builtInUniforms[UNIFORM_MULTIVIEW_MVP_MATRIX], mats[0].m, 4);
@@ -1000,7 +994,12 @@ void GLProgram::reset()
     //GL::deleteProgram(_program);
     _program = 0;
 
-    clearHashUniforms();
+    for (auto e: _hashForUniforms)
+    {
+        free(e.second.first);
+    }
+
+    _hashForUniforms.clear();
 }
 
 inline void GLProgram::clearShader()
@@ -1018,14 +1017,5 @@ inline void GLProgram::clearShader()
     _vertShader = _fragShader = 0;
 }
 
-inline void GLProgram::clearHashUniforms()
-{
-    for (auto e: _hashForUniforms)
-    {
-        free(e.second.first);
-    }
-
-    _hashForUniforms.clear();
-}
-
 NS_CC_END
+

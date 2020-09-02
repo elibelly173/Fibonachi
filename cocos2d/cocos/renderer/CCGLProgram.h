@@ -3,8 +3,7 @@ Copyright 2011 Jeff Lamarche
 Copyright 2012 Goffredo Marocchi
 Copyright 2012 Ricardo Quesada
 Copyright 2012 cocos2d-x.org
-Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+Copyright 2013-2016 Chukong Technologies Inc.
 
 
 http://www.cocos2d-x.org
@@ -268,11 +267,6 @@ public:
     static const char* SHADER_3D_TERRAIN;
     
     /**
-     Built in shader for LayerRadialGradient
-     */
-    static const char* SHADER_LAYER_RADIAL_GRADIENT;
-    
-    /**
      Built in shader for camera clear
      */
     static const char* SHADER_CAMERA_CLEAR;
@@ -372,7 +366,7 @@ public:
     */
     
     /** @{
-     Create or Initializes the GLProgram with a vertex and fragment with bytes array, with shader headers definition(eg. #version ... or #extension ...), with compileTimeDefines(eg. #define ...).
+     Create or Initializes the GLProgram with a vertex and fragment with bytes array, with shader headers defination(eg. #version ... or #extension ...), with compileTimeDefines(eg. #define ...).
      * @js initWithString.
      * @lua initWithString.
      */
@@ -397,7 +391,7 @@ public:
     */
 
     /** @{
-     Create or Initializes the GLProgram with a vertex and fragment with contents of filenames, with shader headers definition(eg. #version ... or #extension ...), with compileTimeDefines(eg. #define ...).
+     Create or Initializes the GLProgram with a vertex and fragment with contents of filenames, with shader headers defination(eg. #version ... or #extension ...), with compileTimeDefines(eg. #define ...).
      * @js init
      * @lua init
      */
@@ -568,8 +562,6 @@ protected:
     bool compileShader(GLuint * shader, GLenum type, const GLchar* source, const std::string& convertedDefines);
     bool compileShader(GLuint * shader, GLenum type, const GLchar* source);
     void clearShader();
-
-    void clearHashUniforms();
 
     /**OpenGL handle for program.*/
     GLuint            _program;

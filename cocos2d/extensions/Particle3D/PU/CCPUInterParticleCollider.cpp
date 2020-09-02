@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -35,19 +34,19 @@ const PUParticle3DInterParticleCollider::InterParticleCollisionResponse PUPartic
          PUParticle3DInterParticleCollider::IPCR_AVERAGE_VELOCITY;
 
 //-----------------------------------------------------------------------
-PUParticle3DInterParticleCollider::PUParticle3DInterParticleCollider() : 
+PUParticle3DInterParticleCollider::PUParticle3DInterParticleCollider(void) : 
     PUBaseCollider(),
     _adjustment(DEFAULT_ADJUSTMENT),
     _interParticleCollisionResponse(DEFAULT_COLLISION_RESPONSE)
 {
 }
 
-PUParticle3DInterParticleCollider::~PUParticle3DInterParticleCollider()
+PUParticle3DInterParticleCollider::~PUParticle3DInterParticleCollider( void )
 {
 
 }
 //-----------------------------------------------------------------------
-float PUParticle3DInterParticleCollider::getAdjustment() const
+float PUParticle3DInterParticleCollider::getAdjustment(void) const
 {
     return _adjustment;
 }
@@ -57,7 +56,7 @@ void PUParticle3DInterParticleCollider::setAdjustment(float adjustment)
     _adjustment = adjustment;
 }
 //-----------------------------------------------------------------------
-PUParticle3DInterParticleCollider::InterParticleCollisionResponse PUParticle3DInterParticleCollider::getInterParticleCollisionResponse() const
+PUParticle3DInterParticleCollider::InterParticleCollisionResponse PUParticle3DInterParticleCollider::getInterParticleCollisionResponse(void) const
 {
     return _interParticleCollisionResponse;
 }

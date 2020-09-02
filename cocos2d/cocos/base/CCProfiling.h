@@ -2,7 +2,6 @@
 Copyright (c) 2010      Stuart Carnie
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -57,30 +56,30 @@ public:
      * @js NA
      * @lua NA
      */
-    ~Profiler();
+    ~Profiler(void);
     /** display the timers
      * @js NA
      * @lua NA
      */
-    void displayTimers();
+    void displayTimers(void);
     /**
      * @js NA
      * @lua NA
      */
-    bool init();
+    bool init(void);
 
 public:
     /** returns the singleton 
      * @js NA
      * @lua NA
      */
-    static Profiler* getInstance();
+    static Profiler* getInstance(void);
 
     /**
      * @js NA
      * @lua NA
      */
-    CC_DEPRECATED_ATTRIBUTE static Profiler* sharedProfiler();
+    CC_DEPRECATED_ATTRIBUTE static Profiler* sharedProfiler(void);
 
     /** Creates and adds a new timer 
      * @js NA
@@ -113,7 +112,7 @@ public:
      * @js NA
      * @lua NA
      */
-    ~ProfilingTimer();
+    ~ProfilingTimer(void);
     /**
      * @js NA
      * @lua NA

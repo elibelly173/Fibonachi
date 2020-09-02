@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -57,31 +56,31 @@ public:
     virtual void updatePUAffector(PUParticle3D *particle, float deltaTime) override;
 
     /** Returns the AnimationTimeStep. The AnimationTimeStep defines the time between each animation frame. */
-    float getAnimationTimeStep() const;
+    float getAnimationTimeStep(void) const;
 
     /** Set the  AnimationTimeStep */
     void setAnimationTimeStep(float animationTimeStep);
 
     /** Returns the type of texture animation. */
-    TextureAnimationType getTextureAnimationType() const;
+    TextureAnimationType getTextureAnimationType(void) const;
 
     /** Set the type of texture animation. */
     void setTextureAnimationType(TextureAnimationType textureAnimationType);
 
     /** Todo */
-    unsigned short getTextureCoordsStart() const;
+    unsigned short getTextureCoordsStart(void) const;
 
     /** Todo */
     void setTextureCoordsStart(unsigned short textureCoordsStart);
 
     /** Todo */
-    unsigned short getTextureCoordsEnd() const;
+    unsigned short getTextureCoordsEnd(void) const;
 
     /** Todo */
     void setTextureCoordsEnd(unsigned short textureCoordsEnd);
 
     /** Todo */
-    bool isStartRandom() const;
+    bool isStartRandom(void) const;
 
     /** Todo */
     void setStartRandom(bool startRandom);
@@ -89,8 +88,8 @@ public:
     virtual void copyAttributesTo (PUAffector* affector) override;
 
 CC_CONSTRUCTOR_ACCESS:	
-    PUTextureAnimator();
-    virtual ~PUTextureAnimator();
+    PUTextureAnimator(void);
+    virtual ~PUTextureAnimator(void);
 
 protected:
 

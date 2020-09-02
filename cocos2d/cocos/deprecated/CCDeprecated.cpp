@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (c) 2013      cocos2d-x.org
  Copyright (c) 2013-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
  http://www.cocos2d-x.org
 
@@ -194,17 +193,17 @@ void ccPointSize( GLfloat pointSize )
 
 MATRIX_STACK_TYPE currentActiveStackType = MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW;
 
-void CC_DLL kmGLFreeAll()
+void CC_DLL kmGLFreeAll(void)
 {
     Director::getInstance()->resetMatrixStack();
 }
 
-void CC_DLL kmGLPushMatrix()
+void CC_DLL kmGLPushMatrix(void)
 {
     Director::getInstance()->pushMatrix(currentActiveStackType);
 }
 
-void CC_DLL kmGLPopMatrix()
+void CC_DLL kmGLPopMatrix(void)
 {
     Director::getInstance()->popMatrix(currentActiveStackType);
 }
@@ -223,7 +222,7 @@ void CC_DLL kmGLMatrixMode(unsigned int mode)
     }
 }
 
-void CC_DLL kmGLLoadIdentity()
+void CC_DLL kmGLLoadIdentity(void)
 {
     Director::getInstance()->loadIdentityMatrix(currentActiveStackType);
 }

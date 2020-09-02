@@ -1,6 +1,5 @@
 /****************************************************************************
- Copyright (c) 2014-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2014 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -64,7 +63,7 @@ private:
     std::thread _threads;
     std::queue< std::function<void ()> > _tasks;
 
-    void threadFunc() {
+    void threadFunc(void) {
         while (true) {
             std::function<void ()> task = nullptr;
 

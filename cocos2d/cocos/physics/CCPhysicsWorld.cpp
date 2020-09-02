@@ -1,6 +1,5 @@
 /****************************************************************************
- Copyright (c) 2013-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2013 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -270,8 +269,6 @@ void PhysicsWorld::debugDraw()
     if (_debugDraw == nullptr)
     {
         _debugDraw = DrawNode::create();
-        _debugDraw->setIsolated(true);
-        _debugDraw->setGlobalZOrder(_debugDrawGlobalZOrder);
         _debugDraw->retain();
         Director::getInstance()->getRunningScene()->addChild(_debugDraw);
     }
@@ -396,7 +393,7 @@ void PhysicsWorld::collisionSeparateCallback(PhysicsContact& contact)
     _eventDispatcher->dispatchEvent(&contact);
 }
 
-void PhysicsWorld::rayCast(const PhysicsRayCastCallbackFunc& func, const Vec2& point1, const Vec2& point2, void* data)
+void PhysicsWorld::rayCast(PhysicsRayCastCallbackFunc func, const Vec2& point1, const Vec2& point2, void* data)
 {
     CCASSERT(func != nullptr, "func shouldn't be nullptr");
     
@@ -419,7 +416,7 @@ void PhysicsWorld::rayCast(const PhysicsRayCastCallbackFunc& func, const Vec2& p
     }
 }
 
-void PhysicsWorld::queryRect(const PhysicsQueryRectCallbackFunc& func, const Rect& rect, void* data)
+void PhysicsWorld::queryRect(PhysicsQueryRectCallbackFunc func, const Rect& rect, void* data)
 {
     CCASSERT(func != nullptr, "func shouldn't be nullptr");
     
@@ -440,7 +437,7 @@ void PhysicsWorld::queryRect(const PhysicsQueryRectCallbackFunc& func, const Rec
     }
 }
 
-void PhysicsWorld::queryPoint(const PhysicsQueryPointCallbackFunc& func, const Vec2& point, void* data)
+void PhysicsWorld::queryPoint(PhysicsQueryPointCallbackFunc func, const Vec2& point, void* data)
 {
     CCASSERT(func != nullptr, "func shouldn't be nullptr");
     
@@ -702,10 +699,6 @@ void PhysicsWorld::updateJoints()
         doRemoveJoint(joint);
     }
     _delayRemoveJoints.clear();
-
-    for (auto joint : _joints) {
-        joint->flushDelayTasks();
-    }
 }
 
 void PhysicsWorld::removeShape(PhysicsShape* shape)
@@ -818,7 +811,7 @@ void PhysicsWorld::removeAllBodies()
 
 void PhysicsWorld::setDebugDrawMask(int mask)
 {
-    if (mask == DEBUGDRAW_NONE && _debugDraw)
+    if (mask == DEBUGDRAW_NONE)
     {
         _debugDraw->removeFromParent();
         CC_SAFE_RELEASE_NULL(_debugDraw);
@@ -877,9 +870,6 @@ void PhysicsWorld::step(float delta)
 
 void PhysicsWorld::update(float delta, bool userCall/* = false*/)
 {
-
-    if(_preUpdateCallback) _preUpdateCallback(); //fix #11154
-
     if(!_delayAddBodies.empty())
     {
         updateBodies();
@@ -888,7 +878,7 @@ void PhysicsWorld::update(float delta, bool userCall/* = false*/)
     {
         updateBodies();
     }
-
+    
     auto sceneToWorldTransform = _scene->getNodeToParentTransform();
     beforeSimulation(_scene, sceneToWorldTransform, 1.f, 1.f, 0.f);
 
@@ -896,12 +886,12 @@ void PhysicsWorld::update(float delta, bool userCall/* = false*/)
     {
         updateJoints();
     }
-
+    
     if (delta < FLT_EPSILON)
     {
         return;
     }
-
+    
     if (userCall)
     {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WINRT || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
@@ -958,8 +948,6 @@ void PhysicsWorld::update(float delta, bool userCall/* = false*/)
     // Update physics position, should loop as the same sequence as node tree.
     // PhysicsWorld::afterSimulation() will depend on the sequence.
     afterSimulation(_scene, sceneToWorldTransform, 0.f);
-
-    if(_postUpdateCallback) _postUpdateCallback(); //fix #11154
 }
 
 PhysicsWorld* PhysicsWorld::construct(Scene* scene)
@@ -991,7 +979,6 @@ PhysicsWorld::PhysicsWorld()
 , _debugDraw(nullptr)
 , _debugDrawMask(DEBUGDRAW_NONE)
 , _eventDispatcher(nullptr)
-, _debugDrawGlobalZOrder(0.f)
 {
     
 }
@@ -1042,16 +1029,6 @@ void PhysicsWorld::afterSimulation(Node *node, const Mat4& parentToWorldTransfor
 
     for (auto child : node->getChildren())
         afterSimulation(child, nodeToWorldTransform, nodeRotation);
-}
-
-void PhysicsWorld::setPostUpdateCallback(const std::function<void()> &callback)
-{
-    _postUpdateCallback = callback;
-}
-
-void PhysicsWorld::setPreUpdateCallback(const std::function<void()> &callback)
-{
-    _preUpdateCallback = callback;
 }
 
 NS_CC_END

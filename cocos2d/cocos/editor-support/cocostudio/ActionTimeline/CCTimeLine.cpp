@@ -1,6 +1,5 @@
 /****************************************************************************
 Copyright (c) 2013 cocos2d-x.org
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -60,7 +59,7 @@ Timeline::~Timeline()
 
 void Timeline::gotoFrame(int frameIndex)
 {
-    if(_frames.empty())
+    if(_frames.size() == 0)
         return;
 
     binarySearchKeyFrame(frameIndex);
@@ -69,7 +68,7 @@ void Timeline::gotoFrame(int frameIndex)
 
 void Timeline::stepToFrame(int frameIndex)
 {
-    if(_frames.empty())
+    if(_frames.size() == 0)
         return;
 
     updateCurrentKeyFrame(frameIndex);

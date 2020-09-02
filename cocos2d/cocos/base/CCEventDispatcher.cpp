@@ -1,6 +1,5 @@
 /****************************************************************************
  Copyright (c) 2013-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
  http://www.cocos2d-x.org
 
@@ -32,7 +31,7 @@
 #include "base/CCEventListenerKeyboard.h"
 #include "base/CCEventListenerCustom.h"
 #include "base/CCEventListenerFocus.h"
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_LINUX || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #include "base/CCEventListenerController.h"
 #endif
 #include "2d/CCScene.h"
@@ -95,7 +94,7 @@ static EventListener::ListenerID __getListenerID(Event* event)
             // return UNKNOWN instead.
             CCASSERT(false, "Don't call this method if the event is for touch.");
             break;
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_LINUX || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
         case Event::Type::GAME_CONTROLLER:
             ret = EventListenerController::LISTENER_ID;
             break;
@@ -275,7 +274,7 @@ void EventDispatcher::visitTarget(Node* node, bool isRootNode)
             globalZOrders.push_back(e.first);
         }
         
-        std::stable_sort(globalZOrders.begin(), globalZOrders.end(), [](const float a, const float b){
+        std::sort(globalZOrders.begin(), globalZOrders.end(), [](const float a, const float b){
             return a < b;
         });
         
@@ -488,9 +487,9 @@ void EventDispatcher::forceAddEventListener(EventListener* listener)
         
         associateNodeAndEventListener(node, listener);
         
-        if (!node->isRunning())
+        if (node->isRunning())
         {
-            listener->setPaused(true);
+            resumeEventListenersForTarget(node);
         }
     }
     else
@@ -1005,7 +1004,7 @@ void EventDispatcher::dispatchTouchEvent(EventTouch* event)
                         }
                     }
                 }
-                else if (!listener->_claimedTouches.empty()
+                else if (listener->_claimedTouches.size() > 0
                          && ((removedIter = std::find(listener->_claimedTouches.begin(), listener->_claimedTouches.end(), touches)) != listener->_claimedTouches.end()))
                 {
                     isClaimed = true;
@@ -1082,7 +1081,7 @@ void EventDispatcher::dispatchTouchEvent(EventTouch* event)
     //
     // process standard handlers 2nd
     //
-    if (allAtOnceListeners && !mutableTouches.empty())
+    if (allAtOnceListeners && mutableTouches.size() > 0)
     {
         
         auto onTouchesEvent = [&](EventListener* l) -> bool{
@@ -1329,7 +1328,7 @@ void EventDispatcher::sortEventListenersOfSceneGraphPriority(const EventListener
     visitTarget(rootNode, true);
     
     // After sort: priority < 0, > 0
-    std::stable_sort(sceneGraphListeners->begin(), sceneGraphListeners->end(), [this](const EventListener* l1, const EventListener* l2) {
+    std::sort(sceneGraphListeners->begin(), sceneGraphListeners->end(), [this](const EventListener* l1, const EventListener* l2) {
         return _nodePriorityMap[l1->getAssociatedNode()] > _nodePriorityMap[l2->getAssociatedNode()];
     });
     
@@ -1354,7 +1353,7 @@ void EventDispatcher::sortEventListenersOfFixedPriority(const EventListener::Lis
         return;
     
     // After sort: priority < 0, > 0
-    std::stable_sort(fixedListeners->begin(), fixedListeners->end(), [](const EventListener* l1, const EventListener* l2) {
+    std::sort(fixedListeners->begin(), fixedListeners->end(), [](const EventListener* l1, const EventListener* l2) {
         return l1->getFixedPriority() < l2->getFixedPriority();
     });
     

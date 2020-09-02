@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (c) 2010-2012 cocos2d-x.org
  Copyright (c) 2012 James Chen
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
  http://www.cocos2d-x.org
 
@@ -56,9 +55,6 @@ EditBoxImplTizen::EditBoxImplTizen(EditBox* pEditText)
 , _editBoxInputMode(EditBox::InputMode::SINGLE_LINE)
 , _editBoxInputFlag(EditBox::InputFlag::INITIAL_CAPS_ALL_CHARACTERS)
 , _keyboardReturnType(EditBox::KeyboardReturnType::DEFAULT)
-, _alignment(TextHAlignment::LEFT)
-, _fontSize(-1)
-, _placeholderFontSize(-1)
 , _colText(Color3B::WHITE)
 , _colPlaceHolder(Color3B::GRAY)
 , _maxLength(-1)
@@ -104,8 +100,6 @@ bool EditBoxImplTizen::initWithSize(const Size& size)
 
 void EditBoxImplTizen::setFont(const char* pFontName, int fontSize)
 {
-    _fontName = pFontName;
-    _fontSize = fontSize;
     if(_label != NULL) {
         _label->setSystemFontName(pFontName);
         _label->setSystemFontSize(fontSize);
@@ -125,8 +119,6 @@ void EditBoxImplTizen::setFontColor(const Color4B& color)
 
 void EditBoxImplTizen::setPlaceholderFont(const char* pFontName, int fontSize)
 {
-    _placeholderFontName = pFontName;
-    _placeholderFontSize = fontSize;
     if(_labelPlaceHolder != NULL) {
         _labelPlaceHolder->setSystemFontName(pFontName);
         _labelPlaceHolder->setSystemFontSize(fontSize);
@@ -213,7 +205,7 @@ void EditBoxImplTizen::setText(const char* pText)
     }
 }
 
-const char*  EditBoxImplTizen::getText()
+const char*  EditBoxImplTizen::getText(void)
 {
     return _text.c_str();
 }
@@ -230,11 +222,6 @@ void EditBoxImplTizen::setPlaceHolder(const char* pText)
 
         _labelPlaceHolder->setString(_placeHolder.c_str());
     }
-}
-
-const char* EditBoxImplTizen::getPlaceHolder()
-{
-    return _placeHolder.c_str();
 }
 
 void EditBoxImplTizen::setPosition(const Vec2& pos)
@@ -257,12 +244,12 @@ void EditBoxImplTizen::setAnchorPoint(const Vec2& anchorPoint)
 
 }
 
-void EditBoxImplTizen::visit()
+void EditBoxImplTizen::visit(void)
 { // don't need to be implemented on tizen platform.
 
 }
 
-void EditBoxImplTizen::onEnter()
+void EditBoxImplTizen::onEnter(void)
 { // don't need to be implemented on tizen platform.
 
 }

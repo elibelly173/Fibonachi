@@ -1,6 +1,5 @@
 /****************************************************************************
- Copyright (c) 2014-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2014 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -104,11 +103,6 @@ void BillBoard::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t 
         return;
     }
     bool visibleByCamera = isVisitableByVisitingCamera();
-    // quick return if not visible by camera and has no children.
-    if (!visibleByCamera && _children.empty())
-    {
-        return;
-    }
     
     uint32_t flags = processParentFlags(parentTransform, parentFlags);
     
@@ -116,7 +110,7 @@ void BillBoard::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t 
     flags |= FLAGS_RENDER_AS_3D;
     
     //Update Billboard transform
-    bool dirty = calculateBillboardTransform();
+    bool dirty = calculateBillbaordTransform();
     if(dirty)
     {
         flags |= FLAGS_TRANSFORM_DIRTY;
@@ -156,7 +150,7 @@ void BillBoard::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t 
     director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 }
 
-bool BillBoard::calculateBillboardTransform()
+bool BillBoard::calculateBillbaordTransform()
 {
     //Get camera world position
     auto camera = Camera::getVisitingCamera();
@@ -191,7 +185,10 @@ bool BillBoard::calculateBillboardTransform()
             camDir.set(camWorldMat.m[8], camWorldMat.m[9], camWorldMat.m[10]);
         }
         camDir.normalize();
-
+        
+        Quaternion rotationQuaternion;
+        this->getNodeToWorldTransform().getRotation(&rotationQuaternion);
+        
         Mat4 rotationMatrix;
         rotationMatrix.setIdentity();
 
@@ -223,11 +220,6 @@ bool BillBoard::calculateBillboardTransform()
     }
     
     return false;
-}
-
-bool BillBoard::calculateBillbaordTransform()
-{
-    return calculateBillboardTransform();
 }
 
 void BillBoard::draw(Renderer *renderer, const Mat4 &/*transform*/, uint32_t flags)

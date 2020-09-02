@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -34,11 +33,11 @@ const float PUTextureRotator::DEFAULT_ROTATION_SPEED = 10.0f;
 const float PUTextureRotator::DEFAULT_ROTATION = 0.0f;
 
 //-----------------------------------------------------------------------
-PUTextureRotator::PUTextureRotator()
-: PUAffector()
-, _useOwnRotationSpeed(DEFAULT_USE_OWN_SPEED)
-, _scaledRotationSpeed(0.0f)
-, _twoPiRad(float(2.0 * M_PI))
+PUTextureRotator::PUTextureRotator(void) : 
+    PUAffector(),
+    _useOwnRotationSpeed(DEFAULT_USE_OWN_SPEED),
+    _scaledRotationSpeed(0.0f),
+    _twoPiRad(float(2.0 * M_PI))
 {
     _dynRotation = new (std::nothrow) PUDynamicAttributeFixed();
     (static_cast<PUDynamicAttributeFixed*>(_dynRotation))->setValue(DEFAULT_ROTATION);
@@ -46,7 +45,7 @@ PUTextureRotator::PUTextureRotator()
     (static_cast<PUDynamicAttributeFixed*>(_dynRotationSpeed))->setValue(DEFAULT_ROTATION_SPEED);
 }
 //-----------------------------------------------------------------------
-PUTextureRotator::~PUTextureRotator()
+PUTextureRotator::~PUTextureRotator(void)
 {
     if (_dynRotation)
     {
@@ -59,7 +58,7 @@ PUTextureRotator::~PUTextureRotator()
     }
 }
 //-----------------------------------------------------------------------
-bool PUTextureRotator::useOwnRotationSpeed () const
+bool PUTextureRotator::useOwnRotationSpeed (void) const
 {
     return _useOwnRotationSpeed;
 }
@@ -69,7 +68,7 @@ void PUTextureRotator::setUseOwnRotationSpeed (bool useOwnRotationSpeed)
     _useOwnRotationSpeed = useOwnRotationSpeed;
 }
 //-----------------------------------------------------------------------
-PUDynamicAttribute* PUTextureRotator::getRotation() const
+PUDynamicAttribute* PUTextureRotator::getRotation(void) const
 {
     return _dynRotation;
 }
@@ -82,7 +81,7 @@ void PUTextureRotator::setRotation(PUDynamicAttribute* dynRotation)
     _dynRotation = dynRotation;
 }
 //-----------------------------------------------------------------------
-PUDynamicAttribute* PUTextureRotator::getRotationSpeed() const
+PUDynamicAttribute* PUTextureRotator::getRotationSpeed(void) const
 {
     return _dynRotationSpeed;
 }
@@ -95,7 +94,7 @@ void PUTextureRotator::setRotationSpeed(PUDynamicAttribute* dynRotationSpeed)
     _dynRotationSpeed = dynRotationSpeed;
 }
 //-----------------------------------------------------------------------
-float PUTextureRotator::calculateRotation()
+float PUTextureRotator::calculateRotation(void)
 {
     return _dynamicAttributeHelper.calculate(_dynRotation, (static_cast<PUParticleSystem3D *>(_particleSystem))->getTimeElapsedSinceStart());
 }

@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -57,7 +56,7 @@ public:
 
     /** Get the name of the affector that must be enabled or disabled.
     */
-    const std::string& getAffectorName() const {return _affectorName;};
+    const std::string& getAffectorName(void) const {return _affectorName;};
 
     /** Set the name of the affector.
     */
@@ -74,8 +73,8 @@ public:
     virtual void copyAttributesTo (PUEventHandler* eventHandler) override;
 
 CC_CONSTRUCTOR_ACCESS:
-    PUDoAffectorEventHandler();
-    virtual ~PUDoAffectorEventHandler() {};
+    PUDoAffectorEventHandler(void);
+    virtual ~PUDoAffectorEventHandler(void) {};
 
 protected:
     // Identifies the name of affector

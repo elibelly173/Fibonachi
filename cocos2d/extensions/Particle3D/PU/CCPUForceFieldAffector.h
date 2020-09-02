@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -63,51 +62,51 @@ public:
 
     /** Get/Set Delta
     */
-    float getDelta() const;
+    float getDelta(void) const;
     void setDelta(float delta);
 
     /** Get/Set scale Force
     */
-    float getScaleForce() const;
+    float getScaleForce(void) const;
     void setScaleForce(float scaleForce);
 
     /** Get/Set scale Octaves
     */
-    unsigned short getOctaves() const;
+    unsigned short getOctaves(void) const;
     void setOctaves(unsigned short octaves);
 
     /** Get/Set scale Frequency
     */
-    double getFrequency() const;
+    double getFrequency(void) const;
     void setFrequency(double frequency);
 
     /** Get/Set scale Amplitude
     */
-    double getAmplitude() const;
+    double getAmplitude(void) const;
     void setAmplitude(double amplitude);
 
     /** Get/Set scale Persistence
     */
-    double getPersistence() const;
+    double getPersistence(void) const;
     void setPersistence(double persistence);
 
     /** Get/Set scale ForceFieldSize
     */
-    unsigned int getForceFieldSize() const;
+    unsigned int getForceFieldSize(void) const;
     void setForceFieldSize(unsigned int forceFieldSize);
 
     /** Get/Set scale worldSize
     */
-    Vec3 getWorldSize() const;
+    Vec3 getWorldSize(void) const;
     void setWorldSize(const Vec3& worldSize);
 
     /** Get/Set scale flip attributes
     */
-    bool getIgnoreNegativeX() const;
+    bool getIgnoreNegativeX(void) const;
     void setIgnoreNegativeX(bool ignoreNegativeX);
-    bool getIgnoreNegativeY() const;
+    bool getIgnoreNegativeY(void) const;
     void setIgnoreNegativeY(bool ignoreNegativeY);
-    bool getIgnoreNegativeZ() const;
+    bool getIgnoreNegativeZ(void) const;
     void setIgnoreNegativeZ(bool ignoreNegativeZ);
 
     /** Get/Set Movement
@@ -115,12 +114,12 @@ public:
         The movement vector determines the position of the movement. This movement is a displacement of the particle position 
         mapped to the forcefield.
     */
-    const Vec3& getMovement() const;
+    const Vec3& getMovement(void) const;
     void setMovement(const Vec3& movement);
 
     /** Get/Set Movement frequency
     */
-    float getMovementFrequency() const;
+    float getMovementFrequency(void) const;
     void setMovementFrequency(float movementFrequency);
 
     /** Suppress (re)generation of the forcefield everytime an attribute is changed.

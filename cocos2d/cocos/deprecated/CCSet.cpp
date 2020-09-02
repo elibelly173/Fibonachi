@@ -1,7 +1,6 @@
 /****************************************************************************
 Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2013-2017 Chukong Technologies
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+Copyright (c) 2013-2014 Chukong Technologies
 
 http://www.cocos2d-x.org
 
@@ -30,7 +29,7 @@ using namespace std;
 
 NS_CC_BEGIN
 
-__Set::__Set()
+__Set::__Set(void)
 {
     _set = new (std::nothrow) set<Ref *>;
 }
@@ -52,7 +51,7 @@ __Set::__Set(const __Set &other)
     }
 }
 
-__Set::~__Set()
+__Set::~__Set(void)
 {
     removeAllObjects();
     CC_SAFE_DELETE(_set);
@@ -75,19 +74,19 @@ __Set * __Set::create()
     return pRet;
 }
 
-__Set* __Set::copy()
+__Set* __Set::copy(void)
 {
     __Set *p__Set = new (std::nothrow) __Set(*this);
 
     return p__Set;
 }
 
-__Set* __Set::mutableCopy()
+__Set* __Set::mutableCopy(void)
 {
     return copy();
 }
 
-int __Set::count()
+int __Set::count(void)
 {
     return (int)_set->size();
 }
@@ -135,12 +134,12 @@ bool __Set::containsObject(Ref *pObject)
     return _set->find(pObject) != _set->end();
 }
 
-__SetIterator __Set::begin()
+__SetIterator __Set::begin(void)
 {
     return _set->begin();
 }
 
-__SetIterator __Set::end()
+__SetIterator __Set::end(void)
 {
     return _set->end();
 }

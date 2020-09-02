@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -41,7 +40,7 @@ public:
     static PUPositionEmitter* create();
     /** 
     */
-    bool isRandomized() const;
+    bool isRandomized(void) const;
 
     /** 
     */
@@ -49,7 +48,7 @@ public:
 
     /** Returns a list with positions
     */
-    const std::vector<Vec3>& getPositions() const;
+    const std::vector<Vec3>& getPositions(void) const;
 
     /** Add a new position to this emitter
     */
@@ -57,11 +56,11 @@ public:
 
     /** Remove all positions from this emitter
     */
-    void removeAllPositions();
+    void removeAllPositions(void);
 
     /** See ParticleEmitter
     */
-    void notifyStart() override;
+    void notifyStart(void) override;
 
     /** See ParticleEmitter
     */
@@ -75,8 +74,8 @@ public:
     virtual void copyAttributesTo (PUEmitter* emitter) override;
 
 CC_CONSTRUCTOR_ACCESS:
-    PUPositionEmitter();
-    virtual ~PUPositionEmitter() {};
+    PUPositionEmitter(void);
+    virtual ~PUPositionEmitter(void) {};
 
 protected:
     std::vector<Vec3> _positionList;

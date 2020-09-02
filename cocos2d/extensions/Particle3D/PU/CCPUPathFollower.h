@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -47,11 +46,11 @@ public:
 
     /** Clear all points
     */
-    void clearPoints ();
+    void clearPoints (void);
 
     /** 
     */
-    unsigned short getNumPoints() const {return _spline.getNumPoints();};
+    unsigned short getNumPoints(void) const {return _spline.getNumPoints();};
                 
     /** 
     */
@@ -60,8 +59,8 @@ public:
     virtual void copyAttributesTo (PUAffector* affector) override;
 
 CC_CONSTRUCTOR_ACCESS:
-    PUPathFollower();
-    virtual ~PUPathFollower();
+    PUPathFollower(void);
+    virtual ~PUPathFollower(void);
 
 protected:
 

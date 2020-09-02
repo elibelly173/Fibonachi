@@ -97,6 +97,7 @@ public:
     void initFlags();
     void initScreen();
     void initKey();
+    void initButtons();
     void initFiboAchi();
     void achianim();
     void fiboanim();
@@ -155,7 +156,11 @@ public:
         
     void reportCallback(cocos2d::Ref* sender, int status);
     void onKeyTouchEvent(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
+    
     void gotoHome(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
+    void gotoEnter(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
+    void gotoAnimhand(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
+    void gotoDelete(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
     
     void nextLevel();
     void onIntroduceLevel(cocos2d::Ref* sender);

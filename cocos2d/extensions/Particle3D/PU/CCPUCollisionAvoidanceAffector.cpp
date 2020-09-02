@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -32,7 +31,7 @@ NS_CC_BEGIN
 const float PUCollisionAvoidanceAffector::DEFAULT_RADIUS = 100.0f;
 
 //-----------------------------------------------------------------------
-PUCollisionAvoidanceAffector::PUCollisionAvoidanceAffector() : 
+PUCollisionAvoidanceAffector::PUCollisionAvoidanceAffector(void) : 
     PUAffector(),
     _radius(DEFAULT_RADIUS)
 {
@@ -42,7 +41,7 @@ PUCollisionAvoidanceAffector::~PUCollisionAvoidanceAffector()
 
 }
 //-----------------------------------------------------------------------
-float PUCollisionAvoidanceAffector::getRadius() const
+float PUCollisionAvoidanceAffector::getRadius(void) const
 {
     return _radius;
 }

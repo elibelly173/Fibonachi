@@ -1,6 +1,5 @@
 /****************************************************************************
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -65,7 +64,7 @@ public:
     void uncacheAll();
     
 
-    int preload(const std::string& filePath, const std::function<void(bool isSuccess)>& callback);
+    int preload(const std::string& filePath, std::function<void(bool isSuccess)> callback);
     
     void update(float dt);
     

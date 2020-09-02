@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (c) 2010-2012 cocos2d-x.org
  Copyright (c) 2013-2016 zilongshanren
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
  
@@ -136,7 +135,8 @@
 - (void)openKeyboard
 {
     [self.window.contentView addSubview:self.textInput];
-
+    //FIXME: it will cause a few OpenGL error once, should be fix when glfw version upgraded.
+    self.window.contentView.wantsLayer = YES;
     if (![self.textInput isKindOfClass:[NSTextView class]]) {
         [self.textInput becomeFirstResponder];
     }else {
@@ -298,7 +298,6 @@
 {
     self.textInput.ccui_placeholderFont = font;
 }
-
 - (void)setText:(NSString *)text
 {
     self.textInput.ccui_text = text;

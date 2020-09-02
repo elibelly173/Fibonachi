@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (c) 2012 cocos2d-x.org
  Copyright (c) 2010 Sangwoo Im
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
  
@@ -54,12 +53,12 @@ public:
      * @js NA
      * @lua NA
      */
-    virtual void scrollViewDidScroll(ScrollView* view) {}
+    virtual void scrollViewDidScroll(ScrollView* view) {};
     /**
      * @js NA
      * @lua NA
      */
-    virtual void scrollViewDidZoom(ScrollView* view) {}
+    virtual void scrollViewDidZoom(ScrollView* view) {};
 };
 
 
@@ -197,7 +196,6 @@ public:
 
     void setTouchEnabled(bool enabled);
 	bool isTouchEnabled() const;
-    void setSwallowTouches(bool needSwallow);
     bool isDragging() const {return _dragging;}
     bool isTouchMoved() const { return _touchMoved; }
     bool isBounceable() const { return _bounceable; }

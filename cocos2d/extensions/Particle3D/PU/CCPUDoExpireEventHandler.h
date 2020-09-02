@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -47,7 +46,7 @@ public:
 
     ///** Get indication that all particles are expired
     //*/
-    //bool getExpireAll();
+    //bool getExpireAll(void);
 
     ///** Set indication that all particles are expired
     //*/
@@ -58,10 +57,10 @@ public:
     virtual void handle (PUParticleSystem3D* particleSystem, PUParticle3D* particle, float timeElapsed) override;
 
 CC_CONSTRUCTOR_ACCESS:
-    PUDoExpireEventHandler() : PUEventHandler()
+    PUDoExpireEventHandler(void) : PUEventHandler()
     {
     }
-    virtual ~PUDoExpireEventHandler() {};
+    virtual ~PUDoExpireEventHandler(void) {};
 };
 
 NS_CC_END

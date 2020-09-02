@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -50,7 +49,7 @@ public:
     /** Returns the rotation speed. This is the speed controlled by the affector. Besides
         the default rotation speed, it is also possible to use the particles own rotation speed.
     */
-    PUDynamicAttribute* getRotationSpeed() const;
+    PUDynamicAttribute* getRotationSpeed(void) const;
 
     /** 
     */
@@ -59,7 +58,7 @@ public:
     /** Returns an indication whether the rotation speed is the same for all particles in this 
         particle technique, or whether the rotation speed of the particle itself is used.
     */
-    bool useOwnRotationSpeed () const;
+    bool useOwnRotationSpeed (void) const;
 
     /** Set the indication whether rotation speed of the particle itself is used.
     */
@@ -67,7 +66,7 @@ public:
 
     /** 
     */
-    const Vec3& getRotationAxis() const;
+    const Vec3& getRotationAxis(void) const;
 
     /** 
     */
@@ -75,7 +74,7 @@ public:
 
     /** 
     */
-    void resetRotationAxis();
+    void resetRotationAxis(void);
 
     virtual void copyAttributesTo (PUAffector* affector) override;
 

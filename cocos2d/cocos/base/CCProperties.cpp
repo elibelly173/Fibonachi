@@ -1,7 +1,6 @@
 /**
  Copyright 2013 BlackBerry Inc.
- Copyright (c) 2015-2017 Chukong Technologies
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -44,16 +43,15 @@ void calculateNamespacePath(const std::string& urlString, std::string& fileStrin
 Properties* getPropertiesFromNamespacePath(Properties* properties, const std::vector<std::string>& namespacePath);
 
 Properties::Properties()
-    :  _dataIdx(nullptr), _data(nullptr), _variables(nullptr), _dirPath(nullptr), _parent(nullptr)
+: _variables(nullptr), _dirPath(nullptr), _parent(nullptr), _dataIdx(nullptr), _data(nullptr)
 {
     _properties.reserve(32);
 }
 
 Properties::Properties(const Properties& copy)
-    : _dataIdx(copy._dataIdx), _data(copy._data), _namespace(copy._namespace),
-      _id(copy._id), _parentID(copy._parentID), _properties(copy._properties),
-      _variables(nullptr), _dirPath(nullptr), _parent(copy._parent)
-      
+    : _namespace(copy._namespace), _id(copy._id), _parentID(copy._parentID), _properties(copy._properties),
+      _variables(nullptr), _dirPath(nullptr), _parent(copy._parent),
+      _dataIdx(copy._dataIdx), _data(copy._data)
 {
     setDirectoryPath(copy._dirPath);
 
@@ -65,14 +63,14 @@ Properties::Properties(const Properties& copy)
 }
 
 Properties::Properties(Data* data, ssize_t* dataIdx)
-    : _dataIdx(dataIdx), _data(data), _variables(NULL), _dirPath(NULL), _parent(NULL)
+    : _variables(NULL), _dirPath(NULL), _parent(NULL), _dataIdx(dataIdx), _data(data)
 {
     readProperties();
     rewind();
 }
 
 Properties::Properties(Data* data, ssize_t* dataIdx, const std::string& name, const char* id, const char* parentID, Properties* parent)
-    : _dataIdx(dataIdx), _data(data), _namespace(name), _variables(NULL), _dirPath(NULL), _parent(parent)
+    : _namespace(name), _variables(NULL), _dirPath(NULL), _parent(parent), _dataIdx(dataIdx), _data(data)
 {
     if (id)
     {
@@ -88,14 +86,14 @@ Properties::Properties(Data* data, ssize_t* dataIdx, const std::string& name, co
 
 Properties* Properties::createNonRefCounted(const std::string& url)
 {
-    if (url.empty())
+    if (url.size() == 0)
     {
         CCLOGERROR("Attempting to create a Properties object from an empty URL!");
         return nullptr;
     }
 
     // Calculate the file and full namespace path from the specified url.
-    const std::string& urlString = url;
+    std::string urlString = url;
     std::string fileString;
     std::vector<std::string> namespacePath;
     calculateNamespacePath(urlString, fileString, namespacePath);
@@ -235,7 +233,7 @@ void Properties::readProperties()
                 else
                 {
                     // Normal name/value pair
-                    _properties.emplace_back(name, value);
+                    _properties.push_back(Property(name, value));
                 }
             }
             else
@@ -383,11 +381,11 @@ void Properties::readProperties()
                             // Store "name value" as a name/value pair, or even just "name".
                             if (value != NULL)
                             {
-                                _properties.emplace_back(name, value);
+                                _properties.push_back(Property(name, value));
                             }
                             else
                             {
-                                _properties.emplace_back(name, "");
+                                _properties.push_back(Property(name, ""));
                             }
                         }
                     }
@@ -481,8 +479,10 @@ char* Properties::trimWhiteSpace(char *str)
         return str;
     }
 
+    char *end;
+
     // Trim leading space.
-    while (*str != '\0' && isspace(*str))
+    while (isspace(*str))
         str++;
 
     // All spaces?
@@ -492,7 +492,7 @@ char* Properties::trimWhiteSpace(char *str)
     }
 
     // Trim trailing space.
-    char *end = str + strlen(str) - 1;
+    end = str + strlen(str) - 1;
     while (end > str && isspace(*end))
         end--;
 
@@ -832,7 +832,7 @@ bool Properties::setString(const char* name, const char* value)
         }
 
         // There is no property with this name, so add one
-        _properties.emplace_back(name, value ? value : "");
+        _properties.push_back(Property(name, value ? value : ""));
     }
     else
     {
@@ -1117,12 +1117,12 @@ void calculateNamespacePath(const std::string& urlString, std::string& fileStrin
 {
     // If the url references a specific namespace within the file,
     // calculate the full namespace path to the final namespace.
-    size_t loc = urlString.rfind('#');
+    size_t loc = urlString.rfind("#");
     if (loc != std::string::npos)
     {
         fileString = urlString.substr(0, loc);
         std::string namespacePathString = urlString.substr(loc + 1);
-        while ((loc = namespacePathString.find('/')) != std::string::npos)
+        while ((loc = namespacePathString.find("/")) != std::string::npos)
         {
             namespacePath.push_back(namespacePathString.substr(0, loc));
             namespacePathString = namespacePathString.substr(loc + 1);
@@ -1139,7 +1139,7 @@ Properties* getPropertiesFromNamespacePath(Properties* properties, const std::ve
 {
     // If the url references a specific namespace within the file,
     // return the specified namespace or notify the user if it cannot be found.
-    if (!namespacePath.empty())
+    if (namespacePath.size() > 0)
     {
         size_t size = namespacePath.size();
         properties->rewind();

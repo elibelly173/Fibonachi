@@ -1,6 +1,5 @@
 ﻿/****************************************************************************
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -86,7 +85,7 @@ public:
                                  SEL_ParseEvent callBack);
 
     void registerTypeAndCallBack(const std::string& classType,
-                                 const cocos2d::ObjectFactory::InstanceFunc& ins,
+                                 cocos2d::ObjectFactory::InstanceFunc ins,
                                  Ref* object,
                                  SEL_ParseEvent callBack);
 protected:

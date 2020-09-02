@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -59,25 +58,25 @@ public:
     Vec3 en3;			// Normal of edge v3-v1
 
     /** Constructor **/
-    PUTriangle(){};
+    PUTriangle(void){};
 
     /** Calculate the (square) surface of the triangle **/
-    void calculateSquareSurface ();
+    void calculateSquareSurface (void);
 
     /** Calculate the surface normal of the triangle **/
-    void calculateSurfaceNormal ();
+    void calculateSurfaceNormal (void);
 
     /** Calculate the edge normals of the 3 edges  **/
-    void calculateEdgeNormals ();
+    void calculateEdgeNormals (void);
 
     /** Determine a random position on this triangle **/
-    const Vec3 getRandomTrianglePosition ();
+    const Vec3 getRandomTrianglePosition (void);
 
     /** Determine a random position including its normal on a one of the edges **/
-    const PositionAndNormal getRandomEdgePositionAndNormal ();
+    const PositionAndNormal getRandomEdgePositionAndNormal (void);
 
     /** Determine a random vertex including its normal of this triangle **/
-    const PositionAndNormal getRandomVertexAndNormal ();
+    const PositionAndNormal getRandomVertexAndNormal (void);
 };
 
 /** Comparer used for sorting vector in ascending order
@@ -132,7 +131,7 @@ public:
         const Vec3& scale = Vec3::ZERO);
 
     /** Destructor **/
-    ~MeshInfo ();
+    ~MeshInfo (void);
 
     /** Generate a random number. The high argument determines that numbers are 
         returned between [0..high] **/
@@ -180,7 +179,7 @@ public:
 
     /** Returns the mesh name.
     */
-    const std::string& getMeshName() const;
+    const std::string& getMeshName(void) const;
 
     /** Sets the mesh name.
     */
@@ -188,7 +187,7 @@ public:
 
     /** Returns true if normals are used for the particle direction.
     */
-    bool useNormals () const;
+    bool useNormals (void) const;
 
     /** Set indication whether normals are used for the particle direction.
     */
@@ -207,7 +206,7 @@ public:
 
     /** Returns the scale of the mesh.
     */
-    const Vec3& getScale () const;
+    const Vec3& getScale (void) const;
 
     /** Set the scale of the mesh.
     @remarks
@@ -217,7 +216,7 @@ public:
 
     /** Build all the data needed to generate the particles.
     */
-    void build();
+    void build(void);
 
     /** Build the data if the mesh name has been set.
     */
@@ -243,8 +242,8 @@ public:
     virtual void copyAttributesTo (PUEmitter* emitter) override;
 
 CC_CONSTRUCTOR_ACCESS:
-    PUMeshSurfaceEmitter();
-    virtual ~PUMeshSurfaceEmitter();
+    PUMeshSurfaceEmitter(void);
+    virtual ~PUMeshSurfaceEmitter(void);
 
 protected:
     std::string _meshName;

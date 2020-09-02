@@ -1,6 +1,5 @@
 /****************************************************************************
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -159,7 +158,7 @@ public:
      * @js ctor
      * @lua new
      */
-    Widget();
+    Widget(void);
     
     /**
      * Default destructor
@@ -921,11 +920,8 @@ protected:
     void updateContentSizeWithTextureSize(const Size& size);
     
     bool isAncestorsEnabled();
-    Widget* getAncestorWidget(Node* node);
+    Widget* getAncensterWidget(Node* node);
     bool isAncestorsVisible(Node* node);
-
-    /** @deprecated Use getAncestorWidget instead. */
-    CC_DEPRECATED_ATTRIBUTE Widget* getAncensterWidget(Node* node);
 
     void cleanupWidget();
     LayoutComponent* getOrCreateLayoutComponent();

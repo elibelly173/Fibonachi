@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -34,15 +33,15 @@ const Vec3 PUVortexAffector::DEFAULT_ROTATION_VECTOR(0, 0, 0);
 const float PUVortexAffector::DEFAULT_ROTATION_SPEED = 1.0f;
 
 //-----------------------------------------------------------------------
-PUVortexAffector::PUVortexAffector()
-: PUAffector()
-, _rotationVector(DEFAULT_ROTATION_VECTOR)
+PUVortexAffector::PUVortexAffector(void) : 
+    PUAffector(),
+    _rotationVector(DEFAULT_ROTATION_VECTOR)
 {
     _dynRotationSpeed = new (std::nothrow) PUDynamicAttributeFixed();
     (static_cast<PUDynamicAttributeFixed*>(_dynRotationSpeed))->setValue(DEFAULT_ROTATION_SPEED);
 }
 //-----------------------------------------------------------------------
-PUVortexAffector::~PUVortexAffector()
+PUVortexAffector::~PUVortexAffector(void)
 {
     if (_dynRotationSpeed)
     {
@@ -50,7 +49,7 @@ PUVortexAffector::~PUVortexAffector()
     }
 }
 //-----------------------------------------------------------------------
-const Vec3& PUVortexAffector::getRotationVector() const
+const Vec3& PUVortexAffector::getRotationVector(void) const
 {
     return _rotationVector;
 }
@@ -60,7 +59,7 @@ void PUVortexAffector::setRotationVector(const Vec3& rotationVector)
     _rotationVector = rotationVector;
 }
 //-----------------------------------------------------------------------
-PUDynamicAttribute* PUVortexAffector::getRotationSpeed() const
+PUDynamicAttribute* PUVortexAffector::getRotationSpeed(void) const
 {
     return _dynRotationSpeed;
 }
@@ -73,7 +72,7 @@ void PUVortexAffector::setRotationSpeed(PUDynamicAttribute* dynRotationSpeed)
     _dynRotationSpeed = dynRotationSpeed;
 }
 //-----------------------------------------------------------------------
-float PUVortexAffector::calculateRotationSpeed()
+float PUVortexAffector::calculateRotationSpeed(void)
 {
     return float(_dynamicAttributeHelper.calculate(_dynRotationSpeed, (static_cast<PUParticleSystem3D *>(_particleSystem))->getTimeElapsedSinceStart()));
 }

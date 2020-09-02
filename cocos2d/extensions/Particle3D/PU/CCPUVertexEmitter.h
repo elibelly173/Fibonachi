@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -79,34 +78,34 @@ NS_CC_BEGIN
 //
 //	/** 
 //	*/
-//	void _setDefaults();
+//	void _setDefaults(void);
 //
 //	/** 
 //	*/
-//	void _loadMesh ();
+//	void _loadMesh (void);
 //
 //	/** Generate spawn points from a mesh. The points will not be generated all at once, but
 //		gradually. In each call, the points on an edge are generated, until all vertices
 //		have been processed. In that case, mAllVerticesProcessed is set to true and this 
 //		function stops further processing.
 //	*/
-//	void _generatePoints ();
+//	void _generatePoints (void);
 //				
 //	/** 
 //	*/
-//	void _generatePointsFromMesh ();
+//	void _generatePointsFromMesh (void);
 //
 //	/** 
 //	*/
-//	void _generatePointsFromSubMesh ();
+//	void _generatePointsFromSubMesh (void);
 //
 //	/** 
 //	*/
-//	void _fillVertexBuffer();
+//	void _fillVertexBuffer(void);
 //
 //	/** 
 //	*/
-//	void _generatePointsFromVertexBuffer();
+//	void _generatePointsFromVertexBuffer(void);
 //
 //	/** 
 //	*/
@@ -120,12 +119,12 @@ NS_CC_BEGIN
 //	static const unsigned short DEFAULT_SEGMENTS;
 //	static const unsigned short DEFAULT_ITERATIONS;
 //
-//	Particle3DVertexEmitter();
-//	virtual ~Particle3DVertexEmitter() {};
+//	Particle3DVertexEmitter(void);
+//	virtual ~Particle3DVertexEmitter(void) {};
 //
 //	/** 
 //	*/
-//	unsigned short getIterations() const;
+//	unsigned short getIterations(void) const;
 //
 //	/** 
 //	*/
@@ -133,7 +132,7 @@ NS_CC_BEGIN
 //			
 //	/** 
 //	*/
-//	unsigned short getSegments() const;
+//	unsigned short getSegments(void) const;
 //
 //	/** 
 //	*/
@@ -141,7 +140,7 @@ NS_CC_BEGIN
 //
 //	/** 
 //	*/
-//	unsigned short getStep() const;
+//	unsigned short getStep(void) const;
 //
 //	/** 
 //	*/
@@ -149,11 +148,11 @@ NS_CC_BEGIN
 //
 //	/** 
 //	*/
-//	const std::string& getMeshName() const;
+//	const std::string& getMeshName(void) const;
 //
 //	/** 
 //	*/
-//	virtual void _notifyStart ();
+//	virtual void _notifyStart (void);
 //			
 //	/** 
 //	*/

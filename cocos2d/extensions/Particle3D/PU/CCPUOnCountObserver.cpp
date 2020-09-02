@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -34,14 +33,14 @@ const unsigned int PUOnCountObserver::DEFAULT_THRESHOLD = 0;
 const PUComparisionOperator PUOnCountObserver::DEFAULT_COMPARE = CO_LESS_THAN;
 
 //-----------------------------------------------------------------------
-PUOnCountObserver::PUOnCountObserver() : PUObserver(),
+PUOnCountObserver::PUOnCountObserver(void) : PUObserver(),
     _count(1),
     _threshold(DEFAULT_THRESHOLD),
     _compare(DEFAULT_COMPARE)
 {
 }
 //-----------------------------------------------------------------------
-void PUOnCountObserver::notifyStart ()
+void PUOnCountObserver::notifyStart (void)
 {
     PUObserver::notifyStart();
 

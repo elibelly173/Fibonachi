@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -33,9 +32,9 @@ NS_CC_BEGIN
 const unsigned int PUOnEventFlagObserver::DEFAULT_EVENT_FLAG = 0;
 
 //-----------------------------------------------------------------------
-PUOnEventFlagObserver::PUOnEventFlagObserver()
-: PUObserver()
-, _eventFlag(DEFAULT_EVENT_FLAG)
+PUOnEventFlagObserver::PUOnEventFlagObserver(void) : 
+    PUObserver(),
+    _eventFlag(DEFAULT_EVENT_FLAG)
 {
 }
 //-----------------------------------------------------------------------

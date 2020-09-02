@@ -1,6 +1,5 @@
 /****************************************************************************
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -24,14 +23,13 @@ THE SOFTWARE.
 ****************************************************************************/
 #include "editor-support/cocostudio/CCSGUIReader.h"
 
+#include <fstream>
+#include <iostream>
+#include "ui/CocosGUI.h"
+#include "platform/CCFileUtils.h"
 #include "2d/CCSpriteFrameCache.h"
 #include "base/CCDirector.h"
 #include "base/ccUtils.h"
-#include "platform/CCFileUtils.h"
-#include "ui/CocosGUI.h"
-#include <fstream>
-#include <iostream>
-#include <utility>
 
 #include "editor-support/cocostudio/CCActionManagerEx.h"
 #include "editor-support/cocostudio/WidgetReader/ButtonReader/ButtonReader.h"
@@ -118,19 +116,19 @@ int GUIReader::getVersionInteger(const char *str)
     {
         return 0;
     }
-    size_t pos = strVersion.find_first_of('.');
+    size_t pos = strVersion.find_first_of(".");
     std::string t = strVersion.substr(0,pos);
     strVersion = strVersion.substr(pos+1,strVersion.length()-1);
     
-    pos = strVersion.find_first_of('.');
+    pos = strVersion.find_first_of(".");
     std::string h = strVersion.substr(0,pos);
     strVersion = strVersion.substr(pos+1,strVersion.length()-1);
     
-    pos = strVersion.find_first_of('.');
+    pos = strVersion.find_first_of(".");
     std::string te = strVersion.substr(0,pos);
     strVersion = strVersion.substr(pos+1,strVersion.length()-1);
     
-    pos = strVersion.find_first_of('.');
+    pos = strVersion.find_first_of(".");
     std::string s = strVersion.substr(0,pos);
     
     int it = atoi(t.c_str());
@@ -187,7 +185,7 @@ void GUIReader::registerTypeAndCallBack(const std::string& classType,
 }
 
 void GUIReader::registerTypeAndCallBack(const std::string& classType,
-                                        const ObjectFactory::InstanceFunc& ins,
+                                        ObjectFactory::InstanceFunc ins,
                                         Ref *object,
                                         SEL_ParseEvent callBack)
 {
@@ -932,8 +930,9 @@ void WidgetPropertiesReader0250::setPropsForLabelAtlasFromJsonDictionary(Widget*
     if (sv && cmf && iw && ih && scm && (strcmp(DICTOOL->getStringValue_json(options, "charMapFile"), "") != 0))
     {
         std::string tp_c = m_strFilePath;
+        const char* cmf_tp = nullptr;
         const char* cmft = DICTOOL->getStringValue_json(options, "charMapFile");
-        const char* cmf_tp = tp_c.append(cmft).c_str();
+        cmf_tp = tp_c.append(cmft).c_str();
         
         labelAtlas->setProperty(DICTOOL->getStringValue_json(options, "stringValue"),cmf_tp,DICTOOL->getIntValue_json(options, "itemWidth"),DICTOOL->getIntValue_json(options,"itemHeight"),DICTOOL->getStringValue_json(options, "startCharMap"));
         labelAtlas->setProperty(DICTOOL->getStringValue_json(options, "stringValue"),cmf_tp,DICTOOL->getIntValue_json(options, "itemWidth") / CC_CONTENT_SCALE_FACTOR() ,DICTOOL->getIntValue_json(options,"itemHeight") / CC_CONTENT_SCALE_FACTOR(), DICTOOL->getStringValue_json(options, "startCharMap"));
@@ -1185,8 +1184,9 @@ void WidgetPropertiesReader0250::setPropsForLabelBMFontFromJsonDictionary(Widget
     cocos2d::ui::TextBMFont* labelBMFont = static_cast<cocos2d::ui::TextBMFont*>(widget);
     
     std::string tp_c = m_strFilePath;
+    const char* cmf_tp = nullptr;
     const char* cmft = DICTOOL->getStringValue_json(options, "fileName");
-    const char* cmf_tp = tp_c.append(cmft).c_str();
+    cmf_tp = tp_c.append(cmft).c_str();
     
     labelBMFont->setFntFile(cmf_tp);
     
@@ -1278,8 +1278,8 @@ Widget* WidgetPropertiesReader0300::createWidget(const rapidjson::Value& data, c
 {
     
     stExpCocoNode *tpChildArray = cocoNode->GetChildArray(cocoLoader);
-    float fileDesignWidth = 0.0f;
-    float fileDesignHeight = 0.0f;
+    float fileDesignWidth;
+    float fileDesignHeight;
     
     Widget* widget =  nullptr;
 

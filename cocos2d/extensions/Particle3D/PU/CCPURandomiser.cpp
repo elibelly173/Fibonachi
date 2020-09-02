@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -35,7 +34,7 @@ const float PURandomiser::DEFAULT_TIME_STEP = 0.0f;
 const bool PURandomiser::DEFAULT_RANDOM_DIRECTION = true;
 
 //-----------------------------------------------------------------------
-PURandomiser::PURandomiser() : 
+PURandomiser::PURandomiser(void) : 
     PUAffector(),
     _maxDeviationX(DEFAULT_MAX_DEVIATION.x),
     _maxDeviationY(DEFAULT_MAX_DEVIATION.y),
@@ -46,12 +45,12 @@ PURandomiser::PURandomiser() :
     _update(true)
 {
 }
-PURandomiser::~PURandomiser()
+PURandomiser::~PURandomiser( void )
 {
 
 }
 //-----------------------------------------------------------------------
-float PURandomiser::getMaxDeviationX() const
+float PURandomiser::getMaxDeviationX(void) const
 {
     return _maxDeviationX;
 }
@@ -61,7 +60,7 @@ void PURandomiser::setMaxDeviationX(float maxDeviationX)
     _maxDeviationX = maxDeviationX;
 }
 //-----------------------------------------------------------------------
-float PURandomiser::getMaxDeviationY() const
+float PURandomiser::getMaxDeviationY(void) const
 {
     return _maxDeviationY;
 }
@@ -71,7 +70,7 @@ void PURandomiser::setMaxDeviationY(float maxDeviationY)
     _maxDeviationY = maxDeviationY;
 }
 //-----------------------------------------------------------------------
-float PURandomiser::getMaxDeviationZ() const
+float PURandomiser::getMaxDeviationZ(void) const
 {
     return _maxDeviationZ;
 }
@@ -81,7 +80,7 @@ void PURandomiser::setMaxDeviationZ(float maxDeviationZ)
     _maxDeviationZ = maxDeviationZ;
 }
 //-----------------------------------------------------------------------
-float PURandomiser::getTimeStep() const
+float PURandomiser::getTimeStep(void) const
 {
     return _timeStep;
 }
@@ -92,7 +91,7 @@ void PURandomiser::setTimeStep(float timeStep)
     _timeSinceLastUpdate = timeStep;
 }
 //-----------------------------------------------------------------------
-bool PURandomiser::isRandomDirection() const
+bool PURandomiser::isRandomDirection(void) const
 {
     return _randomDirection;
 }

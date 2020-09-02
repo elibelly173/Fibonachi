@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -46,14 +45,14 @@ public:
 
     /** 
     */
-    PUDynamicAttribute* getDynAcceleration() const {return _dynAcceleration;};
+    PUDynamicAttribute* getDynAcceleration(void) const {return _dynAcceleration;};
     void setDynAcceleration(PUDynamicAttribute* dynAcceleration);
 
     virtual void copyAttributesTo (PUAffector* affector) override;
 
 CC_CONSTRUCTOR_ACCESS:
-    PUJetAffector();
-    virtual ~PUJetAffector();
+    PUJetAffector(void);
+    virtual ~PUJetAffector(void);
 
 protected:
 

@@ -2,7 +2,6 @@
  Copyright (c) 2012      greathqy
  Copyright (c) 2012      cocos2d-x.org
  Copyright (c) 2013-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
  http://www.cocos2d-x.org
 
@@ -365,14 +364,12 @@ void HttpClient::setSSLVerification(const std::string& caFile)
 }
 
 HttpClient::HttpClient()
-: _isInited(false)
-, _timeoutForConnect(30)
+: _timeoutForConnect(30)
 , _timeoutForRead(60)
+, _isInited(false)
 , _threadCount(0)
-, _cookie(nullptr)
 , _requestSentinel(new HttpRequest())
-, _clearRequestPredicate(nullptr)
-, _clearResponsePredicate(nullptr)
+, _cookie(nullptr)
 {
     CCLOG("In the constructor of HttpClient!");
     memset(_responseMessage, 0, sizeof(char) * RESPONSE_BUFFER_SIZE);
@@ -393,7 +390,7 @@ HttpClient::~HttpClient()
 }
 
 //Lazy create semaphore & mutex & thread
-bool HttpClient::lazyInitThreadSemaphore()
+bool HttpClient::lazyInitThreadSemphore()
 {
     if (_isInited)
     {
@@ -412,7 +409,7 @@ bool HttpClient::lazyInitThreadSemaphore()
 //Add a get task to queue
 void HttpClient::send(HttpRequest* request)
 {
-    if (false == lazyInitThreadSemaphore())
+    if (false == lazyInitThreadSemphore())
     {
         return;
     }
@@ -511,7 +508,7 @@ void HttpClient::processResponse(HttpResponse* response, char* responseMessage)
             break;
 
         default:
-            CCASSERT(false, "CCHttpClient: unknown request type, only GET,POST,PUT or DELETE is supported");
+            CCASSERT(true, "CCHttpClient: unknown request type, only GET and POSt are supported");
             break;
     }
 
@@ -536,39 +533,7 @@ void HttpClient::processResponse(HttpResponse* response, char* responseMessage)
         response->setErrorBuffer(responseMessage);
     }
 }
-    
-void HttpClient::clearResponseAndRequestQueue()
-{
-    _requestQueueMutex.lock();
-    if (_requestQueue.size())
-    {
-        for (auto it = _requestQueue.begin(); it != _requestQueue.end();)
-        {
-            if(!_clearRequestPredicate ||
-               _clearRequestPredicate((*it)))
-            {
-                (*it)->release();
-                it =_requestQueue.erase(it);
-            }
-            else
-            {
-                it++;
-            }
-        }
-    }
-    _requestQueueMutex.unlock();
-    
-    _responseQueueMutex.lock();
-    if (_clearResponsePredicate)
-    {
-        _responseQueue.erase(std::remove_if(_responseQueue.begin(), _responseQueue.end(), _clearResponsePredicate), _responseQueue.end());
-    }
-    else
-    {
-        _responseQueue.clear();
-    }
-    _responseQueueMutex.unlock();
-}
+
 
 void HttpClient::increaseThreadCount()
 {

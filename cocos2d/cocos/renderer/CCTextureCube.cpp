@@ -1,6 +1,5 @@
 /****************************************************************************
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -127,7 +126,7 @@ Image* createImage(const std::string& path)
     // Needed since addImageAsync calls this method from a different thread
 
     std::string fullpath = FileUtils::getInstance()->fullPathForFilename(path);
-    if (fullpath.empty())
+    if (fullpath.size() == 0)
     {
         return nullptr;
     }

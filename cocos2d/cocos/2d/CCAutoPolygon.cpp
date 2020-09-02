@@ -3,7 +3,6 @@ Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2011      Zynga Inc.
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
 http://www.cocos2d-x.org
 
@@ -51,20 +50,20 @@ static unsigned short quadIndices9[]={
 const static float PRECISION = 10.0f;
 
 PolygonInfo::PolygonInfo()
-: _isVertsOwner(true)
-, _rect(Rect::ZERO)
+: _rect(Rect::ZERO)
 , _filename("")
+, _isVertsOwner(true)
 {
     triangles.verts = nullptr;
     triangles.indices = nullptr;
     triangles.vertCount = 0;
     triangles.indexCount = 0;
-}
+};
 
 PolygonInfo::PolygonInfo(const PolygonInfo& other)
 : triangles()
-, _isVertsOwner(true)
 , _rect()
+, _isVertsOwner(true)
 {
     _filename = other._filename;
     _isVertsOwner = true;
@@ -76,7 +75,7 @@ PolygonInfo::PolygonInfo(const PolygonInfo& other)
     triangles.indexCount = other.triangles.indexCount;
     memcpy(triangles.verts, other.triangles.verts, other.triangles.vertCount * sizeof(other.triangles.verts[0]));
     memcpy(triangles.indices, other.triangles.indices, other.triangles.indexCount * sizeof(other.triangles.indices[0]));
-}
+};
 
 PolygonInfo& PolygonInfo::operator= (const PolygonInfo& other)
 {
@@ -204,13 +203,13 @@ AutoPolygon::~AutoPolygon()
     CC_SAFE_DELETE(_image);
 }
 
-std::vector<Vec2> AutoPolygon::trace(const Rect& rect, float threshold)
+std::vector<Vec2> AutoPolygon::trace(const Rect& rect, const float& threshold)
 {
     Vec2 first = findFirstNoneTransparentPixel(rect, threshold);
     return marchSquare(rect, first, threshold);
 }
 
-Vec2 AutoPolygon::findFirstNoneTransparentPixel(const Rect& rect, float threshold)
+Vec2 AutoPolygon::findFirstNoneTransparentPixel(const Rect& rect, const float& threshold)
 {
 	bool found = false;
     Vec2 i;
@@ -231,7 +230,7 @@ Vec2 AutoPolygon::findFirstNoneTransparentPixel(const Rect& rect, float threshol
     return i;
 }
 
-unsigned char AutoPolygon::getAlphaByIndex(unsigned int i)
+unsigned char AutoPolygon::getAlphaByIndex(const unsigned int& i)
 {
     return *(_data+i*4+3);
 }
@@ -240,7 +239,7 @@ unsigned char AutoPolygon::getAlphaByPos(const Vec2& pos)
     return *(_data+((int)pos.y*_width+(int)pos.x)*4+3);
 }
 
-unsigned int AutoPolygon::getSquareValue(unsigned int x, unsigned int y, const Rect& rect, float threshold)
+unsigned int AutoPolygon::getSquareValue(const unsigned int& x, const unsigned int& y, const Rect& rect, const float& threshold)
 {
     /*
      checking the 2x2 pixel grid, assigning these values to each pixel, if not transparent
@@ -266,7 +265,7 @@ unsigned int AutoPolygon::getSquareValue(unsigned int x, unsigned int y, const R
     return sv;
 }
 
-std::vector<cocos2d::Vec2> AutoPolygon::marchSquare(const Rect& rect, const Vec2& start, float threshold)
+std::vector<cocos2d::Vec2> AutoPolygon::marchSquare(const Rect& rect, const Vec2& start, const float& threshold)
 {
     int stepx = 0;
     int stepy = 0;
@@ -416,7 +415,7 @@ std::vector<cocos2d::Vec2> AutoPolygon::marchSquare(const Rect& rect, const Vec2
         }
         else
         {
-            _points.emplace_back((float)(curx - rect.origin.x) / _scaleFactor, (float)(rect.size.height - cury + rect.origin.y) / _scaleFactor);
+            _points.push_back(Vec2((float)(curx - rect.origin.x) / _scaleFactor, (float)(rect.size.height - cury + rect.origin.y) / _scaleFactor));
         }
 
         count++;
@@ -489,7 +488,7 @@ std::vector<cocos2d::Vec2> AutoPolygon::rdp(const std::vector<cocos2d::Vec2>& v,
         return ret;
     }
 }
-std::vector<Vec2> AutoPolygon::reduce(const std::vector<Vec2>& points, const Rect& rect, float epsilon)
+std::vector<Vec2> AutoPolygon::reduce(const std::vector<Vec2>& points, const Rect& rect , const float& epsilon)
 {
     auto size = points.size();
     // if there are less than 3 points, then we have nothing
@@ -517,7 +516,7 @@ std::vector<Vec2> AutoPolygon::reduce(const std::vector<Vec2>& points, const Rec
     return result;
 }
 
-std::vector<Vec2> AutoPolygon::expand(const std::vector<Vec2>& points, const cocos2d::Rect &rect, float epsilon)
+std::vector<Vec2> AutoPolygon::expand(const std::vector<Vec2>& points, const cocos2d::Rect &rect, const float& epsilon)
 {
     auto size = points.size();
     // if there are less than 3 points, then we have nothing
@@ -569,7 +568,7 @@ std::vector<Vec2> AutoPolygon::expand(const std::vector<Vec2>& points, const coc
     }
     for(const auto& pt : p2->Contour)
     {
-        outPoints.emplace_back(pt.X/PRECISION, pt.Y/PRECISION);
+        outPoints.push_back(Vec2(pt.X/PRECISION, pt.Y/PRECISION));
     }
     return outPoints;
 }
@@ -653,7 +652,7 @@ TrianglesCommand::Triangles AutoPolygon::triangulate(const std::vector<Vec2>& po
     return triangles;
 }
 
-void AutoPolygon::calculateUV(const Rect& rect, V3F_C4B_T2F* verts, ssize_t count)
+void AutoPolygon::calculateUV(const Rect& rect, V3F_C4B_T2F* verts, const ssize_t& count)
 {
     /*
      whole texture UV coordination
@@ -704,7 +703,7 @@ Rect AutoPolygon::getRealRect(const Rect& rect)
     return realRect;
 }
 
-PolygonInfo AutoPolygon::generateTriangles(const Rect& rect, float epsilon, float threshold)
+PolygonInfo AutoPolygon::generateTriangles(const Rect& rect, const float& epsilon, const float& threshold)
 {
     Rect realRect = getRealRect(rect);
     auto p = trace(realRect, threshold);
@@ -719,7 +718,7 @@ PolygonInfo AutoPolygon::generateTriangles(const Rect& rect, float epsilon, floa
     return ret;
 }
 
-PolygonInfo AutoPolygon::generatePolygon(const std::string& filename, const Rect& rect, float epsilon, float threshold)
+PolygonInfo AutoPolygon::generatePolygon(const std::string& filename, const Rect& rect, const float epsilon, const float threshold)
 {
     AutoPolygon ap(filename);
     return ap.generateTriangles(rect, epsilon, threshold);

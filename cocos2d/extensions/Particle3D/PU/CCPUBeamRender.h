@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -102,30 +101,30 @@ public:
 
         /** Getters and Setters
     */
-    bool isUseVertexColours() const;
+    bool isUseVertexColours(void) const;
     void setUseVertexColours(bool useVertexColours);
 
-    size_t getMaxChainElements() const;
+    size_t getMaxChainElements(void) const;
     void setMaxChainElements(size_t maxChainElements);
 
-    float getUpdateInterval() const;
+    float getUpdateInterval(void) const;
     void setUpdateInterval(float updateInterval);
 
-    float getDeviation() const;
+    float getDeviation(void) const;
     void setDeviation(float deviation);
 
-    size_t getNumberOfSegments() const;
+    size_t getNumberOfSegments(void) const;
     void setNumberOfSegments(size_t numberOfSegments);
 
-    bool isJump() const;
+    bool isJump(void) const;
     void setJump(bool jump);
 
-    PUBillboardChain::TexCoordDirection getTexCoordDirection() const;
+    PUBillboardChain::TexCoordDirection getTexCoordDirection(void) const;
     void setTexCoordDirection(PUBillboardChain::TexCoordDirection texCoordDirection);
 
     /** Destroys the BillboarChain
     */
-    void destroyAll();
+    void destroyAll(void);
 
     virtual PUBeamRender* clone() override;
     void copyAttributesTo(PUBeamRender *render);

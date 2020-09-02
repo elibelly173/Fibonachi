@@ -1,6 +1,5 @@
 /****************************************************************************
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -53,7 +52,7 @@ static bool isValidUniform(const char* name);
 Material* Material::createWithFilename(const std::string& filepath)
 {
     auto validfilename = FileUtils::getInstance()->fullPathForFilename(filepath);
-    if (!validfilename.empty()) {
+    if (validfilename.size() > 0) {
         auto mat = new (std::nothrow) Material();
         if (mat && mat->initWithFile(validfilename))
         {
@@ -172,7 +171,7 @@ bool Material::parseTechnique(Properties* techniqueProperties)
         }
         else if (strcmp(name, "renderState") == 0)
         {
-            parseRenderState(technique, space);
+            parseRenderState(this, space);
         }
 
         space = techniqueProperties->getNextNamespace();
@@ -420,8 +419,8 @@ std::string Material::getName() const
 
 Material::Material()
 : _name("")
-, _currentTechnique(nullptr)
 , _target(nullptr)
+, _currentTechnique(nullptr)
 {
 }
 
@@ -465,7 +464,7 @@ const Vector<Technique*>& Material::getTechniques() const
 Technique* Material::getTechniqueByName(const std::string& name)
 {
     for(const auto& technique : _techniques) {
-        if (technique->getName() == name)
+        if (technique->getName().compare(name)==0)
             return technique;
     }
     return nullptr;

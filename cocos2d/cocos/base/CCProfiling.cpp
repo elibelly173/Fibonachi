@@ -2,7 +2,6 @@
 Copyright (c) 2010      Stuart Carnie
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -51,7 +50,7 @@ Profiler* Profiler::getInstance()
 }
 
 // FIXME:: deprecated
-Profiler* Profiler::sharedProfiler()
+Profiler* Profiler::sharedProfiler(void)
 {
     return Profiler::getInstance();
 }
@@ -81,7 +80,7 @@ bool Profiler::init()
     return true;
 }
 
-Profiler::~Profiler()
+Profiler::~Profiler(void)
 {
 }
 
@@ -112,7 +111,7 @@ bool ProfilingTimer::initWithName(const char* timerName)
     return true;
 }
 
-ProfilingTimer::~ProfilingTimer()
+ProfilingTimer::~ProfilingTimer(void)
 {
     
 }

@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -45,7 +44,7 @@ PUGeometryRotator::PUGeometryRotator() :
 {
     _dynRotationSpeed = new (std::nothrow) PUDynamicAttributeFixed();
     (static_cast<PUDynamicAttributeFixed*>(_dynRotationSpeed))->setValue(DEFAULT_ROTATION_SPEED);
-}
+};
 //-----------------------------------------------------------------------
 PUGeometryRotator::~PUGeometryRotator()
 {
@@ -64,14 +63,14 @@ void PUGeometryRotator::setRotationAxis(const Vec3& rotationAxis)
     _rotationAxisSet = true;
 }
 //-----------------------------------------------------------------------
-void PUGeometryRotator::resetRotationAxis()
+void PUGeometryRotator::resetRotationAxis(void)
 {
     _dynRotationSpeed = new (std::nothrow) PUDynamicAttributeFixed();
     (static_cast<PUDynamicAttributeFixed*>(_dynRotationSpeed))->setValue(DEFAULT_ROTATION_SPEED);
     _rotationAxisSet = false;
 }
 //-----------------------------------------------------------------------
-PUDynamicAttribute* PUGeometryRotator::getRotationSpeed() const
+PUDynamicAttribute* PUGeometryRotator::getRotationSpeed(void) const
 {
     return _dynRotationSpeed;
 }
@@ -83,7 +82,7 @@ void PUGeometryRotator::setRotationSpeed(PUDynamicAttribute* dynRotationSpeed)
     _dynRotationSpeed = dynRotationSpeed;
 }
 //-----------------------------------------------------------------------
-bool PUGeometryRotator::useOwnRotationSpeed () const
+bool PUGeometryRotator::useOwnRotationSpeed (void) const
 {
     return _useOwnRotationSpeed;
 }

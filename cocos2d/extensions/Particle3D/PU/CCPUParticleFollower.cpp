@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -34,7 +33,7 @@ const float PUParticleFollower::DEFAULT_MAX_DISTANCE = 3.40282e+038f;
 const float PUParticleFollower::DEFAULT_MIN_DISTANCE = 10.0f;
 
 //-----------------------------------------------------------------------
-PUParticleFollower::PUParticleFollower() : 
+PUParticleFollower::PUParticleFollower(void) : 
     PUAffector(),
     _minDistance(DEFAULT_MIN_DISTANCE),
     _maxDistance(DEFAULT_MAX_DISTANCE),
@@ -42,12 +41,12 @@ PUParticleFollower::PUParticleFollower() :
 {
 }
 
-PUParticleFollower::~PUParticleFollower()
+PUParticleFollower::~PUParticleFollower( void )
 {
 
 }
 //-----------------------------------------------------------------------
-float PUParticleFollower::getMaxDistance() const
+float PUParticleFollower::getMaxDistance(void) const
 {
     return _maxDistance;
 }
@@ -57,7 +56,7 @@ void PUParticleFollower::setMaxDistance(float maxDistance)
     _maxDistance = maxDistance;
 }
 //-----------------------------------------------------------------------
-float PUParticleFollower::getMinDistance() const
+float PUParticleFollower::getMinDistance(void) const
 {
     return _minDistance;
 }

@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -101,30 +100,30 @@ public:
 
     /** Getters and Setters
     */
-    bool isUseVertexColors() const;
+    bool isUseVertexColors(void) const;
     void setUseVertexColors(bool useVertexColours);
 
-    size_t getMaxChainElements() const;
+    size_t getMaxChainElements(void) const;
     void setMaxChainElements(size_t maxChainElements);
 
-    float getTrailLength() const;
+    float getTrailLength(void) const;
     void setTrailLength(float trailLength);
 
-    float getTrailWidth() const;
+    float getTrailWidth(void) const;
     void setTrailWidth(float trailWidth);
 
-    bool isRandomInitialColor() const;
+    bool isRandomInitialColor(void) const;
     void setRandomInitialColor(bool randomInitialColour);
 
-    const Vec4& getInitialColor() const;
+    const Vec4& getInitialColor(void) const;
     void setInitialColor(const Vec4& initialColour);
 
-    const Vec4& getColorChange() const;
+    const Vec4& getColorChange(void) const;
     void setColorChange(const Vec4& colourChange);
 
         /** Deletes all ChildSceneNodes en Entities.
     */
-    void destroyAll();
+    void destroyAll(void);
 
     virtual PURibbonTrailRender* clone() override;
     void copyAttributesTo(PURibbonTrailRender *render);

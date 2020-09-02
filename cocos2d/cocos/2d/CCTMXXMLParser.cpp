@@ -4,7 +4,6 @@ Copyright (c) 2009-2010 Ricardo Quesada
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2011      Zynga Inc.
 Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -28,14 +27,13 @@ THE SOFTWARE.
 ****************************************************************************/
 
 #include "2d/CCTMXXMLParser.h"
+#include <unordered_map>
+#include <sstream>
 #include "2d/CCTMXTiledMap.h"
-#include "base/CCDirector.h"
 #include "base/ZipUtils.h"
 #include "base/base64.h"
+#include "base/CCDirector.h"
 #include "platform/CCFileUtils.h"
-#include <sstream>
-#include <unordered_map>
-#include <utility>
 
 using namespace std;
 
@@ -64,7 +62,7 @@ ValueMap& TMXLayerInfo::getProperties()
     return _properties;
 }
 
-void TMXLayerInfo::setProperties(const ValueMap& var)
+void TMXLayerInfo::setProperties(ValueMap var)
 {
     _properties = var;
 }
@@ -167,10 +165,10 @@ TMXMapInfo::TMXMapInfo()
 , _staggerAxis(TMXStaggerAxis_Y)
 , _staggerIndex(TMXStaggerIndex_Even)
 , _hexSideLength(0)
-, _mapSize(Size::ZERO)
-, _tileSize(Size::ZERO)
 , _parentElement(0)
 , _parentGID(0)
+, _mapSize(Size::ZERO)
+, _tileSize(Size::ZERO)
 , _layerAttribs(0)
 , _storingCharacters(false)
 , _xmlTileIndex(0)
@@ -212,9 +210,8 @@ bool TMXMapInfo::parseXMLFile(const std::string& xmlFilename)
     }
     
     parser.setDelegator(this);
-    auto fullPath = FileUtils::getInstance()->fullPathForFilename(xmlFilename);
-    CCASSERT(FileUtils::getInstance()->isFileExist(fullPath), "TMXMapInfo::parseXMLFile xml file not exists");
-    return parser.parse(fullPath);
+
+    return parser.parse(FileUtils::getInstance()->fullPathForFilename(xmlFilename));
 }
 
 // the XML parser calls here with all the elements
@@ -294,14 +291,14 @@ void TMXMapInfo::startElement(void* /*ctx*/, const char *name, const char **atts
     {
         // If this is an external tileset then start parsing that
         std::string externalTilesetFilename = attributeDict["source"].asString();
-        if (!externalTilesetFilename.empty())
+        if (externalTilesetFilename != "")
         {
             _externalTilesetFilename = externalTilesetFilename;
 
             // Tileset file will be relative to the map file. So we need to convert it to an absolute path
-            if (_TMXFileName.find_last_of('/') != string::npos)
+            if (_TMXFileName.find_last_of("/") != string::npos)
             {
-                string dir = _TMXFileName.substr(0, _TMXFileName.find_last_of('/') + 1);
+                string dir = _TMXFileName.substr(0, _TMXFileName.find_last_of("/") + 1);
                 externalTilesetFilename = dir + externalTilesetFilename;
             }
             else 
@@ -316,7 +313,7 @@ void TMXMapInfo::startElement(void* /*ctx*/, const char *name, const char **atts
                 _currentFirstGID = 0;
             }
             _recordFirstGID = false;
-            _externalTilesetFullPath = externalTilesetFilename;
+            
             tmxMapInfo->parseXMLFile(externalTilesetFilename);
         }
         else
@@ -433,19 +430,14 @@ void TMXMapInfo::startElement(void* /*ctx*/, const char *name, const char **atts
         std::string imagename = attributeDict["source"].asString();
         tileset->_originSourceImage = imagename;
 
-        if (!_externalTilesetFullPath.empty())
+        if (_TMXFileName.find_last_of("/") != string::npos)
         {
-            string dir = _externalTilesetFullPath.substr(0, _externalTilesetFullPath.find_last_of('/') + 1);
-            tileset->_sourceImage = dir + imagename;
-        }
-        else if (_TMXFileName.find_last_of('/') != string::npos)
-        {
-            string dir = _TMXFileName.substr(0, _TMXFileName.find_last_of('/') + 1);
+            string dir = _TMXFileName.substr(0, _TMXFileName.find_last_of("/") + 1);
             tileset->_sourceImage = dir + imagename;
         }
         else 
         {
-            tileset->_sourceImage = _resources + (!_resources.empty() ? "/" : "") + imagename;
+            tileset->_sourceImage = _resources + (_resources.size() ? "/" : "") + imagename;
         }
     } 
     else if (elementName == "data")
@@ -453,7 +445,7 @@ void TMXMapInfo::startElement(void* /*ctx*/, const char *name, const char **atts
         std::string encoding = attributeDict["encoding"].asString();
         std::string compression = attributeDict["compression"].asString();
 
-        if (encoding.empty())
+        if (encoding == "")
         {
             tmxMapInfo->setLayerAttribs(tmxMapInfo->getLayerAttribs() | TMXLayerAttribNone);
             
@@ -483,7 +475,7 @@ void TMXMapInfo::startElement(void* /*ctx*/, const char *name, const char **atts
                 layerAttribs = tmxMapInfo->getLayerAttribs();
                 tmxMapInfo->setLayerAttribs(layerAttribs | TMXLayerAttribZlib);
             }
-            CCASSERT( compression.empty() || compression == "gzip" || compression == "zlib", "TMX: unsupported compression method" );
+            CCASSERT( compression == "" || compression == "gzip" || compression == "zlib", "TMX: unsupported compression method" );
         }
         else if (encoding == "csv")
         {
@@ -525,8 +517,6 @@ void TMXMapInfo::startElement(void* /*ctx*/, const char *name, const char **atts
         s = CC_SIZE_PIXELS_TO_POINTS(s);
         dict["width"] = Value(s.width);
         dict["height"] = Value(s.height);
-
-        dict["rotation"] = attributeDict["rotation"].asDouble();
 
         // Add the object to the objectGroup
         objectGroup->getObjects().push_back(Value(dict));
@@ -753,7 +743,7 @@ void TMXMapInfo::endElement(void* /*ctx*/, const char *name)
             }
 
             uint32_t* bufferPtr = reinterpret_cast<uint32_t*>(buffer);
-            for(const auto& gidToken : gidTokens) {
+            for(auto gidToken : gidTokens) {
                 auto tileGid = (uint32_t)strtoul(gidToken.c_str(), nullptr, 10);
                 *bufferPtr = tileGid;
                 bufferPtr++;

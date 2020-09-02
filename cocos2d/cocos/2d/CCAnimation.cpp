@@ -2,8 +2,7 @@
 Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2011      Zynga Inc.
-Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+CopyRight (c) 2013-2016 Chukong Technologies Inc.
  
 http://www.cocos2d-x.org
 
@@ -156,7 +155,7 @@ Animation::Animation()
 
 }
 
-Animation::~Animation()
+Animation::~Animation(void)
 {
     CCLOGINFO("deallocing Animation: %p", this);
 }
@@ -185,7 +184,7 @@ void Animation::addSpriteFrameWithTexture(Texture2D *pobTexture, const Rect& rec
     addSpriteFrame(frame);
 }
 
-float Animation::getDuration() const
+float Animation::getDuration(void) const
 {
     return _totalDelayUnits * _delayPerUnit;
 }

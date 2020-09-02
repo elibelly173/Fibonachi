@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (c) 2010-2012 cocos2d-x.org
  Copyright (c) 2013-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
  
@@ -53,7 +52,7 @@ ScriptHandlerEntry* ScriptHandlerEntry::create(int handler)
     return entry;
 }
 
-ScriptHandlerEntry::~ScriptHandlerEntry()
+ScriptHandlerEntry::~ScriptHandlerEntry(void)
 {
     if (_handler != 0 )
     {
@@ -83,7 +82,7 @@ bool SchedulerScriptHandlerEntry::init(float interval, bool paused)
     return true;
 }
 
-SchedulerScriptHandlerEntry::~SchedulerScriptHandlerEntry()
+SchedulerScriptHandlerEntry::~SchedulerScriptHandlerEntry(void)
 {
     _timer->release();
     LUALOG("[LUA] DEL script schedule %d, entryID: %d", _handler, _entryId);
@@ -104,7 +103,7 @@ TouchScriptHandlerEntry* TouchScriptHandlerEntry::create(int handler,
     return entry;
 }
 
-TouchScriptHandlerEntry::~TouchScriptHandlerEntry()
+TouchScriptHandlerEntry::~TouchScriptHandlerEntry(void)
 {
 }
 
@@ -123,7 +122,7 @@ bool TouchScriptHandlerEntry::init(bool isMultiTouches, int priority, bool swall
 static ScriptEngineManager* s_pSharedScriptEngineManager = nullptr;
 
 
-ScriptEngineManager::~ScriptEngineManager()
+ScriptEngineManager::~ScriptEngineManager(void)
 {
     removeScriptEngine();
 }
@@ -137,7 +136,7 @@ void ScriptEngineManager::setScriptEngine(ScriptEngineProtocol *scriptEngine)
 	}
 }
 
-void ScriptEngineManager::removeScriptEngine()
+void ScriptEngineManager::removeScriptEngine(void)
 {
     if (_scriptEngine)
     {

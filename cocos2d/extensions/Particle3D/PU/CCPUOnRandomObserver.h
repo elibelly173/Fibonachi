@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -59,14 +58,14 @@ public:
 
     /** 
     */
-    float getThreshold() const {return _threshold;};
+    float getThreshold(void) const {return _threshold;};
     void setThreshold(float threshold){_threshold = threshold;};
 
     virtual void copyAttributesTo (PUObserver* observer) override;
 
 CC_CONSTRUCTOR_ACCESS:
-    PUOnRandomObserver();
-    virtual ~PUOnRandomObserver() {};
+    PUOnRandomObserver(void);
+    virtual ~PUOnRandomObserver(void) {};
 
 protected:
     float _threshold; // Value between 0..1

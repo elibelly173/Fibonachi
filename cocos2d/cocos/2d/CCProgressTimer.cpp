@@ -1,8 +1,7 @@
 /****************************************************************************
 Copyright (c) 2010      Lam Pham
 Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2013-2017 Chukong Technologies Inc
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+Copyright (c) 2013-2016 Chukong Technologies Inc
 
 http://www.cocos2d-x.org
 
@@ -83,7 +82,7 @@ bool ProgressTimer::initWithSprite(Sprite* sp)
     return true;
 }
 
-ProgressTimer::~ProgressTimer()
+ProgressTimer::~ProgressTimer(void)
 {
     CC_SAFE_FREE(_vertexData);
     CC_SAFE_RELEASE(_sprite);
@@ -189,7 +188,7 @@ Vec2 ProgressTimer::vertexFromAlphaPoint(Vec2 alpha)
     return ret;
 }
 
-void ProgressTimer::updateColor()
+void ProgressTimer::updateColor(void)
 {
     if (!_sprite) {
         return;
@@ -205,7 +204,7 @@ void ProgressTimer::updateColor()
     }
 }
 
-void ProgressTimer::updateProgress()
+void ProgressTimer::updateProgress(void)
 {
     switch (_type)
     {
@@ -266,7 +265,7 @@ void ProgressTimer::setMidpoint(const Vec2& midPoint)
 //    It now deals with flipped texture. If you run into this problem, just use the
 //    sprite property and enable the methods flipX, flipY.
 ///
-void ProgressTimer::updateRadial()
+void ProgressTimer::updateRadial(void)
 {
     if (!_sprite) {
         return;
@@ -398,7 +397,7 @@ void ProgressTimer::updateRadial()
 //    It now deals with flipped texture. If you run into this problem, just use the
 //    sprite property and enable the methods flipX, flipY.
 ///
-void ProgressTimer::updateBar()
+void ProgressTimer::updateBar(void)
 {
     if (!_sprite) {
         return;

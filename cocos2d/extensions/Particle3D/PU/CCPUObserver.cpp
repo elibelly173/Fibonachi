@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -38,42 +37,42 @@ const float PUObserver::DEFAULT_INTERVAL = 0.05f;
 const bool PUObserver::DEFAULT_UNTIL_EVENT = false;
 
 //-----------------------------------------------------------------------
-PUObserver::PUObserver()
-: _particleSystem(nullptr)
-, _enabled(DEFAULT_ENABLED)
-, _originalEnabled(DEFAULT_ENABLED)
-, _originalEnabledSet(false)
-, _observe(true)
-, _observeUntilEvent(DEFAULT_UNTIL_EVENT)
-, _eventHandlersExecuted(false)
-, _observerScale(Vec3::ONE)
-, _particleTypeToObserve(DEFAULT_PARTICLE_TYPE)
-, _particleTypeToObserveSet(false)
-, _observerInterval(DEFAULT_INTERVAL)
-, _observerIntervalRemainder(0.0)
-, _observerIntervalSet(false)
+PUObserver::PUObserver(void) : 
+    _particleSystem(nullptr),
+    _enabled(DEFAULT_ENABLED),
+    _originalEnabled(DEFAULT_ENABLED),
+    _originalEnabledSet(false),
+    _observe(true),
+    _observeUntilEvent(DEFAULT_UNTIL_EVENT),
+    _eventHandlersExecuted(false),
+    _observerScale(Vec3::ONE),
+    _particleTypeToObserve(DEFAULT_PARTICLE_TYPE),
+    _particleTypeToObserveSet(false),
+    _observerInterval(DEFAULT_INTERVAL),
+    _observerIntervalRemainder(0.0),
+    _observerIntervalSet(false)
 {
     //mAliasType = AT_OBSERVER;
 }
 //-----------------------------------------------------------------------
-PUObserver::~PUObserver()
+PUObserver::~PUObserver(void)
 {
     destroyAllEventHandlers();
 }
 //-----------------------------------------------------------------------
-void PUObserver::notifyStart ()
+void PUObserver::notifyStart (void)
 {
     _eventHandlersExecuted = false;
     _observe = true;
     setEnabled(_originalEnabled);
 }
 //-----------------------------------------------------------------------
-bool PUObserver::isEnabled() const
+bool PUObserver::isEnabled(void) const
 {
     return _enabled;
 }
 //-----------------------------------------------------------------------
-bool PUObserver::_getOriginalEnabled() const
+bool PUObserver::_getOriginalEnabled(void) const
 {
     return _originalEnabled;
 }
@@ -89,12 +88,12 @@ void PUObserver::setEnabled(bool enabled)
     }
 }
 //-----------------------------------------------------------------------
-void PUObserver::_resetEnabled()
+void PUObserver::_resetEnabled(void)
 {
     _originalEnabledSet = false;
 }
 //-----------------------------------------------------------------------
-float PUObserver::getObserverInterval() const
+float PUObserver::getObserverInterval(void) const
 {
     return _observerInterval;
 }
@@ -105,7 +104,7 @@ void PUObserver::setObserverInterval(float observerInterval)
     _observerIntervalSet = true;
 }
 //-----------------------------------------------------------------------
-bool PUObserver::getObserveUntilEvent() const
+bool PUObserver::getObserveUntilEvent(void) const
 {
     return _observeUntilEvent;
 }
@@ -186,7 +185,7 @@ PUEventHandler* PUObserver::getEventHandler (const std::string& eventHandlerName
     return nullptr;
 }
 //-----------------------------------------------------------------------
-size_t PUObserver::getNumEventHandlers () const
+size_t PUObserver::getNumEventHandlers (void) const
 {
     return _eventHandlers.size();
 }
@@ -213,7 +212,7 @@ void PUObserver::destroyEventHandler (size_t index)
     destroyEventHandler(getEventHandler(index));
 }
 //-----------------------------------------------------------------------
-void PUObserver::destroyAllEventHandlers ()
+void PUObserver::destroyAllEventHandlers (void)
 {
     ParticleEventHandlerIterator it;
     for (it = _eventHandlers.begin(); it != _eventHandlers.end(); ++it)
@@ -261,7 +260,7 @@ void PUObserver::handleEvent (PUParticle3D* particle, float timeElapsed)
     _eventHandlersExecuted = true;
 }
 //-----------------------------------------------------------------------
-bool PUObserver::isParticleTypeToObserveSet() const
+bool PUObserver::isParticleTypeToObserveSet(void) const
 {
     return _particleTypeToObserveSet;
 }

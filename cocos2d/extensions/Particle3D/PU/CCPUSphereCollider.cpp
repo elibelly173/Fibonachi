@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (C) 2013 Henry van Merode. All rights reserved.
- Copyright (c) 2015-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2015 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
  
@@ -32,14 +31,14 @@ NS_CC_BEGIN
 const float PUSphereCollider::DEFAULT_RADIUS = 100.0f;
 
 //-----------------------------------------------------------------------
-PUSphereCollider::PUSphereCollider() : 
+PUSphereCollider::PUSphereCollider(void) : 
     PUBaseCollider(),
     _radius(DEFAULT_RADIUS),
     _innerCollision(false)
 {
 }
 
-PUSphereCollider::~PUSphereCollider()
+PUSphereCollider::~PUSphereCollider( void )
 {
 
 }
@@ -56,7 +55,7 @@ void PUSphereCollider::setRadius(const float radius)
     _sphere.setRadius(_radius);
 }
 //-----------------------------------------------------------------------
-bool PUSphereCollider::isInnerCollision() const
+bool PUSphereCollider::isInnerCollision(void) const
 {
     return _innerCollision;
 }
