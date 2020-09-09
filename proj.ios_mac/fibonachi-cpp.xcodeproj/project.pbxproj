@@ -62,7 +62,9 @@
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
 		D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B0611A1803AB670077942B /* CoreMotion.framework */; };
-		D7C87B0424FD2720001BB915 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = D7C87B0324FD2720001BB915 /* start.png */; };
+		D71867852500CAA500DAB3D4 /* StartButtone.png in Resources */ = {isa = PBXBuildFile; fileRef = D71867842500CAA500DAB3D4 /* StartButtone.png */; };
+		D71867872500CABB00DAB3D4 /* TitleScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = D71867862500CABB00DAB3D4 /* TitleScreen.png */; };
+		D7C87B0424FD2720001BB915 /* startScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = D7C87B0324FD2720001BB915 /* startScreen.png */; };
 		D87EFDB21E68FF5A0014D4CE /* FractionAnswerLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D87EFDB01E68FF5A0014D4CE /* FractionAnswerLayer.cpp */; };
 		D88C75D61E53CF0A006564FD /* mapback.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D88C75D51E53CF0A006564FD /* mapback.jpg */; };
 		D88CDE621E67C38A0058D269 /* FractionLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D88CDE601E67C38A0058D269 /* FractionLayer.cpp */; };
@@ -171,7 +173,9 @@
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6B0611A1803AB670077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
-		D7C87B0324FD2720001BB915 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
+		D71867842500CAA500DAB3D4 /* StartButtone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartButtone.png; sourceTree = "<group>"; };
+		D71867862500CABB00DAB3D4 /* TitleScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleScreen.png; sourceTree = "<group>"; };
+		D7C87B0324FD2720001BB915 /* startScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startScreen.png; sourceTree = "<group>"; };
 		D87EFDB01E68FF5A0014D4CE /* FractionAnswerLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FractionAnswerLayer.cpp; sourceTree = "<group>"; };
 		D87EFDB11E68FF5A0014D4CE /* FractionAnswerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FractionAnswerLayer.h; sourceTree = "<group>"; };
 		D88C75D51E53CF0A006564FD /* mapback.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mapback.jpg; sourceTree = "<group>"; };
@@ -316,7 +320,9 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D7C87B0324FD2720001BB915 /* start.png */,
+				D71867862500CABB00DAB3D4 /* TitleScreen.png */,
+				D71867842500CAA500DAB3D4 /* StartButtone.png */,
+				D7C87B0324FD2720001BB915 /* startScreen.png */,
 				D897EBBD1E5A18DC000E6D6A /* gameboard.png */,
 				D88C75D51E53CF0A006564FD /* mapback.jpg */,
 				521A8EA819F11F5000D177D7 /* fonts */,
@@ -506,17 +512,19 @@
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				D88C75D61E53CF0A006564FD /* mapback.jpg in Resources */,
+				D71867872500CABB00DAB3D4 /* TitleScreen.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
+				D71867852500CAA500DAB3D4 /* StartButtone.png in Resources */,
 				D897EBBE1E5A18DC000E6D6A /* gameboard.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
-				D7C87B0424FD2720001BB915 /* start.png in Resources */,
+				D7C87B0424FD2720001BB915 /* startScreen.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,

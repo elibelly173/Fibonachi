@@ -2,7 +2,7 @@
 #include "SimpleAudioEngine.h"
 #include "MapviewScene.h"
 
-USING_NS_CC;
+using namespace ui;
 
 Scene* StartSceen::createScene()
 {
@@ -32,39 +32,51 @@ bool StartSceen::init()
     
     auto winsize = Director::getInstance()->getWinSize();
     auto size = Director::getInstance()->getVisibleSize();
-    auto background = Sprite::create("start.png"); //here the background.png is a "red screen" png.
+    auto background = Sprite::create("TitleScreen.png"); //here the background.png is a "red screen" png.
     background->setPosition(winsize.width/2, winsize.height/2);
+    background->setScale(size.width/background->getContentSize().width, size.height/background->getContentSize().height);
     this->addChild(background);
-    
-    
+
+    Button* startButtone = Button::create("StartButtone.png", "StartButtone.png");
+   startButtone->addTouchEventListener(CC_CALLBACK_2(StartSceen::gotoGame, this));
+    startButtone->setPosition(Vec2(winsize.width*0.58, winsize.height*0.16));
+    startButtone->setScale(winsize.width * 0.14f/startButtone->getContentSize().width);
+    this->addChild(startButtone);
+
     
 //    background->setScale(0.9f);
     CCLOG("background %f %f", background->getBoundingBox().size.width, background->getBoundingBox().size.height);
-    background->setScale(size.width/background->getContentSize().width, size.height/background->getContentSize().height);
+ /*
     auto touchListener = EventListenerTouchOneByOne::create();
-    
-    
-    
-    CCLOG("screen%f %f", size.width, size.height);
-    
     touchListener->onTouchBegan = CC_CALLBACK_2(StartSceen::onTouchBegan, this);
     touchListener->onTouchEnded = CC_CALLBACK_2(StartSceen::onTouchEnded, this);
     touchListener->onTouchMoved = CC_CALLBACK_2(StartSceen::onTouchMoved, this);
     touchListener->onTouchCancelled = CC_CALLBACK_2(StartSceen::onTouchCancelled, this);
     
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
-    
-    
+   */
     
     return true;
+}
+
+void StartSceen::gotoGame(Ref *pSender, Widget::TouchEventType type)
+{
+
+    if (type == Widget::TouchEventType::ENDED) {
+        cocos2d::log("touch began");
+        auto scene = MapviewScene::createScene();
+        Director::getInstance()->replaceScene(scene);
+    }
+    
 }
 
 bool StartSceen::onTouchBegan(Touch* touch, Event* event)
 {
     cocos2d::log("touch began");
+ /*
     auto scene = MapviewScene::createScene();
     Director::getInstance()->replaceScene(scene);
-    
+*/
     return true;
 }
 

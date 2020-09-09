@@ -5,7 +5,12 @@
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
 #include <stdlib.h>
+
 using namespace std;
+
+USING_NS_CC_EXT;
+USING_NS_CC;
+
 
 class StartSceen : public cocos2d::Layer
 {
@@ -22,6 +27,8 @@ public:
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
+
+    void gotoGame(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
     
     // implement the "static create()" method manually
     CREATE_FUNC(StartSceen);

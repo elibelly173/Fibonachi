@@ -13,7 +13,7 @@ FractionLayer::FractionLayer(int molecule, int denomentor, float offset, bool fl
     mol = molecule;
     den = denomentor;
     offsetPos = offset;
-    allowswipeFlag = flag1;
+    allowOpFlag = flag1;
     getDenSize(denomentor);
     init();
 }
@@ -45,6 +45,13 @@ void FractionLayer::getDenSize(int denomentor){
 }
 bool FractionLayer::init(){
     screenSize = Director::getInstance()->getWinSize();
+    if (allowOpFlag) {
+        auto opLabel = Label::createWithSystemFont("-", "", screenSize.width*0.04);
+        opLabel->setColor(Color3B::BLACK);
+      opLabel->setPosition(-screenSize.width*0.14+offsetPos*screenSize.width, screenSize.width*0.085);
+        this->addChild(opLabel);
+    }
+
     
     auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol), "", screenSize.width*0.04);
     moleculeLabel->setColor(Color3B::BLACK);

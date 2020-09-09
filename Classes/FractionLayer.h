@@ -41,7 +41,7 @@ public:
     int fraSize = 0;
     
     float offsetPos = 0.0f;
-    bool allowswipeFlag = false;
+    bool allowOpFlag = false;
     cocos2d::Size screenSize;
 
 //    CREATE_FUNC(FractionLayer);

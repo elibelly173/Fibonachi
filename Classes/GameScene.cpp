@@ -41,6 +41,9 @@ bool GameScene::init()
         return false;
     }
     
+    if (level > 32)
+        level = 32;
+    
     level =UserDefault::getInstance()->getIntegerForKey("Level");
     screenSize = Director::getInstance()->getWinSize();
     
@@ -63,7 +66,7 @@ bool GameScene::init()
     
     playMusic();
 
-/*
+
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
     listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
@@ -71,8 +74,8 @@ bool GameScene::init()
     listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
     listener->onTouchCancelled = CC_CALLBACK_2(GameScene::onTouchCancelled, this);
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-*/
-    this->schedule(schedule_selector(GameScene::UpdateTimer),1.0f);
+/**/
+    this->schedule(schedule_selector(GameScene::UpdateTimer), 0.1f);
     this->scheduleUpdate();
     return true;
 }
@@ -84,7 +87,8 @@ void GameScene::playMusic(){
 
 
 
-void GameScene::initFlags(){
+void GameScene::initFlags() {
+    
     if(level>19 && level<23){
         fractionFlag = 1;
     } else if(level==23){
@@ -103,7 +107,7 @@ void GameScene::initFlags(){
         fractionFlag = 0;
     }
     
-    if(level>=12){
+    if ((level >= 12) && (level != 17) && (level != 19) && (level != 20) && (level < 24)) {
         addKeyFlag = true;
     }
     
@@ -121,6 +125,7 @@ void GameScene::initFlags(){
             axisFlag = 0;
             break;
     }
+    
     tapenteranimFlag = UserDefault::getInstance()->getIntegerForKey("tapenteranimFlag");
     bool swipeflag = UserDefault::getInstance()->getIntegerForKey("swipeflag");
     if(tapenteranimFlag && !swipeflag && level < 4) {
@@ -129,6 +134,11 @@ void GameScene::initFlags(){
 
     level20animFlag = UserDefault::getInstance()->getIntegerForKey("level20animFlag");
     level21animFlag = UserDefault::getInstance()->getIntegerForKey("level21animFlag");
+    
+//    level20animFlag = true;
+//    level21animFlag = false;
+    
+    
 }
 
 void GameScene::addTick(int order){
@@ -239,6 +249,7 @@ void GameScene::fiboanim(){
 }
 
 void GameScene::getLevelProblems(){
+    
     ValueMap data;
     if(level == 11){
         for(int ii= 1; ii< 11; ii++){
@@ -301,6 +312,7 @@ void GameScene::getLevelProblems(){
 //    auto arrLevels = data1.at("levels").asValueVector();
 //    ValueMap sdata = (arrLevels[level-1]).asValueMap();
 //    targettime =  sdata["targettime"].asInt();
+    
 }
 
 void GameScene::initKey(){
@@ -321,8 +333,7 @@ void GameScene::initKey(){
         if(addKeyFlag){
             Button* addKeyButton = Button::create("res/key/negative.png", "res/key/negative.png");
             
-            
-            addKeyButton->setPosition(Vec2(screenSize.width*0.95, screenSize.height*0.06f + screenSize.width * 0.08f));
+            addKeyButton->setPosition(Vec2(screenSize.width*0.045, screenSize.height*0.08f + screenSize.width * 0.08f));
             addKeyButton->setAnchorPoint(Point(0.5f,0.0f));
             addKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
             addKeyButton->setTag(TAG_GAME_KEYADD);
@@ -330,9 +341,9 @@ void GameScene::initKey(){
             this->addChild(addKeyButton);
         }
         
-        if(fractionFlag>0){
+        if ((fractionFlag>0) && (level != 30)) {
             Button* fractionKeyButton = Button::create("res/key/divide.png", "res/key/divide.png");
-            fractionKeyButton->setPosition(Vec2(screenSize.width*0.95, screenSize.height*0.08 + screenSize.width * 0.13));
+            fractionKeyButton->setPosition(Vec2(screenSize.width*0.045, screenSize.height*0.08 + screenSize.width * 0.18));
             fractionKeyButton->setAnchorPoint(Point(0.5f,0.0f));
             fractionKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
             fractionKeyButton->setTag(TAG_GAME_KEYFRACTION);
@@ -342,7 +353,7 @@ void GameScene::initKey(){
         
         if(deciamlFlag){
             Button* deciamlButton = Button::create("res/key/decimal.png", "res/key/decimal.png");
-            deciamlButton->setPosition(Vec2(screenSize.width*0.95, screenSize.height*0.1f + screenSize.width * 0.18f));
+            deciamlButton->setPosition(Vec2(screenSize.width*0.045, screenSize.height*0.08 + screenSize.width * 0.08));
             deciamlButton->setAnchorPoint(Point(0.5f,0.0f));
             deciamlButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
             deciamlButton->setTag(TAG_GAME_KEYDECIMAL);
@@ -350,36 +361,48 @@ void GameScene::initKey(){
             this->addChild(deciamlButton);
         }
     } else if(axisFlag == 1 || axisFlag == 2){
+/*
+        Button* lineButton = Button::create(StringUtils::format("res/key/numberline%d.png", axisFlag), StringUtils::format("res/key/numberline%d.png", axisFlag));
+        lineButton->setTag(TAG_GAME_KEYNUMBERLINE1);
+        lineButton->setPosition(Vec2(screenSize.width*0.5, screenSize.height*0.03));
+        lineButton->setAnchorPoint(Point(0.5f,0.0f));
+    lineButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));       lineButton->setScale(screenSize.width*0.9/lineButton->getContentSize().width);
+        this->addChild(lineButton);
+*/
+        
         auto numberline1Spr = Sprite::Sprite::create(StringUtils::format("res/key/numberline%d.png", axisFlag));
         numberline1Spr->setTag(TAG_GAME_KEYNUMBERLINE1);
         numberline1Spr->setPosition(screenSize.width*0.5, screenSize.height*0.03);
         numberline1Spr->setAnchorPoint(Point(0.5f,0.0f));
         numberline1Spr->setScale(screenSize.width*0.9/numberline1Spr->getContentSize().width);
         this->addChild(numberline1Spr);
-    } else if(axisFlag == 3){
-        Button* smallKeyButton = Button::create("res/key/left.png", "res/key/left.png");
-        smallKeyButton->setPosition(Vec2(screenSize.width*0.3, screenSize.height*0.04f));
-        smallKeyButton->setAnchorPoint(Point(0.5f,0.0f));
-        smallKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
-        smallKeyButton->setTag(TAG_GAME_KEYSMALL);
-        smallKeyButton->setScale(screenSize.width * 0.07f/smallKeyButton->getContentSize().width);
-        this->addChild(smallKeyButton);
         
+    } else if(axisFlag == 3){
+                
         Button* equalKeyButton = Button::create("res/key/equal.png", "res/key/equal.png");
-        equalKeyButton->setPosition(Vec2(screenSize.width*0.5, screenSize.height*0.04f));
+        equalKeyButton->setPosition(Vec2(screenSize.width*0.96, screenSize.height*0.08f + screenSize.width * 0.08f));
         equalKeyButton->setAnchorPoint(Point(0.5f,0.0f));
         equalKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
         equalKeyButton->setTag(TAG_GAME_KEYEQUAL);
-        equalKeyButton->setScale(screenSize.width * 0.07f/equalKeyButton->getContentSize().width);
+        equalKeyButton->setScale(screenSize.width * 0.06f/equalKeyButton->getContentSize().width);
         this->addChild(equalKeyButton);
         
         Button* bigKeyButton = Button::create("res/key/right.png", "res/key/right.png");
-        bigKeyButton->setPosition(Vec2(screenSize.width*0.7, screenSize.height*0.04f));
+        bigKeyButton->setPosition(Vec2(screenSize.width*0.96, screenSize.height*0.08f + screenSize.width * 0.18f));
         bigKeyButton->setAnchorPoint(Point(0.5f,0.0f));
         bigKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
         bigKeyButton->setTag(TAG_GAME_KEYBIG);
-        bigKeyButton->setScale(screenSize.width * 0.07f/bigKeyButton->getContentSize().width);
+        bigKeyButton->setScale(screenSize.width * 0.06f/bigKeyButton->getContentSize().width);
         this->addChild(bigKeyButton);
+        
+        Button* smallKeyButton = Button::create("res/key/left.png", "res/key/left.png");
+        smallKeyButton->setPosition(Vec2(screenSize.width*0.96, screenSize.height*0.08f + screenSize.width * 0.28f));
+        smallKeyButton->setAnchorPoint(Point(0.5f,0.0f));
+        smallKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
+        smallKeyButton->setTag(TAG_GAME_KEYSMALL);
+        smallKeyButton->setScale(screenSize.width * 0.06f/smallKeyButton->getContentSize().width);
+        this->addChild(smallKeyButton);
+        
     }
 }
 
@@ -391,17 +414,26 @@ void GameScene::initButtons(){
     homeButton->setScale(screenSize.width * 0.05f/homeButton->getContentSize().width);
     this->addChild(homeButton);
     
-    Button* enterButton = Button::create("res/game/Enter.png", "res/game/Enter.png");
-    enterButton->setPosition(Vec2(screenSize.width*0.54, screenSize.height*0.25));
-    enterButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoEnter, this));
-    enterButton->setScale(screenSize.width * 0.1f/enterButton->getContentSize().width);
-    this->addChild(enterButton);
+    if (axisFlag == 0) {
+        Button* enterButton = Button::create("res/game/Enter.png", "res/game/Enter.png");
+        enterButton->setPosition(Vec2(screenSize.width*0.54, screenSize.height*0.25));
+        enterButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoEnter, this));
+        enterButton->setScale(screenSize.width * 0.1f/enterButton->getContentSize().width);
+        this->addChild(enterButton);
+        
+        Button* deleteButton = Button::create("res/game/Delete.png", "res/game/Delete.png");
+        deleteButton->setPosition(Vec2(screenSize.width*0.72, screenSize.height*0.25));
+        deleteButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoDelete, this));
+        deleteButton->setScale(screenSize.width * 0.1f/deleteButton->getContentSize().width);
+        this->addChild(deleteButton);
 
-    Button* deleteButton = Button::create("res/game/Delete.png", "res/game/Delete.png");
-    deleteButton->setPosition(Vec2(screenSize.width*0.72, screenSize.height*0.25));
-    deleteButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoDelete, this));
-    deleteButton->setScale(screenSize.width * 0.1f/deleteButton->getContentSize().width);
-    this->addChild(deleteButton);
+    }
+
+    Button* settingButton = Button::create("res/game/Settings.png", "res/game/Settings.png");
+    settingButton->setPosition(Vec2(screenSize.width*0.95, screenSize.height*0.93));
+    settingButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoHome, this));
+    settingButton->setScale(screenSize.width * 0.05f/settingButton->getContentSize().width);
+    this->addChild(settingButton);
 
 }
 
@@ -429,12 +461,15 @@ void GameScene::initProAns(){
         this->addChild(problemImg);
         problemImg->setScale(screenSize.width*0.27/problemImg->getContentSize().width);
         
-        auto answerImg = Sprite::create("res/game/Answer Bubble_Small.png"); //here the background.png is a "red screen" png.
-        answerImg->setPosition(screenSize.width*0.75, screenSize.height*0.26 + screenSize.width*0.08);
-        answerImg->setAnchorPoint(Point(1.0f,0.0f));
-        answerImg->setTag(TAG_GAME_ANSWERIMG);
-        this->addChild(answerImg);
-        answerImg->setScale(screenSize.width*0.15/answerImg->getContentSize().width);
+        if (level != 31) {
+            auto answerImg = Sprite::create("res/game/Answer Bubble_Small.png"); //here the background.png is a "red screen" png.
+            answerImg->setPosition(screenSize.width*0.75, screenSize.height*0.26 + screenSize.width*0.08);
+            answerImg->setAnchorPoint(Point(1.0f,0.0f));
+            answerImg->setTag(TAG_GAME_ANSWERIMG);
+            this->addChild(answerImg);
+            answerImg->setScale(screenSize.width*0.15/answerImg->getContentSize().width);
+        }
+
     }
     
     this->makeproblem();
@@ -513,12 +548,12 @@ void GameScene::UpdateTimer(float dt)
     if(firstEnterFlag && !levelCompleteFlag && !dimFlag){
         timer+=1;
         auto timerLabel = (Label*)this->getChildByTag(TAG_GAME_TIMER);
-        if(timer > targettime1 && timer < targettime){
+        if(timer > targettime1 * 10 && timer < targettime * 10){
             timerLabel->setColor(Color3B::YELLOW);
-        } else if(timer >= targettime){
+        } else if(timer >= targettime * 10){
             timerLabel->setColor(Color3B::RED);
         }
-        timerLabel->setString(StringUtils::format("%d", timer));
+        timerLabel->setString(StringUtils::format("%1.1f", timer/10.0f));
     }
     
     
@@ -755,18 +790,20 @@ void GameScene::onOneByOneAnimation(){
     oneAnimTitle->setAnchorPoint(Vec2(0.5, 1));
     this->addChild(oneAnimTitle);
     
+/*
     Button* oneAnimhand = Button::create("res/animation/taphand.png", "res/animation/taphand.png");
 
     oneAnimhand->setTag(TAG_GAME_ONEANIM); oneAnimhand->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoAnimhand, this));
     oneAnimhand->setScale(screenSize.width * 0.1f/oneAnimhand->getContentSize().width);
     this->addChild(oneAnimhand);
- /*
+*/
+    
     auto oneAnimhand = Sprite::create("res/animation/taphand.png");
-
+    oneAnimhand->setTag(TAG_GAME_ONEANIM);
     oneAnimhand->setScale(screenSize.width*0.13/oneAnimhand->getContentSize().width);
     oneAnimhand->setAnchorPoint(Vec2(0, 0.8));
     this->addChild(oneAnimhand);
-*/
+
     if(fractionFlag>0){
         oneAnimTitle->setPosition(screenSize.width*0.43, screenSize.height*0.16 + screenSize.width*0.3);
         oneAnimhand->setPosition(Vec2(screenSize.width*0.43, screenSize.height*0.16 + screenSize.width*0.16));
@@ -1009,6 +1046,17 @@ void GameScene::makeproblem(){
                 auto x1 =  sdata["x1"].asInt();
                 auto y1 =  sdata["y1"].asInt();
                 Fraction20(x1, y1, problemCount);
+            }
+            else if(level == 22){
+                auto x1 =  sdata["x1"].asInt();
+                auto y1 =  sdata["y1"].asInt();
+                auto op =  sdata["op"].asString();
+                bool OpFlag = false;
+                if (std::strcmp(op.c_str(), "-") == 0) {
+                    OpFlag = true;
+                }
+                auto question1Layer = new FractionLayer(x1, y1, 0.0f, OpFlag);
+                problemlayer->addChild(question1Layer);
             } else {
                 auto x1 =  sdata["x1"].asInt();
                 auto y1 =  sdata["y1"].asInt();
@@ -1199,6 +1247,9 @@ void GameScene::answerSwipeFunc(){
 
 void GameScene::updateScore(){
     score+=1000;
+    
+    
+    
     auto scoreLabel = (Label*)this->getChildByTag(TAG_GAME_SCORE);
     scoreLabel->setString(StringUtils::format("%d", score));
 }
@@ -1541,7 +1592,30 @@ void GameScene::gotoEnter(Ref *pSender, Widget::TouchEventType type)
     if (type == Widget::TouchEventType::ENDED) {
         if(!dimFlag)
         {
-            answerSwipeFunc();
+            
+            if(fractionFlag==0 || deciamlFlag){
+                auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+                answerLabel->setString("");
+                is_Negative = 1;
+            } else {
+                clickedDividerKeyFlag = false;
+                auto answerLayer = (FractionAnswerLayer*) this->getChildByTag(TAG_GAME_ANSWERLABEL);
+                answerLayer->reset();
+            }
+            
+            if(axisFlag == 0) {
+                holdCount = 0;
+                holdTime = 0.0f;
+                enterAnswer();
+            }
+            else if((axisFlag == 1) || (axisFlag == 2)) {
+                auto numberline1Spr = (Button*)this->getChildByTag(TAG_GAME_KEYNUMBERLINE1);
+                Rect numberline1SprRect = numberline1Spr->getBoundingBox();
+                
+            }
+
+            
+
         }
     }
 }
@@ -1586,11 +1660,18 @@ void GameScene::gotoDelete(Ref *pSender, Widget::TouchEventType type)
     if (type == Widget::TouchEventType::ENDED) {
         if(!dimFlag)
         {
-            answer=0;
-            answerString = "";
-            
-            auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
-            answerLabel->setString("");
+            if (fractionFlag == 0) {
+                answer=0;
+                answerString = "";
+                
+                auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+                answerLabel->setString("");
+            }
+            else {
+                clickedDividerKeyFlag = false;
+                auto answerLayer = (FractionAnswerLayer*) this->getChildByTag(TAG_GAME_ANSWERLABEL);
+                answerLayer->reset();
+            }
         }
     }
     
@@ -1967,6 +2048,7 @@ void GameScene::showAnswer(int ans){
 
 bool GameScene::onTouchBegan(Touch *touch, Event *event)
 {
+/*
     if(!dimFlag){
         Point location = touch->getLocation();
         if(axisFlag ==0){
@@ -2002,12 +2084,13 @@ bool GameScene::onTouchBegan(Touch *touch, Event *event)
     
         
     }
-    
+*/
     return true;
 }
 
 void GameScene::onTouchMoved(Touch *touch, Event *event)
 {
+/*
     if(!dimFlag){
         Point location = touch->getLocation();
         if(axisFlag ==0){
@@ -2036,23 +2119,14 @@ void GameScene::onTouchMoved(Touch *touch, Event *event)
         }
 
     }
+ */
 }
 
 void GameScene::onTouchEnded(Touch *touch, Event *event)
 {
     if(!dimFlag)
     {
-        
-        if(isAnswerTouchDown){
-            holdCount = 0;
-            holdTime = 0.0f;
-            if(level == 30) {
-                auto answerbar = (Label*)this->getChildByTag(TAG_GAME_ANSWERBAR);
-                answerbar->setColor(Color3B::WHITE);
-                
-            }
-            answerSwipeFunc();
-        } else if(axisFlag == 1 || axisFlag == 2) {
+        if(axisFlag == 1 || axisFlag == 2) {
             Point location = touch->getLocation();
             
             auto numberline1Spr = (Sprite*)this->getChildByTag(TAG_GAME_KEYNUMBERLINE1);
@@ -2073,7 +2147,7 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
                     numberlineanswer = (answerpos - screenSize.width*0.15)/(screenSize.width*0.7);
                     
                 } else if (axisFlag == 2){
-                    numberlineanswer = (screenSize.width*0.5 - answerpos)/(screenSize.width*0.35);
+                    numberlineanswer = (answerpos - screenSize.width*0.5 )/(screenSize.width*0.35);
                 }
                 auto realanswer = atof(answerArray[rightCount].c_str());
                 if((realanswer+0.12) > numberlineanswer && (realanswer - 0.12)< numberlineanswer){

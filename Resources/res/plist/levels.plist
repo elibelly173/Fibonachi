@@ -70,13 +70,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-
 			<integer>80</integer>
 			<key>time1</key>
 			<integer>10</integer>
 			<key>time3</key>
 			<integer>300</integer>
-
 		</dict>
 		<dict>
 			<key>level5</key>
@@ -88,11 +86,9 @@
 			<key>z</key>
 			<string>90</string>
 			<key>targetnumber</key>
-
 			<integer>20</integer>
 			<key>time2</key>
 			<integer>60</integer>
-
 			<key>time1</key>
 			<integer>10</integer>
 			<key>time3</key>
@@ -218,7 +214,7 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>75</integer>
+			<integer>80</integer>
 			<key>time1</key>
 			<integer>10</integer>
 			<key>time3</key>
