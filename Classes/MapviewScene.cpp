@@ -39,8 +39,8 @@ bool MapviewScene::init()
         return false;
     }
     
-    UserDefault::getInstance()->setIntegerForKey("completedLevel",5);
-    UserDefault::getInstance()->setIntegerForKey("lockLevel",5);
+    UserDefault::getInstance()->setIntegerForKey("completedLevel",32);
+    UserDefault::getInstance()->setIntegerForKey("lockLevel",32);
 
     
     completedLevel =UserDefault::getInstance()->getIntegerForKey("completedLevel");

@@ -177,6 +177,7 @@ public:
     int level;
     int timer = 0;
     int score = 0;
+    int blueNumber = 0;
     int rightCount=0;
     int problemCount= 0;
     int wrongCount = 0;
@@ -187,6 +188,7 @@ public:
     int targetnumber = 0;
     int targettime1 = 0;
     int targettime2 = 0;
+    int prevTime = 0;
     
     bool isAnswerTouchDown;
     int is_Negative = 1;

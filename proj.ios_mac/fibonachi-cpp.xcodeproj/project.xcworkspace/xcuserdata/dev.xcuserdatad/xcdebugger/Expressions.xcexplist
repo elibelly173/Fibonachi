@@ -13,5 +13,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "GameScene::updateScore():GameScene.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "3.536f * blueNumber)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

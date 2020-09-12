@@ -1246,9 +1246,20 @@ void GameScene::answerSwipeFunc(){
 
 
 void GameScene::updateScore(){
-    score+=1000;
+//    score+=1000;
+    float subtract = float((timer - prevTime) / 10.0f);
     
+    if(subtract <= float(blueNumber / 3.0f))
+    {
+        score += 500;
+    } else if (subtract > float(blueNumber / 3.0f) && subtract < float(3.536f * blueNumber))
+    {
+        score += 542 - (125 * subtract) / blueNumber;
+    } else {
+        score += 100;
+    }
     
+    prevTime = timer;
     
     auto scoreLabel = (Label*)this->getChildByTag(TAG_GAME_SCORE);
     scoreLabel->setString(StringUtils::format("%d", score));
@@ -1424,7 +1435,7 @@ void GameScene::getLevelInfo(){
     targettime =  sdata["time2"].asInt();
     targettime1 =  sdata["time1"].asInt();
     targettime2 =  sdata["time3"].asInt();
-    
+    blueNumber = sdata["bluetime"].asFloat();
 }
 
 void GameScene::nextLevel(){

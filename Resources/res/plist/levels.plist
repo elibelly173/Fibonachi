@@ -5,6 +5,8 @@
 	<key>levels</key>
 	<array>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level1</key>
 			<string>value</string>
 			<key>x</key>
@@ -23,6 +25,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level2</key>
 			<string>value</string>
 			<key>x</key>
@@ -41,6 +45,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level3</key>
 			<string>value</string>
 			<key>x</key>
@@ -59,6 +65,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level4</key>
 			<string>value</string>
 			<key>x</key>
@@ -77,6 +85,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>2</integer>
 			<key>level5</key>
 			<string>value</string>
 			<key>x</key>
@@ -95,6 +105,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<real>1.3</real>
 			<key>level6</key>
 			<string>value</string>
 			<key>x</key>
@@ -113,6 +125,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level7</key>
 			<string>value</string>
 			<key>x</key>
@@ -131,6 +145,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level8</key>
 			<string>value</string>
 			<key>x</key>
@@ -149,6 +165,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level9</key>
 			<string>value</string>
 			<key>x</key>
@@ -167,6 +185,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level10</key>
 			<string>value</string>
 			<key>x</key>
@@ -185,6 +205,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level11</key>
 			<string>value</string>
 			<key>x</key>
@@ -203,6 +225,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level12</key>
 			<string>value</string>
 			<key>x</key>
@@ -221,6 +245,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level13</key>
 			<string>value</string>
 			<key>x</key>
@@ -239,6 +265,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level14</key>
 			<string>value</string>
 			<key>x</key>
@@ -257,6 +285,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<real>1.2</real>
 			<key>level15</key>
 			<string>value</string>
 			<key>x</key>
@@ -275,6 +305,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level16</key>
 			<string>value</string>
 			<key>x</key>
@@ -293,6 +325,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<real>1.6</real>
 			<key>level17</key>
 			<string>value</string>
 			<key>x</key>
@@ -311,6 +345,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<real>3.5</real>
 			<key>level18</key>
 			<string>value</string>
 			<key>x</key>
@@ -329,6 +365,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<real>3.5</real>
 			<key>level19</key>
 			<string>value</string>
 			<key>x</key>
@@ -347,6 +385,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>3</integer>
 			<key>level20</key>
 			<string>value</string>
 			<key>x</key>
@@ -365,6 +405,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level21</key>
 			<string>value</string>
 			<key>x</key>
@@ -383,6 +425,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<real>2.5</real>
 			<key>level22</key>
 			<string>value</string>
 			<key>x</key>
@@ -401,6 +445,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>level23</key>
 			<string>value</string>
 			<key>x</key>
@@ -419,6 +465,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<real>2.6</real>
 			<key>level24</key>
 			<string>value</string>
 			<key>x</key>
@@ -437,6 +485,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<real>2.4</real>
 			<key>level25</key>
 			<string>value</string>
 			<key>x</key>
@@ -455,6 +505,8 @@
 			<integer>300</integer>
 		</dict>
 		<dict>
+			<key>bluetime</key>
+			<real>4.6</real>
 			<key>level26</key>
 			<string>value</string>
 			<key>x</key>
@@ -475,6 +527,8 @@
 		<dict>
 			<key>level27</key>
 			<string>value</string>
+			<key>bluetime</key>
+			<real>8.4</real>
 			<key>x</key>
 			<string>47.5</string>
 			<key>y</key>
@@ -493,6 +547,8 @@
 		<dict>
 			<key>level28</key>
 			<string>value</string>
+			<key>bluetime</key>
+			<real>10.8</real>
 			<key>x</key>
 			<string>28</string>
 			<key>y</key>
@@ -511,6 +567,8 @@
 		<dict>
 			<key>leve29</key>
 			<string>value</string>
+			<key>bluetime</key>
+			<real>6.5</real>
 			<key>x</key>
 			<string>19</string>
 			<key>y</key>
@@ -531,6 +589,8 @@
 			<string>value</string>
 			<key>x</key>
 			<string>34</string>
+			<key>bluetime</key>
+			<real>2.5</real>
 			<key>y</key>
 			<string>379</string>
 			<key>z</key>
@@ -549,6 +609,8 @@
 			<string>value</string>
 			<key>x</key>
 			<string>55.5</string>
+			<key>bluetime</key>
+			<integer>1</integer>
 			<key>y</key>
 			<string>388</string>
 			<key>z</key>
@@ -567,6 +629,8 @@
 			<string>value</string>
 			<key>x</key>
 			<string>56</string>
+			<key>bluetime</key>
+			<integer>4</integer>
 			<key>y</key>
 			<string>420</string>
 			<key>z</key>
