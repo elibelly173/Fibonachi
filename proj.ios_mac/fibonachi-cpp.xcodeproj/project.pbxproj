@@ -64,6 +64,7 @@
 		D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B0611A1803AB670077942B /* CoreMotion.framework */; };
 		D71867852500CAA500DAB3D4 /* StartButtone.png in Resources */ = {isa = PBXBuildFile; fileRef = D71867842500CAA500DAB3D4 /* StartButtone.png */; };
 		D71867872500CABB00DAB3D4 /* TitleScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = D71867862500CABB00DAB3D4 /* TitleScreen.png */; };
+		D79CDBBE2514575800EE1371 /* YesterdayDream.otf in Resources */ = {isa = PBXBuildFile; fileRef = D79CDBBC2514575800EE1371 /* YesterdayDream.otf */; };
 		D7C87B0424FD2720001BB915 /* startScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = D7C87B0324FD2720001BB915 /* startScreen.png */; };
 		D87EFDB21E68FF5A0014D4CE /* FractionAnswerLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D87EFDB01E68FF5A0014D4CE /* FractionAnswerLayer.cpp */; };
 		D88C75D61E53CF0A006564FD /* mapback.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D88C75D51E53CF0A006564FD /* mapback.jpg */; };
@@ -175,6 +176,7 @@
 		D6B0611A1803AB670077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
 		D71867842500CAA500DAB3D4 /* StartButtone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartButtone.png; sourceTree = "<group>"; };
 		D71867862500CABB00DAB3D4 /* TitleScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleScreen.png; sourceTree = "<group>"; };
+		D79CDBBC2514575800EE1371 /* YesterdayDream.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = YesterdayDream.otf; sourceTree = "<group>"; };
 		D7C87B0324FD2720001BB915 /* startScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startScreen.png; sourceTree = "<group>"; };
 		D87EFDB01E68FF5A0014D4CE /* FractionAnswerLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FractionAnswerLayer.cpp; sourceTree = "<group>"; };
 		D87EFDB11E68FF5A0014D4CE /* FractionAnswerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FractionAnswerLayer.h; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D79CDBBC2514575800EE1371 /* YesterdayDream.otf */,
 				D71867862500CABB00DAB3D4 /* TitleScreen.png */,
 				D71867842500CAA500DAB3D4 /* StartButtone.png */,
 				D7C87B0324FD2720001BB915 /* startScreen.png */,
@@ -520,6 +523,7 @@
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				D71867852500CAA500DAB3D4 /* StartButtone.png in Resources */,
+				D79CDBBE2514575800EE1371 /* YesterdayDream.otf in Resources */,
 				D897EBBE1E5A18DC000E6D6A /* gameboard.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,

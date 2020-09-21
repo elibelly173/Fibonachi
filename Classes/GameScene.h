@@ -168,6 +168,9 @@ public:
     void onRemoveIntroduceLevel(bool activeFlag);
     void onShowDimLayer();
     void onRemoveDimLayer();
+    void AnimStart();
+    void AnimEnd();
+    void WrongAnswer();
 public:
     cocos2d::Size screenSize;
     ValueVector arrLevelsProblems;
@@ -265,6 +268,7 @@ public:
     int wrongCountofOne = 0;
     
     bool audioFlag = false;
+    bool showingAnswer = false;
 
 private:
     CREATE_FUNC(GameScene);

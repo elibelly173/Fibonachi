@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "GameScene::AnimStart():GameScene.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "0.11*screenSize.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MapviewScene::init():MapviewScene.cpp">
          <PersistentStrings>
             <PersistentString

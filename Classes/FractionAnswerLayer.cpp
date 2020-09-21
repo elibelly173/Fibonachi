@@ -20,7 +20,7 @@ FractionAnswerLayer::~FractionAnswerLayer(){
 bool FractionAnswerLayer::init(int index){
     screenSize = Director::getInstance()->getWinSize();
     
-    auto moleculeLabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
+    auto moleculeLabel = Label::createWithSystemFont("", "Yesterday Dream", screenSize.width*0.04);
     moleculeLabel->setColor(Color3B::BLACK);
     moleculeLabel->setPosition(-screenSize.width*0.09, screenSize.width*0.115);
 //    moleculeLabel->setPosition(0, 0);
@@ -53,13 +53,13 @@ void FractionAnswerLayer::replaceMolecule() {
     moleculeLabel->runAction(action_0);
     
     auto lineSpr = Sprite::create("res/game/line.png");
-    lineSpr->setPosition(-screenSize.width*0.09, screenSize.width*0.115);
-    lineSpr->setScale(screenSize.width*0.04/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+    lineSpr->setPosition(-screenSize.width*0.09, screenSize.width*0.12);
+    lineSpr->setScale(screenSize.width*0.04/lineSpr->getContentSize().width, screenSize.width*0.006/lineSpr->getContentSize().height);
     lineSpr->setTag(TAG_FRACTIONANSWER_LINE);
     this->addChild(lineSpr);
     lineSprScale = 0.03;
     
-    auto denomentorLabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
+    auto denomentorLabel = Label::createWithSystemFont("", "Yesterday Dream", screenSize.width*0.04);
     denomentorLabel->setColor(Color3B::BLACK);
     denomentorLabel->setPosition(-screenSize.width*0.09, screenSize.width*0.095);
     denomentorLabel->setTag(TAG_FRACTIONANSWER_DENOMINATOR);

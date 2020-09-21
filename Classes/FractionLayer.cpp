@@ -46,14 +46,14 @@ void FractionLayer::getDenSize(int denomentor){
 bool FractionLayer::init(){
     screenSize = Director::getInstance()->getWinSize();
     if (allowOpFlag) {
-        auto opLabel = Label::createWithSystemFont("-", "", screenSize.width*0.04);
+        auto opLabel = Label::createWithSystemFont("-", "Yesterday Dream", screenSize.width*0.04);
         opLabel->setColor(Color3B::BLACK);
       opLabel->setPosition(-screenSize.width*0.14+offsetPos*screenSize.width, screenSize.width*0.085);
         this->addChild(opLabel);
     }
 
     
-    auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol), "", screenSize.width*0.04);
+    auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol), "Yesterday Dream", screenSize.width*0.04);
     moleculeLabel->setColor(Color3B::BLACK);
     
     //    moleculeLabel->setPosition(0, 0);
@@ -64,7 +64,7 @@ bool FractionLayer::init(){
     } else {
         moleculeLabel->setPosition(-screenSize.width*0.09+offsetPos*screenSize.width, screenSize.width*0.107);
         this->addChild(moleculeLabel);
-        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den), "", screenSize.width*0.04);
+        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den), "Yesterday Dream", screenSize.width*0.04);
         denLabel->setColor(Color3B::BLACK);
         denLabel->setPosition(-screenSize.width*0.09+offsetPos*screenSize.width, screenSize.width*0.068);
         //    moleculeLabel->setPosition(0, 0);
@@ -72,8 +72,8 @@ bool FractionLayer::init(){
         this->addChild(denLabel);
         
         auto lineSpr = Sprite::create("res/game/line.png");
-        lineSpr->setPosition(-screenSize.width*0.09+offsetPos*screenSize.width, screenSize.width*0.085);
-        lineSpr->setScale(screenSize.width*0.025 * fraSize/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+        lineSpr->setPosition(-screenSize.width*0.09+offsetPos*screenSize.width, screenSize.width*0.095);
+        lineSpr->setScale(screenSize.width*0.025 * fraSize/lineSpr->getContentSize().width, screenSize.width*0.006/lineSpr->getContentSize().height);
         lineSpr->setTag(TAG_FRACTION_LINE);
         this->addChild(lineSpr);
     }

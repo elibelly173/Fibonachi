@@ -230,6 +230,7 @@ void GameScene::achianim(){
     
     auto animate = Animate::create(animation);
     spr->runAction(animate);
+    AnimEnd();
 }
 
 void GameScene::fiboanim(){
@@ -440,7 +441,7 @@ void GameScene::initButtons(){
 void GameScene::initProAns(){
     if(fractionFlag>0){
         auto problemImg = Sprite::create("res/game/question1.png"); //here the background.png is a "red screen" png.
-        problemImg->setPosition(screenSize.width*0.27, screenSize.height*0.2 + screenSize.width*0.08);
+        problemImg->setPosition(screenSize.width*0.27, screenSize.height*0.215 + screenSize.width*0.08);
         problemImg->setAnchorPoint(Point(0.0f,0.0f));
         this->addChild(problemImg);
         problemImg->setScale(screenSize.width*0.27/problemImg->getContentSize().width);
@@ -448,26 +449,47 @@ void GameScene::initProAns(){
         if(axisFlag !=0){
         } else {
             auto answerImg = Sprite::create("res/game/Answer Bubble_Large.png"); //here the background.png is a "red screen" png.
-            answerImg->setPosition(screenSize.width*0.75, screenSize.height*0.23 + screenSize.width*0.08);
-            answerImg->setAnchorPoint(Point(1.0f,0.0f));
+            answerImg->setPosition(screenSize.width*0.75, screenSize.height*0.31 + screenSize.width*0.08);
+            answerImg->setOpacity(0);
+            answerImg->setAnchorPoint(Point(1.0f,0.3f));
             answerImg->setTag(TAG_GAME_ANSWERIMG);
-            this->addChild(answerImg);
+            
             answerImg->setScale(screenSize.width*0.15/answerImg->getContentSize().width);
+            auto action_0 = ScaleTo::create(0.0f, 0.0f);
+            auto callback = CallFunc::create( [this]() {
+                auto spr = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERIMG);
+                spr->setOpacity(255);
+            });
+            auto sequence = Sequence::create(action_0, callback, NULL);
+            answerImg->runAction(sequence);
+//            answerImg->runAction(action_0);
+            
+            this->addChild(answerImg);
         }
     } else {
         auto problemImg = Sprite::create("res/game/problem.png"); //here the background.png is a "red screen" png.
-        problemImg->setPosition(screenSize.width*0.27, screenSize.height*0.2 + screenSize.width*0.08);
+        problemImg->setPosition(screenSize.width*0.27, (screenSize.height*0.21 + screenSize.width*0.08));
         problemImg->setAnchorPoint(Point(0.0f,0.0f));
         this->addChild(problemImg);
         problemImg->setScale(screenSize.width*0.27/problemImg->getContentSize().width);
         
         if (level != 31) {
             auto answerImg = Sprite::create("res/game/Answer Bubble_Small.png"); //here the background.png is a "red screen" png.
-            answerImg->setPosition(screenSize.width*0.75, screenSize.height*0.26 + screenSize.width*0.08);
-            answerImg->setAnchorPoint(Point(1.0f,0.0f));
+            answerImg->setPosition(screenSize.width*0.75, screenSize.height*0.32 + screenSize.width*0.08);
+            answerImg->setOpacity(0);
+            answerImg->setAnchorPoint(Point(1.0f,0.3f));
             answerImg->setTag(TAG_GAME_ANSWERIMG);
-            this->addChild(answerImg);
+            
             answerImg->setScale(screenSize.width*0.15/answerImg->getContentSize().width);
+            auto action_0 = ScaleTo::create(0.0f, 0.0f);
+            auto callback = CallFunc::create( [this]() {
+                auto spr = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERIMG);
+                spr->setOpacity(255);
+            });
+            auto sequence = Sequence::create(action_0, callback, NULL);
+            answerImg->runAction(sequence);
+//            answerImg->runAction(action_0);
+            this->addChild(answerImg);
         }
 
     }
@@ -477,20 +499,20 @@ void GameScene::initProAns(){
 }
 
 void GameScene::initTimerScore(){
-    auto timerLabel = Label::createWithSystemFont("0", "", screenSize.width*0.035);
+    auto timerLabel = Label::createWithSystemFont("0", "Yesterday Dream", screenSize.width*0.035);
     timerLabel->setColor(Color3B::GREEN);
     timerLabel->setPosition(screenSize.width*0.28, screenSize.height - screenSize.width*0.047);
     timerLabel->setTag(TAG_GAME_TIMER);
     this->addChild(timerLabel);
     
-    auto scoreLabel = Label::createWithSystemFont("", "", screenSize.width*0.035);
+    auto scoreLabel = Label::createWithSystemFont("", "Yesterday Dream", screenSize.width*0.035);
     scoreLabel->setColor(Color3B::BLACK);
     scoreLabel->setPosition(screenSize.width*0.5, screenSize.height - screenSize.width*0.06);
     scoreLabel->setTag(TAG_GAME_SCORE);
     this->addChild(scoreLabel);
     
     
-    auto levelLabel = Label::createWithSystemFont(StringUtils::format("%d", level), "", screenSize.width*0.035);
+    auto levelLabel = Label::createWithSystemFont(StringUtils::format("%d", level), "Yesterday Dream", screenSize.width*0.035);
     levelLabel->setColor(Color3B::BLACK);
     levelLabel->setPosition(screenSize.width*0.75, screenSize.height - screenSize.width*0.047);
     levelLabel->setTag(TAG_GAME_LEVEL);
@@ -882,26 +904,29 @@ void GameScene::removeNlineAnim(){
 void GameScene::initanswerLayer(){
     if(fractionFlag>0 && !deciamlFlag){
         auto answerLayer = new FractionAnswerLayer(0);//FractionLayer::create();
-        answerLayer->setPosition(screenSize.width*0.75, screenSize.height*0.16 + screenSize.width*0.08);
+        answerLayer->setPosition(screenSize.width*0.75, screenSize.height*0.15 + screenSize.width*0.08);
         answerLayer->setTag(TAG_GAME_ANSWERLABEL);
+        answerLayer->setOpacity(0);
         this->addChild(answerLayer);
     } else if(fractionFlag>0 && deciamlFlag){
-        auto answerlabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
+        auto answerlabel = Label::createWithSystemFont("", "Yesterday Dream", screenSize.width*0.04);
         answerlabel->setColor(Color3B::BLACK);
-        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.16 + screenSize.width*0.17);
+        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.15 + screenSize.width*0.17);
         answerlabel->setTag(TAG_GAME_ANSWERLABEL);
+        answerlabel->setOpacity(0);
         this->addChild(answerlabel);
         
-        auto answerBar = Label::createWithSystemFont("_", "", screenSize.width*0.05);
+        auto answerBar = Label::createWithSystemFont("_", "Yesterday Dream", screenSize.width*0.05);
         answerBar->setColor(Color3B::WHITE);
         answerBar->setPosition(screenSize.width*0.67, screenSize.height*0.16 + screenSize.width*0.21);
         answerBar->setTag(TAG_GAME_ANSWERBAR);
         this->addChild(answerBar);
     } else {
-        auto answerlabel = Label::createWithSystemFont("", "", screenSize.width*0.04);
+        auto answerlabel = Label::createWithSystemFont("", "Yesterday Dream", screenSize.width*0.04);
         answerlabel->setColor(Color3B::BLACK);
-        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.26 + screenSize.width*0.13);
+        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.25 + screenSize.width*0.13);
         answerlabel->setTag(TAG_GAME_ANSWERLABEL);
+        answerlabel->setOpacity(0);
         this->addChild(answerlabel);
     }
 }
@@ -913,56 +938,56 @@ void GameScene::Fraction26(int mol1, int den1, int mol2, int den2, int order, fl
     auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+order);
     
     if(den1 != 1){
-        auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", screenSize.width*0.04);
+        auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "Yesterday Dream", screenSize.width*0.04);
         moleculeLabel->setColor(Color3B::BLACK);
         moleculeLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.107);
         moleculeLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4);
         problemLayer->addChild(moleculeLabel);
         
-        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "", screenSize.width*0.04);
+        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "Yesterday Dream", screenSize.width*0.04);
         denLabel->setColor(Color3B::BLACK);
         denLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.068);
         denLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +1);
         problemLayer->addChild(denLabel);
         
         auto lineSpr = Sprite::create("res/game/line.png");
-        lineSpr->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.085);
-        lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+        lineSpr->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.095);
+        lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.006/lineSpr->getContentSize().height);
         
         problemLayer->addChild(lineSpr);
     } else {
-        auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", screenSize.width*0.04);
+        auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "Yesterday Dream", screenSize.width*0.04);
         moleculeLabel->setColor(Color3B::BLACK);
         moleculeLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.085);
         moleculeLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4);
         problemLayer->addChild(moleculeLabel);
         
-        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "", 0);
+        auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "Yesterday Dream", 0);
         denLabel->setColor(Color3B::BLACK);
         denLabel->setPosition(-screenSize.width*0.09 - 0.04*screenSize.width, screenSize.width*0.068);
         denLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +1);
         problemLayer->addChild(denLabel);
     }
     
-    auto moleculeLabel2 = Label::createWithSystemFont(StringUtils::format("%d", mol2), "", screenSize.width*0.04);
+    auto moleculeLabel2 = Label::createWithSystemFont(StringUtils::format("%d", mol2), "Yesterday Dream", screenSize.width*0.04);
     moleculeLabel2->setColor(Color3B::BLACK);
     moleculeLabel2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.107);
     moleculeLabel2->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +2);
     problemLayer->addChild(moleculeLabel2);
     
-    auto denLabel2 = Label::createWithSystemFont(StringUtils::format("%d", den2), "", screenSize.width*0.04);
+    auto denLabel2 = Label::createWithSystemFont(StringUtils::format("%d", den2), "Yesterday Dream", screenSize.width*0.04);
     denLabel2->setColor(Color3B::BLACK);
     denLabel2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.068);
     denLabel2->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 + 3);
     problemLayer->addChild(denLabel2);
     
     auto lineSpr2 = Sprite::create("res/game/line.png");
-    lineSpr2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.085);
-    lineSpr2->setScale(screenSize.width*0.045/lineSpr2->getContentSize().width, screenSize.width*0.003/lineSpr2->getContentSize().height);
+    lineSpr2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.095);
+    lineSpr2->setScale(screenSize.width*0.045/lineSpr2->getContentSize().width, screenSize.width*0.006/lineSpr2->getContentSize().height);
     problemLayer->addChild(lineSpr2);
     
     if(std::strcmp(op.c_str(), "x") == 0){
-        auto oplabel = Label::createWithSystemFont("x", "", screenSize.width*0.04);
+        auto oplabel = Label::createWithSystemFont("x", "Yesterday Dream", screenSize.width*0.04);
         oplabel->setPosition(-screenSize.width*0.09, screenSize.width*0.085);
         oplabel->setColor(Color3B::BLACK);
         problemLayer->addChild(oplabel);
@@ -980,33 +1005,33 @@ void GameScene::Fraction26(int mol1, int den1, int mol2, int den2, int order, fl
 
 void GameScene::Fraction20(int mol1, int den1, int order){
     auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+order);
-    auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", 0);
+    auto moleculeLabel = Label::createWithSystemFont(StringUtils::format("%d", mol1), "Yesterday Dream", 0);
     moleculeLabel->setColor(Color3B::BLACK);
     moleculeLabel->setPosition(0, 0);
     moleculeLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4);
     problemLayer->addChild(moleculeLabel);
     
-    auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "", 0);
+    auto denLabel = Label::createWithSystemFont(StringUtils::format("%d", den1), "Yesterday Dream", 0);
     denLabel->setColor(Color3B::BLACK);
     denLabel->setPosition(0, 0);
     denLabel->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +1);
     problemLayer->addChild(denLabel);
     
-    auto moleculeLabel2 = Label::createWithSystemFont(StringUtils::format("%d", mol1), "", screenSize.width*0.04);
+    auto moleculeLabel2 = Label::createWithSystemFont(StringUtils::format("%d", mol1), "Yesterday Dream", screenSize.width*0.04);
     moleculeLabel2->setColor(Color3B::BLACK);
     moleculeLabel2->setPosition(-screenSize.width*0.09, screenSize.width*0.107);
     moleculeLabel2->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 +2);
     problemLayer->addChild(moleculeLabel2);
     
-    auto denLabel2 = Label::createWithSystemFont(StringUtils::format("%d", den1), "", screenSize.width*0.04);
+    auto denLabel2 = Label::createWithSystemFont(StringUtils::format("%d", den1), "Yesterday Dream", screenSize.width*0.04);
     denLabel2->setColor(Color3B::BLACK);
     denLabel2->setPosition(-screenSize.width*0.09, screenSize.width*0.068);
     denLabel2->setTag(TAG_GAME_PROBLEM_ELEMENT + order*4 + 3);
     problemLayer->addChild(denLabel2);
     
     auto lineSpr2 = Sprite::create("res/game/line.png");
-    lineSpr2->setPosition(-screenSize.width*0.09, screenSize.width*0.085);
-    lineSpr2->setScale(screenSize.width*0.045/lineSpr2->getContentSize().width, screenSize.width*0.003/lineSpr2->getContentSize().height);
+    lineSpr2->setPosition(-screenSize.width*0.09, screenSize.width*0.095);
+    lineSpr2->setScale(screenSize.width*0.045/lineSpr2->getContentSize().width, screenSize.width*0.006/lineSpr2->getContentSize().height);
     problemLayer->addChild(lineSpr2);
 }
 
@@ -1034,7 +1059,7 @@ void GameScene::makeproblem(){
         {
             auto x1 =  sdata["x1"].asString();
             
-            auto problemlabel = Label::createWithSystemFont(x1, "", screenSize.width*0.04);
+            auto problemlabel = Label::createWithSystemFont(x1, "Yesterday Dream", screenSize.width*0.04);
             problemlabel->setPosition(-screenSize.width*0.09, screenSize.width*0.085);
             problemlabel->setColor(Color3B::BLACK);
             problemlayer->addChild(problemlabel);
@@ -1073,7 +1098,7 @@ void GameScene::makeproblem(){
             problemlayer->addChild(question1Layer);
             
             
-            auto oplabel = Label::createWithSystemFont("___", "", screenSize.width*0.04);
+            auto oplabel = Label::createWithSystemFont("___", "Yesterday Dream", screenSize.width*0.04);
             oplabel->setPosition(-screenSize.width*0.09, screenSize.width*0.075);
             oplabel->setColor(Color3B::BLACK);
             problemlayer->addChild(oplabel);
@@ -1090,7 +1115,7 @@ void GameScene::makeproblem(){
             auto question1Layer = new FractionLayer(x1, y1, -0.04f, false);
             problemlayer->addChild(question1Layer);
             
-            auto oplabel = Label::createWithSystemFont("x", "", screenSize.width*0.04);
+            auto oplabel = Label::createWithSystemFont("x", "Yesterday Dream", screenSize.width*0.04);
             oplabel->setPosition(-screenSize.width*0.09, screenSize.width*0.085);
             oplabel->setColor(Color3B::BLACK);
             problemlayer->addChild(oplabel);
@@ -1707,12 +1732,12 @@ void GameScene::onTapFractionItem(Touch *touch){
                 auto point = molLabel1->getPosition();
                 auto lineSpr = Sprite::create("res/game/line.png");
                 lineSpr->setPosition(point);
-                lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.003/lineSpr->getContentSize().height);
+                lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.006/lineSpr->getContentSize().height);
                 //    lineSpr->setTag(TAG_FRACTION_LINE);
                 problemLayer->addChild(lineSpr);
                 
                 auto answerBoxSpr = Sprite::create("res/game/answerboxlayer.png");
-                auto ansLabel = Label::createWithSystemFont("", "", screenSize.width*0.03);
+                auto ansLabel = Label::createWithSystemFont("", "Yesterday Dream", screenSize.width*0.03);
                 
                 float xx, yy;
                 if(point.x < -screenSize.width*0.11){
@@ -1766,7 +1791,7 @@ void GameScene::convertDividertoMultiSign(){
     problemLayer->removeChild(dividersign);
     
     
-    auto oplabel = Label::createWithSystemFont("x", "", screenSize.width*0.04);
+    auto oplabel = Label::createWithSystemFont("x", "Yesterday Dream", screenSize.width*0.04);
     oplabel->setPosition(-screenSize.width*0.09, screenSize.width*0.085);
     oplabel->setColor(Color3B::BLACK);
     problemLayer->addChild(oplabel);
@@ -1793,6 +1818,7 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                         is_Negative *=-1;
                         
                         showAnswer(answer);
+                        AnimStart();
                         break;
                     case TAG_GAME_KEYSMALL:
                         CompareNumber(-1);
@@ -1808,6 +1834,7 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                         break;
                     case TAG_GAME_KEYDECIMAL:
                         onClickDeciamlKey();
+                        AnimStart();
                         break;
                     case TAG_GAME_REPORTBACK:
                         onRemoveReportLayer(1);
@@ -1825,6 +1852,8 @@ void GameScene::onKeyTouchEvent(Ref *pSender, Widget::TouchEventType type)
                     case TAG_GAME_CLOSE:
                         onRemoveIntroduceLevel(false);
                         break;
+                    case TAG_GAME_KEY: case 202:case 203: case 204: case 205: case 206: case 207: case 208: case 209: case 210:
+                        AnimStart();
                     default:
                     {
                         
@@ -2229,4 +2258,38 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
 void GameScene::onTouchCancelled(Touch *touch, Event *event)
 {
     onTouchEnded(touch, event);
+}
+
+void GameScene::AnimStart() {
+    if (showingAnswer != true) {
+        auto spr = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERIMG);
+        auto action_0 = ScaleTo::create(0.1f, 1.3*screenSize.width*0.15/spr->getContentSize().width);
+        auto action_1 = ScaleTo::create(0.2f, screenSize.width*0.15/spr->getContentSize().width);
+        auto callback = CallFunc::create( [this]() {
+            auto label = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+            label->setOpacity(255);
+        });
+        auto action_2 = Sequence::create(action_0, action_1, callback, NULL);
+        spr->runAction(action_2);
+        showingAnswer = true;
+    }
+}
+
+void GameScene::AnimEnd() {
+    if (showingAnswer) {
+        auto spr = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERIMG);
+        auto action_0 = ScaleTo::create(0.2f, 0.13*screenSize.width*0.15/spr->getContentSize().width);
+        auto action_1 = ScaleTo::create(0.2f, 0.0f);
+        auto callback = CallFunc::create( [this]() {
+            auto label = (Sprite*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+            label->setOpacity(0);
+        });
+        auto action_2 = Sequence::create(action_0, action_1, callback, NULL);
+        spr->runAction(action_2);
+        showingAnswer = false;
+    }
+}
+
+void GameScene::WrongAnswer() {
+    
 }
