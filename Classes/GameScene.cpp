@@ -782,28 +782,28 @@ void GameScene::removeTapFrAnim(){
 void GameScene::onOneByOneAnimation(){
     onShowDimLayer();
     
-    if(fractionFlag>0 && !deciamlFlag){
-        std::stringstream test(StringUtils::format("%s", answerArray[rightCount].c_str()));
-        std::string segment;
-        std::vector<std::string> seglist;
-        
-        while(std::getline(test, segment, '/'))
-        {
-            seglist.push_back(segment);
-        }
-        answer = 1;
-        showFractionAnswer(atoi(seglist[0].c_str()));
-        onClickDividerKey();
-        showFractionAnswer(atoi(seglist[1].c_str()));
-        
-    } else if(deciamlFlag){
-        answer = 1;
-        showDecimalAnswer1(answerArray[rightCount]);
-    } else {
-        auto inseadAns = atoi(answerArray[rightCount].c_str());
-        answer = atoi(answerArray[rightCount].c_str());
-        showAnswer(inseadAns);
-    }
+//    if(fractionFlag>0 && !deciamlFlag){
+//        std::stringstream test(StringUtils::format("%s", answerArray[rightCount].c_str()));
+//        std::string segment;
+//        std::vector<std::string> seglist;
+//
+//        while(std::getline(test, segment, '/'))
+//        {
+//            seglist.push_back(segment);
+//        }
+//        answer = 1;
+//        showFractionAnswer(atoi(seglist[0].c_str()));
+//        onClickDividerKey();
+//        showFractionAnswer(atoi(seglist[1].c_str()));
+//
+//    } else if(deciamlFlag){
+//        answer = 1;
+//        showDecimalAnswer1(answerArray[rightCount]);
+//    } else {
+//        auto inseadAns = atoi(answerArray[rightCount].c_str());
+//        answer = atoi(answerArray[rightCount].c_str());
+//        showAnswer(inseadAns);
+//    }
     onShowedOneAnimFlag = true;
     auto oneAnimTitle = Sprite::create("res/animation/answer-this-one.png");
     oneAnimTitle->setTag(TAG_GAME_ONESPR);
@@ -1173,7 +1173,7 @@ void GameScene::rightAnswer(){
         addTick(ticksCount);
         ticksCount +=1;
     }
-    wrongCountofOne = 0;
+    wrongCountofOne = 6;
     problemTime = 0.0f;
     removeProblem(rightCount);
     rightCount++;
@@ -1206,10 +1206,10 @@ void GameScene::wrongAnswer(){
     answer = 0;
     answerString = "";
     Device::vibrate(0.6f);
-    if(wrongCountofOne == 3)
+    if(wrongCountofOne == 3 && level == 1)
     {
         onOneByOneAnimation();
-        wrongCountofOne = 0;
+//        wrongCountofOne = 0;
     }
 }
 
