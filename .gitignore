@@ -7,5 +7,6 @@ proj.tizen/
 proj.win8.1-universal/
 proj.win10/
 proj.win32/
+proj.ios_mac/
 .DS_Store
 *.DS_Store
