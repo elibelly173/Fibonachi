@@ -525,22 +525,22 @@ void GameScene::update(float delta)
     problemTime+=delta;
     musicTime += delta;
     
-    if(startingTapFlag && !tapenteranimFlag && !levelCompleteFlag) {
-        waittingTaptimer += delta;
-    }
-    
-    if(waittingTaptimer > 2 && !tapenteranimFlag) {
-        onTapAnimation();
-    }
-    if(onkeyswipeFlag && !levelCompleteFlag){
-        taptimer+=delta;
-    }
-    
-    if(taptimer > 2 && tapentertimeFlag && onkeyswipeFlag){
-        taptimer = 0;
-        UserDefault::getInstance()->setIntegerForKey("swipeflag", true);
-        onSwipeAnimation();
-    }
+//    if(startingTapFlag && !tapenteranimFlag && !levelCompleteFlag) {
+//        waittingTaptimer += delta;
+//    }
+//
+//    if(waittingTaptimer > 2 && !tapenteranimFlag) {
+//        onTapAnimation();
+//    }
+//    if(onkeyswipeFlag && !levelCompleteFlag){
+//        taptimer+=delta;
+//    }
+//
+//    if(taptimer > 2 && tapentertimeFlag && onkeyswipeFlag){
+//        taptimer = 0;
+//        UserDefault::getInstance()->setIntegerForKey("swipeflag", true);
+//        onSwipeAnimation();
+//    }
     
     if(holdFlag){
         if(holdTime>0.4 ){
