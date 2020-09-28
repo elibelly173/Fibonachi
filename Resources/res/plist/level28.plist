@@ -2,9 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>starttime</key>
+	<array>
+		<string>54</string>
+		<string>60</string>
+		<string>80</string>
+		<string>120</string>
+	</array>
 	<key>anspro</key>
 	<array>
-
 		<dict>
 			<key>1</key>
 			<string>value</string>
@@ -341,12 +347,6 @@
 			<key>answer</key>
 			<string>5/32</string>
 		</dict>
-
-
-
-
-
-		
 		<dict>
 			<key>22</key>
 			<string>value</string>
@@ -666,17 +666,7 @@
 			<string>/</string>
 			<key>answer</key>
 			<string>6/7</string>
-		</dict>	
-
-
-
-
-
-
-
-
-
-
+		</dict>
 		<dict>
 			<key>1</key>
 			<string>value</string>
@@ -1013,12 +1003,6 @@
 			<key>answer</key>
 			<string>16/7</string>
 		</dict>
-
-
-
-
-
-		
 		<dict>
 			<key>22</key>
 			<string>value</string>
@@ -1323,11 +1307,6 @@
 			<key>answer</key>
 			<string>15/7</string>
 		</dict>
-
-
-
-
-
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -1343,9 +1322,7 @@
 			<string>/</string>
 			<key>answer</key>
 			<string>15/32</string>
-		</dict>				
-		
-
+		</dict>
 	</array>
 </dict>
 </plist>

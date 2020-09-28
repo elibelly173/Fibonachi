@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>starttime</key>
+	<array>
+		<string>12</string>
+		<string>16</string>
+		<string>40</string>
+		<string>60</string>
+	</array>
 	<key>anspro</key>
 	<array>
 		<dict>
@@ -659,7 +666,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>2/15</string>
-		</dict>				
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -675,7 +682,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>3/14</string>
-		</dict>		
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -691,7 +698,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>5/14</string>
-		</dict>		
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -707,7 +714,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>2/13</string>
-		</dict>	
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -723,7 +730,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>3/13</string>
-		</dict>			
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -739,7 +746,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>3/13</string>
-		</dict>		
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -755,7 +762,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>5/13</string>
-		</dict>		
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -771,7 +778,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>5/12</string>
-		</dict>		
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -787,7 +794,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>2/11</string>
-		</dict>		
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -803,7 +810,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>5/11</string>
-		</dict>		
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -819,7 +826,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>7/11</string>
-		</dict>		
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -835,7 +842,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>3/11</string>
-		</dict>		
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -851,7 +858,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>5/11</string>
-		</dict>		
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -867,7 +874,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>3/10</string>
-		</dict>		
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -883,7 +890,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>7</string>
-		</dict>		
+		</dict>
 		<dict>
 			<key>40</key>
 			<string>value</string>
@@ -899,8 +906,7 @@
 			<string>x</string>
 			<key>answer</key>
 			<string>5</string>
-		</dict>		
-
+		</dict>
 	</array>
 </dict>
 </plist>

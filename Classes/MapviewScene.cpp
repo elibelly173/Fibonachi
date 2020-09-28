@@ -329,7 +329,7 @@ void MapviewScene::showLevelExplainacreen(int level){
     
     ValueMap sdata = (this->arrLevels[level-1]).asValueMap();
     int targetnumber =  sdata["targetnumber"].asInt();
-    int targettime =  sdata["time2"].asInt();
+    int targettime =  sdata["leveltime"].asInt();
     
     auto levelNumber = Sprite::create(StringUtils::format("res/title/number%d.png", targetnumber));
     levelNumber->setPosition(levelBgPos.x - this->scrollframesize.width*0.21, levelBgPos.y - this->scrollframesize.width*0.02);

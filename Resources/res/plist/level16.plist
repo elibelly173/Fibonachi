@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>starttime</key>
+	<array>
+		<string>18</string>
+		<string>20</string>
+		<string>40</string>
+		<string>60</string>
+	</array>
 	<key>anspro</key>
 	<array>
 		<dict>
@@ -324,8 +331,6 @@
 			<key>answer</key>
 			<string>-4</string>
 		</dict>
-
-
 		<dict>
 			<key>1</key>
 			<string>value</string>
@@ -518,18 +523,6 @@
 			<key>answer</key>
 			<string>-2</string>
 		</dict>
-
-
-
-
-
-
-
-
-
-
-
-
 		<dict>
 			<key>1</key>
 			<string>value</string>
@@ -658,7 +651,6 @@
 			<key>answer</key>
 			<string>1</string>
 		</dict>
-
 		<dict>
 			<key>1</key>
 			<string>value</string>
@@ -979,8 +971,6 @@
 			<key>answer</key>
 			<string>3</string>
 		</dict>
-
-
 		<dict>
 			<key>1</key>
 			<string>value</string>
@@ -1013,13 +1003,6 @@
 			<key>answer</key>
 			<string>19</string>
 		</dict>
-
-
-
-
-
-
-
 		<dict>
 			<key>1</key>
 			<string>value</string>
@@ -1236,7 +1219,6 @@
 			<key>answer</key>
 			<string>-11</string>
 		</dict>
-
 		<dict>
 			<key>2</key>
 			<string>value</string>
@@ -1429,7 +1411,6 @@
 			<key>answer</key>
 			<string>-7</string>
 		</dict>
-		
 		<dict>
 			<key>10</key>
 			<string>value</string>
@@ -1486,7 +1467,6 @@
 			<key>answer</key>
 			<string>7</string>
 		</dict>
-
 		<dict>
 			<key>1</key>
 			<string>value</string>
@@ -1767,8 +1747,6 @@
 			<key>answer</key>
 			<string>17</string>
 		</dict>
-
-
 		<dict>
 			<key>1</key>
 			<string>value</string>
@@ -1801,7 +1779,6 @@
 			<key>answer</key>
 			<string>1</string>
 		</dict>
-
 		<dict>
 			<key>1</key>
 			<string>value</string>
@@ -2018,7 +1995,6 @@
 			<key>answer</key>
 			<string>-30</string>
 		</dict>
-
 		<dict>
 			<key>2</key>
 			<string>value</string>
@@ -2123,7 +2099,6 @@
 			<key>answer</key>
 			<string>-20</string>
 		</dict>
-		
 		<dict>
 			<key>3</key>
 			<string>value</string>
@@ -2148,7 +2123,6 @@
 			<key>answer</key>
 			<string>18</string>
 		</dict>
-		
 		<dict>
 			<key>10</key>
 			<string>value</string>
@@ -2205,7 +2179,6 @@
 			<key>answer</key>
 			<string>-12</string>
 		</dict>
-
 		<dict>
 			<key>1</key>
 			<string>value</string>
@@ -2414,7 +2387,6 @@
 			<key>answer</key>
 			<string>-32</string>
 		</dict>
-		
 		<dict>
 			<key>9</key>
 			<string>value</string>
@@ -2479,8 +2451,6 @@
 			<key>answer</key>
 			<string>-70</string>
 		</dict>
-
-
 		<dict>
 			<key>1</key>
 			<string>value</string>
@@ -2513,8 +2483,6 @@
 			<key>answer</key>
 			<string>90</string>
 		</dict>
-		
-		
 	</array>
 </dict>
 </plist>
