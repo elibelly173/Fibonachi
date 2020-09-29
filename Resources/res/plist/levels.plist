@@ -18,11 +18,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>13</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>9</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 			<key>leveltime</key>
 			<integer>30</integer>
 		</dict>
@@ -42,11 +42,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>14</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>9</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -64,11 +64,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>28</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>15</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -86,11 +86,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>22</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>14</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -108,11 +108,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>60</integer>
+			<integer>50</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>40</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>120</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -130,11 +130,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>60</integer>
+			<integer>40</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>26</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>90</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -152,11 +152,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>19</integer>
 			<key>time1</key>
 			<integer>10</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -174,11 +174,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>22</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>12</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -196,11 +196,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>25</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>18</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -218,11 +218,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>40</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>20</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>90</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -240,11 +240,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>25</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>20</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -262,11 +262,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>24</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>14</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -284,11 +284,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>25</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>16</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -306,11 +306,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>36</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>18</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>90</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -328,11 +328,11 @@
 			<key>targetnumber</key>
 			<integer>10</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>20</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>12</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -350,11 +350,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>20</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>18</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -372,11 +372,11 @@
 			<key>targetnumber</key>
 			<integer>20</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>40</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>32</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>90</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -394,11 +394,11 @@
 			<key>targetnumber</key>
 			<integer>10</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>40</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>35</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>90</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -416,11 +416,11 @@
 			<key>targetnumber</key>
 			<integer>10</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>40</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>35</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>90</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -438,11 +438,11 @@
 			<key>targetnumber</key>
 			<integer>5</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>20</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>15</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -460,11 +460,11 @@
 			<key>targetnumber</key>
 			<integer>10</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>9</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>6</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -482,11 +482,11 @@
 			<key>targetnumber</key>
 			<integer>10</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>30</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>25</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -504,11 +504,11 @@
 			<key>targetnumber</key>
 			<integer>10</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>8</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>5</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -526,11 +526,11 @@
 			<key>targetnumber</key>
 			<integer>5</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>16</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>13</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -548,11 +548,11 @@
 			<key>targetnumber</key>
 			<integer>5</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>16</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>12</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -570,11 +570,11 @@
 			<key>targetnumber</key>
 			<integer>5</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>30</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>23</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>90</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -592,11 +592,11 @@
 			<key>targetnumber</key>
 			<integer>5</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>48</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>42</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>120</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -614,11 +614,11 @@
 			<key>targetnumber</key>
 			<integer>5</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>60</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>54</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>120</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -638,9 +638,9 @@
 			<key>time2</key>
 			<integer>80</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>65</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>180</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -658,11 +658,11 @@
 			<key>targetnumber</key>
 			<integer>10</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>30</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>25</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>90</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -680,11 +680,11 @@
 			<key>targetnumber</key>
 			<integer>10</integer>
 			<key>time2</key>
-			<integer>80</integer>
-			<key>time1</key>
 			<integer>10</integer>
+			<key>time1</key>
+			<integer>6</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>leveltime</key>
@@ -702,11 +702,11 @@
 			<key>targetnumber</key>
 			<integer>10</integer>
 			<key>time2</key>
-			<integer>80</integer>
+			<integer>50</integer>
 			<key>time1</key>
-			<integer>10</integer>
+			<integer>40</integer>
 			<key>time3</key>
-			<integer>300</integer>
+			<integer>120</integer>
 		</dict>
 	</array>
 </dict>

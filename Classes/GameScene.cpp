@@ -1313,8 +1313,9 @@ void GameScene::onShowReportLayer(){
 //    else speedStarCount = 1;
     if(timer <= targettime1) speedStarCount = 4;
     else if(timer>targettime1 && timer<=targettime) speedStarCount = 3;
-    else if(timer >targettime && timer <=targettime2) speedStarCount = 2;
-    else speedStarCount = 1;
+    else if(timer >targettime && timer <=leveltime) speedStarCount = 2;
+    else if(timer >leveltime && timer <=targettime2) speedStarCount = 1;
+    else speedStarCount = 0;
     
     
 //    StringUtils::format("res/title/level/level%d.png", newlevel)
@@ -1404,12 +1405,12 @@ void GameScene::onShowReportLayer(){
         reportLayer->addChild(starSpr);
     }
     // Bottom star
-    for(int ii=0; ii<accuracyStarCount; ii++){
-        auto starSpr = Sprite::create("res/report/star.png");
-        starSpr->setPosition(screenSize.width*0.54+screenSize.width*0.067*ii , screenSize.height/2-screenSize.width*0.048);
-        starSpr->setScale(screenSize.width*0.064/starSpr->getContentSize().width);
-        reportLayer->addChild(starSpr);
-    }
+//    for(int ii=0; ii<accuracyStarCount; ii++){
+//        auto starSpr = Sprite::create("res/report/star.png");
+//        starSpr->setPosition(screenSize.width*0.54+screenSize.width*0.067*ii , screenSize.height/2-screenSize.width*0.048);
+//        starSpr->setScale(screenSize.width*0.064/starSpr->getContentSize().width);
+//        reportLayer->addChild(starSpr);
+//    }
     
     // report buttons
     Button* reportBackButton = Button::create("res/report/report_back.png", "res/report/report_back.png");
@@ -1460,6 +1461,7 @@ void GameScene::getLevelInfo(){
     targettime =  sdata["time2"].asInt();
     targettime1 =  sdata["time1"].asInt();
     targettime2 =  sdata["time3"].asInt();
+    leveltime = sdata["leveltime"].asInt();
     blueNumber = sdata["bluetime"].asFloat();
 }
 
@@ -1697,6 +1699,12 @@ void GameScene::gotoDelete(Ref *pSender, Widget::TouchEventType type)
         if(!dimFlag)
         {
             if (fractionFlag == 0) {
+                answer=0;
+                answerString = "";
+                
+                auto answerLabel = (Label*)this->getChildByTag(TAG_GAME_ANSWERLABEL);
+                answerLabel->setString("");
+            } else if(level == 30) {
                 answer=0;
                 answerString = "";
                 

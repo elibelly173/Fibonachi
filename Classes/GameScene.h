@@ -187,10 +187,11 @@ public:
     std::string answerArray[200];
     std::string answerString = "";
     int answer= 0;
-    int targettime = 0;
+    int targettime = 0; // 3 stars time.
     int targetnumber = 0;
-    int targettime1 = 0;
-    int targettime2 = 0;
+    int targettime1 = 0; // 4 stars time.
+    int targettime2 = 0; // 1 star time.
+    int leveltime = 0; // 2 stars time.
     int prevTime = 0;
     
     bool isAnswerTouchDown;
