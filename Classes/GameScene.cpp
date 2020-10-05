@@ -417,15 +417,15 @@ void GameScene::initButtons(){
     
     if (axisFlag == 0) {
         Button* enterButton = Button::create("res/game/Enter.png", "res/game/Enter.png");
-        enterButton->setPosition(Vec2(screenSize.width*0.54, screenSize.height*0.25));
+        enterButton->setPosition(Vec2(screenSize.width*0.84, screenSize.height*0.25));
         enterButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoEnter, this));
-        enterButton->setScale(screenSize.width * 0.1f/enterButton->getContentSize().width);
+        enterButton->setScale(screenSize.width * 0.08f/enterButton->getContentSize().width);
         this->addChild(enterButton);
         
         Button* deleteButton = Button::create("res/game/Delete.png", "res/game/Delete.png");
-        deleteButton->setPosition(Vec2(screenSize.width*0.72, screenSize.height*0.25));
+        deleteButton->setPosition(Vec2(screenSize.width*0.3, screenSize.height*0.25));
         deleteButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoDelete, this));
-        deleteButton->setScale(screenSize.width * 0.1f/deleteButton->getContentSize().width);
+        deleteButton->setScale(screenSize.width * 0.08f/deleteButton->getContentSize().width);
         this->addChild(deleteButton);
 
     }
@@ -1715,6 +1715,20 @@ void GameScene::gotoDelete(Ref *pSender, Widget::TouchEventType type)
                 clickedDividerKeyFlag = false;
                 auto answerLayer = (FractionAnswerLayer*) this->getChildByTag(TAG_GAME_ANSWERLABEL);
                 answerLayer->reset();
+                auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
+                for(int i=0; i<4; i++){
+                    auto molLabel1 = (Label*)problemLayer->getChildByTag(TAG_GAME_MOLANS1 + i);
+                    problemLayer->removeChild(molLabel1);
+                    
+                    auto ansLabel = (Label*)problemLayer->getChildByTag(TAG_GAME_MOLANS1LABEL + i);
+                    problemLayer->removeChild(ansLabel);
+                    
+                    auto ansLine = (Label*)problemLayer->getChildByTag(TAG_GAME_MOLANS1LINE + i);
+                    problemLayer->removeChild(ansLine);
+                    
+                    fractionBoxArray[i] = false;
+                }
+                selectedAnswerBox = 0;
             }
         }
     }
@@ -1741,7 +1755,8 @@ void GameScene::onTapFractionItem(Touch *touch){
                 auto lineSpr = Sprite::create("res/game/line.png");
                 lineSpr->setPosition(point);
                 lineSpr->setScale(screenSize.width*0.045/lineSpr->getContentSize().width, screenSize.width*0.006/lineSpr->getContentSize().height);
-                //    lineSpr->setTag(TAG_FRACTION_LINE);
+                lineSpr->setTag(TAG_GAME_MOLANS1LINE + i);
+                
                 problemLayer->addChild(lineSpr);
                 
                 auto answerBoxSpr = Sprite::create("res/game/answerboxlayer.png");
@@ -1761,7 +1776,7 @@ void GameScene::onTapFractionItem(Touch *touch){
                     yy = screenSize.width*0.02;
                 }
                 answerBoxSpr->setPosition(point.x + xx , point.y + yy);
-                ansLabel->setPosition(point.x + xx , point.y + yy);
+                ansLabel->setPosition(point.x + xx , point.y + yy - 3);
                 
                 answerBoxSpr->setScale(screenSize.width*0.035/answerBoxSpr->getContentSize().width);
                 answerBoxSpr->setTag(TAG_GAME_MOLANS1+i);
@@ -1798,6 +1813,10 @@ void GameScene::convertDividertoMultiSign(){
     auto *dividersign = (Button*)problemLayer->getChildByTag(TAG_GAME_KEYDIVIDER + rightCount);
     problemLayer->removeChild(dividersign);
     
+    auto *den2 = (Label*)problemLayer->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4 + 3);
+    den2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.107);
+    auto *mol2 = (Label*)problemLayer->getChildByTag(TAG_GAME_PROBLEM_ELEMENT + rightCount*4 + 2);
+    mol2->setPosition(-screenSize.width*0.09+0.04*screenSize.width, screenSize.width*0.068);
     
     auto oplabel = Label::createWithSystemFont("x", "Yesterday Dream", screenSize.width*0.04);
     oplabel->setPosition(-screenSize.width*0.09, screenSize.width*0.085);

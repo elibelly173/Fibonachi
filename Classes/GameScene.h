@@ -79,6 +79,11 @@ USING_NS_CC;
 #define TAG_GAME_DENANS1LABEL      69
 #define TAG_GAME_MOLANS2LABEL      70
 #define TAG_GAME_DENANS2LABEL      71
+
+#define TAG_GAME_MOLANS1LINE    72
+#define TAG_GAME_DENANS1LINE    73
+#define TAG_GAME_MOLANS2LINE    74
+#define TAG_GAME_DENANS2LINE    75
 class GameScene : public cocos2d::Layer
 {
 public:
