@@ -341,6 +341,10 @@ void MapviewScene::showLevelExplainacreen(int level){
     levelTime->setPosition(levelBgPos.x + this->scrollframesize.width*0.16, levelBgPos.y - this->scrollframesize.width*0.02);
     levelTime->setScale(this->scrollframesize.width*0.08/levelTime->getContentSize().width);
     
+    if (targettime == 120) {
+        levelTime->setScale(this->scrollframesize.width*0.14/levelTime->getContentSize().width);
+    }
+    
     levelExplainLayer->addChild(levelTime);
     
     // level close
