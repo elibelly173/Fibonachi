@@ -1311,10 +1311,10 @@ void GameScene::onShowReportLayer(){
 //    else if(levelSpeed>75 && levelSpeed<=99) speedStarCount = 3;
 //    else if(levelSpeed >50 && levelSpeed <=75) speedStarCount = 2;
 //    else speedStarCount = 1;
-    if(timer <= targettime1) speedStarCount = 4;
-    else if(timer>targettime1 && timer<=targettime) speedStarCount = 3;
-    else if(timer >targettime && timer <=leveltime) speedStarCount = 2;
-    else if(timer >leveltime && timer <=targettime2) speedStarCount = 1;
+    if(timer <= targettime1 * 10) speedStarCount = 4;
+    else if(timer>targettime1 * 10 && timer<=targettime * 10) speedStarCount = 3;
+    else if(timer >targettime * 10 && timer <=leveltime * 10) speedStarCount = 2;
+    else if(timer >leveltime * 10 && timer <=targettime2 * 10) speedStarCount = 1;
     else speedStarCount = 1;
     
     
@@ -1559,6 +1559,7 @@ void GameScene::onIntroduceLevel(Ref *sender){
     targettime =  sdata["time2"].asInt();
     targettime1 =  sdata["time1"].asInt();
     targettime2 =  sdata["time3"].asInt();
+    leveltime = sdata["leveltime"].asInt();
     
     auto levelNumber = Sprite::create(StringUtils::format("res/title/number%d.png", targetnumber));
     levelNumber->setPosition(levelBgPos.x - screenSize.width*0.21, levelBgPos.y - screenSize.width*0.02);
@@ -1566,7 +1567,7 @@ void GameScene::onIntroduceLevel(Ref *sender){
     
     levelExplainLayer->addChild(levelNumber);
     
-    auto levelTime = Sprite::create(StringUtils::format("res/title/timer/timer%d.png", targettime));
+    auto levelTime = Sprite::create(StringUtils::format("res/title/timer/timer%d.png", leveltime));
     levelTime->setPosition(levelBgPos.x + screenSize.width*0.16, levelBgPos.y - screenSize.width*0.02);
     levelTime->setScale(screenSize.width*0.08/levelTime->getContentSize().width);
     
@@ -2128,9 +2129,9 @@ void GameScene::showAnswer(int ans){
 
 bool GameScene::onTouchBegan(Touch *touch, Event *event)
 {
-/*
+
     if(!dimFlag){
-        Point location = touch->getLocation();
+/*        Point location = touch->getLocation();
         if(axisFlag ==0){
             CCLOG("locationx=%f", location.x);
             CCLOG("locationy=%f", location.y);
@@ -2147,7 +2148,7 @@ bool GameScene::onTouchBegan(Touch *touch, Event *event)
             }
             
         }
-        
+        */
         if(fractionSwipeFlagArray[rightCount] == true){
             
             auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
@@ -2164,14 +2165,15 @@ bool GameScene::onTouchBegan(Touch *touch, Event *event)
     
         
     }
-*/
+
     return true;
 }
 
 void GameScene::onTouchMoved(Touch *touch, Event *event)
 {
-/*
+
     if(!dimFlag){
+        /*
         Point location = touch->getLocation();
         if(axisFlag ==0){
             Rect *answerSprRect = new Rect(screenSize.width*0.5, screenSize.height*0.16 + screenSize.width*0.04, screenSize.width*0.36 , screenSize.width*0.28);
@@ -2183,8 +2185,7 @@ void GameScene::onTouchMoved(Touch *touch, Event *event)
                 isAnswerTouchDown = false;
             }
         }
-        
-        
+         */
         auto *problemLayer = (Layer*)this->getChildByTag(TAG_GAME_PROBLEM+rightCount);
         Point layerLocation = problemLayer->getPosition();
         Point convertedLocation = Point(touch->getLocation().x - layerLocation.x, touch->getLocation().y - layerLocation.y);
@@ -2199,7 +2200,7 @@ void GameScene::onTouchMoved(Touch *touch, Event *event)
         }
 
     }
- */
+ 
 }
 
 void GameScene::onTouchEnded(Touch *touch, Event *event)
@@ -2241,20 +2242,22 @@ void GameScene::onTouchEnded(Touch *touch, Event *event)
             }
         } else if(fractionFlag == 4 || level == 20){
             
-            if(swipe28Flag == true){
+            if(swipe28Flag == true && (level == 28 || level == 29)){
                 
                 swipe28Flag = false;
                 
                 if (initialSwipeFractionPos[1] - currentSwipeFractionPos[1] > screenSize.width * 0.06)
                 {
-                    CCLOG("SWIPED top");
-                    fractionSwipeFunc();
+//                    CCLOG("SWIPED top");
+//                    fractionSwipeFunc();
+                    convertDividertoMultiSign();
                     
                 }
                 else if (initialSwipeFractionPos[1] - currentSwipeFractionPos[1] < - screenSize.width * 0.06)
                 {
-                    CCLOG("SWIPED bottom");
-                    fractionSwipeFunc();
+//                    CCLOG("SWIPED bottom");
+//                    fractionSwipeFunc();
+                    convertDividertoMultiSign();
                     
                 }else {
                     CCLOG("enter");
