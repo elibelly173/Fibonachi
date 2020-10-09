@@ -1317,6 +1317,8 @@ void GameScene::onShowReportLayer(){
     else if(timer >leveltime * 10 && timer <=targettime2 * 10) speedStarCount = 1;
     else speedStarCount = 1;
     
+    speedStarCount -= wrongCount;
+    if (speedStarCount < 1) speedStarCount = 1;
     
 //    StringUtils::format("res/title/level/level%d.png", newlevel)
     
@@ -1328,7 +1330,7 @@ void GameScene::onShowReportLayer(){
         UserDefault::getInstance()->setIntegerForKey(levelstarString,speedStarCount);
     }
     
-    if(levelAccuracy ==100) accuracyStarCount = 4;
+    if(levelAccuracy == 100) accuracyStarCount = 4;
     else if(levelAccuracy>75 && levelAccuracy<=99) accuracyStarCount = 3;
     else if(levelAccuracy >50 && levelAccuracy <=75) accuracyStarCount = 2;
     else accuracyStarCount = 1;
@@ -1440,9 +1442,11 @@ void GameScene::onShowReportLayer(){
     reportExitButton->setScale(this->screenSize.width * 0.1f/reportExitButton->getContentSize().width);
     reportLayer->addChild(reportExitButton);
 
-    auto action_0 = MoveTo::create(0.4, Point(0 , screenSize.height*0.1));
-    auto action_1 = MoveTo::create(0.1, Point(0 , 0));
-    auto action_2 = Sequence::create(action_0, action_1, NULL);
+    auto action_0 = MoveTo::create(0.4, Point(0 , screenSize.height*0.3));
+    auto action_1 = MoveTo::create(0.1, Point(0 , -screenSize.height*0.2));
+    auto action_3 = MoveTo::create(0.1, Point(0 , screenSize.height*0.1));
+    auto action_4 = MoveTo::create(0.1, Point(0 , 0));
+    auto action_2 = Sequence::create(action_0, action_1, action_3, action_4, NULL);
     //    auto action_3 = RepeatForever::create(action_2);
     reportLayer->runAction(action_2);
 }
