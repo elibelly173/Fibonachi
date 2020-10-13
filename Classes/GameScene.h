@@ -68,6 +68,7 @@ USING_NS_CC;
 #define TAG_GAME_TIMER      61
 #define TAG_GAME_SCORE      62
 #define TAG_GAME_LEVEL      63
+#define TAG_GAME_CIRCLE     76
 
 
 #define TAG_GAME_MOLANS1      64
@@ -275,6 +276,8 @@ public:
     
     bool audioFlag = false;
     bool showingAnswer = false;
+    
+    CCPoint Circle [360]; // vertex array
 
 private:
     CREATE_FUNC(GameScene);

@@ -499,11 +499,50 @@ void GameScene::initProAns(){
 }
 
 void GameScene::initTimerScore(){
-    auto timerLabel = Label::createWithSystemFont("0", "Yesterday Dream", screenSize.width*0.035);
-    timerLabel->setColor(Color3B::GREEN);
-    timerLabel->setPosition(screenSize.width*0.28, screenSize.height - screenSize.width*0.047);
-    timerLabel->setTag(TAG_GAME_TIMER);
-    this->addChild(timerLabel);
+//    auto timerLabel = Label::createWithSystemFont("0", "Yesterday Dream", screenSize.width*0.035);
+//    timerLabel->setColor(Color3B::GREEN);
+//    timerLabel->setPosition(screenSize.width*0.28, screenSize.height - screenSize.width*0.047);
+//    timerLabel->setTag(TAG_GAME_TIMER);
+//    this->addChild(timerLabel);
+//    answerImg->getContentSize().width
+    
+    auto dialCircle = Sprite::create("res/timer/Dial Circle.png");
+    dialCircle->setPosition(screenSize.width*0.2, screenSize.height - screenSize.width*0.038);
+    dialCircle->setScale(screenSize.width*0.00035);
+    this->addChild(dialCircle);
+    
+//    float Radius = screenSize.width*0.03;
+//    float coef = 0.0174533;
+//    for ( int i = 0 ; i < 360; i ++) {
+//        float rads = (359 - i) * coef; // radians
+//        Circle [i] .y = Radius * cosf (rads); //vertex x
+//        Circle [i] .x = Radius * sinf (rads); //vertex y
+//    }
+//    Circle[0].y = 0;
+//
+//    DrawNode *draw = DrawNode::create();
+//    draw-> drawPolygon (Circle, 360, Color4F::BLACK, 0 , Color4F::BLACK);
+//    draw->setPosition(screenSize.width*0.2, screenSize.height - screenSize.width*0.038);
+//    draw->setTag(TAG_GAME_CIRCLE);
+//    this->addChild(draw);
+    
+    auto greenCircle = Sprite::create("res/timer/Blue.png");
+    greenCircle->setPosition(screenSize.width*0.2, screenSize.height - screenSize.width*0.038);
+    greenCircle->setScale(screenSize.width*0.00035);
+    greenCircle->setTag(TAG_GAME_TIMER);
+    this->addChild(greenCircle);
+    
+    auto dialLine = Sprite::create("res/timer/Dial Lines.png");
+    dialLine->setPosition(screenSize.width*0.2, screenSize.height - screenSize.width*0.038);
+    dialLine->setScale(screenSize.width*0.00035);
+    this->addChild(dialLine);
+    
+    auto dial = Sprite::create("res/timer/Dial.png");
+    dial->setPosition(screenSize.width*0.2, screenSize.height - screenSize.width*0.038);
+    dial->setAnchorPoint(Point(screenSize.width*0.00038, screenSize.width*0.0001));
+    dial->setScale(screenSize.width*0.00042);
+    dial->setTag(TAG_GAME_CIRCLE);
+    this->addChild(dial);
     
     auto scoreLabel = Label::createWithSystemFont("", "Yesterday Dream", screenSize.width*0.035);
     scoreLabel->setColor(Color3B::BLACK);
@@ -569,13 +608,23 @@ void GameScene::UpdateTimer(float dt)
 {
     if(firstEnterFlag && !levelCompleteFlag && !dimFlag){
         timer+=1;
-        auto timerLabel = (Label*)this->getChildByTag(TAG_GAME_TIMER);
-        if(timer > targettime1 * 10 && timer < targettime * 10){
-            timerLabel->setColor(Color3B::YELLOW);
-        } else if(timer >= targettime * 10){
-            timerLabel->setColor(Color3B::RED);
+        auto dial = (Sprite*)this->getChildByTag(TAG_GAME_CIRCLE);
+        dial->setRotation(36 * timer / leveltime);
+        auto timerLabel = (Sprite*)this->getChildByTag(TAG_GAME_TIMER);
+        if(timer <= targettime1 * 10) {
+//            draw-> drawPolygon (Circle, 360 - timer * 12 / targettime1, Color4F::BLACK, 0 , Color4F::BLACK);
         }
-        timerLabel->setString(StringUtils::format("%1.1f", timer/10.0f));
+        else if(timer > targettime1 * 10 && timer < targettime * 10){
+            timerLabel->setTexture("res/timer/Green.png");
+//            draw-> drawPolygon (Circle, 240 - (timer - targettime1 * 10) * 12 / (leveltime - targettime1), Color4F::BLACK, 0 , Color4F::BLACK);
+        } else if(timer > targettime * 10 && timer < leveltime * 10){
+            timerLabel->setTexture("res/timer/Yellow.png");
+//            draw-> drawPolygon (Circle, 240 - (timer - targettime1 * 10) * 12 / (leveltime - targettime1), Color4F::BLACK, 0 , Color4F::BLACK);
+        } else if(timer >= leveltime * 10){
+            timerLabel->setTexture("res/timer/Red.png");
+//            draw-> drawPolygon (Circle, 120 - (timer - leveltime * 10) * 12 / (targettime2 - leveltime) > 2 ? 120 - (timer - leveltime * 10) * 12 / (targettime2 - leveltime) : 3, Color4F::BLACK, 0 , Color4F::BLACK);
+        }
+//        timerLabel->setString(StringUtils::format("%1.1f", timer/10.0f));
     }
     
     
