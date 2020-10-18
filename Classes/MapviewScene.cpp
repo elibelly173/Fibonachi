@@ -38,9 +38,9 @@ bool MapviewScene::init()
     {
         return false;
     }
-    
-    UserDefault::getInstance()->setIntegerForKey("completedLevel",32);
-    UserDefault::getInstance()->setIntegerForKey("lockLevel",32);
+//
+//    UserDefault::getInstance()->setIntegerForKey("completedLevel",0);
+//    UserDefault::getInstance()->setIntegerForKey("lockLevel",0);
 
     
     completedLevel =UserDefault::getInstance()->getIntegerForKey("completedLevel");
@@ -80,7 +80,7 @@ void MapviewScene::initAddbutton(){
         Button* button1;
         if(ii<completedLevel){
             button1 = Button::create(StringUtils::format("res/levels_complete/%d.png", (ii + 1)),
-                                     StringUtils::format("res/levels_complete/%d.png", (ii + 1)));
+                                     StringUtils::format("res/levels_complete/%d_selected.png", (ii + 1)));
             button1->setScale(scrollframesize.width * 0.18f/button1->getContentSize().width);
             button1->setPosition(Vec2(scrollframesize.width * x / 100.0f, scrollframesize.width *y/ 100.0f));
             button1->addTouchEventListener(CC_CALLBACK_2(MapviewScene::touchEvent, this, (int)ii+1));
@@ -212,7 +212,7 @@ void MapviewScene::changeButton(int diff, int insteadlevel){
         
         Button* button1;
         button1 = Button::create(StringUtils::format("res/levels_complete/%d.png", completedLevel -ii),
-                                 StringUtils::format("res/levels_complete/%d.png", completedLevel -ii));
+                                 StringUtils::format("res/levels_complete/%d_selected.png", completedLevel -ii));
         button1->setScale(this->scrollframesize.width * 0.18f/button1->getContentSize().width);
         button1->setPosition(Vec2(this->scrollframesize.width * xx / 100.0f, scrollframesize.width *yy/ 100.0f));
         button1->addTouchEventListener(CC_CALLBACK_2(MapviewScene::touchEvent, this, completedLevel- ii));
@@ -318,7 +318,7 @@ void MapviewScene::showLevelExplainacreen(int level){
     
     
     // level continue
-    Button* buttonPlay = Button::create("res/title/Continue.png", "res/title/Continue.png");
+    Button* buttonPlay = Button::create("res/title/Continue.png", "res/title/Continue_selected.png");
     
     buttonPlay->setPosition(Vec2(levelBgPos.x - this->scrollframesize.width*0.025, levelBgPos.y - this->scrollframesize.width*0.16));
     buttonPlay->addTouchEventListener(CC_CALLBACK_2(MapviewScene::onLevelCloseEvent, this, (int)1));
@@ -438,8 +438,8 @@ void MapviewScene::gotoGameviewCallback(Ref *sender, int state)
     if(state == 1){
         
         auto gameScene = GameScene::createScene(this->selectedLevel);
-//        Director::getInstance()->replaceScene(gameScene);
-        Director::getInstance()->pushScene(gameScene);
+        Director::getInstance()->replaceScene(gameScene);
+//        Director::getInstance()->pushScene(gameScene);
         
     } else if(state == 2){
 //        auto *scrollView = (cocos2d::ui::ScrollView*)this->getChildByTag(TAG_MAP_SCROLL);
@@ -449,7 +449,7 @@ void MapviewScene::gotoGameviewCallback(Ref *sender, int state)
     auto *levelLayer = (Layer*)this->getChildByTag(TAG_MAP_LEVELLAYER);
     this->removeChild(levelLayer);
 
-    CCLOG("HelloWorld::setCallFunc_2()%d", state);
+//    CCLOG("HelloWorld::setCallFunc_2()%d", state);
 }
 
 

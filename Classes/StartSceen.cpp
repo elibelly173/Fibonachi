@@ -37,8 +37,8 @@ bool StartSceen::init()
     background->setScale(size.width/background->getContentSize().width, size.height/background->getContentSize().height);
     this->addChild(background);
 
-    Button* startButtone = Button::create("StartButtone.png", "StartButtone.png");
-   startButtone->addTouchEventListener(CC_CALLBACK_2(StartSceen::gotoGame, this));
+    Button* startButtone = Button::create("StartButtone.png", "StartButtone_selected.png");
+    startButtone->addTouchEventListener(CC_CALLBACK_2(StartSceen::gotoGame, this));
     startButtone->setPosition(Vec2(winsize.width*0.58, winsize.height*0.16));
     startButtone->setScale(winsize.width * 0.14f/startButtone->getContentSize().width);
     this->addChild(startButtone);

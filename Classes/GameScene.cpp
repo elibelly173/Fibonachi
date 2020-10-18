@@ -207,7 +207,7 @@ void GameScene::initFiboAchi(){
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/fibo/fibo.plist");
     auto fibospr = Sprite::createWithSpriteFrameName("fibo0.png");
     fibospr->setTag(TAG_SPRITE_FIBO);
-    fibospr->setPosition(screenSize.width*0.63, screenSize.height*0.14);
+    fibospr->setPosition(screenSize.width*0.63, screenSize.height*0.19);
     fibospr->setAnchorPoint(Point(0.0f,0.0f));
     fibospr->setScale(screenSize.width*0.15/achispr->getContentSize().width);
     this->addChild(fibospr);
@@ -321,7 +321,7 @@ void GameScene::initKey(){
     if(axisFlag == 0){
         for(int ii=0; ii<10; ii++){
             Button* keyButton = Button::create(StringUtils::format("res/key/key%d.png", (ii + 1)),
-                                               StringUtils::format("res/key/key%d.png", (ii + 1)));
+                                               StringUtils::format("res/key/key%d_selected.png", (ii + 1)));
             keyButton->setPosition(Vec2(screenSize.width*0.05+screenSize.width*ii/10, screenSize.height*0.04f));
             keyButton->setAnchorPoint(Point(0.5f,0.0f));
             keyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
@@ -332,7 +332,7 @@ void GameScene::initKey(){
         }
         
         if(addKeyFlag){
-            Button* addKeyButton = Button::create("res/key/negative.png", "res/key/negative.png");
+            Button* addKeyButton = Button::create("res/key/negative.png", "res/key/negative_selected.png");
             
             addKeyButton->setPosition(Vec2(screenSize.width*0.045, screenSize.height*0.08f + screenSize.width * 0.18f));
             addKeyButton->setAnchorPoint(Point(0.5f,0.0f));
@@ -343,7 +343,7 @@ void GameScene::initKey(){
         }
         
         if ((fractionFlag>0) && (level != 30)) {
-            Button* fractionKeyButton = Button::create("res/key/divide.png", "res/key/divide.png");
+            Button* fractionKeyButton = Button::create("res/key/divide.png", "res/key/divide_selected.png");
             fractionKeyButton->setPosition(Vec2(screenSize.width*0.045, screenSize.height*0.08 + screenSize.width * 0.18));
             fractionKeyButton->setAnchorPoint(Point(0.5f,0.0f));
             fractionKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
@@ -353,7 +353,7 @@ void GameScene::initKey(){
         }
         
         if(deciamlFlag){
-            Button* deciamlButton = Button::create("res/key/decimal.png", "res/key/decimal.png");
+            Button* deciamlButton = Button::create("res/key/decimal.png", "res/key/decimal_selected.png");
             deciamlButton->setPosition(Vec2(screenSize.width*0.045, screenSize.height*0.08 + screenSize.width * 0.18));
             deciamlButton->setAnchorPoint(Point(0.5f,0.0f));
             deciamlButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
@@ -380,7 +380,7 @@ void GameScene::initKey(){
         
     } else if(axisFlag == 3){
                 
-        Button* equalKeyButton = Button::create("res/key/equal.png", "res/key/equal.png");
+        Button* equalKeyButton = Button::create("res/key/equal.png", "res/key/equal_selected.png");
         equalKeyButton->setPosition(Vec2(screenSize.width*0.96, screenSize.height*0.08f + screenSize.width * 0.08f));
         equalKeyButton->setAnchorPoint(Point(0.5f,0.0f));
         equalKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
@@ -388,7 +388,7 @@ void GameScene::initKey(){
         equalKeyButton->setScale(screenSize.width * 0.06f/equalKeyButton->getContentSize().width);
         this->addChild(equalKeyButton);
         
-        Button* bigKeyButton = Button::create("res/key/right.png", "res/key/right.png");
+        Button* bigKeyButton = Button::create("res/key/right.png", "res/key/right_selected.png");
         bigKeyButton->setPosition(Vec2(screenSize.width*0.96, screenSize.height*0.08f + screenSize.width * 0.18f));
         bigKeyButton->setAnchorPoint(Point(0.5f,0.0f));
         bigKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
@@ -396,7 +396,7 @@ void GameScene::initKey(){
         bigKeyButton->setScale(screenSize.width * 0.06f/bigKeyButton->getContentSize().width);
         this->addChild(bigKeyButton);
         
-        Button* smallKeyButton = Button::create("res/key/left.png", "res/key/left.png");
+        Button* smallKeyButton = Button::create("res/key/left.png", "res/key/left_selected.png");
         smallKeyButton->setPosition(Vec2(screenSize.width*0.96, screenSize.height*0.08f + screenSize.width * 0.28f));
         smallKeyButton->setAnchorPoint(Point(0.5f,0.0f));
         smallKeyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
@@ -409,20 +409,20 @@ void GameScene::initKey(){
 
 void GameScene::initButtons(){
 
-    Button* homeButton = Button::create("res/game/home.png", "res/game/home.png");
-    homeButton->setPosition(Vec2(screenSize.width*0.05, screenSize.height*0.9));
+    Button* homeButton = Button::create("res/game/home.png", "res/game/home_selected.png");
+    homeButton->setPosition(Vec2(screenSize.width*0.05, screenSize.height*0.93));
     homeButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoHome, this));
-    homeButton->setScale(screenSize.width * 0.05f/homeButton->getContentSize().width);
+    homeButton->setScale(screenSize.width * 0.075f/homeButton->getContentSize().width);
     this->addChild(homeButton);
     
     if (axisFlag == 0) {
-        Button* enterButton = Button::create("res/game/Enter.png", "res/game/Enter.png");
+        Button* enterButton = Button::create("res/game/Enter.png", "res/game/Enter_selected.png");
         enterButton->setPosition(Vec2(screenSize.width*0.84, screenSize.height*0.25));
         enterButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoEnter, this));
         enterButton->setScale(screenSize.width * 0.08f/enterButton->getContentSize().width);
         this->addChild(enterButton);
         
-        Button* deleteButton = Button::create("res/game/Delete.png", "res/game/Delete.png");
+        Button* deleteButton = Button::create("res/game/Delete.png", "res/game/Delete_selected.png");
         deleteButton->setPosition(Vec2(screenSize.width*0.06, screenSize.height*0.25));
         deleteButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoDelete, this));
         deleteButton->setScale(screenSize.width * 0.08f/deleteButton->getContentSize().width);
@@ -430,7 +430,7 @@ void GameScene::initButtons(){
 
     }
 
-    Button* settingButton = Button::create("res/game/Settings.png", "res/game/Settings.png");
+    Button* settingButton = Button::create("res/game/Settings.png", "res/game/Settings_selected.png");
     settingButton->setPosition(Vec2(screenSize.width*0.95, screenSize.height*0.93));
     settingButton->addTouchEventListener(CC_CALLBACK_2(GameScene::gotoHome, this));
     settingButton->setScale(screenSize.width * 0.05f/settingButton->getContentSize().width);
@@ -449,7 +449,7 @@ void GameScene::initProAns(){
         if(axisFlag !=0){
         } else {
             auto answerImg = Sprite::create("res/game/Answer Bubble_Large.png"); //here the background.png is a "red screen" png.
-            answerImg->setPosition(screenSize.width*0.75, screenSize.height*0.31 + screenSize.width*0.08);
+            answerImg->setPosition(screenSize.width*0.75, screenSize.height*0.36 + screenSize.width*0.08);
             answerImg->setOpacity(0);
             answerImg->setAnchorPoint(Point(1.0f,0.3f));
             answerImg->setTag(TAG_GAME_ANSWERIMG);
@@ -475,7 +475,7 @@ void GameScene::initProAns(){
         
         if (level != 31) {
             auto answerImg = Sprite::create("res/game/Answer Bubble_Small.png"); //here the background.png is a "red screen" png.
-            answerImg->setPosition(screenSize.width*0.75, screenSize.height*0.32 + screenSize.width*0.08);
+            answerImg->setPosition(screenSize.width*0.75, screenSize.height*0.37 + screenSize.width*0.08);
             answerImg->setOpacity(0);
             answerImg->setAnchorPoint(Point(1.0f,0.3f));
             answerImg->setTag(TAG_GAME_ANSWERIMG);
@@ -953,27 +953,27 @@ void GameScene::removeNlineAnim(){
 void GameScene::initanswerLayer(){
     if(fractionFlag>0 && !deciamlFlag){
         auto answerLayer = new FractionAnswerLayer(0);//FractionLayer::create();
-        answerLayer->setPosition(screenSize.width*0.75, screenSize.height*0.15 + screenSize.width*0.08);
+        answerLayer->setPosition(screenSize.width*0.75, screenSize.height*0.2 + screenSize.width*0.08);
         answerLayer->setTag(TAG_GAME_ANSWERLABEL);
         answerLayer->setOpacity(0);
         this->addChild(answerLayer);
     } else if(fractionFlag>0 && deciamlFlag){
         auto answerlabel = Label::createWithSystemFont("", "Yesterday Dream", screenSize.width*0.04);
         answerlabel->setColor(Color3B::BLACK);
-        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.15 + screenSize.width*0.17);
+        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.2 + screenSize.width*0.17);
         answerlabel->setTag(TAG_GAME_ANSWERLABEL);
         answerlabel->setOpacity(0);
         this->addChild(answerlabel);
         
         auto answerBar = Label::createWithSystemFont("_", "Yesterday Dream", screenSize.width*0.05);
         answerBar->setColor(Color3B::WHITE);
-        answerBar->setPosition(screenSize.width*0.67, screenSize.height*0.16 + screenSize.width*0.21);
+        answerBar->setPosition(screenSize.width*0.67, screenSize.height*0.21 + screenSize.width*0.21);
         answerBar->setTag(TAG_GAME_ANSWERBAR);
         this->addChild(answerBar);
     } else {
         auto answerlabel = Label::createWithSystemFont("", "Yesterday Dream", screenSize.width*0.04);
         answerlabel->setColor(Color3B::BLACK);
-        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.25 + screenSize.width*0.13);
+        answerlabel->setPosition(screenSize.width*0.66, screenSize.height*0.3 + screenSize.width*0.13);
         answerlabel->setTag(TAG_GAME_ANSWERLABEL);
         answerlabel->setOpacity(0);
         this->addChild(answerlabel);
@@ -1092,7 +1092,14 @@ void GameScene::makeproblem(){
     ValueMap sdata = (arrLevelsProblems[randomnumber]).asValueMap();
     auto answer1 = sdata["answer"].asString();
     auto problemlayer = Layer::create();
+    auto fadeLayer = Layer::create();
     this->addChild(problemlayer);
+    this->addChild(fadeLayer);
+    auto cloudBg = Sprite::create("res/game/cloud.png");
+    cloudBg->setPosition(screenSize.width*0.25, screenSize.height*0.71);
+    cloudBg->setOpacity(100);
+    fadeLayer->addChild(cloudBg);
+    cloudBg->setScale(screenSize.width*0.33/cloudBg->getContentSize().width, screenSize.height*0.35/cloudBg->getContentSize().height);
     problemlayer->setTag(TAG_GAME_PROBLEM+problemCount);
     if(problemCount == 0 && fractionFlag==0){
         problemlayer->setPosition(screenSize.width*0.52, screenSize.height*0.2 + screenSize.width*0.04);
@@ -1185,6 +1192,7 @@ void GameScene::makeproblem(){
             break;
         }
     }
+    problemlayer->setCascadeOpacityEnabled(true);
     problemCount++;
 }
 void GameScene::enterAnswer(){
@@ -1374,15 +1382,15 @@ void GameScene::onShowReportLayer(){
 //    UserDefault::getInstance()->setIntegerForKey("completedLevel",level);
 //    int insteadlevel = UserDefault::getInstance()->getIntegerForKey("completedLevel");
     const char *levelstarString = StringUtils::format("level%dstar", level).c_str();
-    int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 0);
+    int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 3);
     if(speedStarCount > starCount) {
         UserDefault::getInstance()->setIntegerForKey(levelstarString,speedStarCount);
     }
     
-    if(levelAccuracy == 100) accuracyStarCount = 4;
-    else if(levelAccuracy>75 && levelAccuracy<=99) accuracyStarCount = 3;
-    else if(levelAccuracy >50 && levelAccuracy <=75) accuracyStarCount = 2;
-    else accuracyStarCount = 1;
+//    if(levelAccuracy == 100) accuracyStarCount = 4;
+//    else if(levelAccuracy>75 && levelAccuracy<=99) accuracyStarCount = 3;
+//    else if(levelAccuracy >50 && levelAccuracy <=75) accuracyStarCount = 2;
+//    else accuracyStarCount = 1;
     
     
     auto vinyetBg = Sprite::create("res/title/Vinyet.png"); //here the background.png is a "red screen" png.
@@ -1431,7 +1439,7 @@ void GameScene::onShowReportLayer(){
         
         reportLayer->addChild(reportTitle);
         
-        Button* reportContinueButton = Button::create("res/report/report_continue.png", "res/report/report_continue.png");
+        Button* reportContinueButton = Button::create("res/report/report_continue.png", "res/report/report_continue_selected.png");
         reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.185f));
         reportContinueButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
         reportContinueButton->setTag(TAG_GAME_REPORTCONTINUE);
@@ -1446,7 +1454,7 @@ void GameScene::onShowReportLayer(){
         reportLayer->addChild(reportTitle);
         Button* reportContinueButton;
         if (level<lockLevel) {
-            reportContinueButton = Button::create("res/report/report_continue.png", "res/report/report_continue.png");
+            reportContinueButton = Button::create("res/report/report_continue.png", "res/report/report_continue_selected.png");
         } else {
             reportContinueButton = Button::create("res/report/continue_failure.png", "res/report/continue_failure.png");
         }
@@ -1477,14 +1485,14 @@ void GameScene::onShowReportLayer(){
 //    }
     
     // report buttons
-    Button* reportBackButton = Button::create("res/report/report_back.png", "res/report/report_back.png");
+    Button* reportBackButton = Button::create("res/report/report_back.png", "res/report/report_back_seleted.png");
     reportBackButton->setPosition(Vec2(screenSize.width*0.34, screenSize.height*0.5 - screenSize.width * 0.185f));
     reportBackButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
     reportBackButton->setTag(TAG_GAME_REPORTBACK);
     reportBackButton->setScale(this->screenSize.width * 0.1f/reportBackButton->getContentSize().width);
     reportLayer->addChild(reportBackButton);
     
-    Button* reportExitButton = Button::create("res/report/report_exit.png", "res/report/report_exit.png");
+    Button* reportExitButton = Button::create("res/report/report_exit.png", "res/report/report_exit_selected.png");
     reportExitButton->setPosition(Vec2(screenSize.width*0.7, screenSize.height*0.5 - screenSize.width * 0.185f));
     reportExitButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
     reportExitButton->setTag(TAG_GAME_REPORTEXIT);
@@ -1599,7 +1607,7 @@ void GameScene::onIntroduceLevel(Ref *sender){
     
     
     // level continue
-    Button* buttonPlay = Button::create("res/title/Continue.png", "res/title/Continue.png");
+    Button* buttonPlay = Button::create("res/title/Continue.png", "res/title/Continue_selected.png");
     buttonPlay->setTag(TAG_GAME_NEXTLEVEL);
     buttonPlay->setPosition(Vec2(levelBgPos.x - screenSize.width*0.025, levelBgPos.y - screenSize.width*0.16));
     buttonPlay->setScale(screenSize.width*0.18/buttonPlay->getContentSize().width);
@@ -1653,10 +1661,8 @@ void GameScene::reportCallback(Ref *sender, int status){
         auto gameScene = GameScene::createScene(level+1);
         Director::getInstance()->replaceScene(gameScene);
     } else if(status == 3){
-        //        auto mapScene = MapviewScene::createScene();
-        //        Director::getInstance()->replaceScene(mapScene);
-        CCLOG("popsecne");
-        Director::getInstance()->popScene();
+        auto mapScene = MapviewScene::createScene();
+        Director::getInstance()->replaceScene(mapScene);
     }
     
 }
@@ -1679,15 +1685,21 @@ void GameScene::animationProblem(int order){
         destinationPos = Point(screenSize.width*0.52, screenSize.height*0.2 + screenSize.width*0.04);
     }
     
-    
-    auto action_0 = MoveTo::create(0.7, destinationPos);
-    if (problemLayer != NULL) problemLayer->runAction(action_0);
+    auto action_1 = FadeTo::create(0.05f, 0);
+    auto action_2 = FadeTo::create(0.4f, 255);
+    auto action_0 = MoveTo::create(0.05f, destinationPos);
+    auto action_3 = Sequence::create(action_1, action_0, action_2, NULL);
+    if (problemLayer != NULL) problemLayer->runAction(action_3);
 }
 
 void GameScene::gotoHome(Ref *pSender, Widget::TouchEventType type)
 {
-    if (type == Widget::TouchEventType::ENDED)
-        Director::getInstance()->popScene();
+    if (type == Widget::TouchEventType::ENDED) {
+//        Director::getInstance()->popScene();
+        auto mapScene = MapviewScene::createScene();
+        Director::getInstance()->replaceScene(mapScene);
+        
+    }
     
 }
 
