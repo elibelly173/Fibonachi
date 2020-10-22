@@ -1363,7 +1363,7 @@ void GameScene::onShowReportLayer(){
     }
     
     int speedStarCount =0;
-    int accuracyStarCount = 0;
+//    int accuracyStarCount = 0;
 //    if(levelSpeed ==100) speedStarCount = 4;
 //    else if(levelSpeed>75 && levelSpeed<=99) speedStarCount = 3;
 //    else if(levelSpeed >50 && levelSpeed <=75) speedStarCount = 2;
@@ -1434,21 +1434,21 @@ void GameScene::onShowReportLayer(){
             reportTitle = Sprite::create("res/report/Great Job.png");
         else if (speedStarCount == 2)
             reportTitle = Sprite::create("res/report/You Passed.png");
-        reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.33);
-        reportTitle->setScale(screenSize.width*0.45/reportTitle->getContentSize().width);
+        reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.43);
+        reportTitle->setScale(screenSize.width*0.6/reportTitle->getContentSize().width);
         
         reportLayer->addChild(reportTitle);
         
         Button* reportContinueButton = Button::create("res/report/report_continue.png", "res/report/report_continue_selected.png");
-        reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.185f));
+        reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.215f));
         reportContinueButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
         reportContinueButton->setTag(TAG_GAME_REPORTCONTINUE);
-        reportContinueButton->setScale(this->screenSize.width * 0.1f/reportContinueButton->getContentSize().width);
+        reportContinueButton->setScale(this->screenSize.width * 0.12f/reportContinueButton->getContentSize().width);
         reportLayer->addChild(reportContinueButton);
         
     } else {
         auto reportTitle = Sprite::create("res/report/Keep Trying.png");
-        reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.33);
+        reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.43);
         reportTitle->setScale(screenSize.width*0.6/reportTitle->getContentSize().width);
         
         reportLayer->addChild(reportTitle);
@@ -1458,10 +1458,10 @@ void GameScene::onShowReportLayer(){
         } else {
             reportContinueButton = Button::create("res/report/continue_failure.png", "res/report/continue_failure.png");
         }
-        reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.185f));
+        reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.215f));
         reportContinueButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
         reportContinueButton->setTag(TAG_GAME_REPORTFAILURE);
-        reportContinueButton->setScale(this->screenSize.width * 0.1f/reportContinueButton->getContentSize().width);
+        reportContinueButton->setScale(this->screenSize.width * 0.12f/reportContinueButton->getContentSize().width);
         reportLayer->addChild(reportContinueButton);
     }
     
@@ -1486,17 +1486,17 @@ void GameScene::onShowReportLayer(){
     
     // report buttons
     Button* reportBackButton = Button::create("res/report/report_back.png", "res/report/report_back_seleted.png");
-    reportBackButton->setPosition(Vec2(screenSize.width*0.34, screenSize.height*0.5 - screenSize.width * 0.185f));
+    reportBackButton->setPosition(Vec2(screenSize.width*0.3, screenSize.height*0.5 - screenSize.width * 0.215f));
     reportBackButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
     reportBackButton->setTag(TAG_GAME_REPORTBACK);
-    reportBackButton->setScale(this->screenSize.width * 0.1f/reportBackButton->getContentSize().width);
+    reportBackButton->setScale(this->screenSize.width * 0.12f/reportBackButton->getContentSize().width);
     reportLayer->addChild(reportBackButton);
     
     Button* reportExitButton = Button::create("res/report/report_exit.png", "res/report/report_exit_selected.png");
-    reportExitButton->setPosition(Vec2(screenSize.width*0.7, screenSize.height*0.5 - screenSize.width * 0.185f));
+    reportExitButton->setPosition(Vec2(screenSize.width*0.74, screenSize.height*0.5 - screenSize.width * 0.215f));
     reportExitButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
     reportExitButton->setTag(TAG_GAME_REPORTEXIT);
-    reportExitButton->setScale(this->screenSize.width * 0.1f/reportExitButton->getContentSize().width);
+    reportExitButton->setScale(this->screenSize.width * 0.12f/reportExitButton->getContentSize().width);
     reportLayer->addChild(reportExitButton);
 
     auto action_0 = MoveTo::create(0.4, Point(0 , screenSize.height*0.3));
@@ -1531,7 +1531,8 @@ void GameScene::getLevelInfo(){
     data = FileUtils::getInstance()->getValueMapFromFile(path);
     arrLevels = data.at("levels").asValueVector();
     ValueMap sdata = (arrLevels[level-1]).asValueMap();
-    targetnumber =  sdata["targetnumber"].asInt();
+//    targetnumber =  sdata["targetnumber"].asInt();
+    targetnumber = 5;
     targettime =  sdata["time2"].asInt();
     targettime1 =  sdata["time1"].asInt();
     targettime2 =  sdata["time3"].asInt();
