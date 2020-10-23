@@ -90,7 +90,7 @@ void MapviewScene::initAddbutton(){
             
             
             const char *levelstarString = StringUtils::format("level%dstar", ii+1).c_str();
-            int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 3);
+            int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 1);
             
             auto starImage = Sprite::create(StringUtils::format("res/star_levels/%d.png", starCount)); //here the background.png is a "red screen" png.
             starImage->setPosition(Vec2(scrollframesize.width * x / 100.0f, scrollframesize.width *(y - 4.5)/ 100.0f));

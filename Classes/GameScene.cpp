@@ -1382,7 +1382,7 @@ void GameScene::onShowReportLayer(){
 //    UserDefault::getInstance()->setIntegerForKey("completedLevel",level);
 //    int insteadlevel = UserDefault::getInstance()->getIntegerForKey("completedLevel");
     const char *levelstarString = StringUtils::format("level%dstar", level).c_str();
-    int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 3);
+    int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 1);
     if(speedStarCount > starCount) {
         UserDefault::getInstance()->setIntegerForKey(levelstarString,speedStarCount);
     }
@@ -1413,9 +1413,104 @@ void GameScene::onShowReportLayer(){
     reportBg->setPosition(screenSize.width*0.5 , screenSize.height/2);
     reportBg->setScale(screenSize.width*1.0/reportBg->getContentSize().width);
     reportLayer->addChild(reportBg);
+    // Level Number
+    auto levels = Sprite::create(StringUtils::format("res/report/Level/Level %d.png", level));
+    levels->setPosition(screenSize.width*0.29, screenSize.height*0.5);
+    levels->setScale(screenSize.width*0.22/levels->getContentSize().width);
     
-    //    CCLOG("level %d", level);
+    reportLayer->addChild(levels);
     
+    // Time, Errors and personal best LabelTTF::create("Text", "Lato-Light", 60);
+
+    auto timeLabel = Label::createWithSystemFont("132ssgfdgf", "Berlin Sans FB", screenSize.width*0.03);
+    timeLabel->setPosition(screenSize.width*0.29, screenSize.height*0.5);
+    timeLabel->setColor(Color3B::BLACK);
+    timeLabel->setAnchorPoint(Vec2(1.0f, 0.0f));
+    
+    reportLayer->addChild(timeLabel);
+    
+    //4 stars time
+    int fourStar = targettime1 % 10;
+    auto fourStarOne = Sprite::create(StringUtils::format("res/report/Numbers/%d.png", fourStar));
+    fourStarOne->setPosition(screenSize.width*0.683, screenSize.height*0.382);
+    fourStarOne->setScale(screenSize.width*0.185/levels->getContentSize().width);
+    fourStarOne->setAnchorPoint(Vec2(1.0f, 0.0f));
+    
+    reportLayer->addChild(fourStarOne);
+    
+    if (targettime1 > 10) {
+        int fourStarTwo = targettime1 / 10;
+        
+        auto fourStarTen = Sprite::create(StringUtils::format("res/report/Numbers/%d.png", fourStarTwo));
+        fourStarTen->setPosition(screenSize.width*0.669, screenSize.height*0.382);
+        fourStarTen->setScale(screenSize.width*0.185/levels->getContentSize().width);
+        fourStarTen->setAnchorPoint(Vec2(1.0f, 0.0f));
+        
+        reportLayer->addChild(fourStarTen);
+    }
+    
+    //3 stars time
+    int threeStar = targettime % 10;
+    auto threeStarOne = Sprite::create(StringUtils::format("res/report/Numbers/%d.png", threeStar));
+    threeStarOne->setPosition(screenSize.width*0.683, screenSize.height*0.339);
+    threeStarOne->setScale(screenSize.width*0.185/levels->getContentSize().width);
+    threeStarOne->setAnchorPoint(Vec2(1.0f, 0.0f));
+    
+    reportLayer->addChild(threeStarOne);
+    
+    if (targettime > 10) {
+        int threeStarTwo = targettime / 10;
+        
+        auto threeStarTen = Sprite::create(StringUtils::format("res/report/Numbers/%d.png", threeStarTwo));
+        threeStarTen->setPosition(screenSize.width*0.669, screenSize.height*0.339);
+        threeStarTen->setScale(screenSize.width*0.185/levels->getContentSize().width);
+        threeStarTen->setAnchorPoint(Vec2(1.0f, 0.0f));
+        
+        reportLayer->addChild(threeStarTen);
+    }
+    
+    //2 stars time
+    int twoStar = leveltime % 10;
+    auto twoStarOne = Sprite::create(StringUtils::format("res/report/Numbers/%d.png", twoStar));
+    twoStarOne->setPosition(screenSize.width*0.683, screenSize.height*0.29);
+    twoStarOne->setScale(screenSize.width*0.185/levels->getContentSize().width);
+    twoStarOne->setAnchorPoint(Vec2(1.0f, 0.0f));
+    
+    reportLayer->addChild(twoStarOne);
+    int twoStarThree = 0;
+    
+    if (targettime > 10) {
+        int twoStarTwo = leveltime / 10;
+        
+        if (twoStarTwo > 10) {
+            twoStarThree = twoStarTwo / 10;
+            twoStarTwo %= 10;
+        }
+        
+        auto twoStarTen = Sprite::create(StringUtils::format("res/report/Numbers/%d.png", twoStarTwo));
+        twoStarTen->setPosition(screenSize.width*0.669, screenSize.height*0.29);
+        twoStarTen->setScale(screenSize.width*0.185/levels->getContentSize().width);
+        twoStarTen->setAnchorPoint(Vec2(1.0f, 0.0f));
+        
+        reportLayer->addChild(twoStarTen);
+    }
+    
+    if (twoStarThree > 0) {
+        auto twoStarTen = Sprite::create(StringUtils::format("res/report/Numbers/%d.png", twoStarThree));
+        twoStarTen->setPosition(screenSize.width*0.655, screenSize.height*0.29);
+        twoStarTen->setScale(screenSize.width*0.185/levels->getContentSize().width);
+        twoStarTen->setAnchorPoint(Vec2(1.0f, 0.0f));
+        
+        reportLayer->addChild(twoStarTen);
+    }
+    
+    auto action_0 = MoveTo::create(0.4, Point(0 , screenSize.height*0.3));
+    auto action_1 = MoveTo::create(0.1, Point(0 , -screenSize.height*0.2));
+    auto action_3 = MoveTo::create(0.1, Point(0 , screenSize.height*0.1));
+    auto action_4 = MoveTo::create(0.1, Point(0 , 0));
+    auto action_2 = Sequence::create(action_0, action_1, action_3, action_4, NULL);
+    //    auto action_3 = RepeatForever::create(action_2);
+    reportLayer->runAction(action_2);
     
     //Report title
 //    if(speedStarCount > 2 && levelAccuracy == 100){
@@ -1435,7 +1530,7 @@ void GameScene::onShowReportLayer(){
         else if (speedStarCount == 2)
             reportTitle = Sprite::create("res/report/You Passed.png");
         reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.43);
-        reportTitle->setScale(screenSize.width*0.6/reportTitle->getContentSize().width);
+        reportTitle->setScale(screenSize.width*0.5/reportTitle->getContentSize().width);
         
         reportLayer->addChild(reportTitle);
         
@@ -1449,7 +1544,7 @@ void GameScene::onShowReportLayer(){
     } else {
         auto reportTitle = Sprite::create("res/report/Keep Trying.png");
         reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.43);
-        reportTitle->setScale(screenSize.width*0.6/reportTitle->getContentSize().width);
+        reportTitle->setScale(screenSize.width*0.5/reportTitle->getContentSize().width);
         
         reportLayer->addChild(reportTitle);
         Button* reportContinueButton;
@@ -1485,7 +1580,7 @@ void GameScene::onShowReportLayer(){
 //    }
     
     // report buttons
-    Button* reportBackButton = Button::create("res/report/report_back.png", "res/report/report_back_seleted.png");
+    Button* reportBackButton = Button::create("res/report/report_back.png", "res/report/report_back_selected.png");
     reportBackButton->setPosition(Vec2(screenSize.width*0.3, screenSize.height*0.5 - screenSize.width * 0.215f));
     reportBackButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
     reportBackButton->setTag(TAG_GAME_REPORTBACK);
@@ -1499,13 +1594,7 @@ void GameScene::onShowReportLayer(){
     reportExitButton->setScale(this->screenSize.width * 0.12f/reportExitButton->getContentSize().width);
     reportLayer->addChild(reportExitButton);
 
-    auto action_0 = MoveTo::create(0.4, Point(0 , screenSize.height*0.3));
-    auto action_1 = MoveTo::create(0.1, Point(0 , -screenSize.height*0.2));
-    auto action_3 = MoveTo::create(0.1, Point(0 , screenSize.height*0.1));
-    auto action_4 = MoveTo::create(0.1, Point(0 , 0));
-    auto action_2 = Sequence::create(action_0, action_1, action_3, action_4, NULL);
-    //    auto action_3 = RepeatForever::create(action_2);
-    reportLayer->runAction(action_2);
+    
 }
 
 void GameScene::onRemoveReportLayer(int status){
