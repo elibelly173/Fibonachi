@@ -1428,25 +1428,25 @@ void GameScene::onShowReportLayer(){
         bestCount = timer;
     }
     
-    auto bestLabel = bestCount < 600 ? Label::createWithSystemFont(StringUtils::format("%d.%d0''", bestCount / 10, bestCount % 10), "Berlin Sans FB", screenSize.width*0.028) : Label::createWithSystemFont(StringUtils::format("%d' %d.%d0''", bestCount / 600, (bestCount % 600) / 10, (timer % 600) % 10), "Berlin Sans FB", screenSize.width*0.028);
-    bestLabel->setPosition(screenSize.width*0.47, screenSize.height*0.232);
+    auto bestLabel = bestCount < 600 ? Label::createWithSystemFont(StringUtils::format("%d.%d''", bestCount / 10, bestCount % 10), "Berlin Sans FB Demi", screenSize.width*0.028) : Label::createWithSystemFont(StringUtils::format("%d' %d.%d''", bestCount / 600, (bestCount % 600) / 10, (timer % 600) % 10), "Berlin Sans FB Demi", screenSize.width*0.028);
+    bestLabel->setPosition(screenSize.width*0.4, screenSize.height*0.231);
     bestLabel->setColor(Color3B(45, 94, 112));
-    bestLabel->setAnchorPoint(Vec2(1.0f, 0.0f));
+    bestLabel->setAnchorPoint(Vec2(0.0f, 0.0f));
     
     reportLayer->addChild(bestLabel);
     
     timer = timer > 36000 ? 36000 : timer;
-    auto timeLabel = timer < 600 ? Label::createWithSystemFont(StringUtils::format("%d.%d0''", timer / 10, timer % 10), "Berlin Sans FB", screenSize.width*0.038) : Label::createWithSystemFont(StringUtils::format("%d' %d.%d0''", timer / 600, (timer % 600) / 10, (timer % 600) % 10), "Berlin Sans FB", screenSize.width*0.038);
-    timeLabel->setPosition(screenSize.width*0.47, screenSize.height*0.375);
+    auto timeLabel = timer < 600 ? Label::createWithSystemFont(StringUtils::format("%d.%d''", timer / 10, timer % 10), "Berlin Sans FB Demi", screenSize.width*0.038) : Label::createWithSystemFont(StringUtils::format("%d' %d.%d''", timer / 600, (timer % 600) / 10, (timer % 600) % 10), "Berlin Sans FB Demi", screenSize.width*0.038);
+    timeLabel->setPosition(screenSize.width*0.33, screenSize.height*0.372);
     timeLabel->setColor(Color3B(45, 94, 112));
-    timeLabel->setAnchorPoint(Vec2(1.0f, 0.0f));
+    timeLabel->setAnchorPoint(Vec2(0.0f, 0.0f));
     
     reportLayer->addChild(timeLabel);
     
-    auto errorLabel = Label::createWithSystemFont(StringUtils::format("%d", wrongCount), "Berlin Sans FB", screenSize.width*0.038);
-    errorLabel->setPosition(screenSize.width*0.47, screenSize.height*0.3);
+    auto errorLabel = Label::createWithSystemFont(StringUtils::format("%d", wrongCount), "Berlin Sans FB Demi", screenSize.width*0.038);
+    errorLabel->setPosition(screenSize.width*0.35, screenSize.height*0.292);
     errorLabel->setColor(Color3B(45, 94, 112));
-    errorLabel->setAnchorPoint(Vec2(1.0f, 0.0f));
+    errorLabel->setAnchorPoint(Vec2(0.0f, 0.0f));
     
     reportLayer->addChild(errorLabel);
     
@@ -1552,29 +1552,32 @@ void GameScene::onShowReportLayer(){
         else if (speedStarCount == 2)
             reportTitle = Sprite::create("res/report/You Passed.png");
         if (speedStarCount > 2) {
-            reportTitle->setPosition(screenSize.width*0.52, screenSize.height*0.5);
-            reportTitle->setScale(screenSize.width*12/reportTitle->getContentSize().width);
+            reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.44);
+            reportTitle->setScale(screenSize.width*0.49/reportTitle->getContentSize().width);
             reportTitle->setOpacity(0);
             
-            auto action_0 = MoveTo::create(0.3, Point(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.44));
-            auto action_1 = ScaleTo::create(0.3, screenSize.width*0.49/reportTitle->getContentSize().width);
+//            auto action_0 = MoveTo::create(0.3, Point(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.44));
+//            auto action_1 = ScaleTo::create(0.3, screenSize.width*0.49/reportTitle->getContentSize().width);
             auto action_3 = FadeTo::create(0.3, 255);
-            auto delay = DelayTime::create(2.0f);
-            auto spawn_1 = Spawn::createWithTwoActions(action_0, action_1);
-            auto spawn_2 = Spawn::createWithTwoActions(spawn_1, action_3);
-            auto move_ease_in = EaseElasticOut::create(spawn_2->clone());
+            auto delay = DelayTime::create(2.3f);
+//            auto spawn_1 = Spawn::createWithTwoActions(action_0, action_1);
+//            auto spawn_2 = Spawn::createWithTwoActions(spawn_1, action_3);
+            auto move_ease_in = EaseElasticOut::create(action_3->clone());
             auto action_2 = Sequence::create(delay, move_ease_in, NULL);
         //    auto action_3 = RepeatForever::create(action_2);
             reportTitle->runAction(action_2);
         } else {
-            reportTitle->setPosition(screenSize.width*0.52, screenSize.height * 1.2);
+            reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.44);
             reportTitle->setScale(screenSize.width*0.49/reportTitle->getContentSize().width);
+            reportTitle->setOpacity(0);
             
-            auto action_0 = MoveTo::create(0.2, Point(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.44));
-            auto delay = DelayTime::create(1.5f);
-            auto move_ease_in = EaseElasticOut::create(action_0->clone());
+            auto action_3 = FadeTo::create(0.3, 255);
+            auto delay = DelayTime::create(2.0f);
+//            auto spawn_1 = Spawn::createWithTwoActions(action_0, action_1);
+//            auto spawn_2 = Spawn::createWithTwoActions(spawn_1, action_3);
+            auto move_ease_in = EaseElasticOut::create(action_3->clone());
             auto action_2 = Sequence::create(delay, move_ease_in, NULL);
-            //    auto action_3 = RepeatForever::create(action_2);
+        //    auto action_3 = RepeatForever::create(action_2);
             reportTitle->runAction(action_2);
         }
         
@@ -1589,14 +1592,17 @@ void GameScene::onShowReportLayer(){
         
     } else {
         auto reportTitle = Sprite::create("res/report/Keep Trying.png");
-        reportTitle->setPosition(-screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.44);
+        reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.44);
         reportTitle->setScale(screenSize.width*0.49/reportTitle->getContentSize().width);
+        reportTitle->setOpacity(0);
         
-        auto action_0 = MoveTo::create(0.3, Point(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.44));
-        auto delay = DelayTime::create(1.2f);
-        auto move_ease_in = EaseElasticOut::create(action_0->clone());
+        auto action_3 = FadeTo::create(0.3, 255);
+        auto delay = DelayTime::create(1.3f);
+//            auto spawn_1 = Spawn::createWithTwoActions(action_0, action_1);
+//            auto spawn_2 = Spawn::createWithTwoActions(spawn_1, action_3);
+        auto move_ease_in = EaseElasticOut::create(action_3->clone());
         auto action_2 = Sequence::create(delay, move_ease_in, NULL);
-        //    auto action_3 = RepeatForever::create(action_2);
+    //    auto action_3 = RepeatForever::create(action_2);
         reportTitle->runAction(action_2);
         
         reportLayer->addChild(reportTitle);
@@ -1645,12 +1651,16 @@ void GameScene::onShowReportLayer(){
     
     for (int i = 0; i < speedStarCount; i ++) {
         auto starSpr = Sprite::create(StringUtils::format("res/report/star_0%d.png", i + 1));
-        starSpr->setPosition(screenSize.width*0.5 , -screenSize.height/2);
-        auto action_0 = MoveTo::create(0.3, Point(screenSize.width*0.5 , screenSize.height/2));
-        auto move_ease_in = EaseElasticOut::create(action_0->clone());
-        auto action_1 = MoveTo::create(0.7 + 0.3 * i, Point(screenSize.width*0.5 , -screenSize.height/4));
-        auto action_2 = Sequence::create(action_1, move_ease_in, NULL);
+        starSpr->setPosition(screenSize.width*0.5 , screenSize.height/2);
+        starSpr->setOpacity(0);
         starSpr->setScale(screenSize.width*1.0/starSpr->getContentSize().width);
+        
+        auto action_3 = FadeTo::create(0.3, 255);
+        auto delay = DelayTime::create(0.7 + 0.3 * i);
+        
+        auto move_ease_in = EaseElasticOut::create(action_3->clone());
+        auto action_2 = Sequence::create(delay, move_ease_in, NULL);
+        
         starSpr->runAction(action_2);
         reportLayer->addChild(starSpr);
     }
