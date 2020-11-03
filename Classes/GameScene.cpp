@@ -1553,30 +1553,31 @@ void GameScene::onShowReportLayer(){
             reportTitle = Sprite::create("res/report/You Passed.png");
         if (speedStarCount > 2) {
             reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.44);
-            reportTitle->setScale(screenSize.width*0.49/reportTitle->getContentSize().width);
+            reportTitle->setScale(screenSize.width*0.049/reportTitle->getContentSize().width);
             reportTitle->setOpacity(0);
             
 //            auto action_0 = MoveTo::create(0.3, Point(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.44));
-//            auto action_1 = ScaleTo::create(0.3, screenSize.width*0.49/reportTitle->getContentSize().width);
-            auto action_3 = FadeTo::create(0.3, 255);
+            auto action_1 = ScaleTo::create(0.3, screenSize.width*0.49/reportTitle->getContentSize().width);
+            auto action_3 = FadeTo::create(0.1, 255);
             auto delay = DelayTime::create(2.3f);
 //            auto spawn_1 = Spawn::createWithTwoActions(action_0, action_1);
 //            auto spawn_2 = Spawn::createWithTwoActions(spawn_1, action_3);
-            auto move_ease_in = EaseElasticOut::create(action_3->clone());
-            auto action_2 = Sequence::create(delay, move_ease_in, NULL);
+            auto move_ease_in = EaseElasticOut::create(action_1->clone());
+            auto action_2 = Sequence::create(delay, action_3, move_ease_in, NULL);
         //    auto action_3 = RepeatForever::create(action_2);
             reportTitle->runAction(action_2);
         } else {
             reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.44);
-            reportTitle->setScale(screenSize.width*0.49/reportTitle->getContentSize().width);
+            reportTitle->setScale(screenSize.width*0.049/reportTitle->getContentSize().width);
             reportTitle->setOpacity(0);
             
-            auto action_3 = FadeTo::create(0.3, 255);
+            auto action_1 = ScaleTo::create(0.3, screenSize.width*0.49/reportTitle->getContentSize().width);
+            auto action_3 = FadeTo::create(0.1, 255);
             auto delay = DelayTime::create(2.0f);
 //            auto spawn_1 = Spawn::createWithTwoActions(action_0, action_1);
 //            auto spawn_2 = Spawn::createWithTwoActions(spawn_1, action_3);
-            auto move_ease_in = EaseElasticOut::create(action_3->clone());
-            auto action_2 = Sequence::create(delay, move_ease_in, NULL);
+            auto move_ease_in = EaseElasticOut::create(action_1->clone());
+            auto action_2 = Sequence::create(delay, action_3, move_ease_in, NULL);
         //    auto action_3 = RepeatForever::create(action_2);
             reportTitle->runAction(action_2);
         }
@@ -1593,15 +1594,16 @@ void GameScene::onShowReportLayer(){
     } else {
         auto reportTitle = Sprite::create("res/report/Keep Trying.png");
         reportTitle->setPosition(screenSize.width*0.52, screenSize.width*0.2+screenSize.height*0.44);
-        reportTitle->setScale(screenSize.width*0.49/reportTitle->getContentSize().width);
+        reportTitle->setScale(screenSize.width*0.049/reportTitle->getContentSize().width);
         reportTitle->setOpacity(0);
         
-        auto action_3 = FadeTo::create(0.3, 255);
+        auto action_1 = ScaleTo::create(0.3, screenSize.width*0.49/reportTitle->getContentSize().width);
+        auto action_3 = FadeTo::create(0.1, 255);
         auto delay = DelayTime::create(1.3f);
 //            auto spawn_1 = Spawn::createWithTwoActions(action_0, action_1);
 //            auto spawn_2 = Spawn::createWithTwoActions(spawn_1, action_3);
-        auto move_ease_in = EaseElasticOut::create(action_3->clone());
-        auto action_2 = Sequence::create(delay, move_ease_in, NULL);
+        auto move_ease_in = EaseElasticOut::create(action_1->clone());
+        auto action_2 = Sequence::create(delay, action_3, move_ease_in, NULL);
     //    auto action_3 = RepeatForever::create(action_2);
         reportTitle->runAction(action_2);
         
@@ -1653,13 +1655,15 @@ void GameScene::onShowReportLayer(){
         auto starSpr = Sprite::create(StringUtils::format("res/report/star_0%d.png", i + 1));
         starSpr->setPosition(screenSize.width*0.5 , screenSize.height/2);
         starSpr->setOpacity(0);
-        starSpr->setScale(screenSize.width*1.0/starSpr->getContentSize().width);
+        starSpr->setScale(screenSize.width*0.1/starSpr->getContentSize().width);
         
-        auto action_3 = FadeTo::create(0.3, 255);
+        auto action_1 = ScaleTo::create(0.3, screenSize.width * 1.0/starSpr->getContentSize().width);
+        auto action_3 = FadeTo::create(0.1, 255);
         auto delay = DelayTime::create(0.7 + 0.3 * i);
         
-        auto move_ease_in = EaseElasticOut::create(action_3->clone());
-        auto action_2 = Sequence::create(delay, move_ease_in, NULL);
+        auto move_ease_in = EaseElasticOut::create(action_1->clone());
+        auto spawn_1 = Spawn::createWithTwoActions(move_ease_in, action_3);
+        auto action_2 = Sequence::create(delay, spawn_1, NULL);
         
         starSpr->runAction(action_2);
         reportLayer->addChild(starSpr);
