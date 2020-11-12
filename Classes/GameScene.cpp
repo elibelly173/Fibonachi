@@ -1444,7 +1444,7 @@ void GameScene::onShowReportLayer(){
     reportLayer->addChild(timeLabel);
     
     auto errorLabel = Label::createWithSystemFont(StringUtils::format("%d", wrongCount), "Berlin Sans FB Demi", screenSize.width*0.038);
-    errorLabel->setPosition(screenSize.width*0.35, screenSize.height*0.292);
+    errorLabel->setPosition(screenSize.width*0.37, screenSize.height*0.292);
     errorLabel->setColor(Color3B(45, 94, 112));
     errorLabel->setAnchorPoint(Vec2(0.0f, 0.0f));
     
