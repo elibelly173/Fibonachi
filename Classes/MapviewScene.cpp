@@ -142,6 +142,38 @@ void MapviewScene::initscroll(){
     background->setScale(this->scrollframesize.width/background->getContentSize().width, this->scrollframesize.width*4.4/background->getContentSize().height);
     scrollView->addChild(background);
     
+    auto background5 = Sprite::create("res/mapback/31-32.png"); //here the background.png is a "red screen" png.
+    background5->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*3.77);
+    
+    background5->setScale(this->scrollframesize.width/background5->getContentSize().width);
+    scrollView->addChild(background5);
+    
+    auto background4 = Sprite::create("res/mapback/25-30.png"); //here the background.png is a "red screen" png.
+    background4->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*3.488);
+
+    background4->setScale(this->scrollframesize.width/background4->getContentSize().width);
+    scrollView->addChild(background4);
+//
+    auto background3 = Sprite::create("res/mapback/19-24.png"); //here the background.png is a "red screen" png.
+    background3->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*2.607);
+
+    background3->setScale(this->scrollframesize.width/background3->getContentSize().width);
+    scrollView->addChild(background3);
+//
+//
+    auto background2 = Sprite::create("res/mapback/13-18.png"); //here the background.png is a "red screen" png.
+    background2->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*1.717);
+
+    background2->setScale(this->scrollframesize.width/background2->getContentSize().width);
+    scrollView->addChild(background2);
+    
+    
+    auto background1 = Sprite::create("res/mapback/7-12.png"); //here the background.png is a "red screen" png.
+    background1->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*1.013);
+    
+    background1->setScale(this->scrollframesize.width/background1->getContentSize().width);
+    scrollView->addChild(background1);
+    
     
     //    float contentH = scrollView->getContentSize().height;
     //    float h = scrollView->getInnerContainerSize().height - contentH;
