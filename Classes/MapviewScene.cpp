@@ -136,44 +136,57 @@ void MapviewScene::initscroll(){
     scrollView->setInnerContainerSize(containerSize);
     
     
+    
     auto background = Sprite::create("mapback.jpg"); //here the background.png is a "red screen" png.
     background->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*2.2);
     
     background->setScale(this->scrollframesize.width/background->getContentSize().width, this->scrollframesize.width*4.4/background->getContentSize().height);
     scrollView->addChild(background);
+        
+    int zones4 = UserDefault::getInstance()->getIntegerForKey("zones4", 0);
+    if (zones4 == 0) {
+        auto background5 = Sprite::create("res/mapback/31-32.png"); //here the background.png is a "red screen" png.
+        background5->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*3.77);
+        
+        background5->setScale(this->scrollframesize.width/background5->getContentSize().width);
+        scrollView->addChild(background5);
+    }
     
-    auto background5 = Sprite::create("res/mapback/31-32.png"); //here the background.png is a "red screen" png.
-    background5->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*3.77);
-    
-    background5->setScale(this->scrollframesize.width/background5->getContentSize().width);
-    scrollView->addChild(background5);
-    
-    auto background4 = Sprite::create("res/mapback/25-30.png"); //here the background.png is a "red screen" png.
-    background4->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*3.488);
+    int zones3 = UserDefault::getInstance()->getIntegerForKey("zones3", 0);
+    if (zones3 == 0) {
+        auto background4 = Sprite::create("res/mapback/25-30.png"); //here the background.png is a "red screen" png.
+        background4->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*3.488);
 
-    background4->setScale(this->scrollframesize.width/background4->getContentSize().width);
-    scrollView->addChild(background4);
-//
-    auto background3 = Sprite::create("res/mapback/19-24.png"); //here the background.png is a "red screen" png.
-    background3->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*2.607);
+        background4->setScale(this->scrollframesize.width/background4->getContentSize().width);
+        scrollView->addChild(background4);
+    }
+    
+    int zones2 = UserDefault::getInstance()->getIntegerForKey("zones2", 0);
+    if (zones2 == 0) {
+        auto background3 = Sprite::create("res/mapback/19-24.png"); //here the background.png is a "red screen" png.
+        background3->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*2.607);
 
-    background3->setScale(this->scrollframesize.width/background3->getContentSize().width);
-    scrollView->addChild(background3);
-//
-//
-    auto background2 = Sprite::create("res/mapback/13-18.png"); //here the background.png is a "red screen" png.
-    background2->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*1.717);
+        background3->setScale(this->scrollframesize.width/background3->getContentSize().width);
+        scrollView->addChild(background3);
+    }
+    
+    int zones1 = UserDefault::getInstance()->getIntegerForKey("zones1", 0);
+    if (zones1 == 0) {
+        auto background2 = Sprite::create("res/mapback/13-18.png"); //here the background.png is a "red screen" png.
+        background2->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*1.717);
 
-    background2->setScale(this->scrollframesize.width/background2->getContentSize().width);
-    scrollView->addChild(background2);
+        background2->setScale(this->scrollframesize.width/background2->getContentSize().width);
+        scrollView->addChild(background2);
+    }
     
-    
-    auto background1 = Sprite::create("res/mapback/7-12.png"); //here the background.png is a "red screen" png.
-    background1->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*1.013);
-    
-    background1->setScale(this->scrollframesize.width/background1->getContentSize().width);
-    scrollView->addChild(background1);
-    
+    int zones0 = UserDefault::getInstance()->getIntegerForKey("zones0", 0);
+    if (zones0 == 0) {
+        auto background1 = Sprite::create("res/mapback/7-12.png"); //here the background.png is a "red screen" png.
+        background1->setPosition(this->scrollframesize.width/2, this->scrollframesize.width*1.013);
+        
+        background1->setScale(this->scrollframesize.width/background1->getContentSize().width);
+        scrollView->addChild(background1);
+    }
     
     //    float contentH = scrollView->getContentSize().height;
     //    float h = scrollView->getInnerContainerSize().height - contentH;
@@ -301,7 +314,126 @@ void MapviewScene::movePos(int targetlevel){
     }
 }
 
+void MapviewScene::showLockLevelExplain(int level){
+    auto lockLevel = level;
+    
+    cocos2d::ui::ScrollView *scrollView = (cocos2d::ui::ScrollView*)this->getChildByTag(TAG_MAP_SCROLL);
+    scrollView->setTouchEnabled(false);
+    onShowLevelFlag = false;
+    showingLevel = true;
+    //Background
+    auto levelExpalinBack = Sprite::create("res/title/Vinyet.png"); //here the background.png is a "red screen" png.
+    
+    levelExpalinBack->setPosition(this->scrollframesize.width/2, this->scrollframesize.height/2);
+    
+    levelExpalinBack->setScale(this->scrollframesize.width/levelExpalinBack->getContentSize().width, this->scrollframesize.height/levelExpalinBack->getContentSize().height);
+    
+    levelExpalinBack->setTag(TAG_MAP_VINEYET);
+    this->addChild(levelExpalinBack);
+    
+    // Layer
+    auto levelExplainLayer = Layer::create();
+    this->addChild(levelExplainLayer);
+    levelExplainLayer->setTag(TAG_MAP_LEVELLAYER);
+    
+    auto levelBg = Sprite::create("res/locked/Level/Level_Screen.png");
+    
+    levelBg->setPosition(this->scrollframesize.width*3/2 , this->scrollframesize.height/2);
+    levelBg->setScale(this->scrollframesize.width*0.9/levelBg->getContentSize().width);
+    levelExplainLayer->addChild(levelBg);
+    
+    auto levelBgPos = levelBg->getPosition();
+    if (lockLevel < 10) {
+        auto levelTitle = Sprite::create(StringUtils::format("res/locked/Level/Level_Numbers/%d.png", level - 1));
+        
+        levelTitle->setPosition(levelBgPos.x, levelBgPos.y + this->scrollframesize.width * 0.002);
+        levelTitle->setScale(this->scrollframesize.width*0.077/levelTitle->getContentSize().width);
 
+        levelExplainLayer->addChild(levelTitle);
+    } else {
+        auto levelTitle = Sprite::create(StringUtils::format("res/locked/Level/Level_Numbers/%d.png", level % 10 - 1));
+        
+        levelTitle->setPosition(levelBgPos.x + this->scrollframesize.width * 0.035, levelBgPos.y + this->scrollframesize.width * 0.002);
+        levelTitle->setScale(this->scrollframesize.width*0.077/levelTitle->getContentSize().width);
+
+        levelExplainLayer->addChild(levelTitle);
+        
+        auto levelTitle2 = Sprite::create(StringUtils::format("res/locked/Level/Level_Numbers/%d.png", level / 10));
+        
+        levelTitle2->setPosition(levelBgPos.x - this->scrollframesize.width * 0.035, levelBgPos.y + this->scrollframesize.width * 0.002);
+        levelTitle2->setScale(this->scrollframesize.width*0.077/levelTitle->getContentSize().width);
+
+        levelExplainLayer->addChild(levelTitle2);
+    }
+    Button* buttonClose = Button::create("res/title/close.png", "res/title/close.png");
+        
+    buttonClose->setPosition(Vec2(levelBgPos.x + this->scrollframesize.width*0.36, levelBgPos.y + this->scrollframesize.width*0.198));
+    buttonClose->addTouchEventListener(CC_CALLBACK_2(MapviewScene::onLevelCloseEvent, this, (int)2));
+    buttonClose->setScale(this->scrollframesize.width * 0.06f/buttonClose->getContentSize().width);
+    
+    levelExplainLayer->addChild(buttonClose);
+    
+    
+    auto action_1 = MoveTo::create(0.6, Point(- this->scrollframesize.width*1.0 , 0));
+    auto move_ease_in = EaseElasticOut::create(action_1->clone());
+//    auto action_2 = Sequence::create(action_0, action_1, NULL);
+//    auto action_3 = RepeatForever::create(action_2);
+    levelExplainLayer->runAction(move_ease_in);
+}
+
+void MapviewScene::showZoneExplain(int level){
+    
+    auto lockLevel = level;
+    cocos2d::ui::ScrollView *scrollView = (cocos2d::ui::ScrollView*)this->getChildByTag(TAG_MAP_SCROLL);
+    scrollView->setTouchEnabled(false);
+    onShowLevelFlag = false;
+    showingLevel = true;
+    //Background
+    auto levelExpalinBack = Sprite::create("res/title/Vinyet.png"); //here the background.png is a "red screen" png.
+    
+    levelExpalinBack->setPosition(this->scrollframesize.width/2, this->scrollframesize.height/2);
+    
+    levelExpalinBack->setScale(this->scrollframesize.width/levelExpalinBack->getContentSize().width, this->scrollframesize.height/levelExpalinBack->getContentSize().height);
+    
+    levelExpalinBack->setTag(TAG_MAP_VINEYET);
+    this->addChild(levelExpalinBack);
+    
+    // Layer
+    auto levelExplainLayer = Layer::create();
+    this->addChild(levelExplainLayer);
+    levelExplainLayer->setTag(TAG_MAP_LEVELLAYER);
+    
+    auto levelBg = Sprite::create("res/locked/Zone/Zone_Screen.png");
+    
+    levelBg->setPosition(this->scrollframesize.width*3/2 , this->scrollframesize.height/2);
+    levelBg->setScale(this->scrollframesize.width*0.9/levelBg->getContentSize().width);
+    levelExplainLayer->addChild(levelBg);
+    
+    auto levelBgPos = levelBg->getPosition();
+    
+    auto levelTitle = Sprite::create(StringUtils::format("res/locked/Zone/Zone_Numbers/%d-%d.png", lockLevel - 6, lockLevel - 1));
+    
+    levelTitle->setPosition(levelBgPos.x, levelBgPos.y + this->scrollframesize.width * 0.002);
+    levelTitle->setScale(this->scrollframesize.width*0.095/levelTitle->getContentSize().height);
+
+    levelExplainLayer->addChild(levelTitle);
+    
+    Button* buttonClose = Button::create("res/title/close.png", "res/title/close.png");
+        
+    buttonClose->setPosition(Vec2(levelBgPos.x + this->scrollframesize.width*0.36, levelBgPos.y + this->scrollframesize.width*0.198));
+    buttonClose->addTouchEventListener(CC_CALLBACK_2(MapviewScene::onLevelCloseEvent, this, (int)2));
+    buttonClose->setScale(this->scrollframesize.width * 0.06f/buttonClose->getContentSize().width);
+    
+    levelExplainLayer->addChild(buttonClose);
+    
+    
+//    auto action_0 = MoveTo::create(0.4, Point(- this->scrollframesize.width*1.1 , 0));
+    auto action_1 = MoveTo::create(0.6, Point(- this->scrollframesize.width*1.0 , 0));
+    auto move_ease_in = EaseElasticOut::create(action_1->clone());
+//    auto action_2 = Sequence::create(action_0, action_1, NULL);
+//    auto action_3 = RepeatForever::create(action_2);
+    levelExplainLayer->runAction(move_ease_in);
+}
 
 void MapviewScene::showLevelExplainacreen(int level){
     
@@ -310,6 +442,7 @@ void MapviewScene::showLevelExplainacreen(int level){
     cocos2d::ui::ScrollView *scrollView = (cocos2d::ui::ScrollView*)this->getChildByTag(TAG_MAP_SCROLL);
     scrollView->setTouchEnabled(false);
     onShowLevelFlag = false;
+    showingLevel = true;
     //Background
     auto levelExpalinBack = Sprite::create("res/title/Vinyet.png"); //here the background.png is a "red screen" png.
     
@@ -416,10 +549,16 @@ void MapviewScene::touchEvent(Ref *pSender, Widget::TouchEventType type, int d)
             
         case Widget::TouchEventType::ENDED:
         {
-            if(onShowLevelFlag && d <= lockLevel + 1) {
-                showLevelExplainacreen(d);
+            if (!showingLevel) {
+                if(onShowLevelFlag && d <= lockLevel + 1) {
+                    
+                    showLevelExplainacreen(d);
+                } else if (d == 7 || d == 13 || d == 19 || d == 25 || d == 31) {
+                    showZoneExplain(d);
+                } else {
+                    showLockLevelExplain(d);
+                }
             }
-       
             break;
         }
             
@@ -451,13 +590,10 @@ void MapviewScene::onLevelCloseEvent(Ref *pSender, Widget::TouchEventType type, 
     auto action_3 = Sequence::create(action_0, action_1, action_2, NULL);
     //    auto action_3 = RepeatForever::create(action_2);
     levelLayer->runAction(action_3);
+    
+    showingLevel = false;
 //    this->scheduleOnce(schedule_selector(MapviewScene::scheduleCallback), 0.8);
 //    this->removeChild(levelLayer);
-    
-    
-    
-    
-    
 }
 
 void MapviewScene::gotoGameviewCallback(Ref *sender, int state)

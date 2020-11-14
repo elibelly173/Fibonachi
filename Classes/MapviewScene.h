@@ -38,6 +38,8 @@ public:
     void initscroll();
     void initAddbutton();
     void showLevelExplainacreen(int level);
+    void showLockLevelExplain(int level);
+    void showZoneExplain(int level);
     void getLevelInfo();
     
     void showPos();
@@ -59,6 +61,7 @@ public:
     cocos2d::Size scrollsize;
     cocos2d::Size scrollframesize;
     bool onShowLevelFlag= true;
+    bool showingLevel = false;
     ValueVector arrLevels;
     int selectedLevel;
     int completedLevel = 0;
