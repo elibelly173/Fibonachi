@@ -1539,8 +1539,44 @@ void GameScene::onShowReportLayer(){
     if(level > completedLevel){
         UserDefault::getInstance()->setIntegerForKey("completedLevel",level);
     }
-    if(level > lockLevel && speedStarCount>2){
-        UserDefault::getInstance()->setIntegerForKey("lockLevel",level);
+    bool nextAvailable = true;
+    if(level > lockLevel && speedStarCount >= 2){
+        if (level == 6 || level == 12 || level == 18 || level == 24 || level == 30) {
+            bool zonesFlag = true;
+            for (int i = level - 5; i <= level; i ++) {
+                const char *levelstarString = StringUtils::format("level%dstar", i).c_str();
+                int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 1);
+                if(3 > starCount) {
+                    zonesFlag = false;
+                    nextAvailable = false;
+                    break;
+                }
+            }
+            if (zonesFlag == true) {
+                UserDefault::getInstance()->setIntegerForKey("lockLevel",level);
+                const char *zonesString = StringUtils::format("zones%d", level / 6 - 1).c_str();
+                UserDefault::getInstance()->setIntegerForKey(zonesString, 1);
+            }
+        } else {
+            UserDefault::getInstance()->setIntegerForKey("lockLevel",level);
+        }
+            
+    } else if(speedStarCount > 2) {
+        int upperZone = (level / 6) + 6;
+        bool zonesFlag = true;
+        for (int i = upperZone - 5; i <= upperZone; i ++) {
+            const char *levelstarString = StringUtils::format("level%dstar", i).c_str();
+            int starCount = UserDefault::getInstance()->getIntegerForKey(levelstarString, 1);
+            if(3 > starCount) {
+                zonesFlag = false;
+                break;
+            }
+        }
+        if (zonesFlag == true) {
+            const char *zonesString = StringUtils::format("zones%d", upperZone / 6 - 1).c_str();
+            UserDefault::getInstance()->setIntegerForKey(zonesString, 1);
+            UserDefault::getInstance()->setIntegerForKey("lockLevel",upperZone);
+        }
     }
     
     if(speedStarCount >= 2){
@@ -1583,11 +1619,18 @@ void GameScene::onShowReportLayer(){
         }
         
         reportLayer->addChild(reportTitle);
-        
-        Button* reportContinueButton = Button::create("res/report/report_continue.png", "res/report/report_continue_selected.png");
+        Button* reportContinueButton;
+        if (nextAvailable) {
+            reportContinueButton = Button::create("res/report/report_continue.png", "res/report/report_continue_selected.png");
+            reportContinueButton->setTag(TAG_GAME_REPORTCONTINUE);
+        } else {
+            reportContinueButton = Button::create("res/report/continue_failure.png", "res/report/continue_failure.png");
+            reportContinueButton->setTag(TAG_GAME_REPORTFAILURE);
+        }
+//        Button* reportContinueButton = Button::create("res/report/report_continue.png", "res/report/report_continue_selected.png");
         reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.215f));
         reportContinueButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
-        reportContinueButton->setTag(TAG_GAME_REPORTCONTINUE);
+//        reportContinueButton->setTag(TAG_GAME_REPORTCONTINUE);
         reportContinueButton->setScale(this->screenSize.width * 0.12f/reportContinueButton->getContentSize().width);
         reportLayer->addChild(reportContinueButton);
         
@@ -1611,12 +1654,14 @@ void GameScene::onShowReportLayer(){
         Button* reportContinueButton;
         if (level<lockLevel) {
             reportContinueButton = Button::create("res/report/report_continue.png", "res/report/report_continue_selected.png");
+            reportContinueButton->setTag(TAG_GAME_REPORTCONTINUE);
         } else {
             reportContinueButton = Button::create("res/report/continue_failure.png", "res/report/continue_failure.png");
+            reportContinueButton->setTag(TAG_GAME_REPORTFAILURE);
         }
         reportContinueButton->setPosition(Vec2(screenSize.width*0.52, screenSize.height*0.5 - screenSize.width * 0.215f));
         reportContinueButton->addTouchEventListener(CC_CALLBACK_2(GameScene::onKeyTouchEvent, this));
-        reportContinueButton->setTag(TAG_GAME_REPORTFAILURE);
+//        reportContinueButton->setTag(TAG_GAME_REPORTFAILURE);
         reportContinueButton->setScale(this->screenSize.width * 0.12f/reportContinueButton->getContentSize().width);
         reportLayer->addChild(reportContinueButton);
     }
